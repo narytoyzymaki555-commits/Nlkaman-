@@ -1,0 +1,13 @@
+{"name": "nlkaman-referral-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "telegraf": "^4.16.3"
+  }
+}
