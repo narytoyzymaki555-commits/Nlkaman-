@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nlkaman Game</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #111318;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .box {
+            background: #1c2028;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 15px;
+            padding: 16px;
+            margin-top: 10px;
+            background: #2ea6ff;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .tickets {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        #result {
+            font-size: 30px;
+            margin: 25px 0;
+        }
+
+        li {
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🎰 Nlkaman Game</h1>
+
+    <div class="box">
+        <div>🎟️ Твої квитки</div>
+        <div class="tickets" id="tickets">—</div>
+
+        <div style="margin-top:10px;">
+            👥 Запрошено:
+            <b id="invited">—</b>
+        </div>
+    </div>
+
+    <div class="box">
+
+        <div id="result">
+            🎰
+        </div>
+
+        <button onclick="spin()">
+            🎰 КРУТИТИ — 1 КВИТОК
+        </button>
+
+        <p id="subscription"></p>
+
+    </div>
+
+    <div class="box">
+
+        <h2>👥 Реферали</h2>
+
+        <p>
+            Запроси друга та отримай
+            <b>+1 🎟️ квиток</b>.
+        </p>
+
+        <button onclick="invite()">
+            📤 ЗАПРОСИТИ ДРУГА
+        </button>
+
+    </div>
+
+    <div class="box">
+
+        <h2>🏆 Лідерборд</h2>
+
+        <ol id="leaderboard">
+            Завантаження...
+        </ol>
+
+    </div>
+
+<script>
+
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+const headers = {
+    "x-telegram-init-data": tg.initData
+};
+
+
+async function api(url, options = {}) {
+
+    const response = await fetch(url, {
+
+        ...options,
+
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        }
+
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            data.error || "Помилка"
+        );
+    }
+
+    return data;
+}
+
+
+async function loadUser() {
+
+    try {
+
+        const data =
+            await api("/api/me");
+
+        document.getElementById("tickets")
+            .textContent =
+            data.user.tickets;
+
+        document.getElementById("invited")
+            .textContent =
+            data.user.invited_count;
+
+        if (data.subscribed) {
+
+            document.getElementById(
+                "subscription"
+            ).textContent =
+                "✅ Підписка підтверджена";
+
+        } else {
+
+            document.getElementById(
+                "subscription"
+            ).textContent =
+                "❌ Спочатку підпишіться на канал";
+
+        }
+
+    } catch (error) {
+
+        document.getElementById("result")
+            .textContent =
+            "⚠️ " + error.message;
+
+    }
+
+}
+
+
+async function spin() {
+
+    try {
+
+        document.getElementById("result")
+            .textContent =
+            "🔄 Крутимо...";
+
+        const data =
+            await api("/api/spin", {
+                method: "POST"
+            });
+
+        document.getElementById("result")
+            .textContent =
+            data.prize;
+
+        document.getElementById("tickets")
+            .textContent =
+            data.tickets;
+
+    } catch (error) {
+
+        document.getElementById("result")
+            .textContent =
+            "⚠️ " + error.message;
+
+    }
+
+}
+
+
+async function loadLeaderboard() {
+
+    const list =
+        await fetch("/api/leaderboard")
+            .then(response =>
+                response.json()
+            );
+
+    const element =
+        document.getElementById(
+            "leaderboard"
+        );
+
+    element.innerHTML = "";
+
+    list.forEach((user) => {
+
+        const li =
+            document.createElement("li");
+
+        const name =
+            user.username
+                ? "@" + user.username
+                : user.first_name;
+
+        li.textContent =
+            name +
+            " — " +
+            user.invited_count +
+            " 🎟️";
+
+        element.appendChild(li);
+
+    });
+
+}
+
+
+function invite() {
+
+    const user =
+        tg.initDataUnsafe.user;
+
+    const botUsername =
+        "nLkaman_bot";
+
+    const link =
+        "https://t.me/" +
+        botUsername +
+        "?start=ref_" +
+        user.id;
+
+    const text =
+        "🎰 Приєднуйся до гри та отримуй призи!";
+
+    tg.openTelegramLink(
+        "https://t.me/share/url?url=" +
+        encodeURIComponent(link) +
+        "&text=" +
+        encodeURIComponent(text)
+    );
+
+}
+
+
+loadUser();
+loadLeaderboard();
+
+</script>
+
+</body>
+</html>
