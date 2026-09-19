@@ -307,6 +307,78 @@ bot.start(async (ctx) => {
 ⚠️ Для гри необхідно бути підписаним на канал.`,
         {
             reply_markup: {
+    inline_keyboard: [
+
+        [
+            {
+                text: '🎰 ГРАТИ',
+                callback_data: 'play_game'
+            }
+        ],
+
+        [
+            {
+                text: '📢 ПІДПИСАТИСЯ НА КАНАЛ',
+                url: process.env.CHANNEL_URL
+            }
+        ]
+
+    ]
+}
+}
+);
+});
+
+// ==================== PLAY BUTTON ====================
+
+bot.action('play_game', async (ctx) => {
+
+    const userId = ctx.from.id;
+
+    const subscribed =
+        await checkSubscription(userId);
+
+    await ctx.answerCbQuery();
+
+    if (!subscribed) {
+
+        return ctx.reply(
+            `❌ Ви не підписані на канал!
+
+📢 Спочатку підпишіться на @nlkaman1,
+а потім натисніть «🎰 ГРАТИ».`,
+            {
+                reply_markup: {
+                    inline_keyboard: [
+
+                        [
+                            {
+                                text: '📢 ПІДПИСАТИСЯ НА КАНАЛ',
+                                url: process.env.CHANNEL_URL
+                            }
+                        ],
+
+                        [
+                            {
+                                text: '🎰 ПЕРЕВІРИТИ ПІДПИСКУ',
+                                callback_data: 'play_game'
+                            }
+                        ]
+
+                    ]
+                }
+            }
+        );
+    }
+
+    await processReferral(userId);
+
+    return ctx.reply(
+        `✅ Підписка підтверджена!
+
+🎰 Гра доступна 👇`,
+        {
+            reply_markup: {
                 inline_keyboard: [
 
                     [
@@ -316,13 +388,6 @@ bot.start(async (ctx) => {
                                 url: process.env.WEBAPP_URL
                             }
                         }
-                    ],
-
-                    [
-                        {
-                            text: '📢 ПІДПИСАТИСЯ НА КАНАЛ',
-                            url: process.env.CHANNEL_URL
-                        }
                     ]
 
                 ]
@@ -330,9 +395,7 @@ bot.start(async (ctx) => {
         }
     );
 });
-
 // ==================== USER INFO ====================
-
 app.get('/api/me', auth, async (req, res) => {
 
     await processReferral(req.telegramUser.id);
