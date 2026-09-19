@@ -297,31 +297,24 @@ bot.start(async (ctx) => {
     // Перевіряємо, можливо користувач уже підписаний
 
     await ctx.reply(
-        `🎰 Привіт, ${ctx.from.first_name || ''}!
-
-🎟️ Запрошуй друзів та отримуй квитки.
-
-🎁 1 запрошений друг = 1 квиток
-🎰 1 прокрутка = 1 квиток
-
-⚠️ Для гри необхідно бути підписаним на канал.`,
+    `🔒 Для запуску гри потрібно бути підписаним на канал.`,
         {
             reply_markup: {
     inline_keyboard: [
 
         [
-            {
-                text: '🎰 ГРАТИ',
-                callback_data: 'play_game'
-            }
-        ],
+    {
+        text: '📢 ПІДПИСАТИСЯ НА КАНАЛ',
+        url: process.env.CHANNEL_URL
+    }
+],
 
-        [
-            {
-                text: '📢 ПІДПИСАТИСЯ НА КАНАЛ',
-                url: process.env.CHANNEL_URL
-            }
-        ]
+[
+    {
+        text: '🔄 ПЕРЕВІРИТИ ПІДПИСКУ',
+        callback_data: 'check_subscription'
+    }
+]
 
     ]
 }
@@ -329,9 +322,10 @@ bot.start(async (ctx) => {
 );
 });
 
-// ==================== PLAY BUTTON ====================
 
-bot.action('play_game', async (ctx) => {
+// ==================== CHECK SUBSCRIPTION ====================
+
+bot.action('check_subscription', async (ctx) => {
 
     const userId = ctx.from.id;
 
@@ -343,10 +337,7 @@ bot.action('play_game', async (ctx) => {
     if (!subscribed) {
 
         return ctx.reply(
-            `❌ Ви не підписані на канал!
-
-📢 Спочатку підпишіться на @nlkaman1,
-а потім натисніть «🎰 ГРАТИ».`,
+            `❌ Ви не підписані на канал!`,
             {
                 reply_markup: {
                     inline_keyboard: [
@@ -360,8 +351,8 @@ bot.action('play_game', async (ctx) => {
 
                         [
                             {
-                                text: '🎰 ПЕРЕВІРИТИ ПІДПИСКУ',
-                                callback_data: 'play_game'
+                                text: '🔄 ПЕРЕВІРИТИ ПІДПИСКУ',
+                                callback_data: 'check_subscription'
                             }
                         ]
 
@@ -374,27 +365,26 @@ bot.action('play_game', async (ctx) => {
     await processReferral(userId);
 
     return ctx.reply(
-        `✅ Підписка підтверджена!
+    `🎉 Вітаємо! Гра доступна 👇`,
+    {
+        reply_markup: {
+            inline_keyboard: [
 
-🎰 Гра доступна 👇`,
-        {
-            reply_markup: {
-                inline_keyboard: [
-
-                    [
-                        {
-                            text: '🎰 ВІДКРИТИ ГРУ',
-                            web_app: {
-                                url: process.env.WEBAPP_URL
-                            }
+                [
+                    {
+                        text: '🎰 ГРАТИ',
+                        web_app: {
+                            url: process.env.WEBAPP_URL
                         }
-                    ]
-
+                    }
                 ]
-            }
+
+            ]
         }
-    );
+    }
+);
 });
+
 // ==================== USER INFO ====================
 app.get('/api/me', auth, async (req, res) => {
 
