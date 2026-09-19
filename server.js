@@ -202,9 +202,8 @@ async function checkSubscription(userId) {
 }
 
 // ==================== REFERRALS ====================
-
-// Перевіряємо реферала.
-// Якщо він уже підписаний — даємо запрошувачу 1 квиток.
+// Реферальна нагорода.
+// Квиток видається тільки після першого входу в Mini App.
 
 async function processReferral(userId) {
 
@@ -214,16 +213,20 @@ async function processReferral(userId) {
 
     if (!user) return;
 
+    // Немає запрошувача
     if (!user.referred_by) return;
 
+    // Нагорода вже була видана
     if (user.referral_rewarded === 1) return;
 
+    // Перевіряємо підписку
     const subscribed = await checkSubscription(userId);
 
     if (!subscribed) return;
 
     db.transaction(() => {
 
+        // +1 квиток запрошувачу
         db.prepare(`
             UPDATE users
             SET tickets = tickets + 1,
@@ -231,6 +234,7 @@ async function processReferral(userId) {
             WHERE id = ?
         `).run(user.referred_by);
 
+        // Позначаємо реферала як зарахованого
         db.prepare(`
             UPDATE users
             SET referral_rewarded = 1
@@ -240,10 +244,9 @@ async function processReferral(userId) {
     })();
 
     console.log(
-        `Referral rewarded: ${user.referred_by} -> ${userId}`
+        `Referral rewarded after Mini App entry: ${user.referred_by} -> ${userId}`
     );
 }
-
 // ==================== BOT START ====================
 
 bot.start(async (ctx) => {
@@ -292,7 +295,6 @@ bot.start(async (ctx) => {
     }
 
     // Перевіряємо, можливо користувач уже підписаний
-    await processReferral(user.id);
 
     await ctx.reply(
         `🎰 Привіт, ${ctx.from.first_name || ''}!
