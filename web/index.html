@@ -402,18 +402,41 @@
       font-weight: 900;
       margin-bottom: 8px;
     }
+.sound-button {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 150;
 
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid rgba(124, 92, 255, .45);
+  border-radius: 50%;
+
+  background: rgba(14, 16, 38, .9);
+  color: white;
+
+  font-size: 20px;
+  cursor: pointer;
+
+  box-shadow: 0 0 18px rgba(124, 92, 255, .3);
+}
+
+.sound-button:active {
+  transform: scale(.92);
+}
     .win-text {
       color: #aeb3cb;
       line-height: 1.5;
     }
   </style>
 </head>
-
+  
 <body>
 
 <div class="app">
-
+<button id="soundButton" class="sound-button" onclick="toggleSound()">🔊</button>
   <div class="header">
     <div class="logo">NLKAMAN <span>GIFTS</span></div>
     <div class="subtitle">NFT подарунки та розіграші</div>
@@ -910,7 +933,33 @@ function openPage(pageName) {
     behavior: "smooth"
   });
 }
+function toggleSound() {
+  soundEnabled = !soundEnabled;
 
+  const button = document.getElementById("soundButton");
+
+  if (soundEnabled) {
+    button.textContent = "🔊";
+
+    initAudio();
+
+    if (!musicTimer) {
+      playAdventureMusic();
+    }
+
+  } else {
+    button.textContent = "🔇";
+
+    if (musicTimer) {
+      clearTimeout(musicTimer);
+      musicTimer = null;
+    }
+
+    if (audioCtx) {
+      audioCtx.suspend();
+    }
+  }
+}
 </script>
 
 </body>
