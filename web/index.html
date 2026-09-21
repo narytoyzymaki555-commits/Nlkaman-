@@ -717,7 +717,141 @@
 
   tg.ready();
   tg.expand();
+  
+  // =========================
+  // ЗВУКИ
+  // =========================
 
+  let audioCtx = null;
+  let musicTimer = null;
+  let soundEnabled = true;
+
+  function initAudio() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+  }
+
+  function playTone(frequency, duration, type = "sine", volume = 0.04) {
+    if (!soundEnabled) return;
+
+    initAudio();
+
+    const oscillator = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.value = frequency;
+
+    gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      audioCtx.currentTime + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + duration);
+  }
+
+  // 🔘 Звук натискання
+  function playClick() {
+    playTone(520, 0.08, "sine", 0.035);
+  }
+
+  // 🎡 Звук колеса
+  function playSpinSound() {
+    if (!soundEnabled) return;
+
+    initAudio();
+
+    let count = 0;
+
+    const interval = setInterval(() => {
+
+      playTone(
+        180 + count * 12,
+        0.045,
+        "square",
+        0.025
+      );
+
+      count++;
+
+      if (count >= 28) {
+        clearInterval(interval);
+      }
+
+    }, 140);
+  }
+
+  // 🎉 Звук виграшу
+  function playWinSound() {
+    if (!soundEnabled) return;
+
+    initAudio();
+
+    playTone(523, 0.15, "sine", 0.05);
+
+    setTimeout(() => {
+      playTone(659, 0.15, "sine", 0.05);
+    }, 140);
+
+    setTimeout(() => {
+      playTone(784, 0.25, "sine", 0.06);
+    }, 280);
+  }
+
+  // 🎵 Пригодницька фонова музика
+  function playAdventureMusic() {
+
+    if (!soundEnabled) return;
+
+    initAudio();
+
+    const notes = [
+      196, 247, 294, 330,
+      247, 196, 220, 294
+    ];
+
+    let i = 0;
+
+    function nextNote() {
+
+      if (!soundEnabled) return;
+
+      playTone(
+        notes[i],
+        0.45,
+        "triangle",
+        0.018
+      );
+
+      i = (i + 1) % notes.length;
+
+      musicTimer = setTimeout(nextNote, 520);
+    }
+
+    nextNote();
+  }
+
+  // 🔊 Запускаємо звук після першого натискання
+  document.addEventListener("click", () => {
+
+    initAudio();
+
+    if (!musicTimer && soundEnabled) {
+      playAdventureMusic();
+    }
+
+  }, { once: true });
 
   let user = tg.initDataUnsafe?.user || {
     id: 0,
