@@ -832,38 +832,101 @@
     }, 280);
   }
 
-  // 🎵 Пригодницька фонова музика
-  function playAdventureMusic() {
+// 🎵 Загадкова пригодницька музика
+function playAdventureMusic() {
 
-    if (!soundEnabled) return;
+  if (!soundEnabled) return;
 
-    initAudio();
+  initAudio();
 
-    const notes = [
-      196, 247, 294, 330,
-      247, 196, 220, 294
-    ];
+  if (musicTimer) return;
 
-    let i = 0;
+  const notes = [
+    220, 261.63, 329.63, 293.66,
+    220, 196, 261.63, 329.63
+  ];
 
-    function nextNote() {
+  const counter = [
+    440, 493.88, 523.25, 493.88,
+    440, 392, 349.23, 392
+  ];
 
-      if (!soundEnabled) return;
+  let step = 0;
+  let tension = 0;
 
-      playTone(
-        notes[i],
-        0.45,
-        "triangle",
-        0.018
-      );
+  function nextNote() {
 
-      i = (i + 1) % notes.length;
-
-      musicTimer = setTimeout(nextNote, 520);
+    if (!soundEnabled) {
+      musicTimer = null;
+      return;
     }
 
-    nextNote();
+    const mainNote = notes[step % notes.length];
+
+    // Основна спокійна мелодія
+    playTone(
+      mainNote,
+      0.42,
+      "triangle",
+      0.014
+    );
+
+    // Поступове додавання інтриги
+    if (step >= 8 && step < 24) {
+
+      tension = Math.min(
+        1,
+        (step - 8) / 16
+      );
+
+      if (step % 2 === 0) {
+
+        playTone(
+          counter[(step / 2) % counter.length],
+          0.32,
+          "triangle",
+          0.006 + tension * 0.004
+        );
+
+      }
+
+    }
+
+    // Пік загадковості
+    if (step >= 20 && step < 32 && step % 4 === 0) {
+
+      playTone(
+        659.25,
+        0.7,
+        "sine",
+        0.006
+      );
+
+    }
+
+    // Після піку музика знову стає спокійнішою
+    if (step >= 32) {
+      tension = Math.max(
+        0,
+        1 - (step - 32) / 12
+      );
+    }
+
+    step++;
+
+    // 40 секунд музики → повтор
+    if (step >= 40) {
+      step = 0;
+    }
+
+    musicTimer = setTimeout(
+      nextNote,
+      520
+    );
   }
+
+  nextNote();
+}
 
   // 🔊 Запускаємо звук після першого натискання
   document.addEventListener("click", () => {
