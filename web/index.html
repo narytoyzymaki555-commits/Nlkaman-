@@ -1020,13 +1020,19 @@ function playAdventureMusic() {
   // 🔊 Запускаємо звук після першого натискання
   document.addEventListener("click", () => {
 
-    initAudio();
+  if (!soundEnabled) return;
 
-    if (!musicTimer && soundEnabled) {
-      playAdventureMusic();
-    }
+  initAudio();
 
-  }, { once: true });
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+
+  if (!musicTimer) {
+    playAdventureMusic();
+  }
+
+}, { once: true });
 
   let user = tg.initDataUnsafe?.user || {
     id: 0,
@@ -1067,7 +1073,6 @@ function playAdventureMusic() {
 loadUser();
 
 function openPage(pageName) {
-
   document.querySelectorAll(".page").forEach(page => {
     page.classList.remove("active");
   });
@@ -1085,7 +1090,80 @@ function openPage(pageName) {
     behavior: "smooth"
   });
 }
-function toggleSound() {
+  // 🎡 КОЛЕСО ПОДАРУНКІВ
+function spinWheel() {
+
+  // 🔊 звук обертання
+  playSpinSound();
+
+  const wheel = document.getElementById("wheelElement");
+  const button = document.getElementById("spinButton");
+
+  // Не дозволяємо крутити повторно під час обертання
+  button.disabled = true;
+
+  // Випадковий приз
+  const prizes = [
+    {
+      icon: "🧸",
+      text: "NFT Gift"
+    },
+    {
+      icon: "⭐",
+      text: "Telegram Stars"
+    },
+    {
+      icon: "💎",
+      text: "NFT"
+    },
+    {
+      icon: "🎟",
+      text: "+1 квиток"
+    }
+  ];
+
+  const prize =
+    prizes[Math.floor(Math.random() * prizes.length)];
+
+  // Випадкове обертання
+  const rotation =
+    1800 + Math.floor(Math.random() * 1440);
+
+  wheel.style.transform =
+    `rotate(${rotation}deg)`;
+
+  // Чекаємо завершення обертання
+  setTimeout(() => {
+
+    // 🎉 звук виграшу
+    playWinSound();
+
+    // Показуємо приз
+    document.getElementById("winIcon").textContent =
+      prize.icon;
+
+    document.getElementById("winText").textContent =
+      "Ти виграв: " + prize.text + "! 🎉";
+
+    document.getElementById("winModal")
+      .classList.add("show");
+
+    button.disabled = false;
+
+  }, 4000);
+}
+  // 🔘 Звук для всіх кнопок
+document.addEventListener("click", (event) => {
+
+  if (
+    event.target.closest("button") &&
+    event.target.id !== "soundButton"
+  ) {
+    playClick();
+  }
+
+});
+ function toggleSound() {
   soundEnabled = !soundEnabled;
 
   const button = document.getElementById("soundButton");
