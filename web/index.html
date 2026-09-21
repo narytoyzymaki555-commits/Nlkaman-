@@ -832,7 +832,7 @@
     }, 280);
   }
 
-// 🎵 Загадкова пригодницька музика
+// 🎵 Загадкова пригодницька фонова музика
 function playAdventureMusic() {
 
   if (!soundEnabled) return;
@@ -841,18 +841,54 @@ function playAdventureMusic() {
 
   if (musicTimer) return;
 
-  const notes = [
+  // Одна довга музична фраза.
+  // 1 крок = 500 мс
+  // 96 кроків = 48 секунд
+  const melody = [
+    // 0–8 сек — спокійний вступ
+    220, 261.63, 293.66, 329.63,
+    293.66, 261.63, 220, 196,
     220, 261.63, 329.63, 293.66,
-    220, 196, 261.63, 329.63
+    261.63, 220, 196, 174.61,
+
+    // 8–16 сек — починається інтрига
+    220, 261.63, 329.63, 392,
+    329.63, 293.66, 261.63, 220,
+    246.94, 293.66, 349.23, 440,
+    349.23, 329.63, 293.66, 246.94,
+
+    // 16–24 сек — основна загадкова частина
+    220, 277.18, 329.63, 415.30,
+    329.63, 277.18, 246.94, 220,
+    196, 246.94, 293.66, 369.99,
+    293.66, 246.94, 220, 196,
+
+    // 24–32 сек — найцікавіша частина
+    220, 261.63, 329.63, 440,
+    392, 329.63, 293.66, 261.63,
+    220, 293.66, 369.99, 493.88,
+    440, 369.99, 293.66, 220,
+
+    // 32–40 сек — повернення
+    196, 246.94, 293.66, 329.63,
+    293.66, 246.94, 220, 196,
+    174.61, 220, 261.63, 293.66,
+    261.63, 220, 196, 174.61,
+
+    // 40–48 сек — спокійне завершення
+    196, 220, 261.63, 293.66,
+    261.63, 220, 196, 174.61,
+    196, 220, 246.94, 293.66,
+    261.63, 220, 196, 174.61
   ];
 
-  const counter = [
-    440, 493.88, 523.25, 493.88,
-    440, 392, 349.23, 392
+  // Тихий фон, який додає глибини
+  const bass = [
+    110, 110, 130.81, 130.81,
+    98, 98, 110, 110
   ];
 
   let step = 0;
-  let tension = 0;
 
   function nextNote() {
 
@@ -861,66 +897,125 @@ function playAdventureMusic() {
       return;
     }
 
-    const mainNote = notes[step % notes.length];
+    const now = audioCtx.currentTime;
 
-    // Основна спокійна мелодія
-    playTone(
-      mainNote,
-      0.42,
-      "triangle",
-      0.014
+    // Основна мелодія
+    const note = melody[step];
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(note, now);
+
+    gain.gain.setValueAtTime(0.0001, now);
+
+    gain.gain.linearRampToValueAtTime(
+      0.014,
+      now + 0.04
     );
 
-    // Поступове додавання інтриги
-    if (step >= 8 && step < 24) {
+    gain.gain.linearRampToValueAtTime(
+      0.0001,
+      now + 0.47
+    );
 
-      tension = Math.min(
-        1,
-        (step - 8) / 16
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.49);
+
+
+    // 🌑 Тихий низький фон
+    if (step % 4 === 0) {
+
+      const bassNote =
+        bass[Math.floor(step / 4) % bass.length];
+
+      const bassOsc = audioCtx.createOscillator();
+      const bassGain = audioCtx.createGain();
+
+      bassOsc.type = "sine";
+      bassOsc.frequency.setValueAtTime(
+        bassNote,
+        now
       );
 
-      if (step % 2 === 0) {
+      bassGain.gain.setValueAtTime(
+        0.0001,
+        now
+      );
 
-        playTone(
-          counter[(step / 2) % counter.length],
-          0.32,
-          "triangle",
-          0.006 + tension * 0.004
-        );
+      bassGain.gain.linearRampToValueAtTime(
+        0.008,
+        now + 0.15
+      );
 
-      }
+      bassGain.gain.linearRampToValueAtTime(
+        0.0001,
+        now + 1.9
+      );
 
+      bassOsc.connect(bassGain);
+      bassGain.connect(audioCtx.destination);
+
+      bassOsc.start(now);
+      bassOsc.stop(now + 1.95);
     }
 
-    // Пік загадковості
-    if (step >= 20 && step < 32 && step % 4 === 0) {
+
+    // 🌙 8–16 сек — поступове наростання
+    if (step >= 16 && step < 32 && step % 2 === 0) {
 
       playTone(
-        659.25,
+        melody[step + 8],
         0.7,
+        "triangle",
+        0.004
+      );
+    }
+
+
+    // 🕵️ 16–32 сек — загадковий верхній шар
+    if (step >= 32 && step < 64 && step % 4 === 0) {
+
+      playTone(
+        melody[(step + 12) % melody.length] * 2,
+        0.9,
         "sine",
-        0.006
-      );
-
-    }
-
-    // Після піку музика знову стає спокійнішою
-    if (step >= 32) {
-      tension = Math.max(
-        0,
-        1 - (step - 32) / 12
+        0.0035
       );
     }
+
+
+    // 🌌 32–40 сек — інтрига спадає
+    if (step >= 64 && step < 80 && step % 4 === 0) {
+
+      playTone(
+        melody[(step + 4) % melody.length],
+        0.8,
+        "triangle",
+        0.003
+      );
+    }
+
 
     step++;
 
-    // 40 секунд музики → повтор
-    if (step >= 40) {
+    // 🔄 48 секунд → плавний повтор
+    if (step >= melody.length) {
       step = 0;
     }
 
     musicTimer = setTimeout(
       nextNote,
+      500
+    );
+  }
+
+  nextNote();
+}
       520
     );
   }
