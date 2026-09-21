@@ -1,295 +1,755 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Nlkaman Game</title>
+  <title>Nlkaman Gifts</title>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            background: #111318;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .box {
-            background: #1c2028;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 15px;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
 
-        button {
-            width: 100%;
-            border: none;
-            border-radius: 15px;
-            padding: 16px;
-            margin-top: 10px;
-            background: #2ea6ff;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-        }
+      background:
+        radial-gradient(circle at 20% 20%, rgba(76, 0, 255, .25), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(0, 183, 255, .20), transparent 30%),
+        linear-gradient(145deg, #070812, #10132b 50%, #070812);
+    }
 
-        .tickets {
-            font-size: 28px;
-            font-weight: bold;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
 
-        #result {
-            font-size: 30px;
-            margin: 25px 0;
-        }
+      background-image:
+        linear-gradient(45deg, transparent 48%, #705cff 49%, transparent 51%),
+        linear-gradient(-45deg, transparent 48%, #705cff 49%, transparent 51%);
 
-        li {
-            text-align: left;
-            padding: 8px;
-        }
-    </style>
+      background-size: 55px 55px;
+    }
+
+    .app {
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 95px;
+    }
+
+    .header {
+      padding: 22px 18px 10px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #7c5cff;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      color: #aaaeca;
+      font-size: 13px;
+    }
+
+    .page {
+      display: none;
+      padding: 12px 16px;
+      animation: fade .25s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: rgba(22, 25, 53, .88);
+      border: 1px solid rgba(124, 92, 255, .35);
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, .25);
+      backdrop-filter: blur(12px);
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      font-weight: bold;
+
+      background: linear-gradient(135deg, #7c5cff, #20cfff);
+      box-shadow: 0 0 25px rgba(124, 92, 255, .45);
+    }
+
+    .profile-name {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .profile-id {
+      color: #8e94b5;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,.05);
+      border-radius: 16px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .stat-label {
+      margin-top: 4px;
+      color: #949ab8;
+      font-size: 12px;
+    }
+
+    .tickets {
+      color: #ffd84d;
+    }
+
+    .button {
+      width: 100%;
+      border: none;
+      border-radius: 17px;
+      padding: 16px;
+      margin-top: 10px;
+
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+
+      background: linear-gradient(135deg, #7455ff, #20a9ff);
+      box-shadow: 0 8px 25px rgba(77, 93, 255, .3);
+
+      cursor: pointer;
+    }
+
+    .button:active {
+      transform: scale(.98);
+    }
+
+    .button.secondary {
+      background: rgba(255,255,255,.07);
+      box-shadow: none;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .ref-link {
+      background: rgba(0,0,0,.25);
+      border-radius: 14px;
+      padding: 13px;
+      font-size: 12px;
+      color: #aeb4d0;
+      word-break: break-all;
+      margin-top: 10px;
+    }
+
+    .wheel-box {
+      text-align: center;
+    }
+
+    .wheel {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      margin: 20px auto;
+      border: 8px solid rgba(255,255,255,.15);
+
+      background:
+        conic-gradient(
+          #7657ff 0deg 45deg,
+          #20bfff 45deg 90deg,
+          #ff4f9a 90deg 135deg,
+          #ffb52e 135deg 180deg,
+          #34d399 180deg 225deg,
+          #7657ff 225deg 270deg,
+          #20bfff 270deg 315deg,
+          #ff4f9a 315deg 360deg
+        );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow:
+        0 0 35px rgba(124, 92, 255, .4),
+        inset 0 0 25px rgba(0,0,0,.4);
+
+      transition: transform 4s cubic-bezier(.15,.8,.2,1);
+    }
+
+    .wheel-center {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: #11142b;
+      border: 5px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      z-index: 2;
+    }
+
+    .pointer {
+      width: 0;
+      height: 0;
+      border-left: 13px solid transparent;
+      border-right: 13px solid transparent;
+      border-top: 28px solid white;
+      margin: 0 auto -8px;
+      position: relative;
+      z-index: 5;
+      filter: drop-shadow(0 3px 4px rgba(0,0,0,.5));
+    }
+
+    .prizes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 15px;
+    }
+
+    .prize {
+      padding: 13px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.055);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .prize-icon {
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .leader {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px;
+      border-radius: 16px;
+      margin-bottom: 8px;
+      background: rgba(255,255,255,.055);
+    }
+
+    .place {
+      width: 35px;
+      font-size: 19px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .leader-name {
+      flex: 1;
+      font-weight: 700;
+    }
+
+    .leader-tickets {
+      color: #ffd84d;
+      font-weight: 800;
+    }
+
+    .empty {
+      color: #858ba8;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      height: 70px;
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+
+      background: rgba(14, 16, 38, .94);
+      border: 1px solid rgba(124, 92, 255, .35);
+      border-radius: 22px;
+      padding: 7px;
+
+      backdrop-filter: blur(15px);
+      z-index: 100;
+    }
+
+    .nav-btn {
+      border: none;
+      background: transparent;
+      color: #777e9e;
+      border-radius: 16px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .nav-icon {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 3px;
+    }
+
+    .nav-btn.active {
+      color: white;
+      background: rgba(124, 92, 255, .18);
+    }
+
+    .notice {
+      padding: 13px;
+      border-radius: 15px;
+      background: rgba(255, 216, 77, .08);
+      border: 1px solid rgba(255,216,77,.18);
+      color: #d8d9e8;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 360px;
+      background: #15182f;
+      border: 1px solid rgba(124,92,255,.4);
+      border-radius: 25px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .win-icon {
+      font-size: 65px;
+      margin-bottom: 10px;
+    }
+
+    .win-title {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .win-text {
+      color: #aeb3cb;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 
 <body>
 
-    <h1>🎰 Nlkaman Game</h1>
+<div class="app">
 
-    <div class="box">
-        <div>🎟️ Твої квитки</div>
-        <div class="tickets" id="tickets">—</div>
+  <div class="header">
+    <div class="logo">NLKAMAN <span>GIFTS</span></div>
+    <div class="subtitle">NFT подарунки та розіграші</div>
+  </div>
 
-        <div style="margin-top:10px;">
-            👥 Запрошено:
-            <b id="invited">—</b>
+  <!-- ГОЛОВНЕ -->
+  <section id="home" class="page active">
+
+    <div class="card">
+
+      <div class="profile">
+        <div class="avatar" id="avatar">N</div>
+
+        <div>
+          <div class="profile-name" id="username">
+            Користувач
+          </div>
+
+          <div class="profile-id" id="userid">
+            Telegram ID: —
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="box">
+      <div class="stats">
 
-        <div id="result">
-            🎰
+        <div class="stat">
+          <div class="stat-number tickets" id="ticketCount">
+            0
+          </div>
+
+          <div class="stat-label">
+            🎟 Квитків
+          </div>
         </div>
 
-        <button onclick="spin()">
-            🎰 КРУТИТИ — 1 КВИТОК
-        </button>
+        <div class="stat">
+          <div class="stat-number" id="refCount">
+            0
+          </div>
 
-        <p id="subscription"></p>
+          <div class="stat-label">
+            👥 Рефералів
+          </div>
+        </div>
 
-    </div>
+      </div>
 
-    <div class="box">
-
-        <h2>👥 Реферали</h2>
-
-        <p>
-            Запроси друга та отримай
-            <b>+1 🎟️ квиток</b>.
-        </p>
-
-        <button onclick="invite()">
-            📤 ЗАПРОСИТИ ДРУГА
-        </button>
+      <button class="button" onclick="openPage('wheel')">
+        🎡 КРУТИТИ КОЛЕСО
+      </button>
 
     </div>
 
-    <div class="box">
+    <div class="card">
 
-        <h2>🏆 Лідерборд</h2>
+      <div class="section-title">
+        🎁 Призи
+      </div>
 
-        <ol id="leaderboard">
-            Завантаження...
-        </ol>
+      <div class="prizes">
+
+        <div class="prize">
+          <div class="prize-icon">🎁</div>
+          NFT Gift
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">⭐</div>
+          Telegram Stars
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">💎</div>
+          NFT
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">🎟</div>
+          Квитки
+        </div>
+
+      </div>
 
     </div>
+
+  </section>
+
+
+  <!-- РЕФЕРАЛИ -->
+  <section id="referrals" class="page">
+
+    <div class="card">
+
+      <div class="section-title">
+        👥 Реферальна система
+      </div>
+
+      <div class="notice">
+        Запрошуй друзів та отримуй <b>+1 квиток</b>
+        за кожного нового учасника, який виконає умови.
+      </div>
+
+      <div>
+        Твоє посилання:
+      </div>
+
+      <div class="ref-link" id="refLink">
+        Завантаження...
+      </div>
+
+      <button class="button" onclick="copyReferral()">
+        📋 СКОПІЮВАТИ ПОСИЛАННЯ
+      </button>
+
+      <button class="button secondary" onclick="shareReferral()">
+        📤 ЗАПРОСИТИ ДРУЗІВ
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      <div class="section-title">
+        📊 Твоя статистика
+      </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <div class="stat-number" id="refCount2">0</div>
+          <div class="stat-label">Запрошено</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number tickets" id="ticketCount2">0</div>
+          <div class="stat-label">Квитків</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- КОЛЕСО -->
+  <section id="wheel" class="page">
+
+    <div class="card wheel-box">
+
+      <div class="section-title">
+        🎡 Колесо подарунків
+      </div>
+
+      <div class="notice">
+        Для одного обертання потрібно <b>1 квиток</b>.
+        Перед грою необхідно бути підписаним на наш канал.
+      </div>
+
+      <div class="pointer"></div>
+
+      <div class="wheel" id="wheelElement">
+        <div class="wheel-center">
+          🎁
+        </div>
+      </div>
+
+      <div style="color:#9298b5;font-size:13px;">
+        Твої квитки:
+        <b class="tickets" id="wheelTickets">0</b>
+      </div>
+
+      <button class="button" id="spinButton" onclick="spinWheel()">
+        🎰 КРУТИТИ
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      <div class="section-title">
+        🎁 Можливі призи
+      </div>
+
+      <div class="prizes">
+
+        <div class="prize">
+          <div class="prize-icon">🧸</div>
+          NFT Gift
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">⭐</div>
+          Stars
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">💎</div>
+          NFT
+        </div>
+
+        <div class="prize">
+          <div class="prize-icon">🎟</div>
+          + квитки
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ЛІДЕРБОРД -->
+  <section id="leaderboard" class="page">
+
+    <div class="card">
+
+      <div class="section-title">
+        🏆 Лідерборд
+      </div>
+
+      <div class="notice">
+        Тут відображаються учасники, які запросили
+        найбільше людей.
+      </div>
+
+      <div id="leaderboardList">
+        <div class="empty">
+          Завантаження...
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- НИЖНЄ МЕНЮ -->
+  <nav class="bottom-nav">
+
+    <button class="nav-btn active" id="nav-home"
+            onclick="openPage('home')">
+      <span class="nav-icon">🏠</span>
+      Головна
+    </button>
+
+    <button class="nav-btn" id="nav-referrals"
+            onclick="openPage('referrals')">
+      <span class="nav-icon">👥</span>
+      Реферали
+    </button>
+
+    <button class="nav-btn" id="nav-wheel"
+            onclick="openPage('wheel')">
+      <span class="nav-icon">🎡</span>
+      Колесо
+    </button>
+
+    <button class="nav-btn" id="nav-leaderboard"
+            onclick="openPage('leaderboard')">
+      <span class="nav-icon">🏆</span>
+      Лідерборд
+    </button>
+
+  </nav>
+
+</div>
+
+
+<!-- ВІКНО ВИГРАШУ -->
+<div class="modal" id="winModal">
+
+  <div class="modal-content">
+
+    <div class="win-icon" id="winIcon">
+      🎁
+    </div>
+
+    <div class="win-title">
+      Вітаємо! 🎉
+    </div>
+
+    <div class="win-text" id="winText">
+      Ти виграв приз!
+    </div>
+
+    <button class="button" onclick="closeWin()">
+      🔥 ЗАБРАТИ ПРИЗ
+    </button>
+
+  </div>
+
+</div>
+
 
 <script>
 
-const tg = window.Telegram.WebApp;
+  const tg = window.Telegram.WebApp;
 
-tg.ready();
-tg.expand();
-
-const headers = {
-    "x-telegram-init-data": tg.initData
-};
+  tg.ready();
+  tg.expand();
 
 
-async function api(url, options = {}) {
-
-    const response = await fetch(url, {
-
-        ...options,
-
-        headers: {
-            ...headers,
-            "Content-Type": "application/json"
-        }
-
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-        throw new Error(
-            data.error || "Помилка"
-        );
-    }
-
-    return data;
-}
+  let user = tg.initDataUnsafe?.user || {
+    id: 0,
+    first_name: "Користувач",
+    username: ""
+  };
 
 
-async function loadUser() {
-
-    try {
-
-        const data =
-            await api("/api/me");
-
-        document.getElementById("tickets")
-            .textContent =
-            data.user.tickets;
-
-        document.getElementById("invited")
-            .textContent =
-            data.user.invited_count;
-
-        if (data.subscribed) {
-
-            document.getElementById(
-                "subscription"
-            ).textContent =
-                "✅ Підписка підтверджена";
-
-        } else {
-
-            document.getElementById(
-                "subscription"
-            ).textContent =
-                "❌ Спочатку підпишіться на канал";
-
-        }
-
-    } catch (error) {
-
-        document.getElementById("result")
-            .textContent =
-            "⚠️ " + error.message;
-
-    }
-
-}
+  let tickets = 0;
+  let referrals = 0;
+  let referralLink = "";
 
 
-async function spin() {
+  // =========================
+  // КОРИСТУВАЧ
+  // =========================
 
-    try {
+  function loadUser() {
 
-        document.getElementById("result")
-            .textContent =
-            "🔄 Крутимо...";
+    const name =
+      user.username
+        ? "@" + user.username
+        : user.first_name || "Користувач";
 
-        const data =
-            await api("/api/spin", {
-                method: "POST"
-            });
+    document.getElementById("username").textContent = name;
 
-        document.getElementById("result")
-            .textContent =
-            data.prize;
+    document.getElementById("userid").textContent =
+      "Telegram ID: " + user.id;
 
-        document.getElementById("tickets")
-            .textContent =
-            data.tickets;
+    document.getElementById("avatar").textContent =
+      (user.first_name || "N").charAt(0).toUpperCase();
 
-    } catch (error) {
-
-        document.getElementById("result")
-            .textContent =
-            "⚠️ " + error.message;
-
-    }
-
-}
-
-
-async function loadLeaderboard() {
-
-    const list =
-        await fetch("/api/leaderboard")
-            .then(response =>
-                response.json()
-            );
-
-    const element =
-        document.getElementById(
-            "leaderboard"
-        );
-
-    element.innerHTML = "";
-
-    list.forEach((user) => {
-
-        const li =
-            document.createElement("li");
-
-        const name =
-            user.username
-                ? "@" + user.username
-                : user.first_name;
-
-        li.textContent =
-            name +
-            " — " +
-            user.invited_count +
-            " 🎟️";
-
-        element.appendChild(li);
-
-    });
-
-}
-
-
-function invite() {
-
-    const user =
-        tg.initDataUnsafe.user;
-
-    const botUsername =
-        "nLkaman_bot";
-
-    const link =
-        "https://t.me/" +
-        botUsername +
-        "?start=ref_" +
-        user.id;
-
-    const text =
-        "🎰 Приєднуйся до гри та отримуй призи!";
-
-    tg.openTelegramLink(
-        "https://t.me/share/url?url=" +
-        encodeURIComponent(link) +
-        "&text=" +
-        encodeURIComponent(text)
-    );
-
-}
-
-
-loadUser();
-loadLeaderboard();
-
-</script>
-
-</body>
-</html>
+    /*
+      Коли підключимо server.js,
+      тут будуть
