@@ -1289,31 +1289,37 @@ body {
 
 
   <!-- НИЖНЄ МЕНЮ -->
-  <nav class="bottom-nav">
+<nav class="bottom-nav">
 
-    <button class="nav-btn active" id="nav-home"
-            onclick="openPage('home')">
-      <span class="nav-icon">🏠</span>
-      Головна
-    </button>
+  <button class="nav-btn active" id="nav-home"
+          onclick="openPage('home')">
+    <span class="nav-icon">🏠</span>
+    Головна
+  </button>
 
-    <button class="nav-btn" id="nav-referrals"
-            onclick="openPage('referrals')">
-      <span class="nav-icon">👥</span>
-      Реферали
-    </button>
+  <button class="nav-btn" id="nav-inventory"
+          onclick="openPage('inventory')">
+    <span class="nav-icon">🎁</span>
+    Інвентар
+  </button>
 
-    <button class="nav-btn" id="nav-wheel"
-            onclick="openPage('wheel')">
-      <span class="nav-icon">🎡</span>
-      Колесо
-    </button>
+  <button class="nav-btn" id="nav-referrals"
+          onclick="openPage('referrals')">
+    <span class="nav-icon">👥</span>
+    Реферали
+  </button>
 
-    <button class="nav-btn" id="nav-leaderboard"
-            onclick="openPage('leaderboard')">
-      <span class="nav-icon">🏆</span>
-      Лідерборд
-    </button>
+  <button class="nav-btn" id="nav-wheel"
+          onclick="openPage('wheel')">
+    <span class="nav-icon">🎰</span>
+    Рулетка
+  </button>
+
+  <button class="nav-btn" id="nav-leaderboard"
+          onclick="openPage('leaderboard')">
+    <span class="nav-icon">🏆</span>
+    Лідерборд
+  </button>
 
   </nav>
 
@@ -1701,6 +1707,24 @@ function openPage(pageName) {
     top: 0,
     behavior: "smooth"
   });
+}
+  // 🧸 КЛІК ПО ВЕДМЕДИКУ
+let stars = 0;
+
+function clickBear() {
+
+  stars++;
+
+  document.getElementById("starCount").textContent = stars;
+  document.getElementById("bearStarCount").textContent = stars;
+
+  const bear = document.getElementById("bear");
+
+  bear.style.transform = "scale(0.88) rotate(-5deg)";
+
+  setTimeout(() => {
+    bear.style.transform = "scale(1) rotate(0deg)";
+  }, 120);
 }
   // 🎡 КОЛЕСО ПОДАРУНКІВ
 function spinWheel() {
