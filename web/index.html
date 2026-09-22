@@ -984,6 +984,41 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+    /* 🎁 ПРИЗИ НА КОЛЕСІ */
+
+.wheel {
+  position: relative;
+}
+
+.wheel-prize {
+  position: absolute;
+  width: 60px;
+  height: 55px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 16px;
+
+  text-align: center;
+  z-index: 2;
+
+  text-shadow: 0 2px 4px rgba(0,0,0,.6);
+}
+
+.prize-1 { top: 25px; left: 105px; }
+.prize-2 { top: 55px; right: 38px; }
+.prize-3 { top: 115px; right: 20px; }
+.prize-4 { bottom: 55px; right: 38px; }
+.prize-5 { bottom: 25px; left: 105px; }
+.prize-6 { bottom: 55px; left: 38px; }
+.prize-7 { top: 115px; left: 20px; }
+.prize-8 { top: 55px; left: 38px; }
   </style>
 </head>
   
@@ -1192,77 +1227,100 @@ body {
 
     </div>
 
-  </section>
+</section> 
+    <!-- КОЛЕСА -->
+<section id="wheel" class="page">
 
+  <div class="section-title">
+    🎡 Колеса
+  </div>
 
-  <!-- КОЛЕСО -->
-  <section id="wheel" class="page">
+  <!-- ⭐ КОЛЕСО ЗА ЗІРКИ -->
+  <div class="card wheel-game-card">
 
-    <div class="card wheel-box">
+    <div class="wheel-game-title">
+      ⭐ Колесо за зірки
+    </div>
 
-      <div class="section-title">
-        🎡 Колесо подарунків
+    <div class="wheel-wrapper">
+
+      <div class="wheel-pointer">
+        ▼
       </div>
 
-      <div class="notice">
-        Для одного обертання потрібно <b>1 квиток</b>.
-        Перед грою необхідно бути підписаним на наш канал.
-      </div>
+      <div class="wheel" id="starsWheel">
 
-      <div class="pointer"></div>
+        <div class="wheel-prize prize-1">⭐<br>5</div>
+        <div class="wheel-prize prize-2">⭐<br>10</div>
+        <div class="wheel-prize prize-3">🎟<br>+1</div>
+        <div class="wheel-prize prize-4">🎁<br>Gift</div>
+        <div class="wheel-prize prize-5">⭐<br>20</div>
+        <div class="wheel-prize prize-6">🎟<br>+2</div>
+        <div class="wheel-prize prize-7">💎<br>NFT</div>
+        <div class="wheel-prize prize-8">😈<br>0</div>
 
-      <div class="wheel" id="wheelElement">
         <div class="wheel-center">
-          🎁
-        </div>
-      </div>
-
-      <div style="color:#9298b5;font-size:13px;">
-        Твої квитки:
-        <b class="tickets" id="wheelTickets">0</b>
-      </div>
-
-      <button class="button" id="spinButton" onclick="spinWheel()">
-        🎰 КРУТИТИ
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <div class="section-title">
-        🎁 Можливі призи
-      </div>
-
-      <div class="prizes">
-
-        <div class="prize">
-          <div class="prize-icon">🧸</div>
-          NFT Gift
-        </div>
-
-        <div class="prize">
-          <div class="prize-icon">⭐</div>
-          Stars
-        </div>
-
-        <div class="prize">
-          <div class="prize-icon">💎</div>
-          NFT
-        </div>
-
-        <div class="prize">
-          <div class="prize-icon">🎟</div>
-          + квитки
+          ⭐
         </div>
 
       </div>
 
     </div>
 
-  </section>
+    <div class="wheel-cost">
+      10 ⭐ за обертання
+    </div>
+
+    <button class="button" id="starsSpinButton">
+      🎡 КРУТИТИ ЗА ЗІРКИ
+    </button>
+
+  </div>
 
 
+  <!-- 👥 КОЛЕСО ЗА РЕФЕРАЛІВ -->
+  <div class="card wheel-game-card">
+
+    <div class="wheel-game-title">
+      👥 Колесо за рефералів
+    </div>
+
+    <div class="wheel-wrapper">
+
+      <div class="wheel-pointer">
+        ▼
+      </div>
+
+      <div class="wheel" id="refWheel">
+
+        <div class="wheel-prize prize-1">🎟<br>+1</div>
+        <div class="wheel-prize prize-2">⭐<br>5</div>
+        <div class="wheel-prize prize-3">🎁<br>Gift</div>
+        <div class="wheel-prize prize-4">⭐<br>10</div>
+        <div class="wheel-prize prize-5">🎟<br>+2</div>
+        <div class="wheel-prize prize-6">💎<br>NFT</div>
+        <div class="wheel-prize prize-7">⭐<br>20</div>
+        <div class="wheel-prize prize-8">😈<br>0</div>
+
+        <div class="wheel-center">
+          👥
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="wheel-cost">
+      1 реферал за обертання
+    </div>
+
+    <button class="button secondary" id="refSpinButton">
+      🎡 КРУТИТИ ЗА РЕФЕРАЛІВ
+    </button>
+
+  </div>
+
+</section>
   <!-- ЛІДЕРБОРД -->
   <section id="leaderboard" class="page">
 
@@ -1726,6 +1784,64 @@ function clickBear() {
     bear.style.transform = "scale(1) rotate(0deg)";
   }, 120);
 }
+  // 🎡 ДВА НОВИХ КОЛЕСА
+
+let starsWheelRotation = 0;
+let refWheelRotation = 0;
+
+function spinStarsWheel() {
+
+  const wheel = document.getElementById("starsWheel");
+  const button = document.getElementById("starsSpinButton");
+
+  if (!wheel || !button) return;
+
+  button.disabled = true;
+
+  const randomRotation =
+    1800 + Math.floor(Math.random() * 1440);
+
+  starsWheelRotation += randomRotation;
+
+  wheel.style.transform =
+    `rotate(${starsWheelRotation}deg)`;
+
+  setTimeout(() => {
+    button.disabled = false;
+  }, 4000);
+}
+
+
+function spinRefWheel() {
+
+  const wheel = document.getElementById("refWheel");
+  const button = document.getElementById("refSpinButton");
+
+  if (!wheel || !button) return;
+
+  button.disabled = true;
+
+  const randomRotation =
+    1800 + Math.floor(Math.random() * 1440);
+
+  refWheelRotation += randomRotation;
+
+  wheel.style.transform =
+    `rotate(${refWheelRotation}deg)`;
+
+  setTimeout(() => {
+    button.disabled = false;
+  }, 4000);
+}
+
+
+document
+  .getElementById("starsSpinButton")
+  ?.addEventListener("click", spinStarsWheel);
+
+document
+  .getElementById("refSpinButton")
+  ?.addEventListener("click", spinRefWheel);
   // 🎡 КОЛЕСО ПОДАРУНКІВ
 function spinWheel() {
 
