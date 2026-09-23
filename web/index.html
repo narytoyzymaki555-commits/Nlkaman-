@@ -1212,24 +1212,22 @@ font-size: 38vw;
   <!-- ВЕРХНЯ ПАНЕЛЬ -->
   <div class="top-panel">
 
-    <!-- КОРИСТУВАЧ -->
-    <div class="user-box">
+<!-- КОРИСТУВАЧ -->
+<div class="user-box">
 
-      <div class="avatar top-avatar" id="avatar">
-        N
-      </div>
+  <div class="avatar top-avatar" id="avatar">
+    N
+  </div>
 
-      <div class="user-info">
-        <div class="profile-name" id="username">
-          Користувач
-        </div>
+  <div class="user-info">
+    <div class="user-name" id="userName">@user</div>
 
-        <div class="user-status">
-          Учасник
-        </div>
-      </div>
-
+    <div class="user-status">
+      Учасник
     </div>
+  </div>
+
+</div>
 
 
     <!-- КВИТКИ -->
@@ -2162,7 +2160,23 @@ document.addEventListener("click", (event) => {
     }
   }
 }
-</script>
+loadUser();
 
+// 👤 ПОКАЗУЄМО TELEGRAM USERNAME
+const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+
+if (tgUser) {
+  const userNameElement = document.getElementById("userName");
+
+  if (userNameElement) {
+    if (tgUser.username) {
+      userNameElement.textContent = "@" + tgUser.username;
+    } else {
+      userNameElement.textContent = tgUser.first_name || "Користувач";
+    }
+  }
+}
+
+</script>
 </body>
 </html>
