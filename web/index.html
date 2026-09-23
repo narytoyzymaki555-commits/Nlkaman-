@@ -1413,7 +1413,75 @@ body {
 #home .home-wheel-button {
   flex: none;
 }
+.inventory-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 
+  margin: 12px 0;
+  padding: 14px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(18, 61, 56, .95),
+    rgba(8, 43, 41, .95)
+  );
+
+  border: 1px solid rgba(85, 233, 181, .18);
+  border-radius: 18px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, .25);
+}
+
+.inventory-item-icon {
+  width: 68px;
+  height: 68px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 48px;
+}
+
+.inventory-item-info {
+  flex: 1;
+}
+
+.inventory-item-name {
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.inventory-item-subtitle {
+  margin-top: 4px;
+
+  color: #789c94;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.inventory-withdraw-button {
+  width: 100%;
+
+  margin-top: 10px;
+  padding: 9px 12px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #19a77b;
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
   </style>
 </head>
   
@@ -2183,11 +2251,10 @@ function saveInventory() {
 
 function addToInventory(prize) {
   inventory.push({
-    id: Date.now(),
-    icon: prize.icon,
-    name: prize.text,
-    date: new Date().toLocaleString("uk-UA")
-  });
+  id: Date.now(),
+  icon: prize.icon,
+  name: prize.text
+});
 
   saveInventory();
   renderInventory();
@@ -2226,24 +2293,27 @@ function renderInventory() {
     card.className = "inventory-item";
 
     card.innerHTML = `
-      <div class="inventory-item-icon">
-        ${item.icon}
-      </div>
+  <div class="inventory-item-icon">
+    ${item.icon}
+  </div>
 
-      <div class="inventory-item-info">
-        <div class="inventory-item-name">
-          ${item.name}
-        </div>
+  <div class="inventory-item-info">
+    <div class="inventory-item-name">
+      ${item.name}
+    </div>
 
-        <div class="inventory-item-date">
-          ${item.date}
-        </div>
-      </div>
-    `;
+    <div class="inventory-item-subtitle">
+      Твій виграний подарунок
+    </div>
 
-    card.onclick = () =>
-      openInventoryItem(item.id);
-
+    <button
+      class="inventory-withdraw-button"
+      onclick="event.stopPropagation(); openInventoryItem(${item.id})"
+    >
+      📤 ВИВЕСТИ
+    </button>
+  </div>
+`;
     container.appendChild(card);
   });
 }
@@ -2255,33 +2325,55 @@ function openInventoryItem(itemId) {
 
   if (!item) return;
 
-  const choice = confirm(
+  const action = prompt(
     "🎁 " + item.name +
-    "\n\nOK — продати за 10 квитків.\n" +
-    "Скасувати — залишити подарунок."
+    "\n\n" +
+    "Введи номер дії:\n\n" +
+    "1 — 📤 Вивести\n" +
+    "2 — 🎟 Продати за 10 квитків\n" +
+    "3 — ❌ Скасувати"
   );
 
-  if (!choice) return;
+  if (action === "3" || action === null) {
+    return;
+  }
 
-  tickets += 10;
+  if (action === "1") {
+    alert(
+      "📤 Виведення подарунка\n\n" +
+      "Подарунок: " + item.name +
+      "\n\n" +
+      "Функція виведення буде доступна пізніше."
+    );
 
-  inventory = inventory.filter(
-    item => item.id !== itemId
-  );
+    return;
+  }
 
-  saveInventory();
+  if (action === "2") {
+    tickets += 10;
 
-  localStorage.setItem(
-    "nlkaman_tickets",
-    tickets
-  );
+    inventory = inventory.filter(
+      item => item.id !== itemId
+    );
 
-  updateTickets();
-  renderInventory();
+    saveInventory();
 
-  alert(
-    "✅ Подарунок продано!\n+10 квитків"
-  );
+    localStorage.setItem(
+      "nlkaman_tickets",
+      tickets
+    );
+
+    updateTickets();
+    renderInventory();
+
+    alert(
+      "✅ Подарунок продано!\n+10 квитків"
+    );
+
+    return;
+  }
+
+  alert("❌ Невірний вибір");
 }
   function updateTickets() {
   const ticketCount = document.getElementById("ticketCount");
