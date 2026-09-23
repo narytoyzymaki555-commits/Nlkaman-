@@ -1003,6 +1003,9 @@ body {
 .wheel-sector {
   position: absolute;
 
+  left: 50%;
+  top: 50%;
+
   width: 70px;
   height: 55px;
 
@@ -1020,12 +1023,30 @@ body {
   text-align: center;
 
   z-index: 4;
-
   pointer-events: none;
 
   text-shadow:
     0 2px 4px rgba(0,0,0,.7),
     0 0 8px rgba(0,0,0,.4);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--angle))
+    translateY(-92px)
+    rotate(calc(-1 * var(--angle)));
+}
+
+.wheel-sector small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  line-height: 15px;
 }
 
 .wheel-sector small {
@@ -1042,57 +1063,37 @@ body {
 }
 
 
-/* ВЕРХ */
-
 .sector-1 {
-  top: 25px;
-  left: 105px;
+  --angle: 0deg;
 }
 
 .sector-2 {
-  top: 48px;
-  right: 35px;
+  --angle: 45deg;
 }
 
-
-/* ПРАВА СТОРОНА */
-
 .sector-3 {
-  top: 112px;
-  right: 15px;
+  --angle: 90deg;
 }
 
 .sector-4 {
-  bottom: 48px;
-  right: 35px;
+  --angle: 135deg;
 }
 
-
-/* НИЗ */
-
 .sector-5 {
-  bottom: 25px;
-  left: 105px;
+  --angle: 180deg;
 }
 
 .sector-6 {
-  bottom: 48px;
-  left: 35px;
+  --angle: 225deg;
 }
 
-
-/* ЛІВА СТОРОНА */
-
 .sector-7 {
-  top: 112px;
-  left: 15px;
+  --angle: 270deg;
 }
 
 .sector-8 {
-  top: 48px;
-  left: 35px;
+  --angle: 315deg;
 }
-
 
 /* ЦЕНТР */
 
