@@ -2573,6 +2573,20 @@ function spinRefWheel() {
 
   if (!wheel || !button) return;
 
+  if (tickets < 1) {
+    alert("❌ Потрібен 1 квиток");
+    return;
+  }
+
+  tickets -= 1;
+
+  localStorage.setItem(
+    "nlkaman_tickets",
+    tickets
+  );
+
+  updateTickets();
+
   button.disabled = true;
 
   const randomRotation =
@@ -2584,6 +2598,7 @@ function spinRefWheel() {
     `rotate(${refWheelRotation}deg)`;
 
   setTimeout(() => {
+
     const prizes = [
       { icon: "🎟", text: "+1 квиток" },
       { icon: "🪙", text: "5 зірок" },
@@ -2595,8 +2610,13 @@ function spinRefWheel() {
       { icon: "😈", text: "Нічого" }
     ];
 
-    const prize =
-      prizes[Math.floor(Math.random() * prizes.length)];
+    const normalizedRotation =
+      ((refWheelRotation % 360) + 360) % 360;
+
+    const prizeIndex =
+      ((Math.round(-normalizedRotation / 45) % prizes.length) + prizes.length) % prizes.length;
+
+    const prize = prizes[prizeIndex];
 
     if (
       prize.text === "Gift" ||
@@ -2625,8 +2645,15 @@ function spinRefWheel() {
       tickets += 2;
     }
 
-    localStorage.setItem("nlkaman_stars", stars);
-    localStorage.setItem("nlkaman_tickets", tickets);
+    localStorage.setItem(
+      "nlkaman_stars",
+      stars
+    );
+
+    localStorage.setItem(
+      "nlkaman_tickets",
+      tickets
+    );
 
     updateStars();
     updateTickets();
@@ -2643,9 +2670,9 @@ function spinRefWheel() {
       .classList.add("show");
 
     button.disabled = false;
+
   }, 4000);
 }
-
 document
   .getElementById("starsSpinButton")
   ?.addEventListener("click", spinStarsWheel);
