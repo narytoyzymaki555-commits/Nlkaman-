@@ -1142,9 +1142,9 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
-  height: 150px;
-  font-size: 100px;
+width: 60vw;
+height: 60vw;
+font-size: 38vw;
   cursor: pointer;
   user-select: none;
   filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
@@ -1281,47 +1281,6 @@ body {
   </div>
 
 </div>
-  <!-- ІНВЕНТАР -->
-  <div class="inventory-card">
-
-    <div class="inventory-header">
-
-      <div>
-        <div class="inventory-title">
-          🎒 МІЙ ІНВЕНТАР
-        </div>
-
-        <div class="inventory-subtitle">
-          Твої отримані призи
-        </div>
-      </div>
-
-      <div class="inventory-count">
-        0
-      </div>
-
-    </div>
-
-
-    <!-- ПОКИ НЕМАЄ ПРИЗІВ -->
-    <div class="inventory-empty" id="inventoryList">
-
-      <div class="inventory-gift">
-        🎁
-      </div>
-
-      <div class="inventory-empty-title">
-        У вас поки що немає призів
-      </div>
-
-      <div class="inventory-empty-text">
-        Крути колесо та отримуй подарунки
-      </div>
-
-    </div>
-
-  </div>
-
 
   <!-- КОЛЕСО -->
   <div class="home-wheel-card">
@@ -1971,15 +1930,21 @@ function openPage(pageName) {
     behavior: "smooth"
   });
 }
-  // 🧸 КЛІК ПО ВЕДМЕДИКУ
-let stars = 0;
+// 🧸 КЛІК ПО ВЕДМЕДИКУ
+let stars = Number(localStorage.getItem("nlkaman_stars")) || 0;
+
+function updateStars() {
+  document.getElementById("starCount").textContent = stars;
+  document.getElementById("bearStarCount").textContent = stars;
+}
 
 function clickBear() {
 
   stars++;
 
-  document.getElementById("starCount").textContent = stars;
-  document.getElementById("bearStarCount").textContent = stars;
+  localStorage.setItem("nlkaman_stars", stars);
+
+  updateStars();
 
   const bear = document.getElementById("bear");
 
@@ -1989,6 +1954,8 @@ function clickBear() {
     bear.style.transform = "scale(1) rotate(0deg)";
   }, 120);
 }
+
+updateStars();
   // 🎡 ДВА НОВИХ КОЛЕСА
 
 let starsWheelRotation = 0;
