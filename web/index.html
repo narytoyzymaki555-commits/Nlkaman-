@@ -2164,6 +2164,10 @@ function playAdventureMusic() {
 
 let tickets = Number(localStorage.getItem("nlkaman_tickets")) || 0;
   
+  let referralLink = "";
+  
+let referrals = 0;
+  
 let inventory = JSON.parse(
   localStorage.getItem("nlkaman_inventory") || "[]"
 );
@@ -2285,7 +2289,27 @@ function openInventoryItem(itemId) {
   }
 }
 
+function copyReferral() {
+  if (!referralLink) return;
 
+  navigator.clipboard.writeText(referralLink);
+
+  alert("✅ Посилання скопійовано!");
+}
+
+function shareReferral() {
+  if (!referralLink) return;
+
+  const text = "🎁 Приєднуйся до Nlkaman Gifts!";
+
+  const url =
+    "https://t.me/share/url?url=" +
+    encodeURIComponent(referralLink) +
+    "&text=" +
+    encodeURIComponent(text);
+
+  window.open(url, "_blank");
+}
   // =========================
   // КОРИСТУВАЧ
   // =========================
@@ -2537,7 +2561,6 @@ function closeWin() {
   document.getElementById("winModal").classList.remove("show");
 }
 function spinRefWheel() {
-
   const wheel = document.getElementById("refWheel");
   const button = document.getElementById("refSpinButton");
 
@@ -2554,14 +2577,74 @@ function spinRefWheel() {
     `rotate(${refWheelRotation}deg)`;
 
   setTimeout(() => {
+    const prizes = [
+      { icon: "🎟", text: "+1 квиток" },
+      { icon: "🪙", text: "5 зірок" },
+      { icon: "🎁", text: "Gift" },
+      { icon: "🪙", text: "10 зірок" },
+      { icon: "🎟", text: "+2 квитки" },
+      { icon: "💎", text: "NFT" },
+      { icon: "🪙", text: "20 зірок" },
+      { icon: "😈", text: "Нічого" }
+    ];
+
+    const prize =
+      prizes[Math.floor(Math.random() * prizes.length)];
+
+    if (
+      prize.text === "Gift" ||
+      prize.text === "NFT"
+    ) {
+      addToInventory(prize);
+    }
+
+    if (prize.text === "5 зірок") {
+      stars += 5;
+    }
+
+    if (prize.text === "10 зірок") {
+      stars += 10;
+    }
+
+    if (prize.text === "20 зірок") {
+      stars += 20;
+    }
+
+    if (prize.text === "+1 квиток") {
+      tickets += 1;
+    }
+
+    if (prize.text === "+2 квитки") {
+      tickets += 2;
+    }
+
+    localStorage.setItem("nlkaman_stars", stars);
+    localStorage.setItem("nlkaman_tickets", tickets);
+
+    updateStars();
+    updateTickets();
+
+    playWinSound();
+
+    document.getElementById("winIcon").textContent =
+      prize.icon;
+
+    document.getElementById("winText").textContent =
+      "Ти виграв: " + prize.text + "! 🎉";
+
+    document.getElementById("winModal")
+      .classList.add("show");
+
     button.disabled = false;
   }, 4000);
 }
 
-
 document
   .getElementById("starsSpinButton")
   ?.addEventListener("click", spinStarsWheel);
+  document
+  .getElementById("refSpinButton")
+  ?.addEventListener("click", spinRefWheel);
 
 document
   .getElementById("refSpinButton")
