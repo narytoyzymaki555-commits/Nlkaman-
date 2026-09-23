@@ -2324,7 +2324,8 @@ if (user.photo_url) {
 
 loadUser();
 updateTickets();
-
+renderInventory();
+  
 function openPage(pageName) {
   document.querySelectorAll(".page").forEach(page => {
     page.classList.remove("active");
@@ -2481,7 +2482,12 @@ function spinStarsWheel() {
 
     const prize =
       prizes[Math.floor(Math.random() * prizes.length)];
-
+if (
+  prize.text === "Gift" ||
+  prize.text === "NFT"
+) {
+  addToInventory(prize);
+}
     playWinSound();
 
     document.getElementById("winIcon").textContent =
