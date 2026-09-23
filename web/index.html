@@ -2162,21 +2162,6 @@ document.addEventListener("click", (event) => {
 }
 loadUser();
 
-// 👤 ПОКАЗУЄМО TELEGRAM USERNAME
-const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
-
-if (tgUser) {
-  const userNameElement = document.getElementById("userName");
-
-  if (userNameElement) {
-    if (tgUser.username) {
-      userNameElement.textContent = "@" + tgUser.username;
-    } else {
-      userNameElement.textContent = tgUser.first_name || "Користувач";
-    }
-  }
-}
-
 </script>
 </body>
 </html>
