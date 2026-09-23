@@ -2503,6 +2503,20 @@ if (prize.text === "20 зірок") {
 
 localStorage.setItem("nlkaman_stars", stars);
 updateStars();
+    if (prize.text === "+1 квиток") {
+  tickets += 1;
+}
+
+if (prize.text === "+2 квитки") {
+  tickets += 2;
+}
+
+localStorage.setItem(
+  "nlkaman_tickets",
+  tickets
+);
+
+updateTickets();
     playWinSound();
 
     document.getElementById("winIcon").textContent =
