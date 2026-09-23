@@ -483,7 +483,7 @@ grid-template-columns: minmax(0, 1.3fr) .7fr .7fr;
   min-width: 0;
 }
 
-.user-info .profile-name {
+.user-name {
   font-size: 14px;
 
   white-space: nowrap;
@@ -694,25 +694,20 @@ grid-template-columns: minmax(0, 1.3fr) .7fr .7fr;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 12px;
-  
-  padding: 13px;
-
+  padding: 18px;
   border-radius: 21px;
-
   background:
     linear-gradient(
       135deg,
       rgba(124,92,255,.16),
       rgba(32,169,255,.06)
     );
-
   border: 1px solid rgba(124,92,255,.3);
-
   overflow: hidden;
 }
 .home-wheel-icon {
@@ -797,7 +792,7 @@ grid-template-columns: minmax(0, 1.15fr) .6fr .6fr;
     height: 40px;
   }
 
-  .user-info .profile-name {
+  .user-name {
     font-size: 12px;
   }
 
@@ -929,7 +924,7 @@ body {
   background: rgba(8, 65, 62, .9) !important;
 }
 
-.nav {
+.bottom-nav {
   background: rgba(5, 22, 24, .96) !important;
   border-top: 1px solid rgba(43, 214, 160, .2);
 }
@@ -1210,6 +1205,49 @@ font-size: 38vw;
   display: flex;
   margin-top: 12px;
 }
+
+/* ===== FIX: ГОЛОВНА — ВСЕ В ОДНУ КОЛОНКУ ===== */
+#home {
+  display: none;
+  width: 100%;
+  min-width: 0;
+}
+
+#home.active {
+  display: block !important;
+}
+
+#home .top-panel {
+  width: 100%;
+}
+
+#home > .telegram-id-box,
+#home > .bear-clicker,
+#home > .home-wheel-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+#home > .bear-clicker,
+#home > .home-wheel-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  float: none;
+  clear: both;
+}
+
+#home .home-wheel-info {
+  width: 100%;
+  flex: none;
+  text-align: center;
+}
+
+#home .home-wheel-button {
+  flex: none;
+}
+
   </style>
 </head>
   
@@ -2076,68 +2114,6 @@ document
 document
   .getElementById("refSpinButton")
   ?.addEventListener("click", spinRefWheel);
-  // 🎡 КОЛЕСО ПОДАРУНКІВ
-function spinWheel() {
-
-  // 🔊 звук обертання
-  playSpinSound();
-
-  const wheel = document.getElementById("wheelElement");
-  const button = document.getElementById("spinButton");
-
-  // Не дозволяємо крутити повторно під час обертання
-  button.disabled = true;
-
-  // Випадковий приз
-  const prizes = [
-    {
-      icon: "🧸",
-      text: "NFT Gift"
-    },
-    {
-      icon: "⭐",
-      text: "Telegram Stars"
-    },
-    {
-      icon: "💎",
-      text: "NFT"
-    },
-    {
-      icon: "🎟",
-      text: "+1 квиток"
-    }
-  ];
-
-  const prize =
-    prizes[Math.floor(Math.random() * prizes.length)];
-
-  // Випадкове обертання
-  const rotation =
-    1800 + Math.floor(Math.random() * 1440);
-
-  wheel.style.transform =
-    `rotate(${rotation}deg)`;
-
-  // Чекаємо завершення обертання
-  setTimeout(() => {
-
-    // 🎉 звук виграшу
-    playWinSound();
-
-    // Показуємо приз
-    document.getElementById("winIcon").textContent =
-      prize.icon;
-
-    document.getElementById("winText").textContent =
-      "Ти виграв: " + prize.text + "! 🎉";
-
-    document.getElementById("winModal")
-      .classList.add("show");
-
-    button.disabled = false;
-
-  }, 4000);
-}
   // 🔘 Звук для всіх кнопок
 document.addEventListener("click", (event) => {
 
@@ -2176,8 +2152,6 @@ document.addEventListener("click", (event) => {
     }
   }
 }
-loadUser();
-
 </script>
 </body>
 </html>
