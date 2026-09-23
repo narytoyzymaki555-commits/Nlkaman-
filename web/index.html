@@ -1968,8 +1968,20 @@ function spinStarsWheel() {
 
   if (!wheel || !button) return;
 
+  // ⭐ Перевіряємо, чи вистачає зірок
+  if (stars < 10) {
+    alert("❌ Потрібно 10 ⭐");
+    return;
+  }
+
+  // ⭐ Списуємо 10 зірок
+  stars -= 10;
+  localStorage.setItem("nlkaman_stars", stars);
+  updateStars();
+
   button.disabled = true;
 
+  // 🎡 Обертання
   const randomRotation =
     1800 + Math.floor(Math.random() * 1440);
 
@@ -1978,11 +1990,38 @@ function spinStarsWheel() {
   wheel.style.transform =
     `rotate(${starsWheelRotation}deg)`;
 
+  // 🎉 Після обертання показуємо результат
   setTimeout(() => {
+
+    const prizes = [
+      { icon: "⭐", text: "5 зірок" },
+      { icon: "⭐", text: "10 зірок" },
+      { icon: "🎟", text: "+1 квиток" },
+      { icon: "🎁", text: "Gift" },
+      { icon: "⭐", text: "20 зірок" },
+      { icon: "🎟", text: "+2 квитки" },
+      { icon: "💎", text: "NFT" },
+      { icon: "😈", text: "Нічого" }
+    ];
+
+    const prize =
+      prizes[Math.floor(Math.random() * prizes.length)];
+
+    playWinSound();
+
+    document.getElementById("winIcon").textContent =
+      prize.icon;
+
+    document.getElementById("winText").textContent =
+      "Ти виграв: " + prize.text + "! 🎉";
+
+    document.getElementById("winModal")
+      .classList.add("show");
+
     button.disabled = false;
+
   }, 4000);
 }
-
 
 function spinRefWheel() {
 
