@@ -1939,9 +1939,13 @@ function playAdventureMusic() {
   };
 
 
-  let tickets = 0;
-  let referrals = 0;
-  let referralLink = "";
+  function updateTickets() {
+  const ticketCount = document.getElementById("ticketCount");
+
+  if (ticketCount) {
+    ticketCount.textContent = tickets;
+  }
+}
 
 
   // =========================
@@ -1969,6 +1973,8 @@ function playAdventureMusic() {
 }
 
 loadUser();
+renderInventory();
+updateTickets();
 
 function openPage(pageName) {
   document.querySelectorAll(".page").forEach(page => {
