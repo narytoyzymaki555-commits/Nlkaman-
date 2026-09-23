@@ -1019,6 +1019,59 @@ body {
 .prize-6 { bottom: 55px; left: 38px; }
 .prize-7 { top: 115px; left: 20px; }
 .prize-8 { top: 55px; left: 38px; }
+    /* 🧸 ВЕДМЕДИК */
+.bear-clicker {
+  margin-top: 15px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(43, 214, 160, .14), transparent 60%),
+    rgba(8, 35, 34, .85);
+  border: 1px solid rgba(43, 214, 160, .25);
+}
+
+.bear-title {
+  color: #8fffd0;
+  font-size: 14px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.bear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  font-size: 100px;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
+  transition: transform .12s ease;
+}
+
+.bear:active {
+  transform: scale(.88) rotate(-5deg);
+}
+
+.bear-reward {
+  color: #6effc2;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.bear-stars {
+  margin-top: 6px;
+  color: #9aada8;
+  font-size: 13px;
+}
+
+.bear-stars span {
+  color: #ffd95a;
+  font-weight: 900;
+  font-size: 16px;
+}
   </style>
 </head>
   
@@ -1090,16 +1143,44 @@ body {
       </div>
 
     </div>
+    <!-- ЗІРКИ -->
+<div class="top-stat stars-box">
+  <div class="top-stat-icon">⭐</div>
+  <div class="top-stat-value stars" id="starCount">0</div>
+  <div class="top-stat-label">Зірок</div>
+</div>
 
-  </div>
-
-
+</div>
+  
   <!-- TELEGRAM ID -->
   <div class="telegram-id-box" id="userid">
     Telegram ID: —
   </div>
 
+<!-- 🧸 ВЕДМЕДИК -->
+<div class="bear-clicker">
 
+  <div class="bear-title">
+    ⭐ КЛІКАЙ НА ВЕДМЕДИКА
+  </div>
+
+  <div
+    class="bear"
+    id="bear"
+    onclick="clickBear()"
+  >
+    🧸
+  </div>
+
+  <div class="bear-reward">
+    +1 ⭐ за клік
+  </div>
+
+  <div class="bear-stars">
+    Зірок: <span id="bearStarCount">0</span>
+  </div>
+
+</div>
   <!-- ІНВЕНТАР -->
   <div class="inventory-card">
 
