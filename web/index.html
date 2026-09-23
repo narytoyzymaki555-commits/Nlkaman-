@@ -2038,25 +2038,56 @@ function updateStars() {
   document.getElementById("starCount").textContent = stars;
   document.getElementById("bearStarCount").textContent = stars;
 }
+function playCoinSound() {
+  if (!soundEnabled) return;
 
+  initAudio();
+
+  const now = audioCtx.currentTime;
+
+  const oscillator = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  oscillator.type = "triangle";
+
+  oscillator.frequency.setValueAtTime(900, now);
+  oscillator.frequency.exponentialRampToValueAtTime(
+    1500,
+    now + 0.07
+  );
+
+  gain.gain.setValueAtTime(0.08, now);
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    now + 0.09
+  );
+
+  oscillator.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  oscillator.start(now);
+  oscillator.stop(now + 0.09);
+}
 function clickBear() {
-
   stars++;
 
   localStorage.setItem("nlkaman_stars", stars);
 
   updateStars();
 
-  const bear = document.getElementById("bear");
+  // 🪙 звук удару монетки
+  playCoinSound();
 
-  bear.style.transform = "scale(0.88) rotate(-5deg)";
+  const coin = document.querySelector(".click-coin");
 
-  setTimeout(() => {
-    bear.style.transform = "scale(1) rotate(0deg)";
-  }, 120);
+  if (coin) {
+    coin.style.transform = "scale(.90) rotate(-4deg)";
+
+    setTimeout(() => {
+      coin.style.transform = "scale(1) rotate(0deg)";
+    }, 120);
+  }
 }
-
-updateStars();
   // 🎡 ДВА НОВИХ КОЛЕСА
 
 let starsWheelRotation = 0;
