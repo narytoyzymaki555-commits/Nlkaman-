@@ -990,9 +990,14 @@ body {
   position: relative;
 }
 
-.wheel-prize {
+/* =========================
+   НОВІ СЕКТОРИ КОЛЕСА
+   ========================= */
+
+.wheel-sector {
   position: absolute;
-  width: 60px;
+
+  width: 70px;
   height: 55px;
 
   display: flex;
@@ -1001,24 +1006,118 @@ body {
   justify-content: center;
 
   color: #ffffff;
-  font-size: 13px;
+
+  font-size: 22px;
   font-weight: 900;
-  line-height: 16px;
 
+  line-height: 20px;
   text-align: center;
-  z-index: 2;
 
-  text-shadow: 0 2px 4px rgba(0,0,0,.6);
+  z-index: 4;
+
+  pointer-events: none;
+
+  text-shadow:
+    0 2px 4px rgba(0,0,0,.7),
+    0 0 8px rgba(0,0,0,.4);
 }
 
-.prize-1 { top: 25px; left: 105px; }
-.prize-2 { top: 55px; right: 38px; }
-.prize-3 { top: 115px; right: 20px; }
-.prize-4 { bottom: 55px; right: 38px; }
-.prize-5 { bottom: 25px; left: 105px; }
-.prize-6 { bottom: 55px; left: 38px; }
-.prize-7 { top: 115px; left: 20px; }
-.prize-8 { top: 55px; left: 38px; }
+.wheel-sector small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  line-height: 15px;
+}
+
+
+/* ВЕРХ */
+
+.sector-1 {
+  top: 25px;
+  left: 105px;
+}
+
+.sector-2 {
+  top: 48px;
+  right: 35px;
+}
+
+
+/* ПРАВА СТОРОНА */
+
+.sector-3 {
+  top: 112px;
+  right: 15px;
+}
+
+.sector-4 {
+  bottom: 48px;
+  right: 35px;
+}
+
+
+/* НИЗ */
+
+.sector-5 {
+  bottom: 25px;
+  left: 105px;
+}
+
+.sector-6 {
+  bottom: 48px;
+  left: 35px;
+}
+
+
+/* ЛІВА СТОРОНА */
+
+.sector-7 {
+  top: 112px;
+  left: 15px;
+}
+
+.sector-8 {
+  top: 48px;
+  left: 35px;
+}
+
+
+/* ЦЕНТР */
+
+.wheel-center {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 65px;
+  height: 65px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #082b29;
+
+  border: 5px solid #55e9b5;
+
+  font-size: 27px;
+
+  z-index: 10;
+
+  box-shadow:
+    0 0 20px rgba(85,233,181,.3);
+}
     /* 🎡 НОВІ КОЛЕСА */
 
 .wheel-game-card {
