@@ -1139,16 +1139,49 @@ body {
 }
 
 .bear {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-width: 60vw;
-height: 60vw;
-font-size: 38vw;
+
+  width: 60vw;
+  height: 60vw;
+
   cursor: pointer;
   user-select: none;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,.35));
-  transition: transform .12s ease;
+
+  transition:
+    transform .12s ease,
+    filter .12s ease;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.click-coin {
+  width: 58vw;
+  height: 58vw;
+
+  max-width: 280px;
+  max-height: 280px;
+
+  object-fit: contain;
+
+  user-select: none;
+  -webkit-user-drag: none;
+
+  filter:
+    drop-shadow(0 12px 20px rgba(0,0,0,.45))
+    drop-shadow(0 0 18px rgba(255,210,70,.18));
+
+  transition:
+    transform .12s ease,
+    filter .12s ease;
+}
+
+.bear:active .click-coin {
+  transform: scale(.90);
+  filter:
+    drop-shadow(0 7px 12px rgba(0,0,0,.45))
+    drop-shadow(0 0 25px rgba(255,210,70,.30));
 }
 
 .bear:active {
@@ -1323,12 +1356,16 @@ font-size: 38vw;
 </div>
 
   <div
-    class="bear"
-    id="bear"
-    onclick="clickBear()"
+  class="bear"
+  id="bear"
+  onclick="clickBear()"
+>
+  <img
+    src="kam-coin.png.PNG"
+    class="click-coin"
+    draggable="false"
   >
-    🧸
-  </div>
+</div>
 
   <div class="bear-reward">
 +1 NIK за клік
