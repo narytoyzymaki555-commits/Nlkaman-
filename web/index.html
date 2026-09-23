@@ -691,10 +691,12 @@ grid-template-columns: minmax(0, 1.3fr) .7fr .7fr .7fr;
 
 .home-wheel-card {
   margin-top: 12px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 
   display: flex;
   align-items: center;
-
   gap: 12px;
 
   padding: 13px;
@@ -709,8 +711,9 @@ grid-template-columns: minmax(0, 1.3fr) .7fr .7fr .7fr;
     );
 
   border: 1px solid rgba(124,92,255,.3);
-}
 
+  overflow: hidden;
+}
 .home-wheel-icon {
   width: 48px;
   height: 48px;
