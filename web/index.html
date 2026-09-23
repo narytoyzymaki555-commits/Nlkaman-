@@ -120,7 +120,13 @@
       background: linear-gradient(135deg, #7c5cff, #20cfff);
       box-shadow: 0 0 25px rgba(124, 92, 255, .45);
     }
-
+.telegram-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
     .profile-name {
       font-size: 18px;
       font-weight: 800;
@@ -2156,7 +2162,7 @@ function playAdventureMusic() {
     username: ""
   };
 
-
+let tickets = Number(localStorage.getItem("nlkaman_tickets")) || 0;
   function updateTickets() {
   const ticketCount = document.getElementById("ticketCount");
 
@@ -2182,8 +2188,20 @@ function playAdventureMusic() {
     document.getElementById("userid").textContent =
       "Telegram ID: " + user.id;
 
-    document.getElementById("avatar").textContent =
-      (user.first_name || "N").charAt(0).toUpperCase();
+  const avatar = document.getElementById("avatar");
+
+if (user.photo_url) {
+  avatar.innerHTML = `
+    <img
+      src="${user.photo_url}"
+      class="telegram-avatar"
+      alt="Avatar"
+    >
+  `;
+} else {
+  avatar.textContent =
+    (user.first_name || "N").charAt(0).toUpperCase();
+}
  /*
   Коли підключимо server.js,
   тут будуть дані з сервера.
@@ -2191,7 +2209,6 @@ function playAdventureMusic() {
 }
 
 loadUser();
-renderInventory();
 updateTickets();
 
 function openPage(pageName) {
