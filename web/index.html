@@ -2163,6 +2163,120 @@ function playAdventureMusic() {
   };
 
 let tickets = Number(localStorage.getItem("nlkaman_tickets")) || 0;
+  
+let inventory = JSON.parse(
+  localStorage.getItem("nlkaman_inventory") || "[]"
+);
+
+function saveInventory() {
+  localStorage.setItem(
+    "nlkaman_inventory",
+    JSON.stringify(inventory)
+  );
+}
+
+function addToInventory(prize) {
+  inventory.push({
+    id: Date.now(),
+    icon: prize.icon,
+    name: prize.text,
+    date: new Date().toLocaleString("uk-UA")
+  });
+
+  saveInventory();
+  renderInventory();
+}
+
+function renderInventory() {
+  const inventoryPage =
+    document.getElementById("inventory");
+
+  if (!inventoryPage) return;
+
+  const empty =
+    inventoryPage.querySelector(".inventory-empty");
+
+  if (inventory.length === 0) {
+    if (empty) empty.style.display = "flex";
+    return;
+  }
+
+  if (empty) empty.style.display = "none";
+
+  let container =
+    document.getElementById("inventoryItems");
+
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "inventoryItems";
+    inventoryPage.appendChild(container);
+  }
+
+  container.innerHTML = "";
+
+  inventory.forEach(item => {
+    const card = document.createElement("div");
+
+    card.className = "inventory-item";
+
+    card.innerHTML = `
+      <div class="inventory-item-icon">
+        ${item.icon}
+      </div>
+
+      <div class="inventory-item-info">
+        <div class="inventory-item-name">
+          ${item.name}
+        </div>
+
+        <div class="inventory-item-date">
+          ${item.date}
+        </div>
+      </div>
+    `;
+
+    card.onclick = () =>
+      openInventoryItem(item.id);
+
+    container.appendChild(card);
+  });
+}
+
+function openInventoryItem(itemId) {
+  const item = inventory.find(
+    item => item.id === itemId
+  );
+
+  if (!item) return;
+
+  const choice = confirm(
+    "🎁 " + item.name +
+    "\n\nOK — продати за 10 квитків.\n" +
+    "Скасувати — залишити подарунок."
+  );
+
+  if (!choice) return;
+
+  tickets += 10;
+
+  inventory = inventory.filter(
+    item => item.id !== itemId
+  );
+
+  saveInventory();
+
+  localStorage.setItem(
+    "nlkaman_tickets",
+    tickets
+  );
+
+  updateTickets();
+  renderInventory();
+
+  alert(
+    "✅ Подарунок продано!\n+10 квитків"
+  );
+}
   function updateTickets() {
   const ticketCount = document.getElementById("ticketCount");
 
