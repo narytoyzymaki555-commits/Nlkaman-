@@ -2506,8 +2506,13 @@ function spinStarsWheel() {
       { icon: "😈", text: "Нічого" }
     ];
 
-    const prize =
-      prizes[Math.floor(Math.random() * prizes.length)];
+   const normalizedRotation =
+  ((starsWheelRotation % 360) + 360) % 360;
+
+const prizeIndex =
+  ((Math.round(-normalizedRotation / 45) % prizes.length) + prizes.length) % prizes.length;
+
+const prize = prizes[prizeIndex];
 if (
   prize.text === "Gift" ||
   prize.text === "NFT"
