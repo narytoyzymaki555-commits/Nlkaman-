@@ -2488,6 +2488,21 @@ if (
 ) {
   addToInventory(prize);
 }
+
+if (prize.text === "5 зірок") {
+  stars += 5;
+}
+
+if (prize.text === "10 зірок") {
+  stars += 10;
+}
+
+if (prize.text === "20 зірок") {
+  stars += 20;
+}
+
+localStorage.setItem("nlkaman_stars", stars);
+updateStars();
     playWinSound();
 
     document.getElementById("winIcon").textContent =
