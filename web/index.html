@@ -255,7 +255,13 @@
       font-size: 25px;
       z-index: 2;
     }
-
+.wheel-center-coin {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 3px 7px rgba(0,0,0,.5));
+}
     .pointer {
       width: 0;
       height: 0;
@@ -1048,7 +1054,13 @@ body {
 
   line-height: 15px;
 }
-
+.wheel-coin {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,.5));
+}
 .wheel-sector small {
   display: block;
 
@@ -1687,11 +1699,26 @@ body {
 /* ІКОНКА */
 
 .bonus-icon {
-  font-size: 32px;
-  line-height: 35px;
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 2px 0;
 
   filter:
     drop-shadow(0 4px 8px rgba(0,0,0,.5));
+}
+
+.bonus-coin {
+  width: 36px;
+  height: 36px;
+
+  object-fit: contain;
+
+  display: block;
 }
 
 /* НАГОРОДА */
@@ -2029,15 +2056,19 @@ ontouchstart="handleBearTouch(event)"
       <div class="wheel" id="starsWheel">
 
         <div class="wheel-sector sector-1">
-          <span>🪙</span>
+          <span>
+  <img src="coin.png.PNG" class="wheel-coin">
+</span>
           <small>5</small>
         </div>
 
         <div class="wheel-sector sector-2">
-          <span>🪙</span>
+      <span>
+  <img src="coin.png.PNG" class="wheel-coin">
+</span>
           <small>10</small>
         </div>
-
+        
         <div class="wheel-sector sector-3">
           <span>🎟</span>
           <small>+1</small>
@@ -2049,7 +2080,9 @@ ontouchstart="handleBearTouch(event)"
         </div>
 
         <div class="wheel-sector sector-5">
-          <span>🪙</span>
+    <span>
+  <img src="coin.png.PNG" class="wheel-coin">
+</span>
           <small>20</small>
         </div>
 
@@ -2069,7 +2102,7 @@ ontouchstart="handleBearTouch(event)"
         </div>
 
         <div class="wheel-center">
-          🪙
+          <img src="coin.png.PNG" class="wheel-center-coin">
         </div>
 
       </div>
@@ -2105,7 +2138,9 @@ ontouchstart="handleBearTouch(event)"
         </div>
 
         <div class="wheel-sector sector-2">
-          <span>🪙</span>
+          <span>
+  <img src="coin.png.PNG" class="wheel-coin">
+</span>
           <small>5</small>
         </div>
 
@@ -2115,7 +2150,9 @@ ontouchstart="handleBearTouch(event)"
         </div>
 
         <div class="wheel-sector sector-4">
-          <span>🪙</span>
+       <span>
+  <img src="coin.png.PNG" class="wheel-coin">
+</span>
           <small>10</small>
         </div>
 
@@ -2130,7 +2167,9 @@ ontouchstart="handleBearTouch(event)"
         </div>
 
         <div class="wheel-sector sector-7">
-          <span>🪙</span>
+       <span>
+  <img src="coin.png.PNG" class="wheel-coin">
+</span>
           <small>20</small>
         </div>
 
@@ -2140,7 +2179,7 @@ ontouchstart="handleBearTouch(event)"
         </div>
 
         <div class="wheel-center">
-          👥
+          <img src="coin.png.PNG" class="wheel-center-coin">
         </div>
 
       </div>
@@ -3289,19 +3328,25 @@ document.addEventListener("click", (event) => {
 
       <div class="daily-bonus-day active" id="bonusDay1">
         <div class="bonus-day-number">1</div>
-        <div class="bonus-icon">🪙</div>
+   <div class="bonus-icon">
+  <img src="coin.png.PNG" class="bonus-coin">
+</div>
         <div class="bonus-value">500 NIK</div>
       </div>
 
       <div class="daily-bonus-day" id="bonusDay2">
         <div class="bonus-day-number">2</div>
-        <div class="bonus-icon">🪙</div>
+      <div class="bonus-icon">
+  <img src="coin.png.PNG" class="bonus-coin">
+</div>
         <div class="bonus-value">1000 NIK</div>
       </div>
 
       <div class="daily-bonus-day" id="bonusDay3">
         <div class="bonus-day-number">3</div>
-        <div class="bonus-icon">🪙</div>
+      <div class="bonus-icon">
+  <img src="coin.png.PNG" class="bonus-coin">
+</div>
         <div class="bonus-value">1250 NIK</div>
       </div>
 
@@ -3319,7 +3364,9 @@ document.addEventListener("click", (event) => {
 
       <div class="daily-bonus-day" id="bonusDay6">
         <div class="bonus-day-number">6</div>
-        <div class="bonus-icon">🪙</div>
+    <div class="bonus-icon">
+  <img src="coin.png.PNG" class="bonus-coin">
+</div>
         <div class="bonus-value">3000 NIK</div>
       </div>
 
