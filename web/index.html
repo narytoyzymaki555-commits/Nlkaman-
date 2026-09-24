@@ -1559,7 +1559,7 @@ body {
   <div
   class="bear"
   id="bear"
-  onclick="clickBear()"
+ontouchstart="handleBearTouch(event)"
 >
   <img
     src="coin.png.PNG"
@@ -2548,6 +2548,15 @@ function clickBear() {
     setTimeout(() => {
       coin.style.transform = "scale(1) rotate(0deg)";
     }, 120);
+  }
+}
+  function handleBearTouch(event) {
+  event.preventDefault();
+
+  const touches = event.changedTouches;
+
+  for (let i = 0; i < touches.length; i++) {
+    clickBear();
   }
 }
   // 🎡 ДВА НОВИХ КОЛЕСА
