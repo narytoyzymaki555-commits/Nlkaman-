@@ -2876,27 +2876,31 @@ if (user.photo_url) {
 loadUser();
 updateTickets();
 renderInventory();
-const dailyBonusModal =
-  document.getElementById("dailyBonusModal");
+window.addEventListener("load", () => {
 
-if (dailyBonusModal) {
-  dailyBonusModal.style.display = "none";
-}
+  const dailyBonusModal =
+    document.getElementById("dailyBonusModal");
 
-const lastDailyBonus =
-  Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
+  if (!dailyBonusModal) return;
 
-const bonus24Hours =
-  24 * 60 * 60 * 1000;
+  const lastDailyBonus =
+    Number(
+      localStorage.getItem("nlkaman_daily_bonus_last_claim")
+    ) || 0;
 
-const canGetDailyBonus =
-  lastDailyBonus === 0 ||
-  Date.now() - lastDailyBonus >= bonus24Hours;
+  const bonus24Hours =
+    24 * 60 * 60 * 1000;
 
-if (canGetDailyBonus && dailyBonusModal) {
-  renderDailyBonus();
-  dailyBonusModal.style.display = "flex";
-}
+  const canGetDailyBonus =
+    lastDailyBonus === 0 ||
+    Date.now() - lastDailyBonus >= bonus24Hours;
+
+  if (canGetDailyBonus) {
+    renderDailyBonus();
+    dailyBonusModal.style.display = "flex";
+  }
+
+});
 function openPage(pageName) {
   document.querySelectorAll(".page").forEach(page => {
     page.classList.remove("active");
