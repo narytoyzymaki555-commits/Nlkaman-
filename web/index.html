@@ -1542,16 +1542,17 @@ body {
   gap: 9px;
 }
 
-/* Перші 3 картки */
 .daily-bonus-day:nth-child(1),
 .daily-bonus-day:nth-child(2),
 .daily-bonus-day:nth-child(3) {
-  grid-row: 1;
+  grid-column: span 4;
 }
 
-/* Останні 4 картки */
-.daily-bonus-day:nth-child(4) {
-  grid-column: 1;
+.daily-bonus-day:nth-child(4),
+.daily-bonus-day:nth-child(5),
+.daily-bonus-day:nth-child(6),
+.daily-bonus-day:nth-child(7) {
+  grid-column: span 3;
 }
 
 .daily-bonus-day {
@@ -2376,7 +2377,35 @@ function playAdventureMusic() {
   };
 
 let tickets = Number(localStorage.getItem("nlkaman_tickets")) || 0;
-  
+  // =========================
+// 🎁 ЩОДЕННИЙ БОНУС
+// =========================
+
+const dailyBonusRewards = [
+  { type: "stars", amount: 500 },
+  { type: "stars", amount: 1000 },
+  { type: "stars", amount: 1250 },
+  { type: "tickets", amount: 1 },
+  { type: "tickets", amount: 2 },
+  { type: "stars", amount: 3000 },
+  { type: "tickets", amount: 4 }
+];
+
+let dailyBonusDay =
+  Number(localStorage.getItem("nlkaman_daily_bonus_day")) || 1;
+
+let dailyBonusLastClaim =
+  Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
+  function isDailyBonusReady() {
+  if (!dailyBonusLastClaim) {
+    return true;
+  }
+
+  const now = Date.now();
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  return now - dailyBonusLastClaim >= oneDay;
+}
   let referralLink = "";
   
 let referrals = 0;
