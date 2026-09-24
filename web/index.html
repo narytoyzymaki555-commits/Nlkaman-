@@ -2854,19 +2854,26 @@ if (user.photo_url) {
 loadUser();
 updateTickets();
 renderInventory();
- const dailyBonusModal =
+const dailyBonusModal =
   document.getElementById("dailyBonusModal");
 
 if (dailyBonusModal) {
   dailyBonusModal.style.display = "none";
 }
 
-if (isDailyBonusReady()) {
-  renderDailyBonus();
+const lastDailyBonus =
+  Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
 
-  if (dailyBonusModal) {
-    dailyBonusModal.style.display = "flex";
-  }
+const bonus24Hours =
+  24 * 60 * 60 * 1000;
+
+const canGetDailyBonus =
+  lastDailyBonus === 0 ||
+  Date.now() - lastDailyBonus >= bonus24Hours;
+
+if (canGetDailyBonus && dailyBonusModal) {
+  renderDailyBonus();
+  dailyBonusModal.style.display = "flex";
 }
 function openPage(pageName) {
   document.querySelectorAll(".page").forEach(page => {
