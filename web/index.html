@@ -3168,9 +3168,11 @@ document
   document
   .getElementById("refSpinButton")
   ?.addEventListener("click", spinRefWheel);
-  document
+document
   .getElementById("dailyBonusButton")
-  ?.addEventListener("click", claimDailyBonus);
+  ?.addEventListener("click", function () {
+    alert("КНОПКА ПРАЦЮЄ");
+  });
   console.log("🎁 DAILY BONUS BUTTON CONNECTED");
 
 document
