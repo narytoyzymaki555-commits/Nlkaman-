@@ -1482,23 +1482,23 @@ body {
 
   cursor: pointer;
 }
-   /* 🎁 DAILY BONUS — GOLD PREMIUM STYLE */
+  /* 🎁 DAILY BONUS — NLKAMAN PREMIUM */
 
 .daily-bonus-modal {
   position: fixed;
   inset: 0;
   display: none;
   z-index: 9999;
-  
+
   align-items: center;
   justify-content: center;
 
-  padding: 18px;
+  padding: 16px;
 
-  background: rgba(0, 0, 0, .78);
+  background: rgba(2, 15, 14, .82);
 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .daily-bonus-card {
@@ -1511,21 +1511,23 @@ body {
 
   background:
     radial-gradient(
-      circle at 50% 0%,
-      rgba(255, 196, 67, .16),
-      transparent 42%
+      circle at 50% -10%,
+      rgba(85, 233, 181, .20),
+      transparent 40%
     ),
     linear-gradient(
       145deg,
-      #24170a,
-      #100b06 75%
+      #103c37,
+      #061d1c 70%,
+      #041514
     );
 
-  border: 1px solid rgba(255, 203, 92, .42);
+  border: 1px solid rgba(85, 233, 181, .28);
 
   box-shadow:
     0 25px 70px rgba(0,0,0,.75),
-    0 0 35px rgba(255,190,60,.12);
+    0 0 45px rgba(25,167,123,.16),
+    inset 0 1px 0 rgba(255,255,255,.06);
 }
 
 /* ЗАГОЛОВОК */
@@ -1533,56 +1535,55 @@ body {
 .daily-bonus-title {
   text-align: center;
 
-  color: #d6b06b;
+  color: #55e9b5;
 
   font-size: 14px;
   font-weight: 900;
 
   letter-spacing: 3px;
+
+  text-shadow:
+    0 0 14px rgba(85,233,181,.35);
 }
 
-/* ВОГОНЬ */
+/* 🔥 STREAK */
 
 .daily-bonus-streak-icon {
-  margin-top: 8px;
+  margin-top: 7px;
 
   text-align: center;
 
-  font-size: 42px;
-  line-height: 45px;
+  font-size: 40px;
+  line-height: 44px;
 
   filter:
-    drop-shadow(0 5px 10px rgba(255,130,20,.35));
+    drop-shadow(0 0 12px rgba(255,110,45,.35));
 }
-
-/* ЧИСЛО ДНІВ */
 
 .daily-bonus-streak {
   margin-top: -2px;
 
   text-align: center;
 
-  color: #ffd875;
+  color: #eafff8;
 
-  font-size: 58px;
-  line-height: 58px;
+  font-size: 56px;
+  line-height: 56px;
 
   font-weight: 1000;
 
   text-shadow:
-    0 4px 15px rgba(255,190,60,.25);
+    0 0 20px rgba(85,233,181,.22);
 }
 
-/* ДЕНЬ ПОСПІЛЬ */
-
 .daily-bonus-streak-label {
-  margin-top: 2px;
+  margin-top: 3px;
 
   text-align: center;
 
-  color: #c6a66b;
+  color: #82b9ac;
 
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 900;
 
   letter-spacing: 2px;
@@ -1596,13 +1597,13 @@ body {
 
   text-align: center;
 
-  color: #a68b5b;
+  color: #789c94;
 
   font-size: 13px;
   font-weight: 700;
 }
 
-/* СІТКА */
+/* ДНІ — РОЗТАШУВАННЯ НЕ ЗМІНЮЄМО */
 
 .daily-bonus-days {
   display: grid;
@@ -1611,8 +1612,6 @@ body {
 
   gap: 9px;
 }
-
-/* ДНІ 1–6 */
 
 .daily-bonus-day:nth-child(1),
 .daily-bonus-day:nth-child(2),
@@ -1623,13 +1622,11 @@ body {
   grid-column: span 2;
 }
 
-/* ДЕНЬ 7 */
-
 .daily-bonus-day:nth-child(7) {
   grid-column: 1 / -1;
 }
 
-/* КАРТКА */
+/* КАРТКИ ДНІВ */
 
 .daily-bonus-day {
   min-height: 112px;
@@ -1637,9 +1634,7 @@ body {
   padding: 10px 5px;
 
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
 
@@ -1650,15 +1645,15 @@ body {
   background:
     linear-gradient(
       145deg,
-      rgba(48,31,13,.95),
-      rgba(18,12,7,.98)
+      rgba(18,61,56,.95),
+      rgba(7,35,34,.98)
     );
 
-  border: 1px solid rgba(255,205,105,.16);
+  border: 1px solid rgba(85,233,181,.12);
 
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.035),
-    0 8px 20px rgba(0,0,0,.35);
+    0 8px 20px rgba(0,0,0,.32);
 
   transition:
     transform .2s ease,
@@ -1674,7 +1669,6 @@ body {
   height: 28px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
@@ -1682,9 +1676,9 @@ body {
 
   border-radius: 50%;
 
-  background: rgba(0,0,0,.28);
+  background: rgba(2,25,24,.75);
 
-  color: #a88a58;
+  color: #6fa79a;
 
   font-size: 12px;
   font-weight: 900;
@@ -1694,11 +1688,10 @@ body {
 
 .bonus-icon {
   font-size: 32px;
-
   line-height: 35px;
 
   filter:
-    drop-shadow(0 4px 8px rgba(0,0,0,.55));
+    drop-shadow(0 4px 8px rgba(0,0,0,.5));
 }
 
 /* НАГОРОДА */
@@ -1706,7 +1699,7 @@ body {
 .bonus-value {
   margin-top: 6px;
 
-  color: #f5ead4;
+  color: #eafff8;
 
   font-size: 11px;
   font-weight: 1000;
@@ -1714,44 +1707,49 @@ body {
   line-height: 13px;
 }
 
-/* АКТИВНИЙ ДЕНЬ */
+/* ⭐ ПОТОЧНИЙ ДЕНЬ */
 
 .daily-bonus-day.active {
-  border-color: #ffd36a;
+  border-color: #55e9b5;
 
   background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(85,233,181,.18),
+      transparent 65%
+    ),
     linear-gradient(
       145deg,
-      rgba(82,55,22,.95),
-      rgba(30,19,8,.98)
+      rgba(20,92,79,.98),
+      rgba(7,42,39,.98)
     );
 
   box-shadow:
-    0 0 20px rgba(255,193,62,.24),
-    inset 0 1px 0 rgba(255,230,160,.10);
+    0 0 22px rgba(85,233,181,.22),
+    inset 0 1px 0 rgba(255,255,255,.08);
 }
 
 .daily-bonus-day.active .bonus-day-number {
-  background: #d19b32;
+  background: #19a77b;
 
-  color: #fff4d2;
+  color: #ffffff;
 
   box-shadow:
-    0 0 10px rgba(255,200,70,.25);
+    0 0 12px rgba(85,233,181,.35);
 }
 
-/* ОТРИМАНІ */
+/* ✅ ОТРИМАНІ */
 
 .daily-bonus-day.claimed {
-  opacity: .45;
+  opacity: .42;
 
-  border-color: rgba(255,205,105,.08);
+  border-color: rgba(85,233,181,.06);
 }
 
-/* ЗАБЛОКОВАНІ */
+/* 🔒 МАЙБУТНІ */
 
 .daily-bonus-day.locked {
-  opacity: .28;
+  opacity: .25;
 
   filter: grayscale(.8);
 }
@@ -1762,7 +1760,7 @@ body {
   min-height: 105px;
 }
 
-/* КНОПКА */
+/* 🎁 КНОПКА */
 
 .daily-bonus-button {
   width: 100%;
@@ -1771,31 +1769,38 @@ body {
 
   padding: 15px 12px;
 
-  border: 0;
+  border: 1px solid rgba(255,255,255,.08);
 
   border-radius: 16px;
 
   background:
     linear-gradient(
       180deg,
-      #ffe29a,
-      #f2b93f
+      #55e9b5,
+      #19a77b
     );
 
-  color: #4a2d05;
+  color: #03241f;
 
   font-size: 16px;
   font-weight: 1000;
 
   box-shadow:
-    0 8px 25px rgba(242,185,63,.28),
-    inset 0 1px 0 rgba(255,255,255,.75);
+    0 8px 25px rgba(25,167,123,.28),
+    inset 0 1px 0 rgba(255,255,255,.45);
 
   cursor: pointer;
+
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease;
 }
 
 .daily-bonus-button:active {
   transform: scale(.97);
+
+  box-shadow:
+    0 4px 15px rgba(25,167,123,.2);
 }
   </style>
 </head>
