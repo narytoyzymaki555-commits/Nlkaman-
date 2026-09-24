@@ -1592,7 +1592,15 @@ body {
     0 0 18px rgba(85,233,181,.22),
     inset 0 1px 0 rgba(255,255,255,.08);
 }
+.daily-bonus-day.claimed {
+  opacity: .55;
+  border-color: rgba(85,233,181,.12);
+}
 
+.daily-bonus-day.locked {
+  opacity: .35;
+  filter: grayscale(.7);
+}
 .bonus-day-number {
   color: #8fb8ae;
   font-size: 10px;
@@ -2406,6 +2414,87 @@ let dailyBonusLastClaim =
 
   return now - dailyBonusLastClaim >= oneDay;
 }
+  function renderDailyBonus() {
+  for (let i = 1; i <= 7; i++) {
+    const day = document.getElementById("bonusDay" + i);
+
+    if (!day) continue;
+
+    day.classList.remove("active", "claimed", "locked");
+
+    if (i < dailyBonusDay) {
+      day.classList.add("claimed");
+    } else if (i === dailyBonusDay) {
+      day.classList.add("active");
+    } else {
+      day.classList.add("locked");
+    }
+  }
+}
+  function claimDailyBonus() {
+  if (!isDailyBonusReady()) {
+    alert("⏳ Бонус можна забрати через 24 години.");
+    return;
+  }
+
+  const reward = dailyBonusRewards[dailyBonusDay - 1];
+
+  if (!reward) return;
+
+  if (reward.type === "stars") {
+    stars += reward.amount;
+    localStorage.setItem("nlkaman_stars", stars);
+    updateStars();
+  }
+
+  if (reward.type === "tickets") {
+    tickets += reward.amount;
+    localStorage.setItem("nlkaman_tickets", tickets);
+    updateTickets();
+  }
+
+  dailyBonusLastClaim = Date.now();
+
+  localStorage.setItem(
+    "nlkaman_daily_bonus_last_claim",
+    dailyBonusLastClaim
+  );
+
+  dailyBonusDay++;
+
+  if (dailyBonusDay > 7) {
+    dailyBonusDay = 1;
+  }
+
+  localStorage.setItem(
+    "nlkaman_daily_bonus_day",
+    dailyBonusDay
+  );
+
+  renderDailyBonus();
+
+  const modal =
+    document.getElementById("dailyBonusModal");
+
+  if (modal) {
+    modal.style.display = "none";
+  }
+
+  if (soundEnabled) {
+    initAudio();
+
+    if (!musicTimer) {
+      playAdventureMusic();
+    }
+  }
+
+  alert(
+    "🎁 Бонус отримано!\n\n" +
+    (reward.type === "stars"
+      ? "🪙 +" + reward.amount + " NIK"
+      : "🎟 +" + reward.amount + " квитків")
+  );
+}
   let referralLink = "";
   
 let referrals = 0;
@@ -2615,7 +2704,16 @@ if (user.photo_url) {
 loadUser();
 updateTickets();
 renderInventory();
-  
+  if (isDailyBonusReady()) {
+  renderDailyBonus();
+
+  const dailyBonusModal =
+    document.getElementById("dailyBonusModal");
+
+  if (dailyBonusModal) {
+    dailyBonusModal.style.display = "flex";
+  }
+}
 function openPage(pageName) {
   document.querySelectorAll(".page").forEach(page => {
     page.classList.remove("active");
@@ -2924,6 +3022,9 @@ document
   document
   .getElementById("refSpinButton")
   ?.addEventListener("click", spinRefWheel);
+  document
+  .getElementById("dailyBonusButton")
+  ?.addEventListener("click", claimDailyBonus);
 
 document
   .getElementById("refSpinButton")
