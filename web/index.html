@@ -3168,11 +3168,7 @@ document
   document
   .getElementById("refSpinButton")
   ?.addEventListener("click", spinRefWheel);
-document
-  .getElementById("dailyBonusButton")
-  ?.addEventListener("click", function () {
-    alert("КНОПКА ПРАЦЮЄ");
-  });
+
   console.log("🎁 DAILY BONUS BUTTON CONNECTED");
 
 document
@@ -3288,9 +3284,10 @@ document.addEventListener("click", (event) => {
 
     </div>
 
-  <button
+ <button
   class="daily-bonus-button"
   id="dailyBonusButton"
+  onclick="claimDailyBonus()"
 >
   🎁 Забрати нагороду
 </button>
