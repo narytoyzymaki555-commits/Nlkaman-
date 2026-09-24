@@ -2581,34 +2581,57 @@ let dailyBonusLastClaim =
     }
   }
 }
-  function claimDailyBonus() {
-  if (!isDailyBonusReady()) {
-    alert("⏳ Бонус можна забрати через 24 години.");
+  
+ function claimDailyBonus() {
+
+  const lastClaim =
+    Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
+
+  const twentyFourHours =
+    24 * 60 * 60 * 1000;
+
+  if (
+    lastClaim !== 0 &&
+    Date.now() - lastClaim < twentyFourHours
+  ) {
     return;
   }
 
-  const reward = dailyBonusRewards[dailyBonusDay - 1];
+  const reward =
+    dailyBonusRewards[dailyBonusDay - 1];
 
   if (!reward) return;
 
   if (reward.type === "stars") {
     stars += reward.amount;
-    localStorage.setItem("nlkaman_stars", stars);
+
+    localStorage.setItem(
+      "nlkaman_stars",
+      stars
+    );
+
     updateStars();
   }
 
   if (reward.type === "tickets") {
     tickets += reward.amount;
-    localStorage.setItem("nlkaman_tickets", tickets);
+
+    localStorage.setItem(
+      "nlkaman_tickets",
+      tickets
+    );
+
     updateTickets();
   }
 
-  dailyBonusLastClaim = Date.now();
+  const claimTime = Date.now();
 
   localStorage.setItem(
     "nlkaman_daily_bonus_last_claim",
-    dailyBonusLastClaim
+    claimTime
   );
+
+  dailyBonusLastClaim = claimTime;
 
   dailyBonusDay++;
 
@@ -2620,8 +2643,6 @@ let dailyBonusLastClaim =
     "nlkaman_daily_bonus_day",
     dailyBonusDay
   );
-
-  renderDailyBonus();
 
   const modal =
     document.getElementById("dailyBonusModal");
@@ -2640,9 +2661,11 @@ let dailyBonusLastClaim =
 
   alert(
     "🎁 Бонус отримано!\n\n" +
-    (reward.type === "stars"
-      ? "🪙 +" + reward.amount + " NIK"
-      : "🎟 +" + reward.amount + " квитків")
+    (
+      reward.type === "stars"
+        ? "🪙 +" + reward.amount + " NIK"
+        : "🎟 +" + reward.amount + " квитків"
+    )
   );
 }
   let referralLink = "";
