@@ -2209,23 +2209,6 @@ function playAdventureMusic() {
   nextNote();
 }
 
-  // 🔊 Запускаємо звук після першого натискання
-  document.addEventListener("click", () => {
-
-  if (!soundEnabled) return;
-
-  initAudio();
-
-  if (audioCtx.state === "suspended") {
-    audioCtx.resume();
-  }
-
-  if (!musicTimer) {
-    playAdventureMusic();
-  }
-
-}, { once: true });
-
   let user = tg.initDataUnsafe?.user || {
     id: 0,
     first_name: "Користувач",
