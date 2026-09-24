@@ -408,7 +408,17 @@
       font-size: 65px;
       margin-bottom: 10px;
     }
+.win-coin {
+  width: 90px;
+  height: 90px;
 
+  object-fit: contain;
+  display: block;
+
+  filter:
+    drop-shadow(0 8px 14px rgba(0,0,0,.45))
+    drop-shadow(0 0 18px rgba(255,210,70,.25));
+}
     .win-title {
       font-size: 24px;
       font-weight: 900;
@@ -2265,7 +2275,7 @@ ontouchstart="handleBearTouch(event)"
   <div class="modal-content">
 
     <div class="win-icon" id="winIcon">
-      🎁
+      <img src="coin.png.PNG" class="win-coin">
     </div>
 
     <div class="win-title">
@@ -3070,11 +3080,11 @@ function spinStarsWheel() {
   setTimeout(() => {
 
     const prizes = [
-      { icon: "⭐", text: "5 зірок" },
-      { icon: "⭐", text: "10 зірок" },
+     { icon: '<img src="coin.png.PNG" class="win-coin">', text: "5 зірок" },
+     { icon: '<img src="coin.png.PNG" class="win-coin">', text: "10 зірок" },
       { icon: "🎟", text: "+1 квиток" },
       { icon: "🎁", text: "Gift" },
-      { icon: "⭐", text: "20 зірок" },
+    { icon: '<img src="coin.png.PNG" class="win-coin">', text: "20 зірок" },
       { icon: "🎟", text: "+2 квитки" },
       { icon: "💎", text: "NFT" },
       { icon: "😈", text: "Нічого" }
@@ -3124,8 +3134,8 @@ localStorage.setItem(
 updateTickets();
     playWinSound();
 
-    document.getElementById("winIcon").textContent =
-      prize.icon;
+   document.getElementById("winIcon").innerHTML =
+  prize.icon;
 
     document.getElementById("winText").textContent =
       "Ти виграв: " + prize.text + "! 🎉";
@@ -3175,12 +3185,12 @@ function spinRefWheel() {
 
     const prizes = [
       { icon: "🎟", text: "+1 квиток" },
-      { icon: "🪙", text: "5 зірок" },
+   { icon: '<img src="coin.png.PNG" class="win-coin">', text: "5 зірок" },
       { icon: "🎁", text: "Gift" },
-      { icon: "🪙", text: "10 зірок" },
+  { icon: '<img src="coin.png.PNG" class="win-coin">', text: "10 зірок" },
       { icon: "🎟", text: "+2 квитки" },
       { icon: "💎", text: "NFT" },
-      { icon: "🪙", text: "20 зірок" },
+{ icon: '<img src="coin.png.PNG" class="win-coin">', text: "20 зірок" },
       { icon: "😈", text: "Нічого" }
     ];
 
