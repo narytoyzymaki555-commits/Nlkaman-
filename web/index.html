@@ -2896,9 +2896,7 @@ window.addEventListener("load", () => {
   const bonus24Hours =
     24 * 60 * 60 * 1000;
 
-  const canGetDailyBonus =
-    lastDailyBonus === 0 ||
-    Date.now() - lastDailyBonus >= bonus24Hours;
+const canGetDailyBonus = true;
 
   if (canGetDailyBonus) {
     renderDailyBonus();
