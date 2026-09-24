@@ -1487,6 +1487,7 @@ body {
 .daily-bonus-modal {
   position: fixed;
   inset: 0;
+  display: none;
   z-index: 9999;
 
   display: flex;
@@ -2551,14 +2552,17 @@ let dailyBonusDay =
 let dailyBonusLastClaim =
   Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
   function isDailyBonusReady() {
-  if (!dailyBonusLastClaim) {
+  const lastClaim =
+    Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
+
+  if (lastClaim === 0) {
     return true;
   }
 
   const now = Date.now();
-  const oneDay = 24 * 60 * 60 * 1000;
+  const twentyFourHours = 24 * 60 * 60 * 1000;
 
-  return now - dailyBonusLastClaim >= oneDay;
+  return now - lastClaim >= twentyFourHours;
 }
   function renderDailyBonus() {
   for (let i = 1; i <= 7; i++) {
@@ -2850,7 +2854,7 @@ if (user.photo_url) {
 loadUser();
 updateTickets();
 renderInventory();
-  const dailyBonusModal =
+ const dailyBonusModal =
   document.getElementById("dailyBonusModal");
 
 if (dailyBonusModal) {
