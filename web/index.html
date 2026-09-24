@@ -2850,11 +2850,15 @@ if (user.photo_url) {
 loadUser();
 updateTickets();
 renderInventory();
-  if (isDailyBonusReady()) {
-  renderDailyBonus();
-
   const dailyBonusModal =
-    document.getElementById("dailyBonusModal");
+  document.getElementById("dailyBonusModal");
+
+if (dailyBonusModal) {
+  dailyBonusModal.style.display = "none";
+}
+
+if (isDailyBonusReady()) {
+  renderDailyBonus();
 
   if (dailyBonusModal) {
     dailyBonusModal.style.display = "flex";
