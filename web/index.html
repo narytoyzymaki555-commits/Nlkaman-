@@ -2500,36 +2500,6 @@ function playCoinSound() {
   oscillator.start(now);
   oscillator.stop(now + 0.09);
 }
-  function playCoinSound() {
-  if (!soundEnabled) return;
-
-  initAudio();
-
-  const now = audioCtx.currentTime;
-
-  const oscillator = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-
-  oscillator.type = "triangle";
-
-  oscillator.frequency.setValueAtTime(900, now);
-  oscillator.frequency.exponentialRampToValueAtTime(
-    1500,
-    now + 0.07
-  );
-
-  gain.gain.setValueAtTime(0.08, now);
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,
-    now + 0.09
-  );
-
-  oscillator.connect(gain);
-  gain.connect(audioCtx.destination);
-
-  oscillator.start(now);
-  oscillator.stop(now + 0.09);
-}
 function clickBear() {
   stars++;
 
