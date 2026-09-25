@@ -2851,44 +2851,26 @@ function clickBear() {
 
   playCoinSound();
 
-  const coin =
-    document.querySelector(
-      ".click-coin"
-    );
-
   const bear =
     document.querySelector(
       ".bear"
     );
 
-  if (coin) {
+  if (bear) {
 
-    coin.style.transform =
-      "scale(.90)";
+    bear.classList.remove(
+      "coin-flash"
+    );
 
-    setTimeout(() => {
+    void bear.offsetWidth;
 
-      coin.style.transform =
-        "scale(1)";
-
-    }, 100);
+    bear.classList.add(
+      "coin-flash"
+    );
 
   }
 
-if (bear) {
-
-  bear.classList.add("coin-flash");
-
-  setTimeout(() => {
-
-    bear.classList.remove("coin-flash");
-
-  }, 120);
-
 }
-
-}
-
 function handleBearTouch(event) {
 
   event.preventDefault();
