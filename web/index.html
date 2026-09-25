@@ -2845,8 +2845,8 @@ function clickBear() {
 
 }
 function handleBearTouch(event) {
-  if (navigator.vibrate) {
-  navigator.vibrate(20);
+  if (window.Telegram?.WebApp?.HapticFeedback) {
+  Telegram.WebApp.HapticFeedback.impactOccurred("light");
 }
 
   event.preventDefault();
