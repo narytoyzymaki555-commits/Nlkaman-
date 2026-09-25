@@ -2453,6 +2453,8 @@ function playCoinSound() {
 
   initAudio();
 
+  if (!audioCtx) return;
+
   const now =
     audioCtx.currentTime;
 
@@ -2466,36 +2468,30 @@ function playCoinSound() {
     "triangle";
 
   oscillator.frequency.setValueAtTime(
-    900,
+    1100,
     now
   );
 
   oscillator.frequency.exponentialRampToValueAtTime(
-    1500,
-    now + 0.07
+    1450,
+    now + 0.04
   );
 
   gain.gain.setValueAtTime(
-    0.08,
+    0.055,
     now
   );
 
   gain.gain.exponentialRampToValueAtTime(
     0.001,
-    now + 0.09
+    now + 0.05
   );
 
   oscillator.connect(gain);
-
-  gain.connect(
-    audioCtx.destination
-  );
+  gain.connect(audioCtx.destination);
 
   oscillator.start(now);
-
-  oscillator.stop(
-    now + 0.09
-  );
+  oscillator.stop(now + 0.05);
 
 }
 
@@ -2675,32 +2671,36 @@ function clickBear() {
       ".click-coin"
     );
 
+  const bear =
+    document.querySelector(
+      ".bear"
+    );
+
   if (coin) {
 
     coin.style.transform =
       "scale(.90)";
-
-    const bear =
-      document.querySelector(".bear");
-
-    if (bear) {
-
-      bear.classList.remove("coin-flash");
-
-      void bear.offsetWidth;
-
-      bear.classList.add("coin-flash");
-
-    }
 
     setTimeout(() => {
 
       coin.style.transform =
         "scale(1)";
 
-    }, 120);
+    }, 100);
 
   }
+
+if (bear) {
+
+  bear.classList.add("coin-flash");
+
+  setTimeout(() => {
+
+    bear.classList.remove("coin-flash");
+
+  }, 120);
+
+}
 
 }
 
