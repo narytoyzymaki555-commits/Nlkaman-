@@ -2519,52 +2519,237 @@ function playWinSound() {
 
 }
 
+// 🌲 ЗАГАДКОВИЙ ЛІС — фонова музика
 function playAdventureMusic() {
 
   if (!soundEnabled) return;
 
   initAudio();
 
-  const notes = [
-    261.63,
-    329.63,
-    392.00,
-    523.25,
-    392.00,
-    329.63
+  if (musicTimer) return;
+
+  // 🌙 Ноти загадкового лісу
+  const melody = [
+    293.66, 349.23, 392.00, 440.00,
+    392.00, 349.23, 293.66, 261.63,
+
+    293.66, 392.00, 440.00, 523.25,
+    440.00, 392.00, 349.23, 293.66,
+
+    261.63, 293.66, 349.23, 392.00,
+    440.00, 392.00, 349.23, 261.63,
+
+    293.66, 349.23, 440.00, 523.25,
+    587.33, 523.25, 440.00, 392.00,
+
+    349.23, 392.00, 440.00, 523.25,
+    440.00, 392.00, 349.23, 293.66,
+
+    261.63, 293.66, 349.23, 392.00,
+    349.23, 293.66, 261.63, 220.00
   ];
 
-  let index = 0;
+  // 🌑 Низькі ноти створюють глибину
+  const bass = [
+    146.83,
+    174.61,
+    196.00,
+    220.00
+  ];
 
-  const playNext = () => {
+  // ✨ Високі "магічні" звуки
+  const magic = [
+    587.33,
+    698.46,
+    783.99,
+    880.00,
+    783.99,
+    698.46
+  ];
 
-    if (!soundEnabled) return;
+  let step = 0;
 
-    const frequency =
-      notes[index];
+  function forestNote() {
 
-    playTone(
-      frequency,
-      0.28,
-      "sine",
-      0.018
+    if (!soundEnabled) {
+      musicTimer = null;
+      return;
+    }
+
+    const now =
+      audioCtx.currentTime;
+
+    const note =
+      melody[step % melody.length];
+
+    // 🌲 Основна мелодія
+    const osc =
+      audioCtx.createOscillator();
+
+    const gain =
+      audioCtx.createGain();
+
+    osc.type = "triangle";
+
+    osc.frequency.setValueAtTime(
+      note,
+      now
     );
 
-    index =
-      (index + 1) % notes.length;
+    gain.gain.setValueAtTime(
+      0.0001,
+      now
+    );
+
+    gain.gain.linearRampToValueAtTime(
+      0.018,
+      now + 0.08
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.0001,
+      now + 1.15
+    );
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(now);
+    osc.stop(now + 1.2);
+
+
+    // 🌑 Бас кожні 4 кроки
+    if (step % 4 === 0) {
+
+      const bassNote =
+        bass[
+          Math.floor(step / 4) %
+          bass.length
+        ];
+
+      const bassOsc =
+        audioCtx.createOscillator();
+
+      const bassGain =
+        audioCtx.createGain();
+
+      bassOsc.type = "sine";
+
+      bassOsc.frequency.setValueAtTime(
+        bassNote,
+        now
+      );
+
+      bassGain.gain.setValueAtTime(
+        0.0001,
+        now
+      );
+
+      bassGain.gain.linearRampToValueAtTime(
+        0.009,
+        now + 0.2
+      );
+
+      bassGain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        now + 2.0
+      );
+
+      bassOsc.connect(bassGain);
+      bassGain.connect(
+        audioCtx.destination
+      );
+
+      bassOsc.start(now);
+      bassOsc.stop(now + 2.1);
+    }
+
+
+    // ✨ Магічні звуки поступово з'являються
+    if (
+      step >= 12 &&
+      step % 6 === 0
+    ) {
+
+      const magicNote =
+        magic[
+          Math.floor(step / 6) %
+          magic.length
+        ];
+
+      const magicOsc =
+        audioCtx.createOscillator();
+
+      const magicGain =
+        audioCtx.createGain();
+
+      magicOsc.type = "sine";
+
+      magicOsc.frequency.setValueAtTime(
+        magicNote,
+        now
+      );
+
+      magicGain.gain.setValueAtTime(
+        0.0001,
+        now
+      );
+
+      magicGain.gain.linearRampToValueAtTime(
+        0.006,
+        now + 0.15
+      );
+
+      magicGain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        now + 1.8
+      );
+
+      magicOsc.connect(magicGain);
+      magicGain.connect(
+        audioCtx.destination
+      );
+
+      magicOsc.start(now);
+      magicOsc.stop(now + 1.9);
+    }
+
+
+    // 🌌 Друга половина — трохи більше атмосфери
+    if (
+      step >= 24 &&
+      step % 4 === 0
+    ) {
+
+      playTone(
+        melody[
+          (step + 8) %
+          melody.length
+        ] * 2,
+        0.8,
+        "sine",
+        0.0025
+      );
+    }
+
+
+    step++;
+
+    // 🔄 Плавний повтор
+    if (
+      step >= melody.length
+    ) {
+      step = 0;
+    }
 
     musicTimer =
       setTimeout(
-        playNext,
-        420
+        forestNote,
+        1000
       );
-
-  };
-
-  if (!musicTimer) {
-    playNext();
   }
 
+  forestNote();
 }
 
 function toggleSound() {
