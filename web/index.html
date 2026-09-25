@@ -225,40 +225,53 @@
 
     /* 🧸 ВЕДМЕДИК */
 
-    .bear-clicker {
-      margin-top: 15px;
-      padding: 20px;
-      text-align: center;
-      border-radius: 24px;
+.bear-clicker {
+  margin-top: 15px;
+  padding: 24px 20px;
+  text-align: center;
+  border-radius: 26px;
 
-      background:
-        radial-gradient(
-          circle at 50% 45%,
-          rgba(35, 150, 255, .20),
-          transparent 60%
-        ),
-        linear-gradient(
-          145deg,
-          rgba(5, 35, 75, .98),
-          rgba(2, 15, 34, .98)
-        );
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(30,145,255,.24),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(0,75,220,.14),
+      transparent 60%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(5,38,82,.98),
+      rgba(2,13,31,.99)
+    );
 
-      border: 1px solid rgba(45, 155, 255, .42);
+  border: 1px solid rgba(55,165,255,.48);
 
-      box-shadow:
-        0 12px 35px rgba(0,0,0,.45),
-        0 0 30px rgba(20,120,255,.12),
-        inset 0 1px 0 rgba(255,255,255,.05);
-    }
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.50),
+    0 0 35px rgba(0,110,255,.16),
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -20px 40px rgba(0,50,140,.08);
+}
 
-    .bear-title {
-      margin-bottom: 10px;
-      color: #55c8ff;
-      font-size: 15px;
-      font-weight: 900;
-    }
+.bear-title {
+  margin-bottom: 14px;
+
+  color: #eaf7ff;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: .8px;
+
+  text-shadow:
+    0 0 8px rgba(40,170,255,.65),
+    0 0 18px rgba(0,100,255,.35);
+}
 
     .bear {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -277,48 +290,124 @@
 
       -webkit-tap-highlight-color: transparent;
     }
+.bear::after {
+  content: "";
+  position: absolute;
 
-    .click-coin {
-      width: 58vw;
-      height: 58vw;
+  width: 75%;
+  height: 75%;
 
-      max-width: 280px;
-      max-height: 280px;
+  border-radius: 50%;
 
-      object-fit: contain;
-      user-select: none;
-      -webkit-user-drag: none;
+  background: radial-gradient(
+    circle,
+    rgba(40,170,255,.35),
+    rgba(0,110,255,.12),
+    transparent 70%
+  );
 
-      filter:
-        drop-shadow(0 12px 20px rgba(0,0,0,.45))
-        drop-shadow(0 0 22px rgba(35,150,255,.35));
+  opacity: 0;
+  transform: scale(.75);
 
-      transition:
-        transform .12s ease,
-        filter .12s ease;
-    }
+  pointer-events: none;
 
-    .bear:active .click-coin {
-      transform: scale(.90);
+  transition:
+    opacity .12s ease,
+    transform .18s ease;
+}
+    .bear.coin-flash::after {
+  opacity: 1;
+  transform: scale(1.15);
+}
 
-      filter:
-        drop-shadow(0 7px 12px rgba(0,0,0,.45))
-        drop-shadow(0 0 30px rgba(35,170,255,.55));
-    }
+.bear.coin-flash {
+  animation: coinFlash .18s ease-out;
+}
 
-    .bear-reward {
-      margin-top: 8px;
-      color: #62c9ff;
-      font-size: 13px;
-      font-weight: 800;
-    }
+@keyframes coinFlash {
+  0% {
+    filter: brightness(1);
+  }
 
-    .bear-stars {
-      margin-top: 6px;
-      color: #7198c0;
-      font-size: 13px;
-      font-weight: 700;
-    }
+  50% {
+    filter: brightness(1.25);
+  }
+
+  100% {
+    filter: brightness(1);
+  }
+}
+.click-coin {
+  width: 62vw;
+  height: 62vw;
+
+  max-width: 300px;
+  max-height: 300px;
+
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+
+  filter:
+    drop-shadow(0 12px 20px rgba(0,0,0,.45))
+    drop-shadow(0 0 18px rgba(0,140,255,.50))
+    drop-shadow(0 0 40px rgba(0,100,255,.28));
+
+  animation: coinGlow 2.4s ease-in-out infinite;
+
+  transition:
+    transform .12s ease,
+    filter .12s ease;
+}
+
+@keyframes coinGlow {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 12px 20px rgba(0,0,0,.45))
+      drop-shadow(0 0 18px rgba(0,140,255,.45))
+      drop-shadow(0 0 35px rgba(0,100,255,.22));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 12px 20px rgba(0,0,0,.45))
+      drop-shadow(0 0 25px rgba(0,160,255,.70))
+      drop-shadow(0 0 50px rgba(0,100,255,.35));
+  }
+}
+
+  .bear:active .click-coin {
+  filter:
+    drop-shadow(0 6px 12px rgba(0,0,0,.50))
+    drop-shadow(0 0 25px rgba(30,160,255,.75))
+    drop-shadow(0 0 45px rgba(0,90,255,.35));
+}
+
+.bear-reward {
+  margin-top: 8px;
+
+  color: #7ecbff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .4px;
+
+  text-shadow:
+    0 0 8px rgba(30,150,255,.45);
+}
+
+  .bear-stars {
+  margin-top: 8px;
+
+  color: #b9e4ff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .5px;
+
+  text-shadow:
+    0 0 8px rgba(50,170,255,.55),
+    0 0 16px rgba(0,100,255,.25);
+}
 
     .bear-stars span {
       color: #48b9ff;
@@ -2558,7 +2647,6 @@ function updateStars() {
 }
 
 updateStars();
-
 function clickBear() {
 
   stars++;
@@ -2590,12 +2678,25 @@ function clickBear() {
   if (coin) {
 
     coin.style.transform =
-      "scale(.90) rotate(-4deg)";
+      "scale(.90)";
+
+    const bear =
+      document.querySelector(".bear");
+
+    if (bear) {
+
+      bear.classList.remove("coin-flash");
+
+      void bear.offsetWidth;
+
+      bear.classList.add("coin-flash");
+
+    }
 
     setTimeout(() => {
 
       coin.style.transform =
-        "scale(1) rotate(0deg)";
+        "scale(1)";
 
     }, 120);
 
