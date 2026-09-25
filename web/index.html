@@ -118,2424 +118,1951 @@
       font-weight: bold;
 
       background: linear-gradient(135deg, #7c5cff, #20cfff);
-      box-shadow: 0 0 25px rgba(124, 92, 255, .45);
+      box-shadow: 0 0 20px rgba(32, 207, 255, .25);
+      overflow: hidden;
     }
-.telegram-avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-    .profile-name {
+
+    .telegram-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-name {
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 900;
     }
 
-    .profile-id {
-      color: #8e94b5;
-      font-size: 12px;
+    .user-status {
       margin-top: 4px;
+      color: #8f97bd;
+      font-size: 12px;
     }
 
-    .stats {
+    .top-panel {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 15px;
-    }
-
-    .stat {
-      background: rgba(255,255,255,.05);
-      border-radius: 16px;
-      padding: 15px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 25px;
-      font-weight: 900;
-    }
-
-    .stat-label {
-      margin-top: 4px;
-      color: #949ab8;
-      font-size: 12px;
-    }
-
-    .tickets {
-      color: #ffd84d;
-    }
-
-    .button {
-      width: 100%;
-      border: none;
-      border-radius: 17px;
-      padding: 16px;
-      margin-top: 10px;
-
-      color: white;
-      font-size: 16px;
-      font-weight: 800;
-
-      background: linear-gradient(135deg, #7455ff, #20a9ff);
-      box-shadow: 0 8px 25px rgba(77, 93, 255, .3);
-
-      cursor: pointer;
-    }
-
-    .button:active {
-      transform: scale(.98);
-    }
-
-    .button.secondary {
-      background: rgba(255,255,255,.07);
-      box-shadow: none;
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 900;
+      padding: 14px;
       margin-bottom: 12px;
+      border-radius: 22px;
+      background: rgba(22, 25, 53, .88);
+      border: 1px solid rgba(124, 92, 255, .35);
     }
 
-    .ref-link {
-      background: rgba(0,0,0,.25);
-      border-radius: 14px;
-      padding: 13px;
-      font-size: 12px;
-      color: #aeb4d0;
-      word-break: break-all;
-      margin-top: 10px;
-    }
+    .user-box {
+      grid-column: 1 / -1;
 
-    .wheel-box {
-      text-align: center;
-    }
-
-    .wheel {
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      margin: 20px auto;
-      border: 8px solid rgba(255,255,255,.15);
-
-      background:
-        conic-gradient(
-          #7657ff 0deg 45deg,
-          #20bfff 45deg 90deg,
-          #ff4f9a 90deg 135deg,
-          #ffb52e 135deg 180deg,
-          #34d399 180deg 225deg,
-          #7657ff 225deg 270deg,
-          #20bfff 270deg 315deg,
-          #ff4f9a 315deg 360deg
-        );
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      box-shadow:
-        0 0 35px rgba(124, 92, 255, .4),
-        inset 0 0 25px rgba(0,0,0,.4);
-
-      transition: transform 4s cubic-bezier(.15,.8,.2,1);
-    }
-
-    .wheel-center {
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      background: #11142b;
-      border: 5px solid white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 25px;
-      z-index: 2;
-    }
-.wheel-center-coin {
-  width: 38px;
-  height: 38px;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 3px 7px rgba(0,0,0,.5));
-}
-    .pointer {
-      width: 0;
-      height: 0;
-      border-left: 13px solid transparent;
-      border-right: 13px solid transparent;
-      border-top: 28px solid white;
-      margin: 0 auto -8px;
-      position: relative;
-      z-index: 5;
-      filter: drop-shadow(0 3px 4px rgba(0,0,0,.5));
-    }
-
-    .prizes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin-top: 15px;
-    }
-
-    .prize {
-      padding: 13px;
-      border-radius: 15px;
-      background: rgba(255,255,255,.055);
-      text-align: center;
-      font-size: 13px;
-    }
-
-    .prize-icon {
-      font-size: 25px;
-      margin-bottom: 5px;
-    }
-
-    .leader {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 13px;
-      border-radius: 16px;
-      margin-bottom: 8px;
-      background: rgba(255,255,255,.055);
+
+      padding: 10px;
+      border-radius: 17px;
+
+      background: rgba(20, 25, 55, .65);
+      border: 1px solid rgba(124, 92, 255, .18);
     }
 
-    .place {
-      width: 35px;
-      font-size: 19px;
-      font-weight: 900;
+    .top-avatar {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    .top-stat {
+      padding: 13px 10px;
       text-align: center;
+      border-radius: 17px;
+
+      background: rgba(20, 25, 55, .65);
+      border: 1px solid rgba(124, 92, 255, .18);
     }
 
-    .leader-name {
-      flex: 1;
+    .top-stat-icon {
+      font-size: 20px;
+      min-height: 25px;
+    }
+
+    .top-stat-value {
+      margin-top: 3px;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .top-stat-label {
+      margin-top: 2px;
+      color: #8f97bd;
+      font-size: 11px;
       font-weight: 700;
     }
 
-    .leader-tickets {
-      color: #ffd84d;
+    .kam-coin {
+      width: 23px;
+      height: 23px;
+      object-fit: contain;
+      vertical-align: middle;
+    }
+
+    .telegram-id-box {
+      margin-bottom: 14px;
+      padding: 9px 12px;
+      text-align: center;
+      border-radius: 13px;
+
+      background: rgba(20, 25, 55, .55);
+      border: 1px solid rgba(124, 92, 255, .16);
+
+      color: #858eae;
+      font-size: 11px;
+    }
+
+    /* 🧸 ВЕДМЕДИК */
+
+    .bear-clicker {
+      margin-top: 15px;
+      padding: 20px;
+      text-align: center;
+      border-radius: 24px;
+
+      background:
+        radial-gradient(
+          circle at 50% 45%,
+          rgba(35, 150, 255, .20),
+          transparent 60%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(5, 35, 75, .98),
+          rgba(2, 15, 34, .98)
+        );
+
+      border: 1px solid rgba(45, 155, 255, .42);
+
+      box-shadow:
+        0 12px 35px rgba(0,0,0,.45),
+        0 0 30px rgba(20,120,255,.12),
+        inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    .bear-title {
+      margin-bottom: 10px;
+      color: #55c8ff;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .bear {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 60vw;
+      height: 60vw;
+      max-width: 300px;
+      max-height: 300px;
+
+      margin: 0 auto;
+
+      cursor: pointer;
+      user-select: none;
+
+      transition: transform .12s ease;
+
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .click-coin {
+      width: 58vw;
+      height: 58vw;
+
+      max-width: 280px;
+      max-height: 280px;
+
+      object-fit: contain;
+      user-select: none;
+      -webkit-user-drag: none;
+
+      filter:
+        drop-shadow(0 12px 20px rgba(0,0,0,.45))
+        drop-shadow(0 0 22px rgba(35,150,255,.35));
+
+      transition:
+        transform .12s ease,
+        filter .12s ease;
+    }
+
+    .bear:active .click-coin {
+      transform: scale(.90);
+
+      filter:
+        drop-shadow(0 7px 12px rgba(0,0,0,.45))
+        drop-shadow(0 0 30px rgba(35,170,255,.55));
+    }
+
+    .bear-reward {
+      margin-top: 8px;
+      color: #62c9ff;
+      font-size: 13px;
       font-weight: 800;
     }
 
-    .empty {
-      color: #858ba8;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      height: 70px;
-
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 5px;
-
-      background: rgba(14, 16, 38, .94);
-      border: 1px solid rgba(124, 92, 255, .35);
-      border-radius: 22px;
-      padding: 7px;
-
-      backdrop-filter: blur(15px);
-      z-index: 100;
-    }
-
-    .nav-btn {
-      border: none;
-      background: transparent;
-      color: #777e9e;
-      border-radius: 16px;
-      font-size: 10px;
+    .bear-stars {
+      margin-top: 6px;
+      color: #7198c0;
+      font-size: 13px;
       font-weight: 700;
+    }
+
+    .bear-stars span {
+      color: #48b9ff;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(40,160,255,.45);
+    }
+
+    /* HOME WHEEL */
+
+    .home-wheel-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-top: 14px;
+      padding: 15px;
+
+      border-radius: 20px;
+
+      background: rgba(22, 25, 53, .88);
+      border: 1px solid rgba(124, 92, 255, .35);
+    }
+
+    .home-wheel-icon {
+      width: 48px;
+      height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 15px;
+
+      background: rgba(20, 100, 200, .15);
+      font-size: 25px;
+    }
+
+    .home-wheel-info {
+      flex: 1;
+    }
+
+    .home-wheel-title {
+      color: white;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .home-wheel-text {
+      margin-top: 4px;
+      color: #858eae;
+      font-size: 11px;
+    }
+
+    .home-wheel-button {
+      border: 0;
+      border-radius: 13px;
+      padding: 10px 13px;
+
+      background: linear-gradient(135deg, #087cff, #0750c7);
+      color: white;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    /* BUTTON */
+
+    .button {
+      width: 100%;
+      padding: 14px;
+
+      border: 0;
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #087cff,
+          #0750c7
+        );
+
+      color: white;
+      font-size: 14px;
+      font-weight: 900;
+
+      box-shadow:
+        0 0 20px rgba(0,110,255,.35),
+        inset 0 1px 0 rgba(255,255,255,.25);
+
       cursor: pointer;
     }
 
-    .nav-icon {
-      display: block;
-      font-size: 22px;
-      margin-bottom: 3px;
+    .button.secondary {
+      background:
+        linear-gradient(
+          135deg,
+          #073b83,
+          #062754
+        );
     }
 
-    .nav-btn.active {
-      color: white;
-      background: rgba(124, 92, 255, .18);
+    .button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
     }
 
-    .notice {
+    /* REFERRALS */
+
+    .section-title {
+      margin-bottom: 14px;
+      color: #eaf7ff;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .ref-link {
       padding: 13px;
-      border-radius: 15px;
-      background: rgba(255, 216, 77, .08);
-      border: 1px solid rgba(255,216,77,.18);
-      color: #d8d9e8;
-      font-size: 13px;
-      line-height: 1.4;
+      margin: 12px 0;
+
+      border-radius: 13px;
+
+      background: rgba(5,35,70,.65);
+      border: 1px solid rgba(30,145,255,.25);
+
+      color: #83b5e5;
+      font-size: 12px;
+
+      word-break: break-all;
+    }
+
+    /* INVENTORY */
+
+    .inventory-title {
+      margin-bottom: 14px;
+      color: #eaf7ff;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .inventory-empty {
+      min-height: 260px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 22px;
+      border: 1px solid rgba(30,145,255,.28);
+
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          rgba(20,120,255,.15),
+          transparent 55%
+        ),
+        rgba(5,25,50,.60);
+
+      color: #7189a8;
+      text-align: center;
+    }
+
+    .inventory-empty-icon {
+      font-size: 48px;
       margin-bottom: 12px;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.72);
+    #inventoryItems {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .inventory-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      padding: 14px;
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(5,38,78,.96),
+          rgba(3,20,42,.96)
+        );
+
+      border: 1px solid rgba(45,155,255,.25);
+    }
+
+    .inventory-item-icon {
+      width: 62px;
+      height: 62px;
+
+      display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 200;
+
+      border-radius: 16px;
+
+      background: rgba(15,90,170,.16);
+
+      font-size: 30px;
+      flex-shrink: 0;
+    }
+
+    .inventory-item-info {
+      flex: 1;
+    }
+
+    .inventory-item-name {
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .inventory-item-subtitle {
+      margin-top: 4px;
+      color: #7198c0;
+      font-size: 11px;
+    }
+
+    .inventory-withdraw-button {
+      margin-top: 9px;
+
+      padding: 8px 12px;
+
+      border: 0;
+      border-radius: 10px;
+
+      background: linear-gradient(135deg, #087cff, #0750c7);
+
+      color: white;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    /* WHEELS */
+
+    .wheel-game-card {
+      text-align: center;
+      padding: 20px 15px;
+    }
+
+    .wheel-game-title {
+      font-size: 19px;
+      font-weight: 900;
+      color: #eaf7ff;
+      margin-bottom: 15px;
+
+      text-shadow:
+        0 0 14px rgba(30,150,255,.4);
+    }
+
+    .wheel-wrapper {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 10px auto 18px;
+    }
+
+    .wheel {
+      width: 280px;
+      height: 280px;
+
+      border-radius: 50%;
+      border: 8px solid #123b6b;
+
+      position: relative;
+      overflow: hidden;
+
+      background: conic-gradient(
+        from -22.5deg,
+        #087cff 0deg 45deg,
+        #0b4f9e 45deg 90deg,
+        #168fe8 90deg 135deg,
+        #123b70 135deg 180deg,
+        #087cff 180deg 225deg,
+        #0b4f9e 225deg 270deg,
+        #168fe8 270deg 315deg,
+        #123b70 315deg 360deg
+      );
+
+      box-shadow:
+        0 0 28px rgba(25,135,255,.30),
+        inset 0 0 20px rgba(0,0,0,.38);
+
+      transition:
+        transform 4s cubic-bezier(.12,.72,.15,1);
+    }
+
+    .wheel::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+
+      border-radius: 50%;
+      border: 2px dashed rgba(255,255,255,.25);
+    }
+
+    .wheel-center {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      transform: translate(-50%,-50%);
+
+      width: 65px;
+      height: 65px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #031a36;
+      border: 5px solid #39aaff;
+
+      font-size: 28px;
+      z-index: 3;
+
+      box-shadow:
+        0 0 25px rgba(20,140,255,.45);
+    }
+
+    .wheel-pointer {
+      position: absolute;
+
+      z-index: 10;
+
+      top: -7px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      color: #48b9ff;
+
+      font-size: 32px;
+
+      filter:
+        drop-shadow(0 0 8px rgba(30,160,255,.75));
+    }
+
+    .wheel-cost {
+      color: #54baff;
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .wheel-sector {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 70px;
+      height: 55px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      color: #ffffff;
+
+      font-size: 22px;
+      font-weight: 900;
+
+      line-height: 20px;
+      text-align: center;
+
+      z-index: 4;
+      pointer-events: none;
+
+      text-shadow:
+        0 2px 4px rgba(0,0,0,.8),
+        0 0 8px rgba(0,0,0,.5);
+
+      transform:
+        translate(-50%, -50%)
+        rotate(var(--angle))
+        translateY(-92px)
+        rotate(calc(-1 * var(--angle)));
+    }
+
+    .wheel-sector small {
+      display: block;
+      margin-top: 2px;
+
+      color: #ffffff;
+
+      font-size: 13px;
+      font-weight: 900;
+
+      line-height: 15px;
+    }
+
+    .sector-1 { --angle: 0deg; }
+    .sector-2 { --angle: 45deg; }
+    .sector-3 { --angle: 90deg; }
+    .sector-4 { --angle: 135deg; }
+    .sector-5 { --angle: 180deg; }
+    .sector-6 { --angle: 225deg; }
+    .sector-7 { --angle: 270deg; }
+    .sector-8 { --angle: 315deg; }
+
+    .wheel-coin {
+      width: 27px;
+      height: 27px;
+      object-fit: contain;
+
+      filter:
+        drop-shadow(0 3px 6px rgba(0,0,0,.5))
+        drop-shadow(0 0 8px rgba(30,150,255,.25));
+    }
+
+    .win-coin {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+
+      filter:
+        drop-shadow(0 8px 14px rgba(0,0,0,.45))
+        drop-shadow(0 0 22px rgba(35,160,255,.35));
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       padding: 20px;
+
+      background: rgba(0,0,0,.72);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition: .2s ease;
+
+      z-index: 100;
     }
 
     .modal.show {
-      display: flex;
+      opacity: 1;
+      visibility: visible;
     }
 
     .modal-content {
       width: 100%;
       max-width: 360px;
-      background: #15182f;
-      border: 1px solid rgba(124,92,255,.4);
-      border-radius: 25px;
+
       padding: 25px;
+
       text-align: center;
+
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(5,32,68,.98),
+          rgba(2,15,34,.98)
+        );
+
+      border: 1px solid rgba(35,145,255,.42);
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.75),
+        0 0 40px rgba(20,120,255,.18);
     }
 
     .win-icon {
-      font-size: 65px;
+      min-height: 75px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 55px;
       margin-bottom: 10px;
     }
-.win-coin {
-  width: 90px;
-  height: 90px;
 
-  object-fit: contain;
-  display: block;
-
-  filter:
-    drop-shadow(0 8px 14px rgba(0,0,0,.45))
-    drop-shadow(0 0 18px rgba(255,210,70,.25));
-}
     .win-title {
-      font-size: 24px;
-      font-weight: 900;
-      margin-bottom: 8px;
+      font-size: 25px;
+      font-weight: 1000;
+
+      background:
+        linear-gradient(
+          90deg,
+          #55c8ff,
+          #2585ff
+        );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-.sound-button {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  z-index: 150;
 
-  width: 44px;
-  height: 44px;
-
-  border: 1px solid rgba(124, 92, 255, .45);
-  border-radius: 50%;
-
-  background: rgba(14, 16, 38, .9);
-  color: white;
-
-  font-size: 20px;
-  cursor: pointer;
-
-  box-shadow: 0 0 18px rgba(124, 92, 255, .3);
-}
-
-.sound-button:active {
-  transform: scale(.92);
-}
-    /* =========================
-   НОВА ГОЛОВНА
-   ========================= */
-
-.top-panel {
-  display: grid;
-grid-template-columns: minmax(0, 1.3fr) .7fr .7fr;
-  gap: 8px;
-
-  padding: 10px;
-
-  border-radius: 24px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(35, 38, 70, .95),
-      rgba(17, 20, 42, .95)
-    );
-
-  border: 1px solid rgba(124, 92, 255, .35);
-
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.3);
-}
-
-
-/* КОРИСТУВАЧ */
-
-.user-box {
-  min-width: 0;
-
-  display: flex;
-  align-items: center;
-
-  gap: 9px;
-
-  padding: 8px;
-
-  border-radius: 17px;
-
-  background: rgba(255,255,255,.045);
-}
-
-.top-avatar {
-  width: 46px;
-  height: 46px;
-
-  flex-shrink: 0;
-
-  font-size: 20px;
-}
-
-.user-info {
-  min-width: 0;
-}
-
-.user-name {
-  font-size: 14px;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.user-status {
-  margin-top: 3px;
-
-  color: #7f86a5;
-  font-size: 10px;
-}
-
-
-/* СТАТИСТИКА */
-
-.top-stat {
-  min-width: 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  padding: 7px 4px;
-
-  border-radius: 17px;
-
-  background: rgba(255,255,255,.045);
-
-  text-align: center;
-}
-
-.top-stat-icon {
-  font-size: 18px;
-  margin-bottom: 2px;
-}
-
-.top-stat-value {
-  font-size: 17px;
-  font-weight: 900;
-}
-
-.top-stat-label {
-  color: #858ba8;
-  font-size: 9px;
-  margin-top: 2px;
-}
-
-
-/* TELEGRAM ID */
-
-.telegram-id-box {
-  margin-top: 8px;
-
-  padding: 8px 12px;
-
-  border-radius: 12px;
-
-  background: rgba(255,255,255,.025);
-
-  color: #6f7695;
-
-  font-size: 10px;
-
-  text-align: center;
-}
-
-
-/* =========================
-   ІНВЕНТАР
-   ========================= */
-
-.inventory-card {
-  margin-top: 12px;
-
-  padding: 17px;
-
-  border-radius: 23px;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(124,92,255,.13),
-      transparent 45%
-    ),
-    rgba(22,25,53,.9);
-
-  border: 1px solid rgba(124,92,255,.35);
-
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.25);
-}
-
-.inventory-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-bottom: 15px;
-}
-
-.inventory-title {
-  font-size: 18px;
-  font-weight: 900;
-  letter-spacing: .3px;
-}
-
-.inventory-subtitle {
-  color: #858ba8;
-  font-size: 11px;
-
-  margin-top: 3px;
-}
-
-.inventory-count {
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 13px;
-
-  background: rgba(124,92,255,.15);
-
-  border: 1px solid rgba(124,92,255,.3);
-
-  color: #b8aaff;
-
-  font-size: 14px;
-  font-weight: 900;
-}
-
-
-/* ПУСТИЙ ІНВЕНТАР */
-
-.inventory-empty {
-  min-height: 205px;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  border-radius: 19px;
-
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(124,92,255,.13),
-      transparent 55%
-    ),
-    rgba(255,255,255,.025);
-
-  border: 1px dashed rgba(124,92,255,.25);
-}
-
-.inventory-gift {
-  width: 72px;
-  height: 72px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 13px;
-
-  border-radius: 21px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(124,92,255,.18),
-      rgba(32,169,255,.08)
-    );
-
-  font-size: 37px;
-
-  box-shadow:
-    0 0 30px rgba(124,92,255,.15);
-}
-
-.inventory-empty-title {
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.inventory-empty-text {
-  margin-top: 6px;
-
-  color: #858ba8;
-  font-size: 12px;
-}
-
-
-/* =========================
-   КОЛЕСО НА ГОЛОВНІЙ
-   ========================= */
-
-.home-wheel-card {
-  margin-top: 12px;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 18px;
-  border-radius: 21px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(124,92,255,.16),
-      rgba(32,169,255,.06)
-    );
-  border: 1px solid rgba(124,92,255,.3);
-  overflow: hidden;
-}
-.home-wheel-icon {
-  width: 48px;
-  height: 48px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 15px;
-
-  background: rgba(124,92,255,.16);
-
-  font-size: 25px;
-}
-
-.home-wheel-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.home-wheel-title {
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.home-wheel-text {
-  margin-top: 4px;
-
-  color: #858ba8;
-
-  font-size: 10px;
-}
-
-.home-wheel-button {
-  width: 42px;
-  height: 42px;
-
-  flex-shrink: 0;
-
-  border: none;
-  border-radius: 14px;
-
-  background: linear-gradient(
-    135deg,
-    #7455ff,
-    #20a9ff
-  );
-
-  color: white;
-
-  font-size: 24px;
-  font-weight: 900;
-
-  cursor: pointer;
-}
-
-.home-wheel-button:active {
-  transform: scale(.92);
-}
-
-
-/* НА МАЛЕНЬКИХ ЕКРАНАХ */
-
-@media (max-width: 360px) {
-
-  .top-panel {
-grid-template-columns: minmax(0, 1.15fr) .6fr .6fr;
-    gap: 5px;
-    padding: 7px;
-  }
-
-  .user-box {
-    padding: 6px;
-  }
-
-  .top-avatar {
-    width: 40px;
-    height: 40px;
-  }
-
-  .user-name {
-    font-size: 12px;
-  }
-
-  .top-stat-value {
-    font-size: 15px;
-  }
-
-  .top-stat-label {
-    font-size: 8px;
-  }
-}
     .win-text {
-      color: #aeb3cb;
-      line-height: 1.5;
+      margin: 12px 0 18px;
+
+      color: #b7d1ec;
+
+      font-size: 15px;
+      font-weight: 700;
     }
-    /* =========================
-   DARK GREEN BLUE DESIGN
-   ========================= */
-
-body {
-  background:
-    radial-gradient(circle at 20% 10%, rgba(0, 120, 90, .18), transparent 35%),
-    radial-gradient(circle at 85% 80%, rgba(0, 80, 75, .16), transparent 40%),
-    #071614;
-  color: #e8fff8;
-  font-family: "Trebuchet MS", "Arial", sans-serif;
-  overflow-x: hidden;
-}
-
-.app {
-  background:
-    linear-gradient(
-      145deg,
-      rgba(7, 29, 27, .98),
-      rgba(5, 20, 24, .98)
-    );
-}
-
-.header {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(8, 52, 45, .95),
-      rgba(6, 31, 38, .95)
-    );
-  border-bottom: 1px solid rgba(42, 190, 145, .25);
-}
-
-.logo {
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  background: linear-gradient(
-    90deg,
-    #5fffc3,
-    #2bd6a0,
-    #5ac8ff
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 18px rgba(43, 214, 160, .25);
-}
-
-.subtitle {
-  color: #75a99d;
-}
-
-.card,
-.inventory-card,
-.home-wheel-card,
-.top-panel {
-  background:
-    linear-gradient(
-      145deg,
-      rgba(12, 47, 42, .96),
-      rgba(7, 29, 34, .96)
-    ) !important;
-  border-color: rgba(43, 214, 160, .25) !important;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
-}
-
-.section-title,
-.inventory-title,
-.home-wheel-title {
-  color: #eafff8;
-  font-weight: 900;
-  letter-spacing: .4px;
-}
-
-.section-title,
-.inventory-title {
-  text-shadow: 0 0 14px rgba(43, 214, 160, .18);
-}
-
-.top-stat,
-.user-box {
-  background: rgba(255,255,255,.035) !important;
-  border-color: rgba(43, 214, 160, .16);
-}
-
-.top-stat-value,
-.tickets,
-.stat-number {
-  color: #55e9b5 !important;
-  text-shadow: 0 0 12px rgba(43, 233, 181, .25);
-}
-
-.top-stat-label,
-.inventory-subtitle,
-.home-wheel-text,
-.stat-label {
-  color: #789c94 !important;
-}
-
-.button,
-.home-wheel-button {
-  background:
-    linear-gradient(
-      135deg,
-      #087f63,
-      #0b5d70
-    ) !important;
-  border: 1px solid rgba(82, 255, 194, .3);
-  box-shadow: 0 0 20px rgba(13, 160, 120, .2);
-  font-family: inherit;
-  font-weight: 900;
-}
-
-.button.secondary {
-  background: rgba(8, 65, 62, .9) !important;
-}
-
-.bottom-nav {
-  background: rgba(5, 22, 24, .96) !important;
-  border-top: 1px solid rgba(43, 214, 160, .2);
-}
-
-.nav-btn {
-  color: #668d85 !important;
-  font-family: inherit;
-}
-
-.nav-btn.active {
-  color: #55e9b5 !important;
-  text-shadow: 0 0 12px rgba(85, 233, 181, .35);
-}
-
-.telegram-id-box {
-  background: rgba(20, 70, 65, .22) !important;
-  color: #648c84 !important;
-}
-
-.inventory-empty {
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(20, 170, 125, .12),
-      transparent 55%
-    ),
-    rgba(255,255,255,.02) !important;
-  border-color: rgba(43, 214, 160, .22) !important;
-}
-
-.inventory-gift {
-  background:
-    linear-gradient(
-      145deg,
-      rgba(20, 170, 125, .18),
-      rgba(20, 100, 130, .12)
-    ) !important;
-  box-shadow: 0 0 30px rgba(20, 170, 125, .12);
-}
-
-.ref-link {
-  background: rgba(8, 65, 62, .45) !important;
-  border-color: rgba(43, 214, 160, .2) !important;
-}
-
-.sound-button {
-  background: rgba(6, 35, 35, .95) !important;
-  border-color: rgba(43, 214, 160, .35) !important;
-}
-
-.win-title {
-  background: linear-gradient(
-    90deg,
-    #55e9b5,
-    #5ac8ff
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-    /* 🎁 ПРИЗИ НА КОЛЕСІ */
-
-.wheel {
-  position: relative;
-}
-
-/* =========================
-   НОВІ СЕКТОРИ КОЛЕСА
-   ========================= */
-
-.wheel-sector {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 70px;
-  height: 55px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  color: #ffffff;
-
-  font-size: 22px;
-  font-weight: 900;
-
-  line-height: 20px;
-  text-align: center;
-
-  z-index: 4;
-  pointer-events: none;
-
-  text-shadow:
-    0 2px 4px rgba(0,0,0,.7),
-    0 0 8px rgba(0,0,0,.4);
-
-  transform:
-    translate(-50%, -50%)
-    rotate(var(--angle))
-    translateY(-92px)
-    rotate(calc(-1 * var(--angle)));
-}
-
-.wheel-sector small {
-  display: block;
-
-  margin-top: 2px;
-
-  color: #ffffff;
-
-  font-size: 13px;
-  font-weight: 900;
-
-  line-height: 15px;
-}
-.wheel-coin {
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 3px 6px rgba(0,0,0,.5));
-}
-.wheel-sector small {
-  display: block;
-
-  margin-top: 2px;
-
-  color: #ffffff;
-
-  font-size: 13px;
-  font-weight: 900;
-
-  line-height: 15px;
-}
-
-
-.sector-1 {
-  --angle: 0deg;
-}
-
-.sector-2 {
-  --angle: 45deg;
-}
-
-.sector-3 {
-  --angle: 90deg;
-}
-
-.sector-4 {
-  --angle: 135deg;
-}
-
-.sector-5 {
-  --angle: 180deg;
-}
-
-.sector-6 {
-  --angle: 225deg;
-}
-
-.sector-7 {
-  --angle: 270deg;
-}
-
-.sector-8 {
-  --angle: 315deg;
-}
-
-/* ЦЕНТР */
-
-.wheel-center {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  transform: translate(-50%, -50%);
-
-  width: 65px;
-  height: 65px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #082b29;
-
-  border: 5px solid #55e9b5;
-
-  font-size: 27px;
-
-  z-index: 10;
-
-  box-shadow:
-    0 0 20px rgba(85,233,181,.3);
-}
-    /* 🎡 НОВІ КОЛЕСА */
-
-.wheel-game-card {
-  text-align: center;
-  padding: 20px 15px;
-}
-
-.wheel-game-title {
-  font-size: 19px;
-  font-weight: 900;
-  color: #eafff8;
-  margin-bottom: 15px;
-}
-
-.wheel-wrapper {
-  position: relative;
-  width: 280px;
-  height: 280px;
-  margin: 10px auto 18px;
-}
-
-.wheel {
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  border: 8px solid #123d38;
-  position: relative;
-  overflow: hidden;
-
-  background: conic-gradient(
-  from -22.5deg,
-  #19a77b 0deg 45deg,
-  #0b6270 45deg 90deg,
-  #38c99b 90deg 135deg,
-  #174f5a 135deg 180deg,
-  #19a77b 180deg 225deg,
-  #0b6270 225deg 270deg,
-  #38c99b 270deg 315deg,
-  #174f5a 315deg 360deg
-);
-
-  box-shadow:
-    0 0 25px rgba(43,214,160,.25),
-    inset 0 0 20px rgba(0,0,0,.35);
-
-  transition: transform 4s cubic-bezier(.12,.72,.15,1);
-}
-
-.wheel::after {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  border-radius: 50%;
-  border: 2px dashed rgba(255,255,255,.25);
-}
-
-.wheel-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-
-  width: 65px;
-  height: 65px;
-
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #082b29;
-  border: 5px solid #55e9b5;
-
-  font-size: 28px;
-  z-index: 3;
-
-  box-shadow: 0 0 20px rgba(85,233,181,.3);
-}
-
-.wheel-pointer {
-  position: absolute;
-  z-index: 10;
-
-  top: -7px;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  color: #55e9b5;
-  font-size: 32px;
-
-  filter: drop-shadow(0 3px 5px rgba(0,0,0,.5));
-}
-
-.wheel-cost {
-  color: #ffd95a;
-  font-size: 14px;
-  font-weight: 900;
-  margin-bottom: 12px;
-}
-/* 🔵 NIKA — СИНЯ КАРТКА */
-.bear-clicker {
-  margin-top: 15px;
-  padding: 20px;
-  text-align: center;
-  border-radius: 24px;
-
-  background:
-    radial-gradient(
-      circle at 50% 45%,
-      rgba(35, 150, 255, .20),
-      transparent 60%
-    ),
-    linear-gradient(
-      145deg,
-      rgba(5, 35, 75, .98),
-      rgba(2, 15, 34, .98)
-    );
-
-  border: 1px solid rgba(45, 155, 255, .42);
-
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.45),
-    0 0 30px rgba(20,120,255,.12),
-    inset 0 1px 0 rgba(255,255,255,.05);
-}
-
-.bear-title {
-  color: #5fc7ff;
-  font-size: 14px;
-  font-weight: 900;
-  margin-bottom: 10px;
-
-  text-shadow:
-    0 0 10px rgba(45,170,255,.45);
-}
-
-.bear {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 60vw;
-  height: 60vw;
-
-  cursor: pointer;
-  user-select: none;
-
-  transition: transform .12s ease;
-
-  -webkit-tap-highlight-color: transparent;
-}
-
-.click-coin {
-  width: 58vw;
-  height: 58vw;
-
-  max-width: 280px;
-  max-height: 280px;
-
-  object-fit: contain;
-
-  user-select: none;
-  -webkit-user-drag: none;
-
-  filter:
-    drop-shadow(0 12px 20px rgba(0,0,0,.45))
-    drop-shadow(0 0 22px rgba(35,150,255,.35));
-
-  transition:
-    transform .12s ease,
-    filter .12s ease;
-}
-
-.bear:active .click-coin {
-  transform: scale(.90);
-
-  filter:
-    drop-shadow(0 7px 12px rgba(0,0,0,.45))
-    drop-shadow(0 0 30px rgba(35,170,255,.55));
-}
-
-.click-coin {
-  width: 58vw;
-  height: 58vw;
-
-  max-width: 280px;
-  max-height: 280px;
-
-  object-fit: contain;
-
-  user-select: none;
-  -webkit-user-drag: none;
-
-  filter:
-    drop-shadow(0 12px 20px rgba(0,0,0,.45))
-    drop-shadow(0 0 18px rgba(255,210,70,.18));
-
-  transition:
-    transform .12s ease,
-    filter .12s ease;
-}
-
-.bear:active .click-coin {
-  transform: scale(.90);
-  filter:
-    drop-shadow(0 7px 12px rgba(0,0,0,.45))
-    drop-shadow(0 0 25px rgba(255,210,70,.30));
-}
-
-.bear:active {
-  transform: scale(.88) rotate(-5deg);
-}
-
-.bear-reward {
-  color: #6effc2;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.bear-stars {
-  margin-top: 6px;
-  color: #9aada8;
-  font-size: 13px;
-}
-
-.bear-stars span {
-  color: #ffd95a;
-  font-weight: 900;
-  font-size: 16px;
-}
-    /* 🪙 МОНЕТКА NIK */
-.kam-coin {
-  width: 42px;
-  height: 42px;
-  object-fit: cover;
-  border-radius: 50%;
-  vertical-align: middle;
-  display: inline-block;
-  mix-blend-mode: screen;
-}
-
-.kam-coin-big {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-  vertical-align: middle;
-  display: inline-block;
-}
-    /* ✅ ВЕДМЕДИК І КОЛЕСО ОДНЕ ПІД ОДНИМ */
-#home.active {
-  display: block !important;
-}
-
-#home .bear-clicker {
-  width: 100%;
-  display: block;
-}
-
-#home .home-wheel-card {
-  width: 100%;
-  display: flex;
-  margin-top: 12px;
-}
-
-/* ===== FIX: ГОЛОВНА — ВСЕ В ОДНУ КОЛОНКУ ===== */
-#home {
-  display: none;
-  width: 100%;
-  min-width: 0;
-}
-
-#home.active {
-  display: block !important;
-}
-
-#home .top-panel {
-  width: 100%;
-}
-
-#home > .telegram-id-box,
-#home > .bear-clicker,
-#home > .home-wheel-card {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-}
-
-#home > .bear-clicker,
-#home > .home-wheel-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  float: none;
-  clear: both;
-}
-
-#home .home-wheel-info {
-  width: 100%;
-  flex: none;
-  text-align: center;
-}
-
-#home .home-wheel-button {
-  flex: none;
-}
-.inventory-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-
-  margin: 12px 0;
-  padding: 14px;
-
-  background: linear-gradient(
-    145deg,
-    rgba(18, 61, 56, .95),
-    rgba(8, 43, 41, .95)
-  );
-
-  border: 1px solid rgba(85, 233, 181, .18);
-  border-radius: 18px;
-
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, .25);
-}
-
-.inventory-item-icon {
-  width: 68px;
-  height: 68px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 48px;
-}
-
-.inventory-item-info {
-  flex: 1;
-}
-
-.inventory-item-name {
-  color: #ffffff;
-  font-size: 17px;
-  font-weight: 900;
-}
-
-.inventory-item-subtitle {
-  margin-top: 4px;
-
-  color: #789c94;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.inventory-withdraw-button {
-  width: 100%;
-
-  margin-top: 10px;
-  padding: 9px 12px;
-
-  border: 0;
-  border-radius: 10px;
-
-  background: #19a77b;
-  color: #ffffff;
-
-  font-size: 12px;
-  font-weight: 900;
-
-  cursor: pointer;
-}
-  /* 🎁 DAILY BONUS — NLKAMAN PREMIUM */
-
-.daily-bonus-modal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  z-index: 9999;
-
-  align-items: center;
-  justify-content: center;
-
-  padding: 16px;
-
-  background: rgba(2, 15, 14, .82);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.daily-bonus-card {
-  width: 100%;
-  max-width: 420px;
-
-  padding: 24px 16px 18px;
-
-  border-radius: 28px;
-
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      rgba(85, 233, 181, .20),
-      transparent 40%
-    ),
-    linear-gradient(
-      145deg,
-      #103c37,
-      #061d1c 70%,
-      #041514
-    );
-
-  border: 1px solid rgba(85, 233, 181, .28);
-
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.75),
-    0 0 45px rgba(25,167,123,.16),
-    inset 0 1px 0 rgba(255,255,255,.06);
-}
-
-/* ЗАГОЛОВОК */
-
-.daily-bonus-title {
-  text-align: center;
-
-  color: #55e9b5;
-
-  font-size: 14px;
-  font-weight: 900;
-
-  letter-spacing: 3px;
-
-  text-shadow:
-    0 0 14px rgba(85,233,181,.35);
-}
-
-/* 🔥 STREAK */
-
-.daily-bonus-streak-icon {
-  margin-top: 7px;
-
-  text-align: center;
-
-  font-size: 40px;
-  line-height: 44px;
-
-  filter:
-    drop-shadow(0 0 12px rgba(255,110,45,.35));
-}
-
-.daily-bonus-streak {
-  margin-top: -2px;
-
-  text-align: center;
-
-  color: #eafff8;
-
-  font-size: 56px;
-  line-height: 56px;
-
-  font-weight: 1000;
-
-  text-shadow:
-    0 0 20px rgba(85,233,181,.22);
-}
-
-.daily-bonus-streak-label {
-  margin-top: 3px;
-
-  text-align: center;
-
-  color: #82b9ac;
-
-  font-size: 12px;
-  font-weight: 900;
-
-  letter-spacing: 2px;
-}
-
-/* ПІДЗАГОЛОВОК */
-
-.daily-bonus-subtitle {
-  margin-top: 12px;
-  margin-bottom: 18px;
-
-  text-align: center;
-
-  color: #789c94;
-
-  font-size: 13px;
-  font-weight: 700;
-}
-
-/* ДНІ — РОЗТАШУВАННЯ НЕ ЗМІНЮЄМО */
-
-.daily-bonus-days {
-  display: grid;
-
-  grid-template-columns: repeat(6, 1fr);
-
-  gap: 9px;
-}
-
-.daily-bonus-day:nth-child(1),
-.daily-bonus-day:nth-child(2),
-.daily-bonus-day:nth-child(3),
-.daily-bonus-day:nth-child(4),
-.daily-bonus-day:nth-child(5),
-.daily-bonus-day:nth-child(6) {
-  grid-column: span 2;
-}
-
-.daily-bonus-day:nth-child(7) {
-  grid-column: 1 / -1;
-}
-
-/* КАРТКИ ДНІВ */
-
-.daily-bonus-day {
-  min-height: 112px;
-
-  padding: 10px 5px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-
-  border-radius: 18px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(18,61,56,.95),
-      rgba(7,35,34,.98)
-    );
-
-  border: 1px solid rgba(85,233,181,.12);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.035),
-    0 8px 20px rgba(0,0,0,.32);
-
-  transition:
-    transform .2s ease,
-    border-color .2s ease,
-    box-shadow .2s ease,
-    opacity .2s ease;
-}
-
-/* НОМЕР ДНЯ */
-
-.bonus-day-number {
-  width: 28px;
-  height: 28px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 8px;
-
-  border-radius: 50%;
-
-  background: rgba(2,25,24,.75);
 
-  color: #6fa79a;
-
-  font-size: 12px;
-  font-weight: 900;
-}
+    /* SOUND */
 
-/* ІКОНКА */
+    .sound-button {
+      position: fixed;
 
-.bonus-icon {
-  width: 38px;
-  height: 38px;
+      top: 15px;
+      right: 15px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+      width: 40px;
+      height: 40px;
 
-  margin: 2px 0;
+      border-radius: 50%;
 
-  filter:
-    drop-shadow(0 4px 8px rgba(0,0,0,.5));
-}
+      background: rgba(2,18,38,.95);
 
-.bonus-coin {
-  width: 36px;
-  height: 36px;
+      border: 1px solid rgba(40,155,255,.45);
 
-  object-fit: contain;
+      color: white;
 
-  display: block;
-}
+      font-size: 18px;
 
-/* НАГОРОДА */
+      z-index: 50;
 
-.bonus-value {
-  margin-top: 6px;
+      box-shadow:
+        0 0 18px rgba(0,100,255,.30);
+    }
 
-  color: #eafff8;
+    /* BOTTOM NAV */
 
-  font-size: 11px;
-  font-weight: 1000;
+    .bottom-nav {
+      position: fixed;
 
-  line-height: 13px;
-}
+      left: 0;
+      right: 0;
+      bottom: 0;
 
-/* ⭐ ПОТОЧНИЙ ДЕНЬ */
+      z-index: 40;
 
-.daily-bonus-day.active {
-  border-color: #55e9b5;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
 
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(85,233,181,.18),
-      transparent 65%
-    ),
-    linear-gradient(
-      145deg,
-      rgba(20,92,79,.98),
-      rgba(7,42,39,.98)
-    );
-
-  box-shadow:
-    0 0 22px rgba(85,233,181,.22),
-    inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-.daily-bonus-day.active .bonus-day-number {
-  background: #19a77b;
-
-  color: #ffffff;
-
-  box-shadow:
-    0 0 12px rgba(85,233,181,.35);
-}
-
-/* ✅ ОТРИМАНІ */
-
-.daily-bonus-day.claimed {
-  opacity: .42;
-
-  border-color: rgba(85,233,181,.06);
-}
-
-/* 🔒 МАЙБУТНІ */
-
-.daily-bonus-day.locked {
-  opacity: .25;
-
-  filter: grayscale(.8);
-}
-
-/* 7 ДЕНЬ */
-
-.daily-bonus-day:nth-child(7) {
-  min-height: 105px;
-}
-
-/* 🎁 КНОПКА */
-
-.daily-bonus-button {
-  width: 100%;
-
-  margin-top: 18px;
-
-  padding: 15px 12px;
-
-  border: 1px solid rgba(255,255,255,.08);
-
-  border-radius: 16px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #55e9b5,
-      #19a77b
-    );
-
-  color: #03241f;
-
-  font-size: 16px;
-  font-weight: 1000;
-
-  box-shadow:
-    0 8px 25px rgba(25,167,123,.28),
-    inset 0 1px 0 rgba(255,255,255,.45);
-
-  cursor: pointer;
-
-  transition:
-    transform .15s ease,
-    box-shadow .15s ease;
-}
-
-.daily-bonus-button:active {
-  transform: scale(.97);
-
-  box-shadow:
-    0 4px 15px rgba(25,167,123,.2);
-}
-    /* 🔵 NLKAMAN — BLUE NIGHT THEME */
-
-body {
-  background:
-    radial-gradient(circle at 50% 10%, rgba(0,110,255,.25), transparent 35%),
-    radial-gradient(circle at 20% 80%, rgba(0,60,180,.18), transparent 35%),
-    linear-gradient(145deg, #020817, #06152d 50%, #01050d) !important;
-  color: #eef7ff;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: .22;
-  z-index: 0;
-
-  background:
-    radial-gradient(
-      circle at 50% 25%,
-      rgba(40,150,255,.16),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 15% 70%,
-      rgba(0,80,220,.14),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 85% 80%,
-      rgba(30,130,255,.12),
-      transparent 35%
-    );
-}
-
-.header {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(3,25,55,.92),
-      rgba(3,15,32,.75)
-    );
-  border-bottom: 1px solid rgba(30,140,255,.25);
-}
-
-.logo {
-  color: #eaf7ff;
-  text-shadow:
-    0 0 12px rgba(30,150,255,.65),
-    0 0 30px rgba(0,90,255,.25);
-}
-
-.logo span {
-  color: #35aaff !important;
-}
-
-.subtitle {
-  color: #7ea8d5 !important;
-}
-
-.card,
-.inventory-card,
-.home-wheel-card,
-.top-panel {
-  background:
-    radial-gradient(
-      circle at 50% 20%,
-      rgba(20,120,255,.16),
-      transparent 55%
-    ),
-    linear-gradient(
-      145deg,
-      rgba(5,32,68,.98),
-      rgba(2,15,34,.98)
-    ) !important;
-
-  border-color: rgba(35,145,255,.42) !important;
-
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.5),
-    0 0 30px rgba(0,100,255,.12);
-}
-
-.top-stat,
-.user-box {
-  background: rgba(15,55,100,.30) !important;
-  border-color: rgba(50,160,255,.20) !important;
-}
-
-.top-stat-value,
-.tickets,
-.stat-number {
-  color: #48b9ff !important;
-
-  text-shadow:
-    0 0 12px rgba(40,160,255,.55);
-}
-
-.top-stat-label,
-.inventory-subtitle,
-.home-wheel-text,
-.stat-label {
-  color: #7198c0 !important;
-}
-
-.section-title,
-.inventory-title,
-.home-wheel-title {
-  color: #eaf7ff !important;
-
-  text-shadow:
-    0 0 15px rgba(40,160,255,.35);
-}
-
-.button,
-.home-wheel-button {
-  background:
-    linear-gradient(
-      135deg,
-      #087cff,
-      #0750c7
-    ) !important;
-
-  border: 1px solid rgba(90,190,255,.65);
-
-  box-shadow:
-    0 0 20px rgba(0,110,255,.35),
-    inset 0 1px 0 rgba(255,255,255,.25);
-}
-
-.button.secondary {
-  background:
-    linear-gradient(
-      135deg,
-      #073b83,
-      #062754
-    ) !important;
-}
-
-.bottom-nav {
-  background:
-    rgba(2,13,28,.97) !important;
-
-  border-top:
-    1px solid rgba(30,140,255,.30);
-
-  box-shadow:
-    0 -8px 30px rgba(0,60,180,.15);
-}
-
-.nav-btn {
-  color: #6486ad !important;
-}
-
-.nav-btn.active {
-  color: #45b7ff !important;
-
-  text-shadow:
-    0 0 14px rgba(50,170,255,.65);
-}
-
-.telegram-id-box {
-  background:
-    rgba(10,55,100,.28) !important;
-
-  color: #6f98c0 !important;
-}
-
-.home-wheel-card {
-  border-color: rgba(30,145,255,.35) !important;
-}
-
-.wheel-game-card {
-  background:
-    linear-gradient(
-      145deg,
-      rgba(5,30,62,.98),
-      rgba(2,13,28,.98)
-    ) !important;
-
-  border-color: rgba(30,145,255,.38) !important;
-}
-
-.wheel-game-title {
-  color: #eaf7ff !important;
-
-  text-shadow:
-    0 0 14px rgba(30,150,255,.4);
-}
-
-.wheel-cost {
-  color: #54baff !important;
-}
-
-.wheel-pointer {
-  color: #48b9ff !important;
-
-  filter:
-    drop-shadow(0 0 8px rgba(30,160,255,.75));
-}
-
-.wheel-center {
-  background: #031a36 !important;
-  border-color: #39aaff !important;
-
-  box-shadow:
-    0 0 25px rgba(20,140,255,.45);
-}
-
-.ref-link {
-  background:
-    rgba(5,35,70,.65) !important;
-
-  border-color:
-    rgba(30,145,255,.25) !important;
-}
-
-.inventory-empty {
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(20,120,255,.15),
-      transparent 55%
-    ),
-    rgba(5,25,50,.60) !important;
-
-  border-color:
-    rgba(30,145,255,.28) !important;
-}
+      padding: 8px 7px calc(8px + env(safe-area-inset-bottom));
+
+      background: rgba(2,13,28,.97);
+
+      border-top: 1px solid rgba(30,140,255,.30);
+
+      box-shadow:
+        0 -8px 30px rgba(0,60,180,.15);
+    }
+
+    .nav-btn {
+      border: 0;
+      background: transparent;
+
+      color: #6486ad;
+
+      padding: 7px 2px;
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .nav-btn span {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 20px;
+    }
+
+    .nav-btn.active {
+      color: #45b7ff;
+
+      text-shadow:
+        0 0 14px rgba(50,170,255,.65);
+
+      background: rgba(25,125,255,.12);
+
+      border-radius: 13px;
+    }
+
+    /* DAILY BONUS */
+
+    .daily-bonus-modal {
+      position: fixed;
+      inset: 0;
+
+      z-index: 200;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 16px;
+
+      background: rgba(1,8,20,.84);
+    }
+
+    .daily-bonus-card {
+      width: 100%;
+      max-width: 390px;
+
+      padding: 22px 16px;
+
+      border-radius: 25px;
+
+      text-align: center;
+
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(45,155,255,.20),
+          transparent 40%
+        ),
+        linear-gradient(
+          145deg,
+          #092e5c,
+          #04182f 70%,
+          #020c1b
+        );
+
+      border: 1px solid rgba(55,165,255,.32);
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.75),
+        0 0 45px rgba(25,125,255,.18),
+        inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .daily-bonus-title {
+      color: #55c8ff;
+
+      font-size: 20px;
+      font-weight: 1000;
+
+      text-shadow:
+        0 0 14px rgba(55,175,255,.35);
+    }
+
+    .daily-bonus-streak-icon {
+      margin-top: 8px;
+      font-size: 35px;
+    }
+
+    .daily-bonus-streak {
+      margin-top: -4px;
+
+      color: #eaf7ff;
+
+      font-size: 30px;
+      font-weight: 1000;
+
+      text-shadow:
+        0 0 20px rgba(55,165,255,.25);
+    }
+
+    .daily-bonus-streak-label {
+      margin-top: 2px;
+
+      color: #7198c0;
+
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .daily-bonus-subtitle {
+      margin: 10px 0 17px;
+
+      color: #7198c0;
+
+      font-size: 12px;
+    }
+
+    .daily-bonus-days {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+    }
+
+    .daily-bonus-day {
+      min-height: 105px;
+
+      padding: 10px 5px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 15px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(8,55,100,.95),
+          rgba(4,29,58,.98)
+        );
+
+      border: 1px solid rgba(55,165,255,.14);
+    }
+
+    .daily-bonus-day:nth-child(7) {
+      grid-column: 2;
+    }
+
+    .daily-bonus-day.active {
+      border-color: #45b7ff;
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(55,175,255,.20),
+          transparent 65%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(12,75,130,.98),
+          rgba(4,36,72,.98)
+        );
+
+      box-shadow:
+        0 0 22px rgba(45,160,255,.25),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .daily-bonus-day.claimed {
+      opacity: .45;
+      border-color: rgba(55,165,255,.08);
+    }
+
+    .daily-bonus-day.locked {
+      opacity: .28;
+      filter: grayscale(.8);
+    }
+
+    .bonus-day-number {
+      width: 24px;
+      height: 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: rgba(2,25,50,.75);
+
+      color: #6fa9d5;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .daily-bonus-day.active .bonus-day-number {
+      background: #087cff;
+      color: white;
+    }
+
+    .bonus-icon {
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 5px 0 2px;
+
+      font-size: 25px;
+    }
+
+    .bonus-coin {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+
+      filter:
+        drop-shadow(0 0 8px rgba(30,150,255,.35));
+    }
+
+    .bonus-value {
+      color: #eaf7ff;
+
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .daily-bonus-button {
+      width: 100%;
+
+      margin-top: 18px;
+      padding: 15px 12px;
+
+      border: 0;
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #55c8ff,
+          #087cff
+        );
+
+      color: #021426;
+
+      font-size: 16px;
+      font-weight: 1000;
+
+      box-shadow:
+        0 8px 25px rgba(25,125,255,.30),
+        inset 0 1px 0 rgba(255,255,255,.45);
+    }
+
+    .daily-bonus-button:active {
+      transform: scale(.97);
+    }
+
+    /* BLUE FINAL OVERRIDES */
+
+    body {
+      background:
+        radial-gradient(circle at 50% 8%, rgba(30,145,255,.22), transparent 34%),
+        radial-gradient(circle at 12% 75%, rgba(0,75,220,.18), transparent 36%),
+        radial-gradient(circle at 88% 82%, rgba(30,125,255,.14), transparent 38%),
+        linear-gradient(145deg, #020817, #06152d 52%, #01050d) !important;
+    }
+
+    body::before {
+      opacity: .10 !important;
+
+      background-image:
+        radial-gradient(circle, rgba(70,175,255,.32) 1px, transparent 1px) !important;
+
+      background-size: 45px 45px !important;
+    }
+
+    .header {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(3,25,55,.92),
+          rgba(3,15,32,.72)
+        ) !important;
+
+      border-bottom:
+        1px solid rgba(35,150,255,.28) !important;
+    }
+
+    .logo {
+      color: #eaf7ff !important;
+
+      text-shadow:
+        0 0 12px rgba(30,150,255,.65),
+        0 0 30px rgba(0,90,255,.25) !important;
+    }
+
+    .logo span {
+      color: #35aaff !important;
+    }
+
+    .subtitle {
+      color: #7ea8d5 !important;
+    }
+
+    .card,
+    .inventory-card,
+    .home-wheel-card,
+    .top-panel {
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(20,120,255,.16),
+          transparent 55%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(5,32,68,.98),
+          rgba(2,15,34,.98)
+        ) !important;
+
+      border-color:
+        rgba(35,145,255,.42) !important;
+
+      box-shadow:
+        0 12px 35px rgba(0,0,0,.50),
+        0 0 30px rgba(0,100,255,.12) !important;
+    }
+
+    .top-stat,
+    .user-box {
+      background: rgba(15,55,100,.30) !important;
+      border-color: rgba(50,160,255,.20) !important;
+    }
+
+    .top-stat-value,
+    .tickets,
+    .stat-number {
+      color: #48b9ff !important;
+
+      text-shadow:
+        0 0 12px rgba(40,160,255,.55) !important;
+    }
+
+    .top-stat-label,
+    .inventory-subtitle,
+    .home-wheel-text,
+    .stat-label {
+      color: #7198c0 !important;
+    }
+
+    .section-title,
+    .inventory-title,
+    .home-wheel-title {
+      color: #eaf7ff !important;
+
+      text-shadow:
+        0 0 15px rgba(40,160,255,.35) !important;
+    }
+
+    .button,
+    .home-wheel-button {
+      background:
+        linear-gradient(
+          135deg,
+          #087cff,
+          #0750c7
+        ) !important;
+
+      border:
+        1px solid rgba(90,190,255,.65) !important;
+
+      box-shadow:
+        0 0 20px rgba(0,110,255,.35),
+        inset 0 1px 0 rgba(255,255,255,.25) !important;
+    }
+
+    .button.secondary {
+      background:
+        linear-gradient(
+          135deg,
+          #073b83,
+          #062754
+        ) !important;
+    }
+
+    .bottom-nav {
+      background:
+        rgba(2,13,28,.97) !important;
+
+      border-top:
+        1px solid rgba(30,140,255,.30) !important;
+
+      box-shadow:
+        0 -8px 30px rgba(0,60,180,.15) !important;
+    }
+
+    .nav-btn {
+      color: #6486ad !important;
+    }
+
+    .nav-btn.active {
+      color: #45b7ff !important;
+
+      text-shadow:
+        0 0 14px rgba(50,170,255,.65) !important;
+    }
+
+    .telegram-id-box {
+      background:
+        rgba(10,55,100,.28) !important;
+
+      color: #6f98c0 !important;
+    }
+
+    .ref-link {
+      background:
+        rgba(5,35,70,.65) !important;
+
+      border-color:
+        rgba(30,145,255,.25) !important;
+    }
+
+    .wheel-game-card {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(5,30,62,.98),
+          rgba(2,13,28,.98)
+        ) !important;
+
+      border-color:
+        rgba(30,145,255,.38) !important;
+    }
+
+    .wheel-game-title {
+      color: #eaf7ff !important;
+
+      text-shadow:
+        0 0 14px rgba(30,150,255,.40) !important;
+    }
+
+    .wheel-cost {
+      color: #54baff !important;
+    }
+
+    .wheel-pointer {
+      color: #48b9ff !important;
+
+      filter:
+        drop-shadow(0 0 8px rgba(30,160,255,.75)) !important;
+    }
+
+    .wheel-center {
+      background: #031a36 !important;
+      border-color: #39aaff !important;
+
+      box-shadow:
+        0 0 25px rgba(20,140,255,.45) !important;
+    }
+
+    .daily-bonus-modal {
+      background: rgba(1,8,20,.84) !important;
+    }
+
+    .daily-bonus-card {
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(45,155,255,.20),
+          transparent 40%
+        ),
+        linear-gradient(
+          145deg,
+          #092e5c,
+          #04182f 70%,
+          #020c1b
+        ) !important;
+
+      border-color:
+        rgba(55,165,255,.32) !important;
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,.75),
+        0 0 45px rgba(25,125,255,.18),
+        inset 0 1px 0 rgba(255,255,255,.06) !important;
+    }
+
+    .daily-bonus-title {
+      color: #55c8ff !important;
+
+      text-shadow:
+        0 0 14px rgba(55,175,255,.35) !important;
+    }
+
+    .daily-bonus-day {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(8,55,100,.95),
+          rgba(4,29,58,.98)
+        ) !important;
+
+      border-color:
+        rgba(55,165,255,.14) !important;
+    }
+
+    .daily-bonus-day.active {
+      border-color: #45b7ff !important;
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(55,175,255,.20),
+          transparent 65%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(12,75,130,.98),
+          rgba(4,36,72,.98)
+        ) !important;
+    }
+
+    .daily-bonus-button {
+      background:
+        linear-gradient(
+          180deg,
+          #55c8ff,
+          #087cff
+        ) !important;
+
+      color: #021426 !important;
+    }
+
   </style>
 </head>
-  
+
 <body>
 
 <div class="app">
-<button id="soundButton" class="sound-button" onclick="toggleSound()">🔊</button>
-  <div class="header">
-    <div class="logo">NLKAMAN <span>GIFTS</span></div>
-    <div class="subtitle">NFT подарунки та розіграші</div>
-  </div>
 
-<!-- ГОЛОВНЕ -->
-<section id="home" class="page active">
-
-  <!-- ВЕРХНЯ ПАНЕЛЬ -->
-  <div class="top-panel">
-
-<!-- КОРИСТУВАЧ -->
-<div class="user-box">
-
-  <div class="avatar top-avatar" id="avatar">
-    N
-  </div>
-
-  <div class="user-info">
-    <div class="user-name" id="userName">@user</div>
-
-    <div class="user-status">
-      Учасник
-    </div>
-  </div>
-
-</div>
-
-
-    <!-- КВИТКИ -->
-    <div class="top-stat tickets-box">
-
-      <div class="top-stat-icon">
-        🎟
-      </div>
-
-      <div class="top-stat-value tickets" id="ticketCount">
-        0
-      </div>
-
-      <div class="top-stat-label">
-        Квитків
-      </div>
-
-    </div>
-
-    <!-- ЗІРКИ -->
-<div class="top-stat stars-box">
-<div class="top-stat-icon">
-<img src="coin.png.PNG" class="kam-coin">
-</div>
-  <div class="top-stat-value stars" id="starCount">0</div>
-<div class="top-stat-label">NIK</div>
-</div>
-  </div>
-  <!-- TELEGRAM ID -->
-  <div class="telegram-id-box" id="userid">
-    Telegram ID: —
-  </div>
-
-<!-- 🧸 ВЕДМЕДИК -->
-<div class="bear-clicker">
-
-<div class="bear-title">
-  🪙 КЛІКАЙ НА ВЕДМЕДИКА
-</div>
-
-  <div
-  class="bear"
-  id="bear"
-ontouchstart="handleBearTouch(event)"
->
-  <img
-    src="coin.png.PNG"
-    class="click-coin"
-    draggable="false"
+  <button
+    id="soundButton"
+    class="sound-button"
+    onclick="toggleSound()"
   >
-</div>
+    🔊
+  </button>
 
-  <div class="bear-reward">
-+1 NIK за клік
-  </div>
-
-  <div class="bear-stars">
-    NIK: <span id="bearStarCount">0</span>
-  </div>
-
-</div>
-
-  <!-- КОЛЕСО -->
-  <div class="home-wheel-card">
-
-    <div class="home-wheel-icon">
-      🎡
+  <div class="header">
+    <div class="logo">
+      NLKAMAN <span>GIFTS</span>
     </div>
 
-    <div class="home-wheel-info">
+    <div class="subtitle">
+      NFT подарунки та розіграші
+    </div>
+  </div>
 
-      <div class="home-wheel-title">
-        Колесо подарунків
+  <!-- ГОЛОВНЕ -->
+  <section id="home" class="page active">
+
+    <div class="top-panel">
+
+      <div class="user-box">
+
+        <div
+          class="avatar top-avatar"
+          id="avatar"
+        >
+          N
+        </div>
+
+        <div class="user-info">
+
+          <div
+            class="user-name"
+            id="userName"
+          >
+            @user
+          </div>
+
+          <div class="user-status">
+            Учасник
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="home-wheel-text">
-        Витрать 1 квиток та спробуй удачу
+      <div class="top-stat tickets-box">
+
+        <div class="top-stat-icon">
+          🎟
+        </div>
+
+        <div
+          class="top-stat-value tickets"
+          id="ticketCount"
+        >
+          0
+        </div>
+
+        <div class="top-stat-label">
+          Квитків
+        </div>
+
+      </div>
+
+      <div class="top-stat stars-box">
+
+        <div class="top-stat-icon">
+
+          <img
+            src="coin.png.PNG"
+            class="kam-coin"
+          >
+
+        </div>
+
+        <div
+          class="top-stat-value stars"
+          id="starCount"
+        >
+          0
+        </div>
+
+        <div class="top-stat-label">
+          NIK
+        </div>
+
       </div>
 
     </div>
 
-    <button
-      class="home-wheel-button"
-      onclick="openPage('wheel')">
-      →
-    </button>
+    <div
+      class="telegram-id-box"
+      id="userid"
+    >
+      Telegram ID: —
+    </div>
 
-  </div>
+    <!-- 🧸 КЛІКЕР -->
 
+    <div class="bear-clicker">
 
-</section>
-
-
-  <!-- РЕФЕРАЛИ -->
-  <section id="referrals" class="page">
-
-    <div class="card">
-
-      <div class="section-title">
-        👥 Реферальна система
+      <div class="bear-title">
+        🪙 КЛІКАЙ НА ВЕДМЕДИКА
       </div>
 
-      <div class="notice">
-        Запрошуй друзів та отримуй <b>+1 квиток</b>
-        за кожного нового учасника, який виконає умови.
+      <div
+        class="bear"
+        id="bear"
+        ontouchstart="handleBearTouch(event)"
+      >
+
+        <img
+          src="coin.png.PNG"
+          class="click-coin"
+          draggable="false"
+        >
+
+      </div>
+
+      <div class="bear-reward">
+        +1 NIK за клік
+      </div>
+
+      <div class="bear-stars">
+        NIK:
+        <span id="bearStarCount">
+          0
+        </span>
+      </div>
+
+    </div>
+
+    <div class="home-wheel-card">
+
+      <div class="home-wheel-icon">
+        🎡
+      </div>
+
+      <div class="home-wheel-info">
+
+        <div class="home-wheel-title">
+          Колесо подарунків
+        </div>
+
+        <div class="home-wheel-text">
+          Витрать 1 квиток та спробуй удачу
+        </div>
+
+      </div>
+
+      <button
+        class="home-wheel-button"
+        onclick="openPage('wheel')"
+      >
+        ГРАТИ
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- ІНВЕНТАР -->
+
+  <section
+    id="inventory"
+    class="page"
+  >
+
+    <div class="inventory-title">
+      🎁 Мій інвентар
+    </div>
+
+    <div class="inventory-empty">
+
+      <div class="inventory-empty-icon">
+        🎁
       </div>
 
       <div>
-        Твоє посилання:
-      </div>
-
-      <div class="ref-link" id="refLink">
-        Завантаження...
-      </div>
-
-      <button class="button" onclick="copyReferral()">
-        📋 СКОПІЮВАТИ ПОСИЛАННЯ
-      </button>
-
-      <button class="button secondary" onclick="shareReferral()">
-        📤 ЗАПРОСИТИ ДРУЗІВ
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <div class="section-title">
-        📊 Твоя статистика
-      </div>
-
-      <div class="stats">
-
-        <div class="stat">
-          <div class="stat-number" id="refCount2">0</div>
-          <div class="stat-label">Запрошено</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-number tickets" id="ticketCount2">0</div>
-          <div class="stat-label">Квитків</div>
-        </div>
-
-      </div>
-
-    </div>
-
-</section> 
-  <!-- ІНВЕНТАР -->
-<section id="inventory" class="page">
-
-  <div class="section-title">
-    🎁 Мій інвентар
-  </div>
-
-  <div class="inventory-empty">
-
-    <div style="font-size:55px;">
-      🎁
-    </div>
-
-    <div style="margin-top:12px;font-size:17px;font-weight:900;">
-      Інвентар порожній
-    </div>
-
-    <div style="margin-top:7px;color:#789c94;font-size:13px;">
-      Тут з'являться твої виграні подарунки
-    </div>
-
-  </div>
-
-</section>
-    <!-- КОЛЕСА -->
-<section id="wheel" class="page">
-
-  <div class="section-title">
-    🎡 Колеса
-  </div>
-
-  <!-- ⭐ КОЛЕСО ЗА NIK -->
-  <div class="card wheel-game-card">
-
-    <div class="wheel-game-title">
-      🪙 Колесо за NIK
-    </div>
-
-    <div class="wheel-wrapper">
-
-      <div class="wheel-pointer">▼</div>
-
-      <div class="wheel" id="starsWheel">
-
-        <div class="wheel-sector sector-1">
-          <span>
-  <img src="coin.png.PNG" class="wheel-coin">
-</span>
-          <small>5</small>
-        </div>
-
-        <div class="wheel-sector sector-2">
-      <span>
-  <img src="coin.png.PNG" class="wheel-coin">
-</span>
-          <small>10</small>
-        </div>
-        
-        <div class="wheel-sector sector-3">
-          <span>🎟</span>
-          <small>+1</small>
-        </div>
-
-        <div class="wheel-sector sector-4">
-          <span>🎁</span>
-          <small>Gift</small>
-        </div>
-
-        <div class="wheel-sector sector-5">
-    <span>
-  <img src="coin.png.PNG" class="wheel-coin">
-</span>
-          <small>20</small>
-        </div>
-
-        <div class="wheel-sector sector-6">
-          <span>🎟</span>
-          <small>+2</small>
-        </div>
-
-        <div class="wheel-sector sector-7">
-          <span>💎</span>
-          <small>NFT</small>
-        </div>
-
-        <div class="wheel-sector sector-8">
-          <span>😈</span>
-          <small>0</small>
-        </div>
-
-        <div class="wheel-center">
-          <img src="coin.png.PNG" class="wheel-center-coin">
-        </div>
-
-      </div>
-    </div>
-
-    <div class="wheel-cost">
-      10 NIK за обертання
-    </div>
-
-    <button class="button" id="starsSpinButton">
-      🎡 КРУТИТИ ЗА NIK
-    </button>
-
-  </div>
-
-
-  <!-- 👥 КОЛЕСО ЗА РЕФЕРАЛІВ -->
-  <div class="card wheel-game-card">
-
-    <div class="wheel-game-title">
-      👥 Колесо за рефералів
-    </div>
-
-    <div class="wheel-wrapper">
-
-      <div class="wheel-pointer">▼</div>
-
-      <div class="wheel" id="refWheel">
-
-        <div class="wheel-sector sector-1">
-          <span>🎟</span>
-          <small>+1</small>
-        </div>
-
-        <div class="wheel-sector sector-2">
-          <span>
-  <img src="coin.png.PNG" class="wheel-coin">
-</span>
-          <small>5</small>
-        </div>
-
-        <div class="wheel-sector sector-3">
-          <span>🎁</span>
-          <small>Gift</small>
-        </div>
-
-        <div class="wheel-sector sector-4">
-       <span>
-  <img src="coin.png.PNG" class="wheel-coin">
-</span>
-          <small>10</small>
-        </div>
-
-        <div class="wheel-sector sector-5">
-          <span>🎟</span>
-          <small>+2</small>
-        </div>
-
-        <div class="wheel-sector sector-6">
-          <span>💎</span>
-          <small>NFT</small>
-        </div>
-
-        <div class="wheel-sector sector-7">
-       <span>
-  <img src="coin.png.PNG" class="wheel-coin">
-</span>
-          <small>20</small>
-        </div>
-
-        <div class="wheel-sector sector-8">
-          <span>😈</span>
-          <small>0</small>
-        </div>
-
-        <div class="wheel-center">
-          <img src="coin.png.PNG" class="wheel-center-coin">
-        </div>
-
-      </div>
-    </div>
-
-    <div class="wheel-cost">
-      1 реферал за обертання
-    </div>
-
-    <button class="button secondary" id="refSpinButton">
-      🎡 КРУТИТИ ЗА РЕФЕРАЛІВ
-    </button>
-
-  </div>
-
-</section>
-  <!-- ЛІДЕРБОРД -->
-  <section id="leaderboard" class="page">
-
-    <div class="card">
-
-      <div class="section-title">
-        🏆 Лідерборд
-      </div>
-
-      <div class="notice">
-        Тут відображаються учасники, які запросили
-        найбільше людей.
-      </div>
-
-      <div id="leaderboardList">
-        <div class="empty">
-          Завантаження...
-        </div>
+        Тут з'являться твої виграні подарунки
       </div>
 
     </div>
 
   </section>
 
+  <!-- РЕФЕРАЛИ -->
 
-  <!-- НИЖНЄ МЕНЮ -->
-<nav class="bottom-nav">
+  <section
+    id="referrals"
+    class="page"
+  >
 
-  <button class="nav-btn active" id="nav-home"
-          onclick="openPage('home')">
-    <span class="nav-icon">🏠</span>
-    Головна
-  </button>
+    <div class="section-title">
+      👥 Реферали
+    </div>
 
-  <button class="nav-btn" id="nav-inventory"
-          onclick="openPage('inventory')">
-    <span class="nav-icon">🎁</span>
-    Інвентар
-  </button>
+    <div class="card">
 
-  <button class="nav-btn" id="nav-referrals"
-          onclick="openPage('referrals')">
-    <span class="nav-icon">👥</span>
-    Реферали
-  </button>
+      <div class="stat-label">
+        Запрошено друзів
+      </div>
 
-  <button class="nav-btn" id="nav-wheel"
-          onclick="openPage('wheel')">
-    <span class="nav-icon">🎰</span>
-    Рулетка
-  </button>
+      <div class="stat-number">
+        0
+      </div>
 
-  <button class="nav-btn" id="nav-leaderboard"
-          onclick="openPage('leaderboard')">
-    <span class="nav-icon">🏆</span>
-    Лідерборд
-  </button>
+      <div class="ref-link">
+        Твоє реферальне посилання буде тут
+      </div>
 
-  </nav>
+      <button
+        class="button"
+        onclick="copyReferral()"
+      >
+        📋 СКОПІЮВАТИ
+      </button>
+
+      <br><br>
+
+      <button
+        class="button secondary"
+        onclick="shareReferral()"
+      >
+        📤 ПОДІЛИТИСЯ
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- РУЛЕТКА -->
+
+  <section
+    id="wheel"
+    class="page"
+  >
+
+    <div class="section-title">
+      🎡 Рулетка
+    </div>
+
+    <!-- ⭐ КОЛЕСО ЗА NIK -->
+
+    <div class="card wheel-game-card">
+
+      <div class="wheel-game-title">
+        🪙 Колесо за NIK
+      </div>
+
+      <div class="wheel-wrapper">
+
+        <div class="wheel-pointer">
+          ▼
+        </div>
+
+        <div
+          class="wheel"
+          id="starsWheel"
+        >
+
+          <div class="wheel-sector sector-1">
+
+            <span>
+              <img
+                src="coin.png.PNG"
+                class="wheel-coin"
+              >
+            </span>
+
+            <small>5</small>
+
+          </div>
+
+          <div class="wheel-sector sector-2">
+
+            <span>
+              <img
+                src="coin.png.PNG"
+                class="wheel-coin"
+              >
+            </span>
+
+            <small>10</small>
+
+          </div>
+
+          <div class="wheel-sector sector-3">
+
+            <span>🎟</span>
+
+            <small>
+              +1
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-4">
+
+            <span>🎁</span>
+
+            <small>
+              Gift
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-5">
+
+            <span>
+              <img
+                src="coin.png.PNG"
+                class="wheel-coin"
+              >
+            </span>
+
+            <small>
+              20
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-6">
+
+            <span>🎟</span>
+
+            <small>
+              +2
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-7">
+
+            <span>💎</span>
+
+            <small>
+              NFT
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-8">
+
+            <span>😈</span>
+
+            <small>
+              0
+            </small>
+
+          </div>
+
+          <div class="wheel-center">
+            🪙
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="wheel-cost">
+        10 NIK за обертання
+      </div>
+
+      <button
+        class="button"
+        id="starsSpinButton"
+      >
+        🎡 КРУТИТИ ЗА NIK
+      </button>
+
+    </div>
+
+    <!-- 👥 КОЛЕСО ЗА РЕФЕРАЛІВ -->
+
+    <div class="card wheel-game-card">
+
+      <div class="wheel-game-title">
+        👥 Колесо за рефералів
+      </div>
+
+      <div class="wheel-wrapper">
+
+        <div class="wheel-pointer">
+          ▼
+        </div>
+
+        <div
+          class="wheel"
+          id="refWheel"
+        >
+
+          <div class="wheel-sector sector-1">
+
+            <span>🎟</span>
+
+            <small>
+              +1
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-2">
+
+            <span>
+              <img
+                src="coin.png.PNG"
+                class="wheel-coin"
+              >
+            </span>
+
+            <small>
+              5
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-3">
+
+            <span>🎁</span>
+
+            <small>
+              Gift
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-4">
+
+            <span>
+              <img
+                src="coin.png.PNG"
+                class="wheel-coin"
+              >
+            </span>
+
+            <small>
+              10
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-5">
+
+            <span>🎟</span>
+
+            <small>
+              +2
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-6">
+
+            <span>💎</span>
+
+            <small>
+              NFT
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-7">
+
+            <span>
+              <img
+                src="coin.png.PNG"
+                class="wheel-coin"
+              >
+            </span>
+
+            <small>
+              20
+            </small>
+
+          </div>
+
+          <div class="wheel-sector sector-8">
+
+            <span>😈</span>
+
+            <small>
+              0
+            </small>
+
+          </div>
+
+          <div class="wheel-center">
+            👥
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="wheel-cost">
+        1 реферал за обертання
+      </div>
+
+      <button
+        class="button secondary"
+        id="refSpinButton"
+      >
+        🎡 КРУТИТИ ЗА РЕФЕРАЛІВ
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- ЛІДЕРБОРД -->
+
+  <section
+    id="leaderboard"
+    class="page"
+  >
+
+    <div class="section-title">
+      🏆 Лідерборт
+    </div>
+
+    <div class="card">
+
+      <div class="stat-label">
+        Топ учасників
+      </div>
+
+      <div
+        style="
+          text-align:center;
+          padding:30px 10px;
+          color:#7198c0;
+        "
+      >
+        🏆 Таблиця лідерів буде доступна після підключення рефералів.
+      </div>
+
+    </div>
+
+  </section>
 
 </div>
 
+<!-- НИЖНЯ НАВІГАЦІЯ -->
+
+<div class="bottom-nav">
+
+  <button
+    class="nav-btn active"
+    id="nav-home"
+    onclick="openPage('home')"
+  >
+    <span>🏠</span>
+    Головна
+  </button>
+
+  <button
+    class="nav-btn"
+    id="nav-inventory"
+    onclick="openPage('inventory')"
+  >
+    <span>🎁</span>
+    Інвентар
+  </button>
+
+  <button
+    class="nav-btn"
+    id="nav-referrals"
+    onclick="openPage('referrals')"
+  >
+    <span>👥</span>
+    Реферали
+  </button>
+
+  <button
+    class="nav-btn"
+    id="nav-wheel"
+    onclick="openPage('wheel')"
+  >
+    <span>🎡</span>
+    Рулетка
+  </button>
+
+  <button
+    class="nav-btn"
+    id="nav-leaderboard"
+    onclick="openPage('leaderboard')"
+  >
+    <span>🏆</span>
+    Лідерборт
+  </button>
+
+</div>
 
 <!-- ВІКНО ВИГРАШУ -->
-<div class="modal" id="winModal">
+
+<div
+  class="modal"
+  id="winModal"
+>
 
   <div class="modal-content">
 
-    <div class="win-icon" id="winIcon">
-      <img src="coin.png.PNG" class="win-coin">
+    <div
+      class="win-icon"
+      id="winIcon"
+    >
+      🎁
     </div>
 
     <div class="win-title">
       Вітаємо! 🎉
     </div>
 
-    <div class="win-text" id="winText">
+    <div
+      class="win-text"
+      id="winText"
+    >
       Ти виграв приз!
     </div>
 
-    <button class="button" onclick="closeWin()">
+    <button
+      class="button"
+      onclick="closeWin()"
+    >
       🔥 ЗАБРАТИ ПРИЗ
     </button>
 
@@ -2543,1023 +2070,12 @@ ontouchstart="handleBearTouch(event)"
 
 </div>
 
-
-<script>
-
-  const tg = window.Telegram.WebApp;
-
-  tg.ready();
-  tg.expand();
-  
-  // =========================
-  // ЗВУКИ
-  // =========================
-
-  let audioCtx = null;
-  let musicTimer = null;
-  let soundEnabled = true;
-
-  function initAudio() {
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
-
-    if (audioCtx.state === "suspended") {
-      audioCtx.resume();
-    }
-  }
-
-  function playTone(frequency, duration, type = "sine", volume = 0.04) {
-    if (!soundEnabled) return;
-
-    initAudio();
-
-    const oscillator = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    oscillator.type = type;
-    oscillator.frequency.value = frequency;
-
-    gain.gain.setValueAtTime(volume, audioCtx.currentTime);
-
-    gain.gain.exponentialRampToValueAtTime(
-      0.001,
-      audioCtx.currentTime + duration
-    );
-
-    oscillator.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + duration);
-  }
-
-  // 🔘 Звук натискання
-  function playClick() {
-    playTone(520, 0.08, "sine", 0.035);
-  }
-
-  // 🎡 Звук колеса
-  function playSpinSound() {
-    if (!soundEnabled) return;
-
-    initAudio();
-
-    let count = 0;
-
-    const interval = setInterval(() => {
-
-      playTone(
-        180 + count * 12,
-        0.045,
-        "square",
-        0.025
-      );
-
-      count++;
-
-      if (count >= 28) {
-        clearInterval(interval);
-      }
-
-    }, 140);
-  }
-
-  // 🎉 Звук виграшу
-  function playWinSound() {
-    if (!soundEnabled) return;
-
-    initAudio();
-
-    playTone(523, 0.15, "sine", 0.05);
-
-    setTimeout(() => {
-      playTone(659, 0.15, "sine", 0.05);
-    }, 140);
-
-    setTimeout(() => {
-      playTone(784, 0.25, "sine", 0.06);
-    }, 280);
-  }
-
-// 🎵 Загадкова пригодницька фонова музика
-function playAdventureMusic() {
-
-  if (!soundEnabled) return;
-
-  initAudio();
-
-  if (musicTimer) return;
-
-  // Одна довга музична фраза.
-  // 1 крок = 500 мс
-  // 96 кроків = 48 секунд
-  const melody = [
-    // 0–8 сек — спокійний вступ
-    220, 261.63, 293.66, 329.63,
-    293.66, 261.63, 220, 196,
-    220, 261.63, 329.63, 293.66,
-    261.63, 220, 196, 174.61,
-
-    // 8–16 сек — починається інтрига
-    220, 261.63, 329.63, 392,
-    329.63, 293.66, 261.63, 220,
-    246.94, 293.66, 349.23, 440,
-    349.23, 329.63, 293.66, 246.94,
-
-    // 16–24 сек — основна загадкова частина
-    220, 277.18, 329.63, 415.30,
-    329.63, 277.18, 246.94, 220,
-    196, 246.94, 293.66, 369.99,
-    293.66, 246.94, 220, 196,
-
-    // 24–32 сек — найцікавіша частина
-    220, 261.63, 329.63, 440,
-    392, 329.63, 293.66, 261.63,
-    220, 293.66, 369.99, 493.88,
-    440, 369.99, 293.66, 220,
-
-    // 32–40 сек — повернення
-    196, 246.94, 293.66, 329.63,
-    293.66, 246.94, 220, 196,
-    174.61, 220, 261.63, 293.66,
-    261.63, 220, 196, 174.61,
-
-    // 40–48 сек — спокійне завершення
-    196, 220, 261.63, 293.66,
-    261.63, 220, 196, 174.61,
-    196, 220, 246.94, 293.66,
-    261.63, 220, 196, 174.61
-  ];
-
-  // Тихий фон, який додає глибини
-  const bass = [
-    110, 110, 130.81, 130.81,
-    98, 98, 110, 110
-  ];
-
-  let step = 0;
-
-  function nextNote() {
-
-    if (!soundEnabled) {
-      musicTimer = null;
-      return;
-    }
-
-    const now = audioCtx.currentTime;
-
-    // Основна мелодія
-    const note = melody[step];
-
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    osc.type = "triangle";
-    osc.frequency.setValueAtTime(note, now);
-
-    gain.gain.setValueAtTime(0.0001, now);
-
-    gain.gain.linearRampToValueAtTime(
-      0.020,
-      now + 0.04
-    );
-
-    gain.gain.linearRampToValueAtTime(
-      0.0001,
-      now + 0.47
-    );
-
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    osc.start(now);
-    osc.stop(now + 0.49);
-
-
-    // 🌑 Тихий низький фон
-    if (step % 4 === 0) {
-
-      const bassNote =
-        bass[Math.floor(step / 4) % bass.length];
-
-      const bassOsc = audioCtx.createOscillator();
-      const bassGain = audioCtx.createGain();
-
-      bassOsc.type = "sine";
-      bassOsc.frequency.setValueAtTime(
-        bassNote,
-        now
-      );
-
-      bassGain.gain.setValueAtTime(
-        0.0001,
-        now
-      );
-
-      bassGain.gain.linearRampToValueAtTime(
-        0.008,
-        now + 0.15
-      );
-
-      bassGain.gain.linearRampToValueAtTime(
-        0.0001,
-        now + 1.9
-      );
-
-      bassOsc.connect(bassGain);
-      bassGain.connect(audioCtx.destination);
-
-      bassOsc.start(now);
-      bassOsc.stop(now + 1.95);
-    }
-
-
-    // 🌙 8–16 сек — поступове наростання
-    if (step >= 16 && step < 32 && step % 2 === 0) {
-
-      playTone(
-        melody[step + 8],
-        0.7,
-        "triangle",
-        0.004
-      );
-    }
-
-
-    // 🕵️ 16–32 сек — загадковий верхній шар
-    if (step >= 32 && step < 64 && step % 4 === 0) {
-
-      playTone(
-        melody[(step + 12) % melody.length] * 2,
-        0.9,
-        "sine",
-        0.0035
-      );
-    }
-
-
-    // 🌌 32–40 сек — інтрига спадає
-    if (step >= 64 && step < 80 && step % 4 === 0) {
-
-      playTone(
-        melody[(step + 4) % melody.length],
-        0.8,
-        "triangle",
-        0.003
-      );
-    }
-
-
-    step++;
-
-    // 🔄 48 секунд → плавний повтор
-    if (step >= melody.length) {
-      step = 0;
-    }
-
-    musicTimer = setTimeout(
-      nextNote,
-      500
-    );
-  }
-
-  nextNote();
-}
-
-  let user = tg.initDataUnsafe?.user || {
-    id: 0,
-    first_name: "Користувач",
-    username: ""
-  };
-
-let tickets = Number(localStorage.getItem("nlkaman_tickets")) || 0;
-  // =========================
-// 🎁 ЩОДЕННИЙ БОНУС
-// =========================
-
-const dailyBonusRewards = [
-  { type: "stars", amount: 500 },
-  { type: "stars", amount: 1000 },
-  { type: "stars", amount: 1250 },
-  { type: "tickets", amount: 1 },
-  { type: "tickets", amount: 2 },
-  { type: "stars", amount: 3000 },
-  { type: "tickets", amount: 4 }
-];
-
-let dailyBonusDay =
-  Number(localStorage.getItem("nlkaman_daily_bonus_day")) || 1;
-
-let dailyBonusLastClaim =
-  Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
-  function isDailyBonusReady() {
-  const lastClaim =
-    Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
-
-  if (lastClaim === 0) {
-    return true;
-  }
-
-  const now = Date.now();
-  const twentyFourHours = 24 * 60 * 60 * 1000;
-
-  return now - lastClaim >= twentyFourHours;
-}
-  function renderDailyBonus() {
-  for (let i = 1; i <= 7; i++) {
-    const day = document.getElementById("bonusDay" + i);
-
-    if (!day) continue;
-
-    day.classList.remove("active", "claimed", "locked");
-
-    if (i < dailyBonusDay) {
-      day.classList.add("claimed");
-    } else if (i === dailyBonusDay) {
-      day.classList.add("active");
-    } else {
-      day.classList.add("locked");
-    }
-  }
-}
-  
- function claimDailyBonus() {
-
-  const lastClaim =
-    Number(localStorage.getItem("nlkaman_daily_bonus_last_claim")) || 0;
-
-  const twentyFourHours =
-    24 * 60 * 60 * 1000;
-
-  if (
-    lastClaim !== 0 &&
-    Date.now() - lastClaim < twentyFourHours
-  ) {
-    return;
-  }
-
-  const reward =
-    dailyBonusRewards[dailyBonusDay - 1];
-
-  if (!reward) return;
-
-  if (reward.type === "stars") {
-    stars += reward.amount;
-
-    localStorage.setItem(
-      "nlkaman_stars",
-      stars
-    );
-
-    updateStars();
-  }
-
-  if (reward.type === "tickets") {
-    tickets += reward.amount;
-
-    localStorage.setItem(
-      "nlkaman_tickets",
-      tickets
-    );
-
-    updateTickets();
-  }
-
-  const claimTime = Date.now();
-
-  localStorage.setItem(
-    "nlkaman_daily_bonus_last_claim",
-    claimTime
-  );
-
-  dailyBonusLastClaim = claimTime;
-
-  dailyBonusDay++;
-
-  if (dailyBonusDay > 7) {
-    dailyBonusDay = 1;
-  }
-
-  localStorage.setItem(
-    "nlkaman_daily_bonus_day",
-    dailyBonusDay
-  );
-
-  const modal =
-    document.getElementById("dailyBonusModal");
-
-  if (modal) {
-    modal.style.display = "none";
-  }
-
-  if (soundEnabled) {
-    initAudio();
-
-    if (!musicTimer) {
-      playAdventureMusic();
-    }
-  }
-
-  alert(
-    "🎁 Бонус отримано!\n\n" +
-    (
-      reward.type === "stars"
-        ? "🪙 +" + reward.amount + " NIK"
-        : "🎟 +" + reward.amount + " квитків"
-    )
-  );
-}
-  let referralLink = "";
-  
-let referrals = 0;
-  
-let inventory = JSON.parse(
-  localStorage.getItem("nlkaman_inventory") || "[]"
-);
-
-function saveInventory() {
-  localStorage.setItem(
-    "nlkaman_inventory",
-    JSON.stringify(inventory)
-  );
-}
-
-function addToInventory(prize) {
-  inventory.push({
-  id: Date.now(),
-  icon: prize.icon,
-  name: prize.text
-});
-
-  saveInventory();
-  renderInventory();
-}
-
-function renderInventory() {
-  const inventoryPage =
-    document.getElementById("inventory");
-
-  if (!inventoryPage) return;
-
-  const empty =
-    inventoryPage.querySelector(".inventory-empty");
-
-  if (inventory.length === 0) {
-    if (empty) empty.style.display = "flex";
-    return;
-  }
-
-  if (empty) empty.style.display = "none";
-
-  let container =
-    document.getElementById("inventoryItems");
-
-  if (!container) {
-    container = document.createElement("div");
-    container.id = "inventoryItems";
-    inventoryPage.appendChild(container);
-  }
-
-  container.innerHTML = "";
-
-  inventory.forEach(item => {
-    const card = document.createElement("div");
-
-    card.className = "inventory-item";
-
-    card.innerHTML = `
-  <div class="inventory-item-icon">
-    ${item.icon}
-  </div>
-
-  <div class="inventory-item-info">
-    <div class="inventory-item-name">
-      ${item.name}
-    </div>
-
-    <div class="inventory-item-subtitle">
-      Твій виграний подарунок
-    </div>
-
-    <button
-      class="inventory-withdraw-button"
-      onclick="event.stopPropagation(); openInventoryItem(${item.id})"
-    >
-      📤 ВИВЕСТИ
-    </button>
-  </div>
-`;
-    container.appendChild(card);
-  });
-}
-
-function openInventoryItem(itemId) {
-  const item = inventory.find(
-    item => item.id === itemId
-  );
-
-  if (!item) return;
-
-  const action = prompt(
-    "🎁 " + item.name +
-    "\n\n" +
-    "Введи номер дії:\n\n" +
-    "1 — 📤 Вивести\n" +
-    "2 — 🎟 Продати за 10 квитків\n" +
-    "3 — ❌ Скасувати"
-  );
-
-  if (action === "3" || action === null) {
-    return;
-  }
-
-  if (action === "1") {
-    alert(
-      "📤 Виведення подарунка\n\n" +
-      "Подарунок: " + item.name +
-      "\n\n" +
-      "Функція виведення буде доступна пізніше."
-    );
-
-    return;
-  }
-
-  if (action === "2") {
-    tickets += 10;
-
-    inventory = inventory.filter(
-      item => item.id !== itemId
-    );
-
-    saveInventory();
-
-    localStorage.setItem(
-      "nlkaman_tickets",
-      tickets
-    );
-
-    updateTickets();
-    renderInventory();
-
-    alert(
-      "✅ Подарунок продано!\n+10 квитків"
-    );
-
-    return;
-  }
-
-  alert("❌ Невірний вибір");
-}
-  function updateTickets() {
-  const ticketCount = document.getElementById("ticketCount");
-
-  if (ticketCount) {
-    ticketCount.textContent = tickets;
-  }
-}
-
-function copyReferral() {
-  if (!referralLink) return;
-
-  navigator.clipboard.writeText(referralLink);
-
-  alert("✅ Посилання скопійовано!");
-}
-
-function shareReferral() {
-  if (!referralLink) return;
-
-  const text = "🎁 Приєднуйся до Nlkaman Gifts!";
-
-  const url =
-    "https://t.me/share/url?url=" +
-    encodeURIComponent(referralLink) +
-    "&text=" +
-    encodeURIComponent(text);
-
-  window.open(url, "_blank");
-}
-  // =========================
-  // КОРИСТУВАЧ
-  // =========================
-
-  function loadUser() {
-
-    const name =
-      user.username
-        ? "@" + user.username
-        : user.first_name || "Користувач";
-
-    document.getElementById("userName").textContent = name;
-
-    document.getElementById("userid").textContent =
-      "Telegram ID: " + user.id;
-
-  const avatar = document.getElementById("avatar");
-
-if (user.photo_url) {
-  avatar.innerHTML = `
-    <img
-      src="${user.photo_url}"
-      class="telegram-avatar"
-      alt="Avatar"
-    >
-  `;
-} else {
-  avatar.textContent =
-    (user.first_name || "N").charAt(0).toUpperCase();
-}
- /*
-  Коли підключимо server.js,
-  тут будуть дані з сервера.
-  */
-}
-
-loadUser();
-updateTickets();
-renderInventory();
-window.addEventListener("load", () => {
-
-  const dailyBonusModal =
-    document.getElementById("dailyBonusModal");
-
-  if (!dailyBonusModal) return;
-
-  const lastDailyBonus =
-    Number(
-      localStorage.getItem("nlkaman_daily_bonus_last_claim")
-    ) || 0;
-
-  const bonus24Hours =
-    24 * 60 * 60 * 1000;
-
-const canGetDailyBonus =
-  lastDailyBonus === 0 ||
-  Date.now() - lastDailyBonus >= bonus24Hours;
-
-  if (canGetDailyBonus) {
-    renderDailyBonus();
-    dailyBonusModal.style.display = "flex";
-  }
-
-});
-function openPage(pageName) {
-  document.querySelectorAll(".page").forEach(page => {
-    page.classList.remove("active");
-  });
-
-  document.getElementById(pageName).classList.add("active");
-
-  document.querySelectorAll(".nav-btn").forEach(button => {
-    button.classList.remove("active");
-  });
-
-  document.getElementById("nav-" + pageName).classList.add("active");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
-// 🧸 КЛІК ПО ВЕДМЕДИКУ
-let stars = Number(localStorage.getItem("nlkaman_stars")) || 0;
-
-function updateStars() {
-  document.getElementById("starCount").textContent = stars;
-  document.getElementById("bearStarCount").textContent = stars;
-}
-  updateStars();
-function playCoinSound() {
-  if (!soundEnabled) return;
-
-  initAudio();
-
-  const now = audioCtx.currentTime;
-
-  const oscillator = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-
-  oscillator.type = "triangle";
-
-  oscillator.frequency.setValueAtTime(900, now);
-  oscillator.frequency.exponentialRampToValueAtTime(
-    1500,
-    now + 0.07
-  );
-
-  gain.gain.setValueAtTime(0.08, now);
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,
-    now + 0.09
-  );
-
-  oscillator.connect(gain);
-  gain.connect(audioCtx.destination);
-
-  oscillator.start(now);
-  oscillator.stop(now + 0.09);
-}
-function clickBear() {
-  stars++;
-
-  localStorage.setItem("nlkaman_stars", stars);
-
-  updateStars();
-  if (soundEnabled && !musicTimer) {
-  initAudio();
-  playAdventureMusic();
-}
-  playCoinSound();
-
-  const coin = document.querySelector(".click-coin");
-
-  if (coin) {
-    coin.style.transform = "scale(.90) rotate(-4deg)";
-
-    setTimeout(() => {
-      coin.style.transform = "scale(1) rotate(0deg)";
-    }, 120);
-  }
-}
-  function handleBearTouch(event) {
-  event.preventDefault();
-
-  const touches = event.changedTouches;
-
-  for (let i = 0; i < touches.length; i++) {
-    clickBear();
-  }
-}
-  // 🎡 ДВА НОВИХ КОЛЕСА
-
-let starsWheelRotation = 0;
-let refWheelRotation = 0;
-
-function spinStarsWheel() {
-
-  const wheel = document.getElementById("starsWheel");
-  const button = document.getElementById("starsSpinButton");
-
-  if (!wheel || !button) return;
-
-  // ⭐ Перевіряємо, чи вистачає зірок
-  if (stars < 10) {
-    alert("❌ Потрібно 10 ⭐");
-    return;
-  }
-
-  // ⭐ Списуємо 10 зірок
-  stars -= 10;
-  localStorage.setItem("nlkaman_stars", stars);
-  updateStars();
-
-  button.disabled = true;
-
-  // 🎡 Обертання
-  const randomRotation =
-    1800 + Math.floor(Math.random() * 1440);
-
-  starsWheelRotation += randomRotation;
-
-  wheel.style.transform =
-    `rotate(${starsWheelRotation}deg)`;
-
-  // 🎉 Після обертання показуємо результат
-  setTimeout(() => {
-
-    const prizes = [
-     { icon: '<img src="coin.png.PNG" class="win-coin">', text: "5 зірок" },
-     { icon: '<img src="coin.png.PNG" class="win-coin">', text: "10 зірок" },
-      { icon: "🎟", text: "+1 квиток" },
-      { icon: "🎁", text: "Gift" },
-    { icon: '<img src="coin.png.PNG" class="win-coin">', text: "20 зірок" },
-      { icon: "🎟", text: "+2 квитки" },
-      { icon: "💎", text: "NFT" },
-      { icon: "😈", text: "Нічого" }
-    ];
-
-   const normalizedRotation =
-  ((starsWheelRotation % 360) + 360) % 360;
-
-const prizeIndex =
-  ((Math.round(-normalizedRotation / 45) % prizes.length) + prizes.length) % prizes.length;
-
-const prize = prizes[prizeIndex];
-if (
-  prize.text === "Gift" ||
-  prize.text === "NFT"
-) {
-  addToInventory(prize);
-}
-
-if (prize.text === "5 зірок") {
-  stars += 5;
-}
-
-if (prize.text === "10 зірок") {
-  stars += 10;
-}
-
-if (prize.text === "20 зірок") {
-  stars += 20;
-}
-
-localStorage.setItem("nlkaman_stars", stars);
-updateStars();
-    if (prize.text === "+1 квиток") {
-  tickets += 1;
-}
-
-if (prize.text === "+2 квитки") {
-  tickets += 2;
-}
-
-localStorage.setItem(
-  "nlkaman_tickets",
-  tickets
-);
-
-updateTickets();
-    playWinSound();
-
-   document.getElementById("winIcon").innerHTML =
-  prize.icon;
-
-    document.getElementById("winText").textContent =
-      "Ти виграв: " + prize.text + "! 🎉";
-
-    document.getElementById("winModal")
-      .classList.add("show");
-
-    button.disabled = false;
-
-  }, 4000);
-}
-// 🎁 ЗАКРИТТЯ ВІКНА ПРИЗУ
-function closeWin() {
-  document.getElementById("winModal").classList.remove("show");
-}
-function spinRefWheel() {
-  const wheel = document.getElementById("refWheel");
-  const button = document.getElementById("refSpinButton");
-
-  if (!wheel || !button) return;
-
-  if (tickets < 1) {
-    alert("❌ Потрібен 1 квиток");
-    return;
-  }
-
-  tickets -= 1;
-
-  localStorage.setItem(
-    "nlkaman_tickets",
-    tickets
-  );
-
-  updateTickets();
-
-  button.disabled = true;
-
-  const randomRotation =
-    1800 + Math.floor(Math.random() * 1440);
-
-  refWheelRotation += randomRotation;
-
-  wheel.style.transform =
-    `rotate(${refWheelRotation}deg)`;
-
-  setTimeout(() => {
-
-    const prizes = [
-      { icon: "🎟", text: "+1 квиток" },
-   { icon: '<img src="coin.png.PNG" class="win-coin">', text: "5 зірок" },
-      { icon: "🎁", text: "Gift" },
-  { icon: '<img src="coin.png.PNG" class="win-coin">', text: "10 зірок" },
-      { icon: "🎟", text: "+2 квитки" },
-      { icon: "💎", text: "NFT" },
-{ icon: '<img src="coin.png.PNG" class="win-coin">', text: "20 зірок" },
-      { icon: "😈", text: "Нічого" }
-    ];
-
-    const normalizedRotation =
-      ((refWheelRotation % 360) + 360) % 360;
-
-    const prizeIndex =
-      ((Math.round(-normalizedRotation / 45) % prizes.length) + prizes.length) % prizes.length;
-
-    const prize = prizes[prizeIndex];
-
-    if (
-      prize.text === "Gift" ||
-      prize.text === "NFT"
-    ) {
-      addToInventory(prize);
-    }
-
-    if (prize.text === "5 зірок") {
-      stars += 5;
-    }
-
-    if (prize.text === "10 зірок") {
-      stars += 10;
-    }
-
-    if (prize.text === "20 зірок") {
-      stars += 20;
-    }
-
-    if (prize.text === "+1 квиток") {
-      tickets += 1;
-    }
-
-    if (prize.text === "+2 квитки") {
-      tickets += 2;
-    }
-
-    localStorage.setItem(
-      "nlkaman_stars",
-      stars
-    );
-
-    localStorage.setItem(
-      "nlkaman_tickets",
-      tickets
-    );
-
-    updateStars();
-    updateTickets();
-
-    playWinSound();
-
-    document.getElementById("winIcon").innerHTML =
-      prize.icon;
-
-    document.getElementById("winText").textContent =
-      "Ти виграв: " + prize.text + "! 🎉";
-
-    document.getElementById("winModal")
-      .classList.add("show");
-
-    button.disabled = false;
-
-  }, 4000);
-}
-document
-  .getElementById("starsSpinButton")
-  ?.addEventListener("click", spinStarsWheel);
-  document
-  .getElementById("refSpinButton")
-  ?.addEventListener("click", spinRefWheel);
-
-  console.log("🎁 DAILY BONUS BUTTON CONNECTED");
-
-document
-  .getElementById("refSpinButton")
-  ?.addEventListener("click", spinRefWheel);
-  // 🔘 Звук для всіх кнопок
-document.addEventListener("click", (event) => {
-
-  if (
-    event.target.closest("button") &&
-    event.target.id !== "soundButton"
-  ) {
-    playClick();
-  }
-
-});
- function toggleSound() {
-  soundEnabled = !soundEnabled;
-
-  const button = document.getElementById("soundButton");
-
-  if (soundEnabled) {
-    button.textContent = "🔊";
-
-    initAudio();
-
-    if (!musicTimer) {
-      playAdventureMusic();
-    }
-
-  } else {
-    button.textContent = "🔇";
-
-    if (musicTimer) {
-      clearTimeout(musicTimer);
-      musicTimer = null;
-    }
-
-    if (audioCtx) {
-      audioCtx.suspend();
-    }
-  }
-}
-  </script>
-  
-   <!-- 🎁 ЩОДЕННИЙ БОНУС -->
-<div id="dailyBonusModal" class="daily-bonus-modal">
+<!-- ЩОДЕННИЙ БОНУС -->
+
+<div
+  id="dailyBonusModal"
+  class="daily-bonus-modal"
+>
 
   <div class="daily-bonus-card">
 
@@ -3585,68 +2101,1814 @@ document.addEventListener("click", (event) => {
 
     <div class="daily-bonus-days">
 
-      <div class="daily-bonus-day active" id="bonusDay1">
-        <div class="bonus-day-number">1</div>
-   <div class="bonus-icon">
-  <img src="coin.png.PNG" class="bonus-coin">
-</div>
-        <div class="bonus-value">500 NIK</div>
+      <div
+        class="daily-bonus-day active"
+        id="bonusDay1"
+      >
+
+        <div class="bonus-day-number">
+          1
+        </div>
+
+        <div class="bonus-icon">
+
+          <img
+            src="coin.png.PNG"
+            class="bonus-coin"
+          >
+
+        </div>
+
+        <div class="bonus-value">
+          500 NIK
+        </div>
+
       </div>
 
-      <div class="daily-bonus-day" id="bonusDay2">
-        <div class="bonus-day-number">2</div>
-      <div class="bonus-icon">
-  <img src="coin.png.PNG" class="bonus-coin">
-</div>
-        <div class="bonus-value">1000 NIK</div>
+      <div
+        class="daily-bonus-day"
+        id="bonusDay2"
+      >
+
+        <div class="bonus-day-number">
+          2
+        </div>
+
+        <div class="bonus-icon">
+
+          <img
+            src="coin.png.PNG"
+            class="bonus-coin"
+          >
+
+        </div>
+
+        <div class="bonus-value">
+          1000 NIK
+        </div>
+
       </div>
 
-      <div class="daily-bonus-day" id="bonusDay3">
-        <div class="bonus-day-number">3</div>
-      <div class="bonus-icon">
-  <img src="coin.png.PNG" class="bonus-coin">
-</div>
-        <div class="bonus-value">1250 NIK</div>
+      <div
+        class="daily-bonus-day"
+        id="bonusDay3"
+      >
+
+        <div class="bonus-day-number">
+          3
+        </div>
+
+        <div class="bonus-icon">
+
+          <img
+            src="coin.png.PNG"
+            class="bonus-coin"
+          >
+
+        </div>
+
+        <div class="bonus-value">
+          1250 NIK
+        </div>
+
       </div>
 
-      <div class="daily-bonus-day" id="bonusDay4">
-        <div class="bonus-day-number">4</div>
-        <div class="bonus-icon">🎟️</div>
-        <div class="bonus-value">1 КВИТОК</div>
+      <div
+        class="daily-bonus-day"
+        id="bonusDay4"
+      >
+
+        <div class="bonus-day-number">
+          4
+        </div>
+
+        <div class="bonus-icon">
+          🎟
+        </div>
+
+        <div class="bonus-value">
+          1 квиток
+        </div>
+
       </div>
 
-      <div class="daily-bonus-day" id="bonusDay5">
-        <div class="bonus-day-number">5</div>
-        <div class="bonus-icon">🎟️</div>
-        <div class="bonus-value">2 КВИТКИ</div>
+      <div
+        class="daily-bonus-day"
+        id="bonusDay5"
+      >
+
+        <div class="bonus-day-number">
+          5
+        </div>
+
+        <div class="bonus-icon">
+          🎟
+        </div>
+
+        <div class="bonus-value">
+          2 квитки
+        </div>
+
       </div>
 
-      <div class="daily-bonus-day" id="bonusDay6">
-        <div class="bonus-day-number">6</div>
-    <div class="bonus-icon">
-  <img src="coin.png.PNG" class="bonus-coin">
-</div>
-        <div class="bonus-value">3000 NIK</div>
+      <div
+        class="daily-bonus-day"
+        id="bonusDay6"
+      >
+
+        <div class="bonus-day-number">
+          6
+        </div>
+
+        <div class="bonus-icon">
+
+          <img
+            src="coin.png.PNG"
+            class="bonus-coin"
+          >
+
+        </div>
+
+        <div class="bonus-value">
+          3000 NIK
+        </div>
+
       </div>
 
-      <div class="daily-bonus-day" id="bonusDay7">
-        <div class="bonus-day-number">7</div>
-        <div class="bonus-icon">🎟️</div>
-        <div class="bonus-value">4 КВИТКИ</div>
+      <div
+        class="daily-bonus-day"
+        id="bonusDay7"
+      >
+
+        <div class="bonus-day-number">
+          7
+        </div>
+
+        <div class="bonus-icon">
+          🎟
+        </div>
+
+        <div class="bonus-value">
+          4 квитки
+        </div>
+
       </div>
 
-</div>
+    </div>
 
- <button
-  class="daily-bonus-button"
-  id="dailyBonusButton"
-  onclick="claimDailyBonus()"
->
-  🎁 Забрати нагороду
-</button>
+    <button
+      class="daily-bonus-button"
+      onclick="claimDailyBonus()"
+    >
+      🎁 ЗАБРАТИ БОНУС
+    </button>
 
   </div>
 
 </div>
+
+<script>
+
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+let audioCtx = null;
+let musicTimer = null;
+let soundEnabled = true;
+
+const user =
+  tg.initDataUnsafe?.user || {
+    id: 0,
+    first_name: "Користувач"
+  };
+
+function initAudio() {
+
+  if (!audioCtx) {
+
+    audioCtx =
+      new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+
+  }
+
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+
+}
+
+function playTone(
+  frequency,
+  duration,
+  type = "sine",
+  volume = 0.04
+) {
+
+  if (!soundEnabled) return;
+
+  initAudio();
+
+  const oscillator =
+    audioCtx.createOscillator();
+
+  const gain =
+    audioCtx.createGain();
+
+  oscillator.type = type;
+
+  oscillator.frequency.value =
+    frequency;
+
+  gain.gain.setValueAtTime(
+    volume,
+    audioCtx.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    audioCtx.currentTime + duration
+  );
+
+  oscillator.connect(gain);
+
+  gain.connect(
+    audioCtx.destination
+  );
+
+  oscillator.start();
+
+  oscillator.stop(
+    audioCtx.currentTime + duration
+  );
+}
+
+function playClick() {
+
+  playTone(
+    520,
+    0.08,
+    "sine",
+    0.035
+  );
+
+}
+
+function playCoinSound() {
+
+  if (!soundEnabled) return;
+
+  initAudio();
+
+  const now =
+    audioCtx.currentTime;
+
+  const oscillator =
+    audioCtx.createOscillator();
+
+  const gain =
+    audioCtx.createGain();
+
+  oscillator.type =
+    "triangle";
+
+  oscillator.frequency.setValueAtTime(
+    900,
+    now
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    1500,
+    now + 0.07
+  );
+
+  gain.gain.setValueAtTime(
+    0.08,
+    now
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    now + 0.09
+  );
+
+  oscillator.connect(gain);
+
+  gain.connect(
+    audioCtx.destination
+  );
+
+  oscillator.start(now);
+
+  oscillator.stop(
+    now + 0.09
+  );
+
+}
+
+function playWinSound() {
+
+  if (!soundEnabled) return;
+
+  playTone(
+    660,
+    0.12,
+    "sine",
+    0.05
+  );
+
+  setTimeout(() => {
+
+    playTone(
+      880,
+      0.18,
+      "sine",
+      0.05
+    );
+
+  }, 90);
+
+}
+
+function playAdventureMusic() {
+
+  if (!soundEnabled) return;
+
+  initAudio();
+
+  const notes = [
+    261.63,
+    329.63,
+    392.00,
+    523.25,
+    392.00,
+    329.63
+  ];
+
+  let index = 0;
+
+  const playNext = () => {
+
+    if (!soundEnabled) return;
+
+    const frequency =
+      notes[index];
+
+    playTone(
+      frequency,
+      0.28,
+      "sine",
+      0.018
+    );
+
+    index =
+      (index + 1) % notes.length;
+
+    musicTimer =
+      setTimeout(
+        playNext,
+        420
+      );
+
+  };
+
+  if (!musicTimer) {
+    playNext();
+  }
+
+}
+
+function toggleSound() {
+
+  soundEnabled =
+    !soundEnabled;
+
+  const button =
+    document.getElementById(
+      "soundButton"
+    );
+
+  if (soundEnabled) {
+
+    button.textContent =
+      "🔊";
+
+    initAudio();
+
+    if (!musicTimer) {
+      playAdventureMusic();
+    }
+
+  } else {
+
+    button.textContent =
+      "🔇";
+
+    if (musicTimer) {
+
+      clearTimeout(
+        musicTimer
+      );
+
+      musicTimer = null;
+
+    }
+
+    if (audioCtx) {
+      audioCtx.suspend();
+    }
+
+  }
+
+}
+
+let stars =
+  Number(
+    localStorage.getItem(
+      "nlkaman_stars"
+    )
+  ) || 0;
+
+function updateStars() {
+
+  const starCount =
+    document.getElementById(
+      "starCount"
+    );
+
+  const bearStarCount =
+    document.getElementById(
+      "bearStarCount"
+    );
+
+  if (starCount) {
+    starCount.textContent =
+      stars;
+  }
+
+  if (bearStarCount) {
+    bearStarCount.textContent =
+      stars;
+  }
+
+}
+
+updateStars();
+
+function clickBear() {
+
+  stars++;
+
+  localStorage.setItem(
+    "nlkaman_stars",
+    stars
+  );
+
+  updateStars();
+
+  if (
+    soundEnabled &&
+    !musicTimer
+  ) {
+
+    initAudio();
+    playAdventureMusic();
+
+  }
+
+  playCoinSound();
+
+  const coin =
+    document.querySelector(
+      ".click-coin"
+    );
+
+  if (coin) {
+
+    coin.style.transform =
+      "scale(.90) rotate(-4deg)";
+
+    setTimeout(() => {
+
+      coin.style.transform =
+        "scale(1) rotate(0deg)";
+
+    }, 120);
+
+  }
+
+}
+
+function handleBearTouch(event) {
+
+  event.preventDefault();
+
+  const touches =
+    event.changedTouches;
+
+  for (
+    let i = 0;
+    i < touches.length;
+    i++
+  ) {
+
+    clickBear();
+
+  }
+
+}
+
+let tickets =
+  Number(
+    localStorage.getItem(
+      "nlkaman_tickets"
+    )
+  ) || 0;
+
+function updateTickets() {
+
+  const ticketCount =
+    document.getElementById(
+      "ticketCount"
+    );
+
+  if (ticketCount) {
+    ticketCount.textContent =
+      tickets;
+  }
+
+}
+
+let starsWheelRotation = 0;
+let refWheelRotation = 0;
+
+function spinStarsWheel() {
+
+  const wheel =
+    document.getElementById(
+      "starsWheel"
+    );
+
+  const button =
+    document.getElementById(
+      "starsSpinButton"
+    );
+
+  if (!wheel || !button)
+    return;
+
+  if (stars < 10) {
+
+    alert(
+      "❌ Потрібно 10 NIK"
+    );
+
+    return;
+
+  }
+
+  stars -= 10;
+
+  localStorage.setItem(
+    "nlkaman_stars",
+    stars
+  );
+
+  updateStars();
+
+  button.disabled = true;
+
+  const randomRotation =
+    1800 +
+    Math.floor(
+      Math.random() * 1440
+    );
+
+  starsWheelRotation +=
+    randomRotation;
+
+  wheel.style.transform =
+    `rotate(${starsWheelRotation}deg)`;
+
+  setTimeout(() => {
+
+    const prizes = [
+
+      {
+        icon:
+          '<img src="coin.png.PNG" class="win-coin">',
+        text:
+          "5 зірок"
+      },
+
+      {
+        icon:
+          '<img src="coin.png.PNG" class="win-coin">',
+        text:
+          "10 зірок"
+      },
+
+      {
+        icon: "🎟",
+        text:
+          "+1 квиток"
+      },
+
+      {
+        icon: "🎁",
+        text:
+          "Gift"
+      },
+
+      {
+        icon:
+          '<img src="coin.png.PNG" class="win-coin">',
+        text:
+          "20 зірок"
+      },
+
+      {
+        icon: "🎟",
+        text:
+          "+2 квитки"
+      },
+
+      {
+        icon: "💎",
+        text:
+          "NFT"
+      },
+
+      {
+        icon: "😈",
+        text:
+          "Нічого"
+      }
+
+    ];
+
+    const normalizedRotation =
+      (
+        (
+          starsWheelRotation % 360
+        ) + 360
+      ) % 360;
+
+    const prizeIndex =
+      (
+        (
+          Math.round(
+            -normalizedRotation / 45
+          ) % prizes.length
+        ) + prizes.length
+      ) % prizes.length;
+
+    const prize =
+      prizes[prizeIndex];
+
+    if (
+      prize.text === "Gift" ||
+      prize.text === "NFT"
+    ) {
+
+      addToInventory(prize);
+
+    }
+
+    if (
+      prize.text === "5 зірок"
+    ) {
+
+      stars += 5;
+
+    }
+
+    if (
+      prize.text === "10 зірок"
+    ) {
+
+      stars += 10;
+
+    }
+
+    if (
+      prize.text === "20 зірок"
+    ) {
+
+      stars += 20;
+
+    }
+
+    if (
+      prize.text === "+1 квиток"
+    ) {
+
+      tickets += 1;
+
+    }
+
+    if (
+      prize.text === "+2 квитки"
+    ) {
+
+      tickets += 2;
+
+    }
+
+    localStorage.setItem(
+      "nlkaman_stars",
+      stars
+    );
+
+    localStorage.setItem(
+      "nlkaman_tickets",
+      tickets
+    );
+
+    updateStars();
+    updateTickets();
+
+    playWinSound();
+
+    document.getElementById(
+      "winIcon"
+    ).innerHTML =
+      prize.icon;
+
+    document.getElementById(
+      "winText"
+    ).textContent =
+      "Ти виграв: " +
+      prize.text +
+      "! 🎉";
+
+    document.getElementById(
+      "winModal"
+    ).classList.add("show");
+
+    button.disabled = false;
+
+  }, 4000);
+
+}
+
+function spinRefWheel() {
+
+  const wheel =
+    document.getElementById(
+      "refWheel"
+    );
+
+  const button =
+    document.getElementById(
+      "refSpinButton"
+    );
+
+  if (!wheel || !button)
+    return;
+
+  if (tickets < 1) {
+
+    alert(
+      "❌ Потрібен 1 квиток"
+    );
+
+    return;
+
+  }
+
+  tickets -= 1;
+
+  localStorage.setItem(
+    "nlkaman_tickets",
+    tickets
+  );
+
+  updateTickets();
+
+  button.disabled = true;
+
+  const randomRotation =
+    1800 +
+    Math.floor(
+      Math.random() * 1440
+    );
+
+  refWheelRotation +=
+    randomRotation;
+
+  wheel.style.transform =
+    `rotate(${refWheelRotation}deg)`;
+
+  setTimeout(() => {
+
+    const prizes = [
+
+      {
+        icon: "🎟",
+        text: "+1 квиток"
+      },
+
+      {
+        icon:
+          '<img src="coin.png.PNG" class="win-coin">',
+        text: "5 зірок"
+      },
+
+      {
+        icon: "🎁",
+        text: "Gift"
+      },
+
+      {
+        icon:
+          '<img src="coin.png.PNG" class="win-coin">',
+        text: "10 зірок"
+      },
+
+      {
+        icon: "🎟",
+        text: "+2 квитки"
+      },
+
+      {
+        icon: "💎",
+        text: "NFT"
+      },
+
+      {
+        icon:
+          '<img src="coin.png.PNG" class="win-coin">',
+        text: "20 зірок"
+      },
+
+      {
+        icon: "😈",
+        text: "Нічого"
+      }
+
+    ];
+
+    const normalizedRotation =
+      (
+        (
+          refWheelRotation % 360
+        ) + 360
+      ) % 360;
+
+    const prizeIndex =
+      (
+        (
+          Math.round(
+            -normalizedRotation / 45
+          ) % prizes.length
+        ) + prizes.length
+      ) % prizes.length;
+
+    const prize =
+      prizes[prizeIndex];
+
+    if (
+      prize.text === "Gift" ||
+      prize.text === "NFT"
+    ) {
+
+      addToInventory(prize);
+
+    }
+
+    if (
+      prize.text === "5 зірок"
+    ) {
+
+      stars += 5;
+
+    }
+
+    if (
+      prize.text === "10 зірок"
+    ) {
+
+      stars += 10;
+
+    }
+
+    if (
+      prize.text === "20 зірок"
+    ) {
+
+      stars += 20;
+
+    }
+
+    if (
+      prize.text === "+1 квиток"
+    ) {
+
+      tickets += 1;
+
+    }
+
+    if (
+      prize.text === "+2 квитки"
+    ) {
+
+      tickets += 2;
+
+    }
+
+    localStorage.setItem(
+      "nlkaman_stars",
+      stars
+    );
+
+    localStorage.setItem(
+      "nlkaman_tickets",
+      tickets
+    );
+
+    updateStars();
+    updateTickets();
+
+    playWinSound();
+
+    document.getElementById(
+      "winIcon"
+    ).innerHTML =
+      prize.icon;
+
+    document.getElementById(
+      "winText"
+    ).textContent =
+      "Ти виграв: " +
+      prize.text +
+      "! 🎉";
+
+    document.getElementById(
+      "winModal"
+    ).classList.add("show");
+
+    button.disabled = false;
+
+  }, 4000);
+
+}
+
+function closeWin() {
+
+  document.getElementById(
+    "winModal"
+  ).classList.remove("show");
+
+}
+  function copyReferral() {
+
+  if (!referralLink)
+    return;
+
+  navigator.clipboard.writeText(
+    referralLink
+  );
+
+  alert(
+    "✅ Посилання скопійовано!"
+  );
+
+}
+
+function shareReferral() {
+
+  if (!referralLink)
+    return;
+
+  const text =
+    "🎁 Приєднуйся до Nlkaman Gifts!";
+
+  const url =
+    "https://t.me/share/url?url=" +
+    encodeURIComponent(
+      referralLink
+    ) +
+    "&text=" +
+    encodeURIComponent(
+      text
+    );
+
+  window.open(
+    url,
+    "_blank"
+  );
+
+}
+
+
+/* =========================
+   КОРИСТУВАЧ
+========================= */
+
+function loadUser() {
+
+  const name =
+    user.username
+      ? "@" + user.username
+      : user.first_name ||
+        "Користувач";
+
+  const userName =
+    document.getElementById(
+      "userName"
+    );
+
+  if (userName) {
+    userName.textContent =
+      name;
+  }
+
+  const userid =
+    document.getElementById(
+      "userid"
+    );
+
+  if (userid) {
+
+    userid.textContent =
+      "Telegram ID: " +
+      user.id;
+
+  }
+
+  const avatar =
+    document.getElementById(
+      "avatar"
+    );
+
+  if (!avatar)
+    return;
+
+  if (user.photo_url) {
+
+    avatar.innerHTML = `
+      <img
+        src="${user.photo_url}"
+        class="telegram-avatar"
+        alt="Avatar"
+      >
+    `;
+
+  } else {
+
+    avatar.textContent =
+      (
+        user.first_name ||
+        "N"
+      )
+        .charAt(0)
+        .toUpperCase();
+
+  }
+
+}
+
+
+/* =========================
+   НАВІГАЦІЯ
+========================= */
+
+function openPage(pageName) {
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
+
+      page.classList.remove(
+        "active"
+      );
+
+    });
+
+  const page =
+    document.getElementById(
+      pageName
+    );
+
+  if (page) {
+
+    page.classList.add(
+      "active"
+    );
+
+  }
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
+
+      button.classList.remove(
+        "active"
+      );
+
+    });
+
+  const navButton =
+    document.getElementById(
+      "nav-" + pageName
+    );
+
+  if (navButton) {
+
+    navButton.classList.add(
+      "active"
+    );
+
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================
+   РЕФЕРАЛИ
+========================= */
+
+let referralLink = "";
+
+let referrals = 0;
+
+
+/* =========================
+   ІНВЕНТАР
+========================= */
+
+let inventory =
+  JSON.parse(
+    localStorage.getItem(
+      "nlkaman_inventory"
+    ) || "[]"
+  );
+
+
+function saveInventory() {
+
+  localStorage.setItem(
+    "nlkaman_inventory",
+    JSON.stringify(
+      inventory
+    )
+  );
+
+}
+
+
+function addToInventory(prize) {
+
+  inventory.push({
+
+    id: Date.now(),
+
+    icon:
+      prize.icon,
+
+    name:
+      prize.text
+
+  });
+
+  saveInventory();
+
+  renderInventory();
+
+}
+
+
+function renderInventory() {
+
+  const inventoryPage =
+    document.getElementById(
+      "inventory"
+    );
+
+  if (!inventoryPage)
+    return;
+
+  const empty =
+    inventoryPage.querySelector(
+      ".inventory-empty"
+    );
+
+  if (
+    inventory.length === 0
+  ) {
+
+    if (empty) {
+
+      empty.style.display =
+        "flex";
+
+    }
+
+    return;
+
+  }
+
+  if (empty) {
+
+    empty.style.display =
+      "none";
+
+  }
+
+  let container =
+    document.getElementById(
+      "inventoryItems"
+    );
+
+  if (!container) {
+
+    container =
+      document.createElement(
+        "div"
+      );
+
+    container.id =
+      "inventoryItems";
+
+    inventoryPage.appendChild(
+      container
+    );
+
+  }
+
+  container.innerHTML = "";
+
+  inventory.forEach(
+    item => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "inventory-item";
+
+      card.innerHTML = `
+
+        <div
+          class="inventory-item-icon"
+        >
+          ${item.icon}
+        </div>
+
+        <div
+          class="inventory-item-info"
+        >
+
+          <div
+            class="inventory-item-name"
+          >
+            ${item.name}
+          </div>
+
+          <div
+            class="inventory-item-subtitle"
+          >
+            Твій виграний подарунок
+          </div>
+
+          <button
+            class="inventory-withdraw-button"
+            onclick="
+              event.stopPropagation();
+              openInventoryItem(${item.id})
+            "
+          >
+            📤 ВИВЕСТИ
+          </button>
+
+        </div>
+
+      `;
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+function openInventoryItem(
+  itemId
+) {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id === itemId
+    );
+
+  if (!item)
+    return;
+
+  const action =
+    prompt(
+
+      "🎁 " +
+      item.name +
+      "\n\n" +
+
+      "Введи номер дії:\n\n" +
+
+      "1 — 📤 Вивести\n" +
+
+      "2 — 🎟 Продати за 10 квитків\n" +
+
+      "3 — ❌ Скасувати"
+
+    );
+
+  if (
+    action === "3" ||
+    action === null
+  ) {
+
+    return;
+
+  }
+
+  if (
+    action === "1"
+  ) {
+
+    alert(
+
+      "📤 Виведення подарунка\n\n" +
+
+      "Подарунок: " +
+      item.name +
+
+      "\n\n" +
+
+      "Функція виведення буде доступна пізніше."
+
+    );
+
+    return;
+
+  }
+
+  if (
+    action === "2"
+  ) {
+
+    tickets += 10;
+
+    inventory =
+      inventory.filter(
+        item =>
+          item.id !== itemId
+      );
+
+    saveInventory();
+
+    localStorage.setItem(
+      "nlkaman_tickets",
+      tickets
+    );
+
+    updateTickets();
+
+    renderInventory();
+
+    alert(
+      "✅ Подарунок продано!\n+10 квитків"
+    );
+
+    return;
+
+  }
+
+  alert(
+    "❌ Невірний вибір"
+  );
+
+}
+
+
+/* =========================
+   ЩОДЕННИЙ БОНУС
+========================= */
+
+const dailyBonusRewards = [
+
+  {
+    type: "stars",
+    amount: 500
+  },
+
+  {
+    type: "stars",
+    amount: 1000
+  },
+
+  {
+    type: "stars",
+    amount: 1250
+  },
+
+  {
+    type: "tickets",
+    amount: 1
+  },
+
+  {
+    type: "tickets",
+    amount: 2
+  },
+
+  {
+    type: "stars",
+    amount: 3000
+  },
+
+  {
+    type: "tickets",
+    amount: 4
+  }
+
+];
+
+
+let dailyBonusDay =
+  Number(
+    localStorage.getItem(
+      "nlkaman_daily_bonus_day"
+    )
+  ) || 1;
+
+
+let dailyBonusLastClaim =
+  Number(
+    localStorage.getItem(
+      "nlkaman_daily_bonus_last_claim"
+    )
+  ) || 0;
+
+
+function isDailyBonusReady() {
+
+  const lastClaim =
+    Number(
+      localStorage.getItem(
+        "nlkaman_daily_bonus_last_claim"
+      )
+    ) || 0;
+
+  if (
+    lastClaim === 0
+  ) {
+
+    return true;
+
+  }
+
+  const now =
+    Date.now();
+
+  const twentyFourHours =
+    24 *
+    60 *
+    60 *
+    1000;
+
+  return (
+    now - lastClaim >=
+    twentyFourHours
+  );
+
+}
+
+
+function renderDailyBonus() {
+
+  for (
+    let i = 1;
+    i <= 7;
+    i++
+  ) {
+
+    const day =
+      document.getElementById(
+        "bonusDay" + i
+      );
+
+    if (!day)
+      continue;
+
+    day.classList.remove(
+      "active",
+      "claimed",
+      "locked"
+    );
+
+    if (
+      i < dailyBonusDay
+    ) {
+
+      day.classList.add(
+        "claimed"
+      );
+
+    } else if (
+      i === dailyBonusDay
+    ) {
+
+      day.classList.add(
+        "active"
+      );
+
+    } else {
+
+      day.classList.add(
+        "locked"
+      );
+
+    }
+
+  }
+
+  const streak =
+    document.querySelector(
+      ".daily-bonus-streak"
+    );
+
+  if (streak) {
+
+    streak.textContent =
+      dailyBonusDay;
+
+  }
+
+}
+
+
+function claimDailyBonus() {
+
+  const lastClaim =
+    Number(
+      localStorage.getItem(
+        "nlkaman_daily_bonus_last_claim"
+      )
+    ) || 0;
+
+  const twentyFourHours =
+    24 *
+    60 *
+    60 *
+    1000;
+
+  if (
+    lastClaim !== 0 &&
+    Date.now() - lastClaim <
+      twentyFourHours
+  ) {
+
+    return;
+
+  }
+
+  const reward =
+    dailyBonusRewards[
+      dailyBonusDay - 1
+    ];
+
+  if (!reward)
+    return;
+
+  if (
+    reward.type === "stars"
+  ) {
+
+    stars +=
+      reward.amount;
+
+    localStorage.setItem(
+      "nlkaman_stars",
+      stars
+    );
+
+    updateStars();
+
+  }
+
+  if (
+    reward.type === "tickets"
+  ) {
+
+    tickets +=
+      reward.amount;
+
+    localStorage.setItem(
+      "nlkaman_tickets",
+      tickets
+    );
+
+    updateTickets();
+
+  }
+
+  const claimTime =
+    Date.now();
+
+  localStorage.setItem(
+    "nlkaman_daily_bonus_last_claim",
+    claimTime
+  );
+
+  dailyBonusLastClaim =
+    claimTime;
+
+  dailyBonusDay++;
+
+  if (
+    dailyBonusDay > 7
+  ) {
+
+    dailyBonusDay = 1;
+
+  }
+
+  localStorage.setItem(
+    "nlkaman_daily_bonus_day",
+    dailyBonusDay
+  );
+
+  const modal =
+    document.getElementById(
+      "dailyBonusModal"
+    );
+
+  if (modal) {
+
+    modal.style.display =
+      "none";
+
+  }
+
+  if (soundEnabled) {
+
+    initAudio();
+
+    if (!musicTimer) {
+
+      playAdventureMusic();
+
+    }
+
+  }
+
+  alert(
+
+    "🎁 Бонус отримано!\n\n" +
+
+    (
+      reward.type === "stars"
+
+        ? "🪙 +" +
+          reward.amount +
+          " NIK"
+
+        : "🎟 +" +
+          reward.amount +
+          " квитків"
+    )
+
+  );
+
+}
+
+
+/* =========================
+   ЗАПУСК
+========================= */
+
+loadUser();
+
+updateTickets();
+
+renderInventory();
+
+
+const dailyBonusModal =
+  document.getElementById(
+    "dailyBonusModal"
+  );
+
+
+if (dailyBonusModal) {
+
+  dailyBonusModal.style.display =
+    "none";
+
+}
+
+
+const lastDailyBonus =
+  Number(
+    localStorage.getItem(
+      "nlkaman_daily_bonus_last_claim"
+    )
+  ) || 0;
+
+
+const bonus24Hours =
+  24 *
+  60 *
+  60 *
+  1000;
+
+
+const canGetDailyBonus =
+  lastDailyBonus === 0 ||
+  Date.now() -
+    lastDailyBonus >=
+    bonus24Hours;
+
+
+if (
+  canGetDailyBonus &&
+  dailyBonusModal
+) {
+
+  renderDailyBonus();
+
+  dailyBonusModal.style.display =
+    "flex";
+
+}
+
+
+/* =========================
+   КНОПКИ КОЛІС
+========================= */
+
+document
+  .getElementById(
+    "starsSpinButton"
+  )
+  ?.addEventListener(
+    "click",
+    spinStarsWheel
+  );
+
+
+document
+  .getElementById(
+    "refSpinButton"
+  )
+  ?.addEventListener(
+    "click",
+    spinRefWheel
+  );
+
+
+/* =========================
+   ЗВУК ДЛЯ КНОПОК
+========================= */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    if (
+
+      event.target.closest(
+        "button"
+      ) &&
+
+      event.target.id !==
+        "soundButton"
+
+    ) {
+
+      playClick();
+
+    }
+
+  }
+);
+
+</script>
+
 </body>
 </html>
