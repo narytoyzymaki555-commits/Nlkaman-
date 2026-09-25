@@ -145,16 +145,23 @@
       font-size: 12px;
     }
 
-    .top-panel {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      padding: 14px;
-      margin-bottom: 12px;
-      border-radius: 22px;
-      background: rgba(22, 25, 53, .88);
-      border: 1px solid rgba(124, 92, 255, .35);
-    }
+.top-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 5px;
+
+  padding: 6px 8px;
+  margin-bottom: 10px;
+
+  border-radius: 14px;
+
+  background: rgba(22, 25, 53, .88);
+  border: 1px solid rgba(124, 92, 255, .35);
+
+  width: 100%;
+}
 
     .user-box {
       grid-column: 1 / -1;
@@ -276,8 +283,8 @@
       align-items: center;
       justify-content: center;
 
-      width: 60vw;
-      height: 60vw;
+     width: 70vw;
+     height: 70vw;
       max-width: 300px;
       max-height: 300px;
 
@@ -1531,16 +1538,6 @@
     🔊
   </button>
 
-  <div class="header">
-    <div class="logo">
-      NLKAMAN <span>GIFTS</span>
-    </div>
-
-    <div class="subtitle">
-      NFT подарунки та розіграші
-    </div>
-  </div>
-
   <!-- ГОЛОВНЕ -->
   <section id="home" class="page active">
 
@@ -1562,10 +1559,6 @@
             id="userName"
           >
             @user
-          </div>
-
-          <div class="user-status">
-            Учасник
           </div>
 
         </div>
@@ -1617,20 +1610,9 @@
 
     </div>
 
-    <div
-      class="telegram-id-box"
-      id="userid"
-    >
-      Telegram ID: —
-    </div>
-
     <!-- 🧸 КЛІКЕР -->
 
     <div class="bear-clicker">
-
-      <div class="bear-title">
-        🪙 КЛІКАЙ НА ВЕДМЕДИКА
-      </div>
 
       <div
         class="bear"
