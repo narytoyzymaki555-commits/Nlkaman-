@@ -2845,6 +2845,9 @@ function clickBear() {
 
 }
 function handleBearTouch(event) {
+  if (navigator.vibrate) {
+  navigator.vibrate(20);
+}
 
   event.preventDefault();
 
