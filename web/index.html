@@ -2648,7 +2648,6 @@ function playTone(
   type = "sine",
   volume = 0.04
 ) {
-
   if (!soundEnabled) return;
 
   initAudio();
@@ -2659,13 +2658,14 @@ function playTone(
   const gain =
     audioCtx.createGain();
 
-  oscillator.type = type;
+  oscillator.type =
+    type;
 
   oscillator.frequency.value =
     frequency;
 
   gain.gain.setValueAtTime(
-    volume,
+    volume * (gameVolume / 100),
     audioCtx.currentTime
   );
 
@@ -2729,9 +2729,9 @@ function playCoinSound() {
   );
 
   gain.gain.setValueAtTime(
-  0.055 * (gameVolume / 100),
-  now
-);
+    0.055 * (gameVolume / 100),
+    now
+  );
 
   gain.gain.exponentialRampToValueAtTime(
     0.001,
@@ -2739,11 +2739,16 @@ function playCoinSound() {
   );
 
   oscillator.connect(gain);
-  gain.connect(audioCtx.destination);
+
+  gain.connect(
+    audioCtx.destination
+  );
 
   oscillator.start(now);
-  oscillator.stop(now + 0.05);
 
+  oscillator.stop(
+    now + 0.05
+  );
 }
 
 function playWinSound() {
@@ -3002,7 +3007,68 @@ function playAdventureMusic() {
 
   forestNote();
 }
+  
+// 🔊 ГУЧНІСТЬ
 
+const volumeSlider =
+  document.getElementById(
+    "volumeSlider"
+  );
+
+const volumeValue =
+  document.getElementById(
+    "volumeValue"
+  );
+
+let gameVolume =
+  Number(
+    localStorage.getItem(
+      "nlkaman_volume"
+    )
+  );
+
+if (
+  isNaN(gameVolume) ||
+  gameVolume < 0 ||
+  gameVolume > 100
+) {
+  gameVolume = 100;
+}
+
+if (volumeSlider) {
+  volumeSlider.value =
+    gameVolume;
+}
+
+if (volumeValue) {
+  volumeValue.textContent =
+    gameVolume + "%";
+}
+
+if (volumeSlider) {
+  volumeSlider.addEventListener(
+    "input",
+    function () {
+
+      gameVolume =
+        Number(
+          this.value
+        );
+
+      localStorage.setItem(
+        "nlkaman_volume",
+        gameVolume
+      );
+
+      if (volumeValue) {
+        volumeValue.textContent =
+          gameVolume + "%";
+      }
+
+    }
+  );
+}
+  
 function toggleSound() {
 
   soundEnabled =
