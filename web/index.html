@@ -152,88 +152,73 @@
 .top-panel {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-
-  gap: 5px;
-
-  padding: 6px 8px;
-  margin-bottom: 10px;
-
-  border-radius: 14px;
-
+  gap: 4px;
+  padding: 5px 6px;
+  margin-bottom: 8px;
+  border-radius: 13px;
   background: rgba(22, 25, 53, .88);
   border: 1px solid rgba(124, 92, 255, .35);
-
   width: 100%;
+  overflow: hidden;
 }
 
-  .user-box {
+.user-box {
   display: flex;
   align-items: center;
-
-  gap: 5px;
-
-  padding: 3px 5px;
-
-  border-radius: 10px;
-
+  gap: 4px;
+  padding: 3px 4px;
+  border-radius: 9px;
   background: rgba(20, 25, 55, .65);
   border: 1px solid rgba(124, 92, 255, .18);
-
   flex: 1;
   min-width: 0;
 }
+
 .top-avatar {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
 }
 
-  .top-stat {
+.user-name {
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top-stat {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  gap: 3px;
-
-  padding: 3px 5px;
-
-  text-align: center;
-  border-radius: 10px;
-
+  gap: 2px;
+  padding: 4px 5px;
+  min-width: 35px;
+  height: 32px;
+  border-radius: 9px;
   background: rgba(20, 25, 55, .65);
   border: 1px solid rgba(124, 92, 255, .18);
-
   flex-shrink: 0;
 }
 
-  .top-stat-icon {
+.top-stat-icon {
   font-size: 14px;
-  min-height: auto;
   line-height: 1;
 }
 
- .top-stat-value {
-  margin-top: 0;
-  font-size: 13px;
+.top-stat-value {
+  margin: 0;
+  font-size: 12px;
   font-weight: 900;
   line-height: 1;
 }
 
- .top-stat-label {
-  margin-top: 0;
-  color: #8f97bd;
-  font-size: 9px;
-  font-weight: 700;
-  line-height: 1;
+.kam-coin {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
-
-    .kam-coin {
-      width: 23px;
-      height: 23px;
-      object-fit: contain;
-      vertical-align: middle;
-    }
 
     .telegram-id-box {
       margin-bottom: 14px;
@@ -1656,29 +1641,84 @@ height: 70vw;
   <!-- ГОЛОВНЕ -->
   <section id="home" class="page active">
 
-    <div class="top-panel">
+  <div class="top-panel">
 
-      <div class="user-box">
+  <div class="user-box">
 
-        <div
-          class="avatar top-avatar"
-          id="avatar"
-        >
-          N
-        </div>
+    <div
+      class="avatar top-avatar"
+      id="avatar"
+    >
+      N
+    </div>
 
-        <div class="user-info">
+    <div class="user-info">
 
-          <div
-            class="user-name"
-            id="userName"
-          >
-            @user
-          </div>
-
-        </div>
-
+      <div
+        class="user-name"
+        id="userName"
+      >
+        @user
       </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="top-stat rune-stat">
+
+    <div class="top-stat-icon">
+      🔮
+    </div>
+
+    <div
+      class="top-stat-value"
+      id="runeCount"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="top-stat artifact-stat">
+
+    <div class="top-stat-icon">
+      🏆
+    </div>
+
+    <div
+      class="top-stat-value"
+      id="artifactCount"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="top-stat stars-box">
+
+    <div class="top-stat-icon">
+
+      <img
+        src="coin.png.PNG"
+        class="kam-coin"
+      >
+
+    </div>
+
+    <div
+      class="top-stat-value stars"
+      id="starCount"
+    >
+      0
+    </div>
+
+  </div>
+
+</div>
 
       <div class="top-stat tickets-box">
 
@@ -3030,6 +3070,46 @@ let tickets =
       "nlkaman_tickets"
     )
   ) || 0;
+  
+  let runes =
+  Number(
+    localStorage.getItem(
+      "nlkaman_runes"
+    )
+  ) || 0;
+
+let artifacts =
+  Number(
+    localStorage.getItem(
+      "nlkaman_artifacts"
+    )
+  ) || 0;
+  
+  function updateRunesAndArtifacts() {
+
+  const runeCount =
+    document.getElementById(
+      "runeCount"
+    );
+
+  const artifactCount =
+    document.getElementById(
+      "artifactCount"
+    );
+
+  if (runeCount) {
+    runeCount.textContent =
+      runes;
+  }
+
+  if (artifactCount) {
+    artifactCount.textContent =
+      artifacts;
+  }
+
+}
+
+updateRunesAndArtifacts();
 
 function updateTickets() {
 
