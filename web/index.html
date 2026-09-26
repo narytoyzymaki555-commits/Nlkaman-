@@ -2729,9 +2729,9 @@ function playCoinSound() {
   );
 
   gain.gain.setValueAtTime(
-  0.055 * (gameVolume / 100)
-    now
-  );
+  0.055 * (gameVolume / 100),
+  now
+);
 
   gain.gain.exponentialRampToValueAtTime(
     0.001,
@@ -2852,10 +2852,10 @@ function playAdventureMusic() {
       now
     );
 
-    gain.gain.linearRampToValueAtTime(
-    0.018 * (gameVolume / 100)
-      now + 0.08
-    );
+  gain.gain.linearRampToValueAtTime(
+  0.018 * (gameVolume / 100),
+  now + 0.08
+);
 
     gain.gain.exponentialRampToValueAtTime(
       0.0001,
@@ -2897,9 +2897,9 @@ function playAdventureMusic() {
       );
 
       bassGain.gain.linearRampToValueAtTime(
-      0.009 * (gameVolume / 100)
-        now + 0.2
-      );
+  0.009 * (gameVolume / 100),
+  now + 0.2
+);
 
       bassGain.gain.exponentialRampToValueAtTime(
         0.0001,
@@ -2947,9 +2947,9 @@ function playAdventureMusic() {
       );
 
       magicGain.gain.linearRampToValueAtTime(
-       0.006 * (gameVolume / 100)
-        now + 0.15
-      );
+  0.006 * (gameVolume / 100),
+  now + 0.15
+);
 
       magicGain.gain.exponentialRampToValueAtTime(
         0.0001,
