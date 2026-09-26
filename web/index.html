@@ -202,9 +202,11 @@
   flex-shrink: 0;
 }
 
-.top-stat-icon {
-  font-size: 14px;
-  line-height: 1;
+.top-resource-image {
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
+  display: block;
 }
 
 .top-stat-value {
@@ -1669,8 +1671,13 @@ height: 70vw;
   <div class="top-stat rune-stat">
 
     <div class="top-stat-icon">
-      🔮
-    </div>
+
+  <img
+    src="rune.png.PNG"
+    class="top-resource-image"
+  >
+
+</div>
 
     <div
       class="top-stat-value"
@@ -1684,9 +1691,14 @@ height: 70vw;
 
   <div class="top-stat artifact-stat">
 
-    <div class="top-stat-icon">
-      🏆
-    </div>
+   <div class="top-stat-icon">
+
+  <img
+    src="artifact.png.PNG"
+    class="top-resource-image"
+  >
+
+</div>
 
     <div
       class="top-stat-value"
@@ -1720,51 +1732,6 @@ height: 70vw;
 
 </div>
 
-      <div class="top-stat tickets-box">
-
-        <div class="top-stat-icon">
-          🎟
-        </div>
-
-        <div
-          class="top-stat-value tickets"
-          id="ticketCount"
-        >
-          0
-        </div>
-
-        <div class="top-stat-label">
-          Квитків
-        </div>
-
-      </div>
-
-      <div class="top-stat stars-box">
-
-        <div class="top-stat-icon">
-
-          <img
-            src="coin.png.PNG"
-            class="kam-coin"
-          >
-
-        </div>
-
-        <div
-          class="top-stat-value stars"
-          id="starCount"
-        >
-          0
-        </div>
-
-        <div class="top-stat-label">
-          NIK
-        </div>
-
-      </div>
-
-    </div>
-
     <!-- 🧸 КЛІКЕР -->
 
     <div class="bear-clicker">
@@ -1781,17 +1748,6 @@ height: 70vw;
           draggable="false"
         >
 
-      </div>
-
-      <div class="bear-reward">
-        +1 NIK за клік
-      </div>
-
-      <div class="bear-stars">
-        NIK:
-        <span id="bearStarCount">
-          0
-        </span>
       </div>
 
     </div>
