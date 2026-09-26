@@ -2653,26 +2653,19 @@ function playTone(
 
   initAudio();
 
-  if (!audioCtx) return;
-
   const oscillator =
     audioCtx.createOscillator();
 
   const gain =
     audioCtx.createGain();
 
-  oscillator.type =
-    type;
+  oscillator.type = type;
 
   oscillator.frequency.value =
     frequency;
 
-  const finalVolume =
-    volume *
-    (gameVolume / 100);
-
   gain.gain.setValueAtTime(
-    finalVolume,
+    volume,
     audioCtx.currentTime
   );
 
