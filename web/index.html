@@ -1611,6 +1611,95 @@ height: 70vw;
       color: #021426 !important;
     }
     
+    /* 🎮 ІГРОВІ РЕЖИМИ */
+
+.game-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  margin: 12px 0 18px;
+}
+
+.game-mode-card {
+  position: relative;
+  min-height: 175px;
+  padding: 14px 10px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(50, 140, 255, .16),
+      transparent 55%
+    ),
+    rgba(8, 15, 30, .94);
+
+  border: 1px solid rgba(80, 150, 255, .35);
+
+  box-shadow:
+    0 0 22px rgba(40, 120, 255, .12),
+    inset 0 0 20px rgba(40, 120, 255, .04);
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease;
+}
+
+.game-mode-card:active {
+  transform: scale(.97);
+}
+
+.game-mode-image {
+  width: 105px;
+  height: 105px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 8px;
+}
+
+.game-mode-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 0 18px
+      rgba(50, 150, 255, .45)
+    );
+}
+
+.adventure-placeholder {
+  font-size: 70px;
+  filter:
+    drop-shadow(
+      0 0 18px
+      rgba(50, 200, 255, .45)
+    );
+}
+
+.game-mode-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow:
+    0 0 10px
+    rgba(100, 170, 255, .25);
+}
+    
 /* 🔮 РУНИ */
 
 .runes-title {
@@ -1801,6 +1890,48 @@ height: 70vw;
       id="starCount"
     >
       0
+    </div>
+
+  </div>
+
+</div>
+
+    <!-- 🎮 ІГРОВІ РЕЖИМИ -->
+
+<div class="game-modes">
+
+  <!-- КЛІКЕР -->
+  <div
+    class="game-mode-card"
+    onclick="openPage('clicker')"
+  >
+
+    <div class="game-mode-image">
+      <img
+        src="coin.png.PNG"
+        alt="Клікер"
+      >
+    </div>
+
+    <div class="game-mode-title">
+      Клікер
+    </div>
+
+  </div>
+
+
+  <!-- ПОДОРОЖУВАТИ -->
+  <div
+    class="game-mode-card"
+    onclick="openPage('adventure')"
+  >
+
+    <div class="game-mode-image adventure-placeholder">
+      🌍
+    </div>
+
+    <div class="game-mode-title">
+      Подорожувати
     </div>
 
   </div>
