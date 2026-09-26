@@ -3191,69 +3191,6 @@ let artifacts =
 
 updateRunesAndArtifacts();
   
-  // 🔊 ГУЧНІСТЬ
-
-const volumeSlider =
-  document.getElementById(
-    "volumeSlider"
-  );
-
-const volumeValue =
-  document.getElementById(
-    "volumeValue"
-  );
-
-let gameVolume =
-  Number(
-    localStorage.getItem(
-      "nlkaman_volume"
-    )
-  );
-
-if (
-  isNaN(gameVolume) ||
-  gameVolume < 0 ||
-  gameVolume > 100
-) {
-  gameVolume = 100;
-}
-
-if (volumeSlider) {
-  volumeSlider.value =
-    gameVolume;
-}
-
-if (volumeValue) {
-  volumeValue.textContent =
-    gameVolume + "%";
-}
-
-if (volumeSlider) {
-
-  volumeSlider.addEventListener(
-    "input",
-    function () {
-
-      gameVolume =
-        Number(
-          this.value
-        );
-
-      localStorage.setItem(
-        "nlkaman_volume",
-        gameVolume
-      );
-
-      if (volumeValue) {
-        volumeValue.textContent =
-          gameVolume + "%";
-      }
-
-    }
-  );
-
-}
-
 function updateTickets() {
 
   const ticketCount =
