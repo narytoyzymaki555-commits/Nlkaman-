@@ -1715,14 +1715,6 @@ height: 70vw;
 
 <div class="app">
 
-  <button
-    id="soundButton"
-    class="sound-button"
-    onclick="toggleSound()"
-  >
-    🔊
-  </button>
-
   <!-- ГОЛОВНЕ -->
   <section id="home" class="page active">
 
@@ -2661,19 +2653,26 @@ function playTone(
 
   initAudio();
 
+  if (!audioCtx) return;
+
   const oscillator =
     audioCtx.createOscillator();
 
   const gain =
     audioCtx.createGain();
 
-  oscillator.type = type;
+  oscillator.type =
+    type;
 
   oscillator.frequency.value =
     frequency;
 
+  const finalVolume =
+    volume *
+    (gameVolume / 100);
+
   gain.gain.setValueAtTime(
-    volume,
+    finalVolume,
     audioCtx.currentTime
   );
 
@@ -2737,7 +2736,7 @@ function playCoinSound() {
   );
 
   gain.gain.setValueAtTime(
-    0.055,
+  0.055 * (gameVolume / 100)
     now
   );
 
@@ -2861,7 +2860,7 @@ function playAdventureMusic() {
     );
 
     gain.gain.linearRampToValueAtTime(
-      0.018,
+    0.018 * (gameVolume / 100)
       now + 0.08
     );
 
@@ -2905,7 +2904,7 @@ function playAdventureMusic() {
       );
 
       bassGain.gain.linearRampToValueAtTime(
-        0.009,
+      0.009 * (gameVolume / 100)
         now + 0.2
       );
 
@@ -2955,7 +2954,7 @@ function playAdventureMusic() {
       );
 
       magicGain.gain.linearRampToValueAtTime(
-        0.006,
+       0.006 * (gameVolume / 100)
         now + 0.15
       );
 
