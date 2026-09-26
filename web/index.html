@@ -1540,7 +1540,104 @@ height: 70vw;
 
       color: #021426 !important;
     }
+    
+/* 🔮 РУНИ */
 
+.runes-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 10px 0 20px;
+  color: #39ff88;
+  text-shadow: 0 0 15px rgba(0, 255, 120, .6);
+}
+
+.rune-card {
+  position: relative;
+  width: 100%;
+  padding: 20px 15px;
+  border-radius: 22px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(0, 255, 120, .18), transparent 45%),
+    rgba(5, 15, 25, .9);
+  border: 1px solid rgba(0, 255, 120, .35);
+  box-shadow:
+    0 0 25px rgba(0, 255, 120, .15),
+    inset 0 0 25px rgba(0, 255, 120, .05);
+}
+
+.rune-image {
+  width: 75%;
+  max-width: 280px;
+  display: block;
+  margin: 0 auto 10px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 20px rgba(0, 255, 100, .55));
+}
+
+.rune-name {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.rune-count {
+  margin-top: 6px;
+  color: #8f97bd;
+  font-size: 13px;
+}
+
+
+/* 🏆 АРТЕФАКТИ */
+
+.artifacts-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 10px 0 20px;
+  color: #ffd45c;
+  text-shadow: 0 0 15px rgba(255, 190, 50, .6);
+}
+
+.artifact-card {
+  position: relative;
+  width: 100%;
+  padding: 20px 15px;
+  border-radius: 22px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 190, 50, .18), transparent 45%),
+    rgba(20, 16, 8, .92);
+  border: 1px solid rgba(255, 190, 50, .4);
+  box-shadow:
+    0 0 25px rgba(255, 190, 50, .15),
+    inset 0 0 25px rgba(255, 190, 50, .05);
+}
+
+.artifact-image {
+  width: 75%;
+  max-width: 280px;
+  display: block;
+  margin: 0 auto 10px;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 22px rgba(255, 190, 50, .55));
+}
+
+.artifact-name {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.artifact-count {
+  margin-top: 6px;
+  color: #b7a879;
+  font-size: 13px;
+}
+    
   </style>
 </head>
 
@@ -1685,7 +1782,68 @@ height: 70vw;
     </div>
 
   </section>
+  
+<!-- РУНИ -->
 
+<section
+  id="runes"
+  class="page"
+>
+
+  <div class="runes-title">
+    🔮 РУНИ
+  </div>
+
+  <div class="rune-card">
+
+    <img
+      src="rune.png.PNG"
+      class="rune-image"
+    >
+
+    <div class="rune-name">
+      Стародавня Руна
+    </div>
+
+    <div class="rune-count">
+      Кількість: 0
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- АРТЕФАКТИ -->
+
+<section
+  id="artifacts"
+  class="page"
+>
+
+  <div class="artifacts-title">
+    🏆 АРТЕФАКТИ
+  </div>
+
+  <div class="artifact-card">
+
+    <img
+      src="artifact.png.PNG"
+      class="artifact-image"
+    >
+
+    <div class="artifact-name">
+      Стародавній Артефакт
+    </div>
+
+    <div class="artifact-count">
+      Кількість: 0
+    </div>
+
+  </div>
+
+</section>
+  
   <!-- РЕФЕРАЛИ -->
 
   <section
