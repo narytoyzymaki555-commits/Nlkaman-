@@ -1798,6 +1798,32 @@ height: 70vw;
 .wheel-screen.active {
   display: block;
 }
+    .wheel-placeholder {
+  width: 240px;
+  height: 240px;
+
+  margin: 20px auto;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(50, 140, 255, .16),
+      rgba(8, 15, 30, .95)
+    );
+
+  border: 2px solid rgba(80, 150, 255, .4);
+
+  box-shadow:
+    0 0 35px rgba(40, 120, 255, .18);
+}
     
     /* 🎮 ЗАГОЛОВКИ ІГРОВИХ СТОРІНОК */
 
@@ -2275,111 +2301,224 @@ height: 70vw;
   class="page"
 >
 
+ <div class="section-title">
+  🎡 Колесо
+</div>
+
+
+<div class="wheel-menu">
+
+
+  <!-- 1000 NIK -->
+
+  <div
+    class="wheel-card"
+    onclick="openWheel('wheel1000')"
+  >
+
+    <div class="wheel-card-icon">
+      🎡
+    </div>
+
+    <div class="wheel-card-price">
+      1000
+    </div>
+
+    <img
+      src="coin.png.PNG"
+      class="wheel-card-coin"
+    >
+
+  </div>
+
+
+  <!-- 5000 NIK -->
+
+  <div
+    class="wheel-card"
+    onclick="openWheel('wheel5000')"
+  >
+
+    <div class="wheel-card-icon">
+      🎡
+    </div>
+
+    <div class="wheel-card-price">
+      5000
+    </div>
+
+    <img
+      src="coin.png.PNG"
+      class="wheel-card-coin"
+    >
+
+  </div>
+
+
+  <!-- 10000 NIK -->
+
+  <div
+    class="wheel-card"
+    onclick="openWheel('wheel10000')"
+  >
+
+    <div class="wheel-card-icon">
+      🎡
+    </div>
+
+    <div class="wheel-card-price">
+      10 000
+    </div>
+
+    <img
+      src="coin.png.PNG"
+      class="wheel-card-coin"
+    >
+
+  </div>
+
+
+  <!-- ДРУЗІ -->
+
+  <div
+    class="wheel-card"
+    onclick="openWheel('wheelFriends')"
+  >
+
+    <div class="wheel-card-icon">
+      🎡
+    </div>
+
+    <div class="wheel-card-price">
+      1
+    </div>
+
+    <div class="wheel-card-friends">
+      👥
+    </div>
+
+  </div>
+
+
+</div>
+  
+</section>
+  
+<!-- 🎡 КОЛЕСО 1000 -->
+
+<section
+  id="wheel1000"
+  class="page wheel-screen"
+>
+
   <div class="section-title">
-    🎡 Колесо
+    🎡 Колесо за 1000 🪙
   </div>
 
+  <div class="wheel-wrapper">
 
-  <!-- КАРТКИ КОЛІС -->
-
-  <div class="wheel-menu">
-
-
-    <!-- 1000 -->
-
-    <div
-      class="wheel-card"
-      onclick="openWheel('wheel1000')"
-    >
-
-      <div class="wheel-card-icon">
-        🎡
-      </div>
-
-      <div class="wheel-card-price">
-        1000
-      </div>
-
-      <img
-        src="coin.png.PNG"
-        class="wheel-card-coin"
-      >
-
+    <div class="wheel-placeholder">
+      🎡
     </div>
-
-
-    <!-- 5000 -->
-
-    <div
-      class="wheel-card"
-      onclick="openWheel('wheel5000')"
-    >
-
-      <div class="wheel-card-icon">
-        🎡
-      </div>
-
-      <div class="wheel-card-price">
-        5000
-      </div>
-
-      <img
-        src="coin.png.PNG"
-        class="wheel-card-coin"
-      >
-
-    </div>
-
-
-    <!-- 10000 -->
-
-    <div
-      class="wheel-card"
-      onclick="openWheel('wheel10000')"
-    >
-
-      <div class="wheel-card-icon">
-        🎡
-      </div>
-
-      <div class="wheel-card-price">
-        10 000
-      </div>
-
-      <img
-        src="coin.png.PNG"
-        class="wheel-card-coin"
-      >
-
-    </div>
-
-
-    <!-- ДРУЗІ -->
-
-    <div
-      class="wheel-card"
-      onclick="openWheel('wheelFriends')"
-    >
-
-      <div class="wheel-card-icon">
-        🎡
-      </div>
-
-      <div class="wheel-card-price">
-        1
-      </div>
-
-      <div class="wheel-card-friends">
-        👥
-      </div>
-
-    </div>
-
 
   </div>
+
+  <button
+    class="button"
+    onclick="openPage('wheel')"
+  >
+    ← НАЗАД
+  </button>
 
 </section>
 
+
+<!-- 🎡 КОЛЕСО 5000 -->
+
+<section
+  id="wheel5000"
+  class="page wheel-screen"
+>
+
+  <div class="section-title">
+    🎡 Колесо за 5000 🪙
+  </div>
+
+  <div class="wheel-wrapper">
+
+    <div class="wheel-placeholder">
+      🎡
+    </div>
+
+  </div>
+
+  <button
+    class="button"
+    onclick="openPage('wheel')"
+  >
+    ← НАЗАД
+  </button>
+
+</section>
+
+
+<!-- 🎡 КОЛЕСО 10 000 -->
+
+<section
+  id="wheel10000"
+  class="page wheel-screen"
+>
+
+  <div class="section-title">
+    🎡 Колесо за 10 000 🪙
+  </div>
+
+  <div class="wheel-wrapper">
+
+    <div class="wheel-placeholder">
+      🎡
+    </div>
+
+  </div>
+
+  <button
+    class="button"
+    onclick="openPage('wheel')"
+  >
+    ← НАЗАД
+  </button>
+
+</section>
+
+
+<!-- 👥 КОЛЕСО ЗА ДРУЗІВ -->
+
+<section
+  id="wheelFriends"
+  class="page wheel-screen"
+>
+
+  <div class="section-title">
+    👥 Колесо за друзів
+  </div>
+
+  <div class="wheel-wrapper">
+
+    <div class="wheel-placeholder">
+      🎡
+    </div>
+
+  </div>
+
+  <button
+    class="button"
+    onclick="openPage('wheel')"
+  >
+    ← НАЗАД
+  </button>
+
+</section>
+  
   <!-- ЛІДЕРБОРД -->
 
   <section
@@ -3958,17 +4097,62 @@ function openPage(pageName) {
 function openWheel(wheelName) {
 
   document
-    .querySelectorAll(".wheel-screen")
-    .forEach(screen => {
-      screen.classList.remove("active");
+    .querySelectorAll(".page")
+    .forEach(page => {
+
+      page.classList.remove("active");
+
     });
 
+
+  document
+    .querySelectorAll(".wheel-screen")
+    .forEach(screen => {
+
+      screen.classList.remove("active");
+
+    });
+
+
   const wheel =
-    document.getElementById(wheelName);
+    document.getElementById(
+      wheelName
+    );
+
 
   if (wheel) {
+
     wheel.classList.add("active");
+
   }
+
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
+
+      button.classList.remove("active");
+
+    });
+
+
+  const wheelNav =
+    document.getElementById(
+      "nav-wheel"
+    );
+
+
+  if (wheelNav) {
+
+    wheelNav.classList.add("active");
+
+  }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
 }
 
