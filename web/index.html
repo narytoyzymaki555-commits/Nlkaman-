@@ -4279,13 +4279,18 @@ width: 26px;
   
 </div>
     
-    <button
+        <button
       class="nika-chances-open-button"
       onclick="openWheelChances('wheel1000', 'nikaChances1000')"
     >
       🎁 ШАНСИ НА ПРИЗИ
     </button>
- <!-- 🎁 ШАНСИ НА ПРИЗИ — 1000 -->
+
+  </div>
+
+</section>
+
+<!-- 🎁 ШАНСИ НА ПРИЗИ — 1000 -->
 
 <section
   id="nikaChances1000"
@@ -8065,81 +8070,6 @@ function openPage(pageName) {
      ВСЕРЕДИНІ wheel1000
   ========================= */
 
-  if (pageName === "nikaChances") {
-
-    const wheelPage =
-      document.getElementById(
-        "wheel1000"
-      );
-
-    const chancesPage =
-      document.getElementById(
-        "nikaChances"
-      );
-
-
-    /* Спочатку показуємо
-       батьківське колесо */
-
-    if (wheelPage) {
-
-      wheelPage.classList.add(
-        "active"
-      );
-
-    }
-
-
-    /* Потім показуємо
-       вкладку шансів */
-
-    if (chancesPage) {
-
-      chancesPage.classList.add(
-        "active"
-      );
-
-    }
-
-
-    /* Активна кнопка
-       нижньої навігації */
-
-    document
-      .querySelectorAll(".nav-btn")
-      .forEach(button => {
-
-        button.classList.remove(
-          "active"
-        );
-
-      });
-
-
-    const navButton =
-      document.getElementById(
-        "nav-wheel"
-      );
-
-    if (navButton) {
-
-      navButton.classList.add(
-        "active"
-      );
-
-    }
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-    return;
-
-  }
-
-
   /* =========================
      📄 ЗВИЧАЙНІ СТОРІНКИ
   ========================= */
@@ -9527,37 +9457,26 @@ function spinNika1000() {
 // 🎁 ШАНСИ
 // =================================
 
-function openWheelChances(
-  wheelId,
-  chancesId
-) {
+function openWheelChances(wheelId, chancesId) {
 
   document
     .querySelectorAll(".page")
     .forEach(page => {
       page.classList.remove("active");
-      page.style.display = "none";
     });
 
-
-  const wheel =
-    document.getElementById(wheelId);
+  document
+    .querySelectorAll(".wheel-screen")
+    .forEach(screen => {
+      screen.classList.remove("active");
+    });
 
   const chances =
     document.getElementById(chancesId);
 
-
-  if (wheel) {
-    wheel.classList.add("active");
-    wheel.style.display = "block";
-  }
-
-
   if (chances) {
     chances.classList.add("active");
-    chances.style.display = "block";
   }
-
 
   document
     .querySelectorAll(".nav-btn")
@@ -9565,21 +9484,17 @@ function openWheelChances(
       button.classList.remove("active");
     });
 
-
   const navButton =
     document.getElementById("nav-wheel");
-
 
   if (navButton) {
     navButton.classList.add("active");
   }
 
-
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
-
 }
 
 
@@ -9634,22 +9549,6 @@ function saveInventory() {
   );
 
 }
-
-
-function extractInventoryImage(icon) {
-
-  if (typeof icon !== "string")
-    return "";
-
-  const match = icon.match(
-    /src=["']([^"']+)["']/i
-  );
-
-  return match
-    ? match[1]
-    : "";
-}
-
 
 function extractInventoryImage(icon) {
 
