@@ -839,7 +839,16 @@ height: 70vw;
       top: -7px;
       left: 50%;
 
-      transform: translateX(-50%);
+      transform:
+  translateX(-50%)
+  rotate(0deg);
+
+transform-origin:
+  50% 10%;
+
+transition:
+  transform .08s
+  cubic-bezier(.2,.8,.2,1);
 
       color: #48b9ff;
 
@@ -2225,7 +2234,54 @@ height: 70vw;
 
   z-index: 8;
 }
+    
+/* ⚙️ ЗУБЦІ, ЯКІ ВИСТУПАЮТЬ ЗА КОЛЕСО */
 
+.nika-tooth {
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 16px;
+  height: 31px;
+
+  margin-left: -8px;
+  margin-top: -15.5px;
+
+  transform:
+    rotate(var(--tooth-angle))
+    translateY(-175px);
+
+  transform-origin: center;
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #b9f7ff,
+      #168cff 45%,
+      #063d91
+    );
+
+  border: 2px solid #8eefff;
+
+  box-shadow:
+
+    0 0 6px #00cfff,
+
+    0 0 14px
+      rgba(0,150,255,.8),
+
+    inset 0 0 5px
+      rgba(255,255,255,.8);
+
+  z-index: 25;
+
+  pointer-events: none;
+}
 
 /* 🎁 СЕКТОРИ */
 
@@ -3136,7 +3192,21 @@ height: 70vw;
     >
 
       <div class="nika-wheel-ring"></div>
+      
+<!-- ⚙️ ЗУБЦІ КОЛЕСА -->
 
+<div class="nika-tooth" style="--tooth-angle:0deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:30deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:60deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:90deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:120deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:150deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:180deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:210deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:240deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:270deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:300deg;"></div>
+<div class="nika-tooth" style="--tooth-angle:330deg;"></div>
 
       <!-- 12 СЕКТОРІВ -->
 
@@ -3229,18 +3299,14 @@ height: 70vw;
 
       <div class="nika-center">
 
-        <div class="nika-coin">
+       <div class="nika-coin">
 
-          <img
-            src="coin.png.PNG"
-            alt="NIKA"
-          >
+  <img
+    src="coin.png.PNG"
+    alt="NIKA"
+  >
 
-          <span>
-            NIKA
-          </span>
-
-        </div>
+</div>
 
       </div>
 
@@ -5040,7 +5106,6 @@ function openWheel(wheelName) {
 // =================================
 
 let nikaWheelRotation = 0;
-
 let nikaWheelSpinning = false;
 
 
@@ -5069,6 +5134,7 @@ function spinNika1000() {
     return;
   }
 
+
   nikaWheelSpinning = true;
 
   button.disabled = true;
@@ -5077,6 +5143,10 @@ function spinNika1000() {
     "✨ ОБЕРТАЄТЬСЯ...";
 
 
+  /*
+    🎡 Загальна кількість обертання
+  */
+
   const randomRotation =
     1800 +
     Math.floor(
@@ -5084,56 +5154,164 @@ function spinNika1000() {
     );
 
 
-  nikaWheelRotation +=
+  const startRotation =
+    nikaWheelRotation;
+
+  const targetRotation =
+    startRotation +
     randomRotation;
 
 
+  /*
+    🚀 Запускаємо колесо
+  */
+
+  nikaWheelRotation =
+    targetRotation;
+
   wheel.style.transform =
-    `rotate(${nikaWheelRotation}deg)`;
+    `rotate(${targetRotation}deg)`;
 
 
-  /* 🔻 ПРУЖНА СТРІЛКА */
+  /*
+    🔻 ЕФЕКТ СТРІЛКИ
+  */
 
   if (pointer) {
 
-    let tick = 0;
+    const startTime =
+      performance.now();
 
-    const pointerTimer =
-      setInterval(() => {
+    const duration = 5000;
 
-        tick++;
+
+    function animatePointer(
+      currentTime
+    ) {
+
+      const elapsed =
+        currentTime -
+        startTime;
+
+
+      const progress =
+        Math.min(
+          elapsed / duration,
+          1
+        );
+
+
+      /*
+        Плавність колеса:
+
+        спочатку швидко,
+        потім поступово повільніше.
+      */
+
+      const ease =
+        1 -
+        Math.pow(
+          1 - progress,
+          3
+        );
+
+
+      const currentAngle =
+        startRotation +
+        randomRotation * ease;
+
+
+      /*
+        Кожні 30° зубець
+        доходить до стрілки.
+      */
+
+      const toothPosition =
+        ((currentAngle % 30) + 30) % 30;
+
+
+      /*
+        Наскільки близько
+        зубець до стрілки.
+      */
+
+      const distance =
+        Math.min(
+          toothPosition,
+          30 - toothPosition
+        );
+
+
+      /*
+        Чим ближче зубець —
+        тим сильніше відхиляємо стрілку.
+      */
+
+      let pointerAngle = 0;
+
+
+      if (distance < 6) {
+
+        const force =
+          (6 - distance) / 6;
+
+        pointerAngle =
+          -11 * force;
+
+      }
+
+
+      pointer.style.transform =
+        `translateX(-50%)
+         rotate(${pointerAngle}deg)`;
+
+
+      if (progress < 1) {
+
+        requestAnimationFrame(
+          animatePointer
+        );
+
+      } else {
+
+        /*
+          Повертаємо стрілку
+          тільки візуально.
+
+          Колесо назад НЕ рухаємо.
+        */
 
         pointer.style.transform =
-          `translateX(-50%)
-           rotate(${tick % 2 === 0 ? 7 : -7}deg)`;
+          "translateX(-50%) rotate(0deg)";
+
+      }
+
+    }
 
 
-        if (tick >= 18) {
-
-          clearInterval(
-            pointerTimer
-          );
-
-          pointer.style.transform =
-            "translateX(-50%) rotate(0deg)";
-
-        }
-
-      }, 130);
+    requestAnimationFrame(
+      animatePointer
+    );
 
   }
 
 
+  /*
+    ✅ Кінець обертання
+  */
+
   setTimeout(() => {
 
-    nikaWheelSpinning = false;
+    nikaWheelSpinning =
+      false;
 
-    button.disabled = false;
+    button.disabled =
+      false;
 
     button.innerText =
       "🎡 КРУТИТИ";
 
-  }, 5300);
+  }, 5100);
 
 }
 /* =========================
