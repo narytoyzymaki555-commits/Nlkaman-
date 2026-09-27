@@ -9396,62 +9396,22 @@ function openWheelChances(
 
   document
     .querySelectorAll(".page")
-    .forEach(
-      page =>
-        page.classList.remove(
-          "active"
-        )
-    );
-
-
-  const wheel =
-    document.getElementById(
-      wheelId
-    );
+    .forEach(page => {
+      page.classList.remove("active");
+    });
 
   const chances =
-    document.getElementById(
-      chancesId
-    );
+    document.getElementById(chancesId);
 
-
-  if (wheel)
-    wheel.classList.add(
-      "active"
-    );
-
-  if (chances)
-    chances.classList.add(
-      "active"
-    );
-
+  if (chances) {
+    chances.classList.add("active");
+  }
 
   document
     .querySelectorAll(".nav-btn")
-    .forEach(
-      button =>
-        button.classList.remove(
-          "active"
-        )
-    );
-
-
-  const navButton =
-    document.getElementById(
-      "nav-wheel"
-    );
-
-
-  if (navButton)
-    navButton.classList.add(
-      "active"
-    );
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+    .forEach(button => {
+      button.classList.remove("active");
+    });
 
 }
 
