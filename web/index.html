@@ -2868,6 +2868,108 @@ width: 26px;
     drop-shadow(0 0 5px rgba(0,180,255,.55));
 }
     
+    /* =========================================
+   🎡 ФІНАЛЬНІ НАЛАШТУВАННЯ ПРИЗІВ NIKA
+========================================= */
+
+.nika-slot {
+  width: 64px !important;
+  height: 64px !important;
+
+  margin-left: -32px !important;
+  margin-top: -32px !important;
+
+  transform:
+    rotate(var(--angle))
+    translateY(-102px)
+    rotate(calc(-1 * var(--angle))) !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  gap: 2px !important;
+
+  overflow: visible !important;
+
+  z-index: 9 !important;
+}
+
+
+/* 🎁 КАРТИНКИ ПОДАРУНКІВ І МОНЕТ */
+.nika-slot .nika-prize-img {
+  width: 26px !important;
+  height: 26px !important;
+
+  max-width: 26px !important;
+  max-height: 26px !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+
+  object-fit: contain !important;
+
+  display: block !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+
+  background: transparent !important;
+
+  flex-shrink: 0 !important;
+
+  filter:
+    drop-shadow(0 0 5px rgba(255,255,255,.5)) !important;
+}
+
+
+/* 🪙 НАПИС ПІД МОНЕТОЮ */
+.nika-coin-amount {
+  display: block !important;
+
+  color: #ffffff !important;
+
+  font-size: 8px !important;
+  font-weight: 1000 !important;
+
+  line-height: 9px !important;
+
+  white-space: nowrap !important;
+
+  text-align: center !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  text-shadow:
+    0 1px 3px rgba(0,0,0,.95),
+    0 0 5px #008cff !important;
+}
+
+
+/* 🔄 СПРОБУВАТИ ЩЕ РАЗ */
+.nika-try-icon {
+  display: flex !important;
+
+  width: 28px !important;
+  height: 28px !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  font-size: 24px !important;
+  line-height: 28px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  background: transparent !important;
+}
+    
   </style>
 </head>
 
@@ -3477,33 +3579,22 @@ width: 26px;
 <div class="nika-tooth" style="--tooth-angle:315deg;"></div>
 <div class="nika-tooth" style="--tooth-angle:345deg;"></div>
 
-    <!-- 12 СЕКТОРІВ -->
+   <!-- 12 СЕКТОРІВ -->
 
-<div
-  class="nika-slot"
-  style="--angle:0deg;"
->
+<div class="nika-slot" style="--angle:0deg;">
   <img
     src="coin.png.PNG"
     class="nika-prize-img"
     alt="500 NIKA"
   >
-<span class="nika-coin-amount">500 монет</span>
+  <span class="nika-coin-amount">500 монет</span>
 </div>
 
-
-<div
-  class="nika-slot nika-try-slot"
-  style="--angle:30deg;"
->
+<div class="nika-slot" style="--angle:30deg;">
   <span class="nika-try-icon">🔄</span>
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:60deg;"
->
+<div class="nika-slot" style="--angle:60deg;">
   <img
     src="teddy.png.PNG"
     class="nika-prize-img"
@@ -3511,11 +3602,7 @@ width: 26px;
   >
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:90deg;"
->
+<div class="nika-slot" style="--angle:90deg;">
   <img
     src="rose.png.PNG"
     class="nika-prize-img"
@@ -3523,24 +3610,16 @@ width: 26px;
   >
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:120deg;"
->
+<div class="nika-slot" style="--angle:120deg;">
   <img
     src="coin.png.PNG"
     class="nika-prize-img"
     alt="1000 NIKA"
   >
-<span class="nika-coin-amount">1000 монет</span>
+  <span class="nika-coin-amount">1000 монет</span>
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:150deg;"
->
+<div class="nika-slot" style="--angle:150deg;">
   <img
     src="torch_nft.png.PNG"
     class="nika-prize-img"
@@ -3548,69 +3627,45 @@ width: 26px;
   >
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:180deg;"
->
+<div class="nika-slot" style="--angle:180deg;">
   <img
     src="artifact.png.PNG"
-    class="nika-prize-img artifact-cut"
+    class="nika-prize-img"
     alt="Артефакт"
   >
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:210deg;"
->
+<div class="nika-slot" style="--angle:210deg;">
   <img
     src="coin.png.PNG"
     class="nika-prize-img"
     alt="1500 NIKA"
   >
-<span class="nika-coin-amount">1500 монет</span>
+  <span class="nika-coin-amount">1500 монет</span>
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:240deg;"
->
+<div class="nika-slot" style="--angle:240deg;">
   <img
     src="rune.png.PNG"
-    class="nika-prize-img rune-cut"
+    class="nika-prize-img"
     alt="10 Рун"
   >
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:270deg;"
->
+<div class="nika-slot" style="--angle:270deg;">
   <img
     src="coin.png.PNG"
     class="nika-prize-img"
     alt="5000 NIKA"
   >
- <span class="nika-coin-amount">5000 монет</span>
+  <span class="nika-coin-amount">5000 монет</span>
 </div>
 
-
-<div
-  class="nika-slot nika-try-slot"
-  style="--angle:300deg;"
->
+<div class="nika-slot" style="--angle:300deg;">
   <span class="nika-try-icon">🔄</span>
 </div>
 
-
-<div
-  class="nika-slot"
-  style="--angle:330deg;"
->
+<div class="nika-slot" style="--angle:330deg;">
   <img
     src="rocket.png.PNG"
     class="nika-prize-img"
