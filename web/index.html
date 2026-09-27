@@ -2680,6 +2680,150 @@ transition:
   font-size: 13px;
 }
     
+    /* =================================
+   🎁 NIKA PRIZES — БЕЗ ЧОРНОГО ФОНУ
+================================= */
+
+.nika-prize-img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  display: block;
+
+  mix-blend-mode: screen;
+
+  filter:
+    drop-shadow(0 0 7px rgba(255,255,255,.55))
+    drop-shadow(0 0 14px rgba(0,180,255,.35));
+}
+
+
+/* РУНА / АРТЕФАКТ */
+
+.nika-resource-prize-img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+
+  mix-blend-mode: screen;
+
+  filter:
+    drop-shadow(0 0 7px rgba(255,255,255,.55))
+    drop-shadow(0 0 14px rgba(0,180,255,.35));
+}
+
+
+/* КОЛЕСО — КАРТИНКИ БЕЗ ПІДПИСІВ */
+
+.nika-slot {
+  width: 74px;
+  height: 74px;
+
+  margin-left: -37px;
+  margin-top: -37px;
+
+  font-size: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: visible;
+}
+
+
+/* 🔄 СПРОБУЙ ЩЕ РАЗ */
+
+.nika-try-icon {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 42px;
+  line-height: 1;
+
+  filter:
+    drop-shadow(0 0 7px rgba(255,255,255,.7))
+    drop-shadow(0 0 14px rgba(0,180,255,.5));
+}
+
+
+/* 🪙 МОНЕТИ */
+
+.nika-coin-prize {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.nika-coin-prize img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 0 6px rgba(0,200,255,.65));
+}
+
+.nika-coin-prize span {
+  margin-top: -2px;
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 1000;
+
+  line-height: 12px;
+
+  text-shadow:
+    0 0 5px #008cff,
+    0 0 10px #008cff;
+}
+
+
+/* КАРТИНКИ У ВІКНІ ПЕРЕМОГИ */
+
+.win-icon img.nika-prize-img,
+.win-icon img.nika-resource-prize-img {
+  width: 90px;
+  height: 90px;
+
+  object-fit: contain;
+  display: block;
+
+  mix-blend-mode: screen;
+}
+
+
+/* КАРТИНКИ В ІНВЕНТАРІ */
+
+.inventory-item-icon img.nika-prize-img,
+.inventory-item-icon img.nika-resource-prize-img {
+  width: 56px;
+  height: 56px;
+
+  object-fit: contain;
+
+  mix-blend-mode: screen;
+}
+    .wheel-resource-img {
+  width: 21px;
+  height: 21px;
+
+  object-fit: contain;
+
+  mix-blend-mode: screen;
+
+  filter:
+    drop-shadow(0 0 5px rgba(0,180,255,.55));
+}
+    
   </style>
 </head>
 
@@ -3193,24 +3337,30 @@ transition:
 
     <div class="wheel-resource">
 
-      <img src="rune.png.PNG">
+  <img
+    src="rune.png.PNG"
+    class="wheel-resource-img"
+  >
 
-      <span id="wheelRuneCount">
-        0
-      </span>
+  <span id="wheelRuneCount">
+    0
+  </span>
 
-    </div>
+</div>
 
 
-    <div class="wheel-resource">
+<div class="wheel-resource">
 
-      <img src="artifact.png.PNG">
+  <img
+    src="artifact.png.PNG"
+    class="wheel-resource-img"
+  >
 
-      <span id="wheelArtifactCount">
-        0
-      </span>
+  <span id="wheelArtifactCount">
+    0
+  </span>
 
-    </div>
+</div>
 
 
     <div class="wheel-resource">
@@ -3283,18 +3433,16 @@ transition:
 <div class="nika-tooth" style="--tooth-angle:315deg;"></div>
 <div class="nika-tooth" style="--tooth-angle:345deg;"></div>
 
-      <!-- 12 СЕКТОРІВ -->
+     <!-- 12 СЕКТОРІВ -->
 
 <div
   class="nika-slot"
   style="--angle:0deg;"
 >
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="500 NIKA"
-  >
-  <span>500</span>
+  <div class="nika-coin-prize">
+    <img src="coin.png.PNG">
+    <span>500</span>
+  </div>
 </div>
 
 
@@ -3302,8 +3450,9 @@ transition:
   class="nika-slot"
   style="--angle:30deg;"
 >
-  <div class="nika-try-icon">🔄</div>
-  <span>Спробуй<br>ще раз</span>
+  <div class="nika-try-icon">
+    🔄
+  </div>
 </div>
 
 
@@ -3316,7 +3465,6 @@ transition:
     class="nika-prize-img"
     alt="Ведмедик"
   >
-  <span>Ведмедик</span>
 </div>
 
 
@@ -3329,7 +3477,6 @@ transition:
     class="nika-prize-img"
     alt="Роза"
   >
-  <span>Роза</span>
 </div>
 
 
@@ -3337,12 +3484,10 @@ transition:
   class="nika-slot"
   style="--angle:120deg;"
 >
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="1000 NIKA"
-  >
-  <span>1000</span>
+  <div class="nika-coin-prize">
+    <img src="coin.png.PNG">
+    <span>1000</span>
+  </div>
 </div>
 
 
@@ -3355,7 +3500,6 @@ transition:
     class="nika-prize-img"
     alt="NFT"
   >
-  <span>NFT</span>
 </div>
 
 
@@ -3365,10 +3509,9 @@ transition:
 >
   <img
     src="artifact.png.PNG"
-    class="nika-prize-img"
+    class="nika-resource-prize-img"
     alt="Артефакт"
   >
-  <span>1 артефакт</span>
 </div>
 
 
@@ -3376,12 +3519,10 @@ transition:
   class="nika-slot"
   style="--angle:210deg;"
 >
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="1500 NIKA"
-  >
-  <span>1500</span>
+  <div class="nika-coin-prize">
+    <img src="coin.png.PNG">
+    <span>1500</span>
+  </div>
 </div>
 
 
@@ -3391,10 +3532,9 @@ transition:
 >
   <img
     src="rune.png.PNG"
-    class="nika-prize-img"
-    alt="10 Рун"
+    class="nika-resource-prize-img"
+    alt="Руни"
   >
-  <span>10 Руни</span>
 </div>
 
 
@@ -3402,12 +3542,10 @@ transition:
   class="nika-slot"
   style="--angle:270deg;"
 >
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="5000 NIKA"
-  >
-  <span>5000</span>
+  <div class="nika-coin-prize">
+    <img src="coin.png.PNG">
+    <span>5000</span>
+  </div>
 </div>
 
 
@@ -3415,8 +3553,9 @@ transition:
   class="nika-slot"
   style="--angle:300deg;"
 >
-  <div class="nika-try-icon">🔄</div>
-  <span>Спробуй<br>ще раз</span>
+  <div class="nika-try-icon">
+    🔄
+  </div>
 </div>
 
 
@@ -3429,7 +3568,6 @@ transition:
     class="nika-prize-img"
     alt="Ракета"
   >
-  <span>Ракета</span>
 </div>
 
 
@@ -4024,7 +4162,96 @@ function playCoinSound() {
     now + 0.05
   );
 }
+let wheelSpinOscillator = null;
+let wheelSpinGain = null;
 
+function startWheelSpinSound() {
+
+  if (!soundEnabled) return;
+
+  initAudio();
+
+  if (!audioCtx) return;
+
+  wheelSpinOscillator =
+    audioCtx.createOscillator();
+
+  wheelSpinGain =
+    audioCtx.createGain();
+
+  wheelSpinOscillator.type =
+    "sawtooth";
+
+  wheelSpinOscillator.frequency.value =
+    92;
+
+  wheelSpinGain.gain.setValueAtTime(
+    0.018 * (gameVolume / 100),
+    audioCtx.currentTime
+  );
+
+  wheelSpinOscillator.connect(
+    wheelSpinGain
+  );
+
+  wheelSpinGain.connect(
+    audioCtx.destination
+  );
+
+  wheelSpinOscillator.start();
+}
+
+
+function stopWheelSpinSound() {
+
+  if (
+    !wheelSpinOscillator ||
+    !wheelSpinGain ||
+    !audioCtx
+  ) {
+    return;
+  }
+
+  const now =
+    audioCtx.currentTime;
+
+  wheelSpinGain.gain.cancelScheduledValues(
+    now
+  );
+
+  wheelSpinGain.gain.setValueAtTime(
+    Math.max(
+      wheelSpinGain.gain.value,
+      0.001
+    ),
+    now
+  );
+
+  wheelSpinGain.gain.exponentialRampToValueAtTime(
+    0.001,
+    now + 0.12
+  );
+
+  wheelSpinOscillator.stop(
+    now + 0.12
+  );
+
+  wheelSpinOscillator = null;
+  wheelSpinGain = null;
+}
+
+
+function playToothSound() {
+
+  playTone(
+    1050,
+    0.045,
+    "triangle",
+    0.028
+  );
+
+}
+  
 function playWinSound() {
 
   if (!soundEnabled) return;
@@ -4554,8 +4781,8 @@ function updateStars() {
   }
 
 }
-
-updateStars();
+  
+  updateStars();
   
 function clickBear() {
 
@@ -5394,11 +5621,9 @@ function openWheel(wheelName) {
 let nikaWheelRotation = 0;
 let nikaWheelSpinning = false;
 
-
 function spinNika1000() {
 
   if (nikaWheelSpinning) return;
-
 
   const wheel =
     document.getElementById(
@@ -5415,13 +5640,12 @@ function spinNika1000() {
       "nikaPointer1000"
     );
 
-
-  if (!wheel || !button) {
-    return;
-  }
+  if (!wheel || !button) return;
 
 
-  // 💰 ПЕРЕВІРКА БАЛАНСУ
+  /* =========================
+     💰 ПЕРЕВІРКА БАЛАНСУ
+  ========================= */
 
   if (stars < 1000) {
 
@@ -5433,7 +5657,9 @@ function spinNika1000() {
   }
 
 
-  // 💰 СПИСУЄМО 1000 NIKA
+  /* =========================
+     💰 СПИСУЄМО 1000 NIKA
+  ========================= */
 
   stars -= 1000;
 
@@ -5445,173 +5671,218 @@ function spinNika1000() {
   updateStars();
 
 
-  // 🎁 ПРИЗИ В ТОЧНІЙ ПОСЛІДОВНОСТІ
+  /* =========================
+     🎡 ПРИЗИ
+  ========================= */
 
   const prizes = [
 
     {
+      index: 0,
+      angle: 0,
+      chance: 35,
       type: "coins",
       amount: 500,
       text: "500 монет",
+
       icon:
-        '<img src="coin.png.PNG" class="win-coin">'
+        '<div class="nika-coin-prize">' +
+        '<img src="coin.png.PNG">' +
+        '<span>500</span>' +
+        '</div>'
     },
 
 
     {
-      type: "try",
+      index: 1,
+      angle: 30,
+      chance: 10,
+      type: "nothing",
       text: "Спробуй ще раз",
-      icon: "🔄"
+
+      icon:
+        '<div class="nika-try-icon">🔄</div>'
     },
 
 
     {
+      index: 2,
+      angle: 60,
+      chance: 0.3,
       type: "gift",
       text: "Ведмедик",
+
       icon:
-        '<img src="teddy.png.png" class="win-prize-img">'
+        '<img src="teddy.png.png" class="nika-prize-img" alt="Ведмедик">'
     },
 
 
     {
+      index: 3,
+      angle: 90,
+      chance: 0.2,
       type: "gift",
       text: "Роза",
+
       icon:
-        '<img src="rose.png.png" class="win-prize-img">'
+        '<img src="rose.png.png" class="nika-prize-img" alt="Роза">'
     },
 
 
     {
+      index: 4,
+      angle: 120,
+      chance: 17.7967,
       type: "coins",
       amount: 1000,
       text: "1000 монет",
+
       icon:
-        '<img src="coin.png.PNG" class="win-coin">'
+        '<div class="nika-coin-prize">' +
+        '<img src="coin.png.PNG">' +
+        '<span>1000</span>' +
+        '</div>'
     },
 
 
     {
+      index: 5,
+      angle: 150,
+      chance: 0.01,
       type: "gift",
       text: "NFT",
+
       icon:
-        '<img src="torch_nft.png.png" class="win-prize-img">'
+        '<img src="torch_nft.png.png" class="nika-prize-img" alt="NFT">'
     },
 
 
     {
+      index: 6,
+      angle: 180,
+      chance: 1,
       type: "artifact",
       amount: 1,
       text: "1 артефакт",
+
       icon:
-        '<img src="artifact.png.PNG" class="win-prize-img">'
+        '<img src="artifact.png.PNG" class="nika-resource-prize-img" alt="Артефакт">'
     },
 
 
     {
+      index: 7,
+      angle: 210,
+      chance: 12.7967,
       type: "coins",
       amount: 1500,
       text: "1500 монет",
+
       icon:
-        '<img src="coin.png.PNG" class="win-coin">'
+        '<div class="nika-coin-prize">' +
+        '<img src="coin.png.PNG">' +
+        '<span>1500</span>' +
+        '</div>'
     },
 
 
     {
+      index: 8,
+      angle: 240,
+      chance: 5,
       type: "runes",
       amount: 10,
-      text: "10 Руни",
+      text: "10 Рун",
+
       icon:
-        '<img src="rune.png.PNG" class="win-prize-img">'
+        '<img src="rune.png.PNG" class="nika-resource-prize-img" alt="Руни">'
     },
 
 
     {
+      index: 9,
+      angle: 270,
+      chance: 7.7966,
       type: "coins",
       amount: 5000,
       text: "5000 монет",
+
       icon:
-        '<img src="coin.png.PNG" class="win-coin">'
+        '<div class="nika-coin-prize">' +
+        '<img src="coin.png.PNG">' +
+        '<span>5000</span>' +
+        '</div>'
     },
 
 
     {
-      type: "try",
+      index: 10,
+      angle: 300,
+      chance: 10,
+      type: "nothing",
       text: "Спробуй ще раз",
-      icon: "🔄"
+
+      icon:
+        '<div class="nika-try-icon">🔄</div>'
     },
 
 
     {
+      index: 11,
+      angle: 330,
+      chance: 0.1,
       type: "gift",
       text: "Ракета",
+
       icon:
-        '<img src="rocket.png.png" class="win-prize-img">'
+        '<img src="rocket.png.png" class="nika-prize-img" alt="Ракета">'
     }
 
   ];
 
 
-  // 🎯 ВИПАДКОВИЙ ПРИЗ
+  /* =========================
+     🎯 ВИБІР ПРИЗУ ЗА ШАНСОМ
+  ========================= */
 
-  const prizeIndex =
-    Math.floor(
-      Math.random() *
-      prizes.length
+  const totalChance =
+    prizes.reduce(
+      (sum, prize) =>
+        sum + prize.chance,
+      0
     );
 
-  const prize =
-    prizes[prizeIndex];
+  let random =
+    Math.random() * totalChance;
+
+  let prize =
+    prizes[0];
+
+  for (const currentPrize of prizes) {
+
+    if (
+      random <
+      currentPrize.chance
+    ) {
+
+      prize =
+        currentPrize;
+
+      break;
+    }
+
+    random -=
+      currentPrize.chance;
+  }
 
 
-  // 🎯 КУДИ ПОВИННО ЗУПИНИТИСЯ КОЛЕСО
-
-  const prizeAngle =
-    prizeIndex * 30;
-
-
-  const startRotation =
-    nikaWheelRotation;
-
-
-  const normalizedStart =
-    (
-      (
-        startRotation % 360
-      ) + 360
-    ) % 360;
-
-
-  const alignRotation =
-    (
-      360 -
-      prizeAngle -
-      normalizedStart +
-      360
-    ) % 360;
-
-
-  const randomRotation =
-    1080 +
-    Math.floor(
-      Math.random() * 360
-    ) +
-    alignRotation;
-
-
-  const targetRotation =
-    startRotation +
-    randomRotation;
-
-
-  const duration = 5200;
-
-  const startTime =
-    performance.now();
-
+  /* =========================
+     🎡 ПОВЕРТАЄМО КОЛЕСО
+     САМЕ НА ВИБРАНИЙ ПРИЗ
+  ========================= */
 
   nikaWheelSpinning =
     true;
-
 
   button.disabled = true;
 
@@ -5619,18 +5890,64 @@ function spinNika1000() {
     "✨ ОБЕРТАЄТЬСЯ...";
 
 
-  // 🔊 ЗАПУСКАЄМО ЗВУК ОБЕРТАННЯ
-
-  const spinSoundTimer =
-    startWheelSpinSound();
+  const startRotation =
+    nikaWheelRotation;
 
 
-  // 🔺 ПЕРШИЙ ЗУБЕЦЬ
+  const currentNormalized =
+    (
+      startRotation % 360 +
+      360
+    ) % 360;
+
+
+  const targetNormalized =
+    (
+      360 -
+      prize.angle
+    ) % 360;
+
+
+  const finalDifference =
+    (
+      targetNormalized -
+      currentNormalized +
+      360
+    ) % 360;
+
+
+  const extraTurns =
+    6 +
+    Math.floor(
+      Math.random() * 3
+    );
+
+
+  const randomRotation =
+    extraTurns * 360 +
+    finalDifference;
+
+
+  const targetRotation =
+    startRotation +
+    randomRotation;
+
+
+  const duration =
+    5200;
+
+
+  const startTime =
+    performance.now();
+
 
   let nextTooth =
     Math.ceil(
       (startRotation - 15) / 30
     ) * 30 + 15;
+
+
+  startWheelSpinSound();
 
 
   function animateWheel(
@@ -5649,8 +5966,6 @@ function spinNika1000() {
       );
 
 
-    // 🔵 ПЛАВНЕ ГАЛЬМУВАННЯ
-
     const ease =
       1 -
       Math.pow(
@@ -5665,26 +5980,21 @@ function spinNika1000() {
       ease;
 
 
-    // 🎡 ОБЕРТАЄМО КОЛЕСО
-
     wheel.style.transform =
       `rotate(${currentRotation}deg)`;
 
 
-    // 🔺 КОЖЕН ЗУБЕЦЬ
+    /* =========================
+       🔺 ЗУБЕЦЬ + ЗВУК
+    ========================= */
 
     while (
       currentRotation >=
       nextTooth
     ) {
 
+      playToothSound();
 
-      // 🔊 CLICK
-
-      playWheelToothSound();
-
-
-      // 🔻 СТРІЛКА ВІДХИЛЯЄТЬСЯ
 
       if (pointer) {
 
@@ -5698,22 +6008,19 @@ function spinNika1000() {
         setTimeout(() => {
 
           pointer.style.transition =
-            "transform .34s cubic-bezier(.2,.8,.2,1)";
+            "transform .30s cubic-bezier(.2,.8,.2,1)";
 
           pointer.style.transform =
             "translateX(-50%) rotate(0deg)";
 
-        }, 120);
+        }, 180);
 
       }
 
 
       nextTooth += 30;
-
     }
 
-
-    // 🔄 ПРОДОВЖУЄМО
 
     if (
       progress < 1
@@ -5727,7 +6034,9 @@ function spinNika1000() {
     }
 
 
-    // 🛑 ЗУПИНИЛИСЬ
+    /* =========================
+       🛑 КІНЕЦЬ ОБЕРТАННЯ
+    ========================= */
 
     nikaWheelRotation =
       targetRotation;
@@ -5737,27 +6046,22 @@ function spinNika1000() {
       `rotate(${targetRotation}deg)`;
 
 
-    // 🔇 ЗУПИНЯЄМО ЗВУК
+    stopWheelSpinSound();
 
-    stopWheelSpinSound(
-      spinSoundTimer
-    );
-
-
-    // 🔻 ПОВЕРТАЄМО СТРІЛКУ
 
     if (pointer) {
 
       pointer.style.transition =
-        "transform .34s cubic-bezier(.2,.8,.2,1)";
+        "transform .16s ease-out";
 
       pointer.style.transform =
         "translateX(-50%) rotate(0deg)";
-
     }
 
 
-    // 🎁 ВИДАЧА ПРИЗУ
+    /* =========================
+       🏆 ВИДАЄМО ПРИЗ
+    ========================= */
 
     if (
       prize.type ===
@@ -5766,30 +6070,6 @@ function spinNika1000() {
 
       stars +=
         prize.amount;
-
-    }
-
-
-    if (
-      prize.type ===
-      "gift"
-    ) {
-
-      addToInventory(
-        prize
-      );
-
-    }
-
-
-    if (
-      prize.type ===
-      "artifact"
-    ) {
-
-      artifacts +=
-        prize.amount;
-
     }
 
 
@@ -5801,51 +6081,59 @@ function spinNika1000() {
       runes +=
         prize.amount;
 
+      localStorage.setItem(
+        "nlkaman_runes",
+        runes
+      );
     }
 
 
-    // 💾 ЗБЕРІГАЄМО
+    if (
+      prize.type ===
+      "artifact"
+    ) {
+
+      artifacts +=
+        prize.amount;
+
+      localStorage.setItem(
+        "nlkaman_artifacts",
+        artifacts
+      );
+    }
+
+
+    if (
+      prize.type ===
+      "gift"
+    ) {
+
+      addToInventory(
+        prize
+      );
+    }
+
 
     localStorage.setItem(
       "nlkaman_stars",
       stars
     );
 
-    localStorage.setItem(
-      "nlkaman_runes",
-      runes
-    );
-
-    localStorage.setItem(
-      "nlkaman_artifacts",
-      artifacts
-    );
-
-
-    // 🔄 ОНОВЛЮЄМО ІНТЕРФЕЙС
 
     updateStars();
-
     updateRunesAndArtifacts();
 
 
-    // 🔊 ЗВУК ПЕРЕМОГИ
+    /* =========================
+       🔊 ЗВУК ПЕРЕМОГИ
+    ========================= */
 
-    if (
-      prize.type !==
-      "try"
-    ) {
-
-      playWinSound();
-
-    } else {
-
-      playClick();
-
-    }
+    playWinSound();
 
 
-    // 🏆 ВІКНО ПЕРЕМОГИ
+    /* =========================
+       🏆 МОДАЛЬНЕ ВІКНО
+    ========================= */
 
     const winIcon =
       document.getElementById(
@@ -5857,52 +6145,35 @@ function spinNika1000() {
         "winText"
       );
 
-    const winModal =
-      document.getElementById(
-        "winModal"
-      );
-
 
     if (winIcon) {
 
       winIcon.innerHTML =
         prize.icon;
-
     }
 
 
     if (winText) {
 
-      if (
-        prize.type ===
-        "try"
-      ) {
-
-        winText.textContent =
-          "Спробуй ще раз 😔";
-
-      } else {
-
-        winText.textContent =
-          "Ти виграв: " +
-          prize.text +
-          "! 🎉";
-
-      }
-
+      winText.textContent =
+        "Ти виграв: " +
+        prize.text +
+        "! 🎉";
     }
 
+
+    const winModal =
+      document.getElementById(
+        "winModal"
+      );
 
     if (winModal) {
 
       winModal.classList.add(
         "show"
       );
-
     }
 
-
-    // ✅ ГОТОВО ДО НАСТУПНОГО КРУТІННЯ
 
     nikaWheelSpinning =
       false;
@@ -5912,16 +6183,13 @@ function spinNika1000() {
 
     button.innerText =
       "🎡 КРУТИТИ";
-
   }
 
 
   requestAnimationFrame(
     animateWheel
   );
-
 }
-
 /* =========================
    РЕФЕРАЛИ
 ========================= */
