@@ -2563,7 +2563,145 @@ width: 26px;
   -webkit-appearance: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
+/* =================================
+   🔢 КІЛЬКІСТЬ ПРОКРУТІВ
+================================= */
 
+.nika-spin-settings {
+  width: min(92vw, 360px);
+  margin: 18px auto 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 45, 90, .92),
+      rgba(5, 18, 45, .96)
+    );
+
+  border: 1px solid rgba(114, 234, 255, .35);
+
+  box-shadow:
+    0 0 18px rgba(0, 170, 255, .18),
+    inset 0 0 15px rgba(0, 100, 255, .08);
+}
+
+.nika-spin-settings-title {
+  text-align: center;
+
+  color: #72eaff;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  margin-bottom: 10px;
+
+  text-transform: uppercase;
+
+  text-shadow:
+    0 0 8px rgba(0, 200, 255, .65);
+}
+
+.nika-spin-settings-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.nika-spin-count-btn {
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid rgba(114, 234, 255, .5);
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #123c72,
+      #071a38
+    );
+
+  color: #fff;
+
+  font-size: 25px;
+  font-weight: 900;
+
+  box-shadow:
+    0 0 10px rgba(0, 170, 255, .2);
+
+  cursor: pointer;
+
+  transition:
+    transform .12s ease,
+    box-shadow .12s ease;
+}
+
+.nika-spin-count-btn:active {
+  transform: scale(.91);
+
+  box-shadow:
+    0 0 18px rgba(0, 220, 255, .45);
+}
+
+.nika-spin-count-value {
+  min-width: 54px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background:
+    rgba(0, 0, 0, .35);
+
+  border: 1px solid rgba(114, 234, 255, .25);
+
+  color: #fff;
+
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.nika-spin-total {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #ffe36e;
+
+  font-size: 17px;
+  font-weight: 900;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 8px rgba(255, 210, 70, .45);
+}
+
+.nika-spin-total img {
+  width: 24px;
+  height: 24px;
+
+  object-fit: contain;
+}
+
+.nika-spin-limit {
+  margin-top: 7px;
+
+  text-align: center;
+
+  color: rgba(180, 220, 245, .65);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+    
 .nika-spin-button:active {
   transform: scale(.96) !important;
 }
@@ -3906,6 +4044,48 @@ width: 26px;
     </div>
 
 
+    <!-- КІЛЬКІСТЬ ПРОКРУТІВ -->
+
+    <div class="nika-spin-settings">
+
+      <div class="nika-spin-settings-title">
+        Кількість прокрутів
+      </div>
+
+      <div class="nika-spin-settings-row">
+
+        <button
+          class="nika-spin-count-btn"
+          onclick="changeNikaSpinCount(-1)"
+        >
+          −
+        </button>
+
+        <div class="nika-spin-count-value">
+          <span id="nikaSpinCount">1</span>
+        </div>
+
+        <button
+          class="nika-spin-count-btn"
+          onclick="changeNikaSpinCount(1)"
+        >
+          +
+        </button>
+
+        <div class="nika-spin-total">
+          <span id="nikaSpinTotal">1000</span>
+          <img src="coin.png.PNG">
+        </div>
+
+      </div>
+
+      <div class="nika-spin-limit">
+        min 1 · max 10
+      </div>
+
+    </div>
+
+
     <!-- КНОПКА -->
 
     <button
@@ -3915,20 +4095,6 @@ width: 26px;
     >
       🎡 КРУТИТИ
     </button>
-
-
-    <!-- НАЗАД -->
-
-    <button
-      class="nika-back-button"
-      onclick="openPage('wheel')"
-    >
-      ← НАЗАД
-    </button>
-    
-  </div>
-
-</section>
 
 <!-- 🎁 ШАНСИ НА ПРИЗИ -->
 
@@ -6074,6 +6240,51 @@ function openWheel(wheelName) {
 
 let nikaWheelRotation = 0;
 let nikaWheelSpinning = false;
+  /* =================================
+   🔢 КІЛЬКІСТЬ ПРОКРУТІВ
+================================= */
+
+let nikaSpinCount = 1;
+
+function changeNikaSpinCount(change) {
+
+  nikaSpinCount += change;
+
+  if (nikaSpinCount < 1) {
+    nikaSpinCount = 1;
+  }
+
+  if (nikaSpinCount > 10) {
+    nikaSpinCount = 10;
+  }
+
+  const countElement =
+    document.getElementById(
+      "nikaSpinCount"
+    );
+
+  const totalElement =
+    document.getElementById(
+      "nikaSpinTotal"
+    );
+
+  if (countElement) {
+
+    countElement.textContent =
+      nikaSpinCount;
+
+  }
+
+  if (totalElement) {
+
+    totalElement.textContent =
+      (
+        nikaSpinCount * 1000
+      ).toLocaleString("uk-UA");
+
+  }
+
+}
 
 function spinNika1000() {
 
