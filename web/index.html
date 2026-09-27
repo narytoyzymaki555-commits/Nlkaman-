@@ -2569,9 +2569,9 @@ width: 26px;
 
 .nika-spin-settings {
   width: min(92vw, 360px);
-  margin: 18px auto 12px;
-  padding: 14px 16px;
-  border-radius: 18px;
+  margin: 10px auto 10px;
+  padding: 10px 12px;
+  border-radius: 15px;
 
   background:
     linear-gradient(
@@ -2592,10 +2592,10 @@ width: 26px;
 
   color: #72eaff;
 
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 900;
 
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 
   text-transform: uppercase;
 
@@ -2606,15 +2606,16 @@ width: 26px;
 .nika-spin-settings-row {
   display: flex;
   align-items: center;
-  gap: 9px;
+  justify-content: center;
+  gap: 6px;
 }
 
 .nika-spin-count-btn {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
 
   border: 1px solid rgba(114, 234, 255, .5);
-  border-radius: 13px;
+  border-radius: 11px;
 
   background:
     linear-gradient(
@@ -2625,17 +2626,13 @@ width: 26px;
 
   color: #fff;
 
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 900;
 
   box-shadow:
     0 0 10px rgba(0, 170, 255, .2);
 
   cursor: pointer;
-
-  transition:
-    transform .12s ease,
-    box-shadow .12s ease;
 }
 
 .nika-spin-count-btn:active {
@@ -2646,14 +2643,14 @@ width: 26px;
 }
 
 .nika-spin-count-value {
-  min-width: 54px;
-  height: 44px;
+  min-width: 42px;
+  height: 38px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 13px;
+  border-radius: 11px;
 
   background:
     rgba(0, 0, 0, .35);
@@ -2662,20 +2659,20 @@ width: 26px;
 
   color: #fff;
 
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
 }
 
 .nika-spin-total {
-  margin-left: auto;
+  margin-left: 5px;
 
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
 
   color: #ffe36e;
 
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 900;
 
   white-space: nowrap;
@@ -2685,23 +2682,75 @@ width: 26px;
 }
 
 .nika-spin-total img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 
   object-fit: contain;
 }
 
-.nika-spin-limit {
-  margin-top: 7px;
+/* НИЖНІЙ РЯДОК */
 
-  text-align: center;
+.nika-spin-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 7px;
+}
+
+.nika-spin-limit {
+  margin: 0;
 
   color: rgba(180, 220, 245, .65);
 
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
+
+  white-space: nowrap;
 }
-    
+
+.nika-spin-button {
+  display: block !important;
+
+  width: 145px !important;
+  max-width: none !important;
+
+  height: 40px !important;
+
+  margin: 0 !important;
+  padding: 0 10px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #078cff 0%,
+      #3030d9 100%
+    ) !important;
+
+  border: 1px solid #78e6ff !important;
+  border-radius: 13px !important;
+
+  color: #ffffff !important;
+
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 900 !important;
+
+  line-height: 40px !important;
+  text-align: center !important;
+
+  box-shadow:
+    0 0 12px #008cff,
+    0 0 20px rgba(0,100,255,.45),
+    inset 0 0 12px rgba(255,255,255,.15) !important;
+
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 .nika-spin-button:active {
   transform: scale(.96) !important;
 }
@@ -2709,7 +2758,6 @@ width: 26px;
 .nika-spin-button:disabled {
   opacity: .55 !important;
 }
-
 
 /* ← НАЗАД */
 
@@ -2745,6 +2793,52 @@ width: 26px;
   -webkit-tap-highlight-color: transparent !important;
 }
     /* 🎁 ВКЛАДКА ШАНСІВ */
+    
+    .nika-chances-open-button {
+  display: block !important;
+
+  width: min(92vw, 360px) !important;
+  height: 44px !important;
+
+  margin: 10px auto 8px !important;
+  padding: 0 16px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #123c72 0%,
+      #071a38 100%
+    ) !important;
+
+  border: 1px solid rgba(114, 234, 255, .45) !important;
+  border-radius: 13px !important;
+
+  color: #72eaff !important;
+
+  font-family: inherit !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+
+  text-align: center !important;
+
+  box-shadow:
+    0 0 12px rgba(0, 170, 255, .18),
+    inset 0 0 12px rgba(0, 150, 255, .08) !important;
+
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+
+  cursor: pointer !important;
+}
+
+.nika-chances-open-button:active {
+  transform: scale(.97) !important;
+
+  box-shadow:
+    0 0 18px rgba(0, 200, 255, .4) !important;
+}
 
 .nika-chances-page {
   padding-bottom: 100px !important;
@@ -4065,49 +4159,46 @@ width: 26px;
     </div>
 
 
-    <!-- КІЛЬКІСТЬ ПРОКРУТІВ -->
+   <!-- КІЛЬКІСТЬ ПРОКРУТІВ -->
 
-    <div class="nika-spin-settings">
+<div class="nika-spin-settings">
 
-      <div class="nika-spin-settings-title">
-        Кількість прокрутів
-      </div>
+  <div class="nika-spin-settings-title">
+    КІЛЬКІСТЬ ПРОКРУТІВ
+  </div>
 
-      <div class="nika-spin-settings-row">
+  <div class="nika-spin-settings-row">
 
-        <button
-          class="nika-spin-count-btn"
-          onclick="changeNikaSpinCount(-1)"
-        >
-          −
-        </button>
+    <button
+      class="nika-spin-count-btn"
+      onclick="changeNikaSpinCount(-1)"
+    >
+      −
+    </button>
 
-        <div class="nika-spin-count-value">
-          <span id="nikaSpinCount">1</span>
-        </div>
-
-        <button
-          class="nika-spin-count-btn"
-          onclick="changeNikaSpinCount(1)"
-        >
-          +
-        </button>
-
-        <div class="nika-spin-total">
-          <span id="nikaSpinTotal">1000</span>
-          <img src="coin.png.PNG">
-        </div>
-
-      </div>
-
-      <div class="nika-spin-limit">
-        min 1 · max 10
-      </div>
-
+    <div class="nika-spin-count-value">
+      <span id="nikaSpinCount">1</span>
     </div>
 
+    <button
+      class="nika-spin-count-btn"
+      onclick="changeNikaSpinCount(1)"
+    >
+      +
+    </button>
 
-    <!-- КНОПКА -->
+    <div class="nika-spin-total">
+      <span id="nikaSpinTotal">1000</span>
+      <img src="coin.png.PNG" alt="">
+    </div>
+
+  </div>
+
+  <div class="nika-spin-bottom-row">
+
+    <div class="nika-spin-limit">
+      min 1 · max 10
+    </div>
 
     <button
       class="nika-spin-button"
@@ -4116,8 +4207,18 @@ width: 26px;
     >
       🎡 КРУТИТИ
     </button>
-</div>
+    
+  </div>
   
+</div>
+    
+    <button
+  class="nika-chances-open-button"
+  onclick="openPage('nikaChances')"
+>
+  🎁 ШАНСИ НА ПРИЗИ
+</button>
+    
 <!-- 🎁 ШАНСИ НА ПРИЗИ -->
 
 <section
