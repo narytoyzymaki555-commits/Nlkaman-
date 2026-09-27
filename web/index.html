@@ -5116,128 +5116,155 @@ function spinNika1000() {
   button.disabled = true;
   button.innerText = "✨ ОБЕРТАЄТЬСЯ...";
 
-  /* 3–4 оберти */
+  const startRotation =
+    nikaWheelRotation;
 
   const randomRotation =
     1080 +
     Math.floor(Math.random() * 360);
 
-  const startRotation =
-    nikaWheelRotation;
-
   const targetRotation =
     startRotation + randomRotation;
 
-  nikaWheelRotation =
-    targetRotation;
+  const duration = 5200;
 
-  wheel.style.transform =
-    `rotate(${targetRotation}deg)`;
+  const startTime =
+    performance.now();
 
-  if (pointer) {
+  let lastTooth =
+    Math.floor(
+      (startRotation + 15) / 30
+    );
 
-    const startTime =
-      performance.now();
+  function animateWheel(time) {
 
-    const duration = 5000;
+    const elapsed =
+      time - startTime;
 
-    function animatePointer(currentTime) {
+    const progress =
+      Math.min(
+        elapsed / duration,
+        1
+      );
 
-      const elapsed =
-        currentTime - startTime;
+    /*
+      Швидко на початку,
+      сильно сповільнюється в кінці.
+    */
 
-      const progress =
-        Math.min(
-          elapsed / duration,
-          1
-        );
+    const ease =
+      1 -
+      Math.pow(
+        1 - progress,
+        4
+      );
 
-      /*
-        Повільне завершення обертання
-      */
+    const currentRotation =
+      startRotation +
+      randomRotation * ease;
 
-      const ease =
-        1 -
-        Math.pow(
-          1 - progress,
-          4
-        );
+    wheel.style.transform =
+      `rotate(${currentRotation}deg)`;
 
-      const currentAngle =
-        startRotation +
-        randomRotation * ease;
+    /*
+      =================================
+      🔺 ЗУБЕЦЬ ДОХОДИТЬ ДО СТРІЛКИ
+      =================================
 
-      /*
-        ЗУБЦІ знаходяться:
-        15°, 45°, 75°...
-      */
+      Зубці знаходяться:
 
-      const toothPosition =
-        (
-          (
-            currentAngle - 15
-          ) % 30 + 30
-        ) % 30;
+      15°
+      45°
+      75°
+      105°
+      ...
 
-      const distance =
-        Math.min(
-          toothPosition,
-          30 - toothPosition
-        );
+      Тому зубець проходить стрілку,
+      коли колесо доходить до
+      наступного значення.
+    */
 
-      let pointerAngle = 0;
+    const currentTooth =
+      Math.floor(
+        (currentRotation + 15) / 30
+      );
 
-      /*
-        На швидкому обертанні
-        стрілка майже не реагує.
+    /*
+      Якщо новий зубець дійшов
+      до стрілки — робимо ОДИН
+      поштовх.
+    */
 
-        Реакція тільки під час
-        уповільнення.
-      */
+    if (
+      currentTooth !== lastTooth
+    ) {
 
-      if (
-        progress > 0.58 &&
-        distance < 3
-      ) {
+      lastTooth =
+        currentTooth;
 
-        const force =
-          (3 - distance) / 3;
+      if (pointer) {
 
-        pointerAngle =
-          -9 * force;
+        /*
+          🔻 СТРІЛКА ВІДХИЛИЛАСЯ
+        */
+
+        pointer.style.transform =
+          "translateX(-50%) rotate(-12deg)";
+
+        /*
+          🔺 Повернення стрілки
+        */
+
+        setTimeout(() => {
+
+          pointer.style.transform =
+            "translateX(-50%) rotate(0deg)";
+
+        }, 110);
+
       }
 
-      pointer.style.transform =
-        `translateX(-50%) rotate(${pointerAngle}deg)`;
+    }
 
-      if (progress < 1) {
+    if (
+      progress < 1
+    ) {
 
-        requestAnimationFrame(
-          animatePointer
-        );
+      requestAnimationFrame(
+        animateWheel
+      );
 
-      } else {
+    } else {
+
+      nikaWheelRotation =
+        targetRotation;
+
+      wheel.style.transform =
+        `rotate(${targetRotation}deg)`;
+
+      if (pointer) {
 
         pointer.style.transform =
           "translateX(-50%) rotate(0deg)";
+
       }
+
+      nikaWheelSpinning =
+        false;
+
+      button.disabled =
+        false;
+
+      button.innerText =
+        "🎡 КРУТИТИ";
+
     }
 
-    requestAnimationFrame(
-      animatePointer
-    );
   }
 
-  setTimeout(() => {
-
-    nikaWheelSpinning = false;
-
-    button.disabled = false;
-
-    button.innerText =
-      "🎡 КРУТИТИ";
-
-  }, 5100);
+  requestAnimationFrame(
+    animateWheel
+  );
 }
 
 
