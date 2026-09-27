@@ -2249,7 +2249,7 @@ transition:
   width: 0;
   height: 0;
 
-  margin-left: -5px;
+  margin-left: -4px;
   margin-top: -5px;
 
   transform:
@@ -2258,24 +2258,18 @@ transition:
 
   transform-origin: center;
 
-  z-index: 25;
+  z-index: 30;
 
   pointer-events: none;
 
-  /* 🔻 гострий трикутник */
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
 
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-
-  border-bottom: 10px solid #8eefff;
+  border-bottom: 8px solid #8eefff;
 
   filter:
-    drop-shadow(
-      0 0 4px #00cfff
-    )
-    drop-shadow(
-      0 0 7px rgba(0,150,255,.75)
-    );
+    drop-shadow(0 0 3px #00cfff)
+    drop-shadow(0 0 5px rgba(0,150,255,.7));
 }
 /* 🎁 СЕКТОРИ */
 
