@@ -9549,6 +9549,13 @@ function openWheelChances(
 
   if (chances) {
     chances.classList.add("active");
+
+    const parentPage =
+      chances.closest(".page");
+
+    if (parentPage) {
+      parentPage.classList.add("active");
+    }
   }
 
   document
@@ -9557,6 +9564,12 @@ function openWheelChances(
       button.classList.remove("active");
     });
 
+  const navButton =
+    document.getElementById("nav-wheel");
+
+  if (navButton) {
+    navButton.classList.add("active");
+  }
 }
 
 
