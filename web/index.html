@@ -5116,8 +5116,7 @@ function spinNika1000() {
   button.disabled = true;
   button.innerText = "✨ ОБЕРТАЄТЬСЯ...";
 
-  const startRotation =
-    nikaWheelRotation;
+  const startRotation = nikaWheelRotation;
 
   const randomRotation =
     1080 + Math.floor(Math.random() * 360);
@@ -5126,12 +5125,21 @@ function spinNika1000() {
     startRotation + randomRotation;
 
   const duration = 5200;
+  const startTime = performance.now();
 
-  const startTime =
-    performance.now();
+  /*
+   * Наступний зубець.
+   * Твої зубці стоять кожні 30°:
+   *
+   * 0
+   * 30
+   * 60
+   * 90
+   * ...
+   */
 
-  let lastTooth =
-    Math.floor(startRotation / 30);
+  let nextTooth =
+    Math.ceil(startRotation / 30) * 30;
 
   function animateWheel(currentTime) {
 
@@ -5139,20 +5147,13 @@ function spinNika1000() {
       currentTime - startTime;
 
     const progress =
-      Math.min(
-        elapsed / duration,
-        1
-      );
+      Math.min(elapsed / duration, 1);
 
     /*
-      Плавне сповільнення
-    */
+     * Плавне уповільнення
+     */
     const ease =
-      1 -
-      Math.pow(
-        1 - progress,
-        4
-      );
+      1 - Math.pow(1 - progress, 4);
 
     const currentRotation =
       startRotation +
@@ -5163,76 +5164,72 @@ function spinNika1000() {
 
 
     /*
-      =================================
-      🔺 ПЕРЕВІРКА ЗУБЦІВ
-      =================================
-    */
-
-    const currentTooth =
-      Math.floor(
-        currentRotation / 30
-      );
-
-
-    /*
-      Якщо один або декілька зубців
-      пройшли стрілку
-    */
+     * ==================================
+     * 🔺 ЗУБЕЦЬ ДОХОДИТЬ ДО СТРІЛКИ
+     * ==================================
+     */
 
     if (
-      currentTooth > lastTooth
+      currentRotation >= nextTooth
     ) {
 
-      const teethPassed =
-        currentTooth - lastTooth;
-
-      lastTooth =
-        currentTooth;
-
-
       /*
-        Відштовхуємо стрілку
-        окремо для кожного зубця
-      */
+       * Відхиляємо стрілку
+       */
 
       if (pointer) {
 
-        let pushCount =
-          Math.min(
-            teethPassed,
-            3
-          );
+        pointer.style.transition =
+          "transform 0.06s ease-out";
 
-        for (
-          let i = 0;
-          i < pushCount;
-          i++
-        ) {
+        pointer.style.transform =
+          "translateX(-50%) rotate(-14deg)";
 
-          setTimeout(() => {
 
-            pointer.style.transform =
-              "translateX(-50%) rotate(-12deg)";
+        /*
+         * Повертаємо назад
+         */
 
-            setTimeout(() => {
+        setTimeout(() => {
 
-              pointer.style.transform =
-                "translateX(-50%) rotate(0deg)";
+          pointer.style.transition =
+            "transform 0.12s ease-out";
 
-            }, 100);
+          pointer.style.transform =
+            "translateX(-50%) rotate(0deg)";
 
-          }, i * 120);
+        }, 90);
 
-        }
+      }
 
+
+      /*
+       * Переходимо до наступного зубця
+       */
+
+      nextTooth += 30;
+
+
+      /*
+       * Якщо колесо за один кадр
+       * пройшло декілька зубців —
+       * не пропускаємо їх.
+       */
+
+      while (
+        currentRotation >= nextTooth
+      ) {
+        nextTooth += 30;
       }
 
     }
 
 
     /*
-      Продовжуємо обертання
-    */
+     * ==================================
+     * 🔄 ПРОДОВЖЕННЯ
+     * ==================================
+     */
 
     if (
       progress < 1
@@ -5252,6 +5249,9 @@ function spinNika1000() {
 
       if (pointer) {
 
+        pointer.style.transition =
+          "transform 0.12s ease-out";
+
         pointer.style.transform =
           "translateX(-50%) rotate(0deg)";
 
@@ -5265,6 +5265,7 @@ function spinNika1000() {
 
       button.innerText =
         "🎡 КРУТИТИ";
+
     }
 
   }
@@ -5273,7 +5274,6 @@ function spinNika1000() {
     animateWheel
   );
 }
-
 
 /* =========================
    РЕФЕРАЛИ
