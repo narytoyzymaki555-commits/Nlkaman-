@@ -9538,21 +9538,28 @@ function openWheelChances(
     .querySelectorAll(".page")
     .forEach(page => {
       page.classList.remove("active");
+      page.style.display = "none";
     });
+
+
+  const wheel =
+    document.getElementById(wheelId);
 
   const chances =
     document.getElementById(chancesId);
 
+
+  if (wheel) {
+    wheel.classList.add("active");
+    wheel.style.display = "block";
+  }
+
+
   if (chances) {
     chances.classList.add("active");
-
-    const parentPage =
-      chances.closest(".page");
-
-    if (parentPage) {
-      parentPage.classList.add("active");
-    }
+    chances.style.display = "block";
   }
+
 
   document
     .querySelectorAll(".nav-btn")
@@ -9560,12 +9567,21 @@ function openWheelChances(
       button.classList.remove("active");
     });
 
+
   const navButton =
     document.getElementById("nav-wheel");
+
 
   if (navButton) {
     navButton.classList.add("active");
   }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
 }
 
 
