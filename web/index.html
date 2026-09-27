@@ -4179,6 +4179,34 @@ document.addEventListener(
   forestNote();
 }
   
+  // 🎵 Музика після першого будь-якого натискання
+
+let firstUserInteraction = false;
+
+function startMusicOnFirstTap() {
+
+  if (firstUserInteraction) return;
+  if (!soundEnabled) return;
+
+  firstUserInteraction = true;
+
+  initAudio();
+
+  if (!musicTimer) {
+    playAdventureMusic();
+  }
+
+  document.removeEventListener(
+    "pointerdown",
+    startMusicOnFirstTap
+  );
+}
+
+document.addEventListener(
+  "pointerdown",
+  startMusicOnFirstTap
+);
+  
 // 🔊 ГУЧНІСТЬ
 
 const volumeSlider =
@@ -4326,16 +4354,6 @@ function clickBear() {
   );
 
   updateStars();
-
-  if (
-    soundEnabled &&
-    !musicTimer
-  ) {
-
-    initAudio();
-    playAdventureMusic();
-
-  }
 
   playCoinSound();
 
