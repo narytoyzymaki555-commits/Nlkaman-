@@ -4197,44 +4197,6 @@ function playCoinSound() {
   );
 }
 
-function stopWheelSpinSound() {
-
-  if (
-    !wheelSpinOscillator ||
-    !wheelSpinGain ||
-    !audioCtx
-  ) {
-    return;
-  }
-
-  const now =
-    audioCtx.currentTime;
-
-  wheelSpinGain.gain.cancelScheduledValues(
-    now
-  );
-
-  wheelSpinGain.gain.setValueAtTime(
-    Math.max(
-      wheelSpinGain.gain.value,
-      0.001
-    ),
-    now
-  );
-
-  wheelSpinGain.gain.exponentialRampToValueAtTime(
-    0.001,
-    now + 0.12
-  );
-
-  wheelSpinOscillator.stop(
-    now + 0.12
-  );
-
-  wheelSpinOscillator = null;
-  wheelSpinGain = null;
-}
-
 
 function playToothSound() {
 
@@ -4268,44 +4230,6 @@ function playWinSound() {
     );
 
   }, 90);
-
-}
-  
-function playWheelToothSound() {
-
-  if (!soundEnabled) return;
-
-  playTone(
-    980,
-    0.045,
-    "square",
-    0.025
-  );
-
-}
-
-
-function playSpinSound() {
-
-  if (!soundEnabled) return;
-
-  playTone(
-    150,
-    0.12,
-    "triangle",
-    0.018
-  );
-
-  setTimeout(() => {
-
-    playTone(
-      210,
-      0.10,
-      "triangle",
-      0.014
-    );
-
-  }, 60);
 
 }
   
@@ -4360,32 +4284,6 @@ function playAdventureMusic() {
   let step = 0;
   
   // 🎵 ЗАПУСК МУЗИКИ ПІСЛЯ ПЕРШОГО ТАПУ
-
-let firstUserInteraction = false;
-
-function startMusicOnFirstTap() {
-
-  if (firstUserInteraction) return;
-
-  firstUserInteraction = true;
-
-  if (!soundEnabled) return;
-
-  initAudio();
-
-  if (!musicTimer) {
-    playAdventureMusic();
-  }
-
-}
-
-
-// 👆 Перший будь-який тап у Mini App
-document.addEventListener(
-  "pointerdown",
-  startMusicOnFirstTap,
-  { once: true }
-);
 
   function forestNote() {
 
