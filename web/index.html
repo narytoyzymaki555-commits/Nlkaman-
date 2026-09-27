@@ -4046,22 +4046,6 @@ width: 26px;
 
   </div>
 
-
-  <!-- ЗАГОЛОВОК -->
-
-  <div class="nika-wheel-title">
-
-    <div>
-      🎡 КОЛЕСО
-    </div>
-
-    <span>
-      1000 NIKA
-    </span>
-
-  </div>
-
-
   <!-- КОЛЕСО -->
 
   <div class="nika-wheel-stage">
@@ -4253,9 +4237,9 @@ width: 26px;
     </button>
 
     <div class="nika-spin-total">
-      <span id="nikaSpinTotal">1000</span>
-      <img src="coin.png.PNG" alt="">
-    </div>
+  <span id="nikaSpinTotal">1</span>
+  <img src="rune.png.PNG" alt="Руна">
+</div>
 
   </div>
 
@@ -6568,12 +6552,10 @@ function changeNikaSpinCount(change) {
 
   if (totalElement) {
 
-    totalElement.textContent =
-      (
-        nikaSpinCount * 1000
-      ).toLocaleString("uk-UA");
+  totalElement.textContent =
+    nikaSpinCount;
 
-  }
+}
 
 }
 
@@ -6614,21 +6596,21 @@ function spinNika1000() {
 
 
   const totalCost =
-    spinCount * 1000;
+  spinCount;
 
 
   /* =========================
      💰 ПЕРЕВІРКА БАЛАНСУ
   ========================= */
 
-  if (stars < totalCost) {
+  if (runes < totalCost) {
 
-    alert(
-      `❌ Потрібно ${totalCost.toLocaleString("uk-UA")} NIKA`
-    );
+  alert(
+    `❌ Потрібно ${totalCost} рун`
+  );
 
-    return;
-  }
+  return;
+}
 
 
   /* =========================
@@ -6647,14 +6629,14 @@ function spinNika1000() {
      💰 СПИСУЄМО NIKA
   ========================= */
 
-  stars -= totalCost;
+  runes -= totalCost;
 
-  localStorage.setItem(
-    "nlkaman_stars",
-    stars
-  );
+localStorage.setItem(
+  "nlkaman_runes",
+  runes
+);
 
-  updateStars();
+updateRunesAndArtifacts();
 
 
   /* =========================
