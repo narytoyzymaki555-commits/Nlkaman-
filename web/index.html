@@ -1798,484 +1798,643 @@ height: 70vw;
 .wheel-screen.active {
   display: block;
 }
-   /* ================================= */
+/* ================================= */
 /* 🎡 NIKA WHEEL 1000 */
 /* ================================= */
 
+.nika-wheel-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(0,130,255,.18),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(0,90,255,.18),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 75%,
+      rgba(70,0,255,.14),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #020817 0%,
+      #03132c 50%,
+      #020817 100%
+    );
+}
+
+
+/* 🌌 ФОН */
+
+.nika-wheel-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 20% 35%,
+      rgba(0,180,255,.12),
+      transparent 12%
+    ),
+    radial-gradient(
+      circle at 80% 25%,
+      rgba(60,100,255,.10),
+      transparent 14%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(0,200,255,.08),
+      transparent 15%
+    );
+}
+
+
+/* 👤 ВЕРХНЯ ПАНЕЛЬ */
+
+.wheel-top-panel {
+  position: relative;
+  z-index: 30;
+
+  width: calc(100% - 20px);
+  margin: 10px auto 0;
+
+  min-height: 58px;
+  padding: 8px 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(8,28,60,.96),
+      rgba(5,15,34,.94)
+    );
+
+  border: 1px solid
+    rgba(50,170,255,.35);
+
+  box-shadow:
+    0 0 20px
+    rgba(0,100,255,.16),
+    inset 0 0 18px
+    rgba(0,150,255,.06);
+}
+
+
+.wheel-user {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+
+.wheel-avatar {
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #168cff,
+      #4b35ff
+    );
+
+  border: 2px solid
+    rgba(150,230,255,.7);
+
+  color: white;
+  font-weight: 900;
+
+  box-shadow:
+    0 0 10px
+    rgba(0,150,255,.45);
+}
+
+
+.wheel-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.wheel-username {
+  max-width: 90px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+
+.wheel-resource {
+  min-width: 47px;
+  height: 36px;
+
+  padding: 4px 7px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  border-radius: 11px;
+
+  background:
+    rgba(10,30,60,.85);
+
+  border: 1px solid
+    rgba(80,170,255,.25);
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+
+.wheel-resource img {
+  width: 21px;
+  height: 21px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 0 5px
+      rgba(0,180,255,.55)
+    );
+}
+
+
+/* 🎡 ЗАГОЛОВОК */
+
+.nika-wheel-title {
+  position: relative;
+  z-index: 5;
+
+  text-align: center;
+
+  margin-top: 14px;
+
+  color: white;
+
+  font-size: 25px;
+  font-weight: 1000;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 8px white,
+    0 0 20px #008cff;
+}
+
+
+.nika-wheel-title span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #64dcff;
+
+  font-size: 14px;
+
+  letter-spacing: 2px;
+
+  text-shadow:
+    0 0 12px #008cff;
+}
+
+
+/* 🎡 СЦЕНА */
+
 .nika-wheel-stage {
+  position: relative;
+  z-index: 5;
 
   width: 100%;
 
   min-height: 560px;
 
+  padding-top: 5px;
+
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
-  justify-content: flex-start;
-
-  padding-top: 15px;
-
-  position: relative;
-
-  overflow: hidden;
-
 }
 
 
 /* 🔻 СТРІЛКА */
 
 .nika-pointer {
-
   position: absolute;
 
-  top: 0;
+  z-index: 30;
 
+  top: 4px;
   left: 50%;
 
-  transform: translateX(-50%);
+  width: 62px;
+  height: 62px;
 
-  z-index: 20;
-
-  width: 58px;
-
-  height: 58px;
+  transform:
+    translateX(-50%)
+    rotate(0deg);
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  font-size: 48px;
+  color: white;
 
+  font-size: 49px;
   line-height: 1;
 
-  color: #ffffff;
+  transform-origin: 50% 10%;
 
   text-shadow:
-    0 0 6px #ffffff,
-    0 0 16px #00aaff,
-    0 0 30px #0077ff;
+    0 0 6px white,
+    0 0 14px #00c8ff,
+    0 0 28px #0077ff;
 
   filter:
     drop-shadow(
       0 0 10px
-      rgba(0, 150, 255, .9)
+      rgba(0,180,255,.95)
     );
 
+  transition:
+    transform .10s
+    cubic-bezier(.2,.8,.2,1);
 }
 
 
-/* Додаткове світіння стрілки */
-
 .nika-pointer-glow {
-
   position: absolute;
 
-  width: 45px;
-
-  height: 45px;
+  width: 48px;
+  height: 48px;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(0, 180, 255, .45),
+      rgba(0,220,255,.55),
       transparent 70%
     );
 
-  filter: blur(7px);
+  filter: blur(8px);
 
   z-index: -1;
-
 }
 
 
 /* 🎡 КОЛЕСО */
 
 .nika-wheel {
+  position: relative;
 
-  width: min(88vw, 340px);
+  width: min(86vw, 350px);
+  height: min(86vw, 350px);
 
-  height: min(88vw, 340px);
-
-  margin-top: 35px;
+  margin-top: 38px;
 
   border-radius: 50%;
 
-  position: relative;
-
-  overflow: hidden;
+  overflow: visible;
 
   background:
-
     conic-gradient(
-
       from -15deg,
 
-      #087cff 0deg 30deg,
+      #168cff 0deg 30deg,
+      #061a3d 30deg 60deg,
 
-      #071b46 30deg 60deg,
+      #168cff 60deg 90deg,
+      #061a3d 90deg 120deg,
 
-      #087cff 60deg 90deg,
+      #168cff 120deg 150deg,
+      #061a3d 150deg 180deg,
 
-      #071b46 90deg 120deg,
+      #168cff 180deg 210deg,
+      #061a3d 210deg 240deg,
 
-      #087cff 120deg 150deg,
+      #168cff 240deg 270deg,
+      #061a3d 270deg 300deg,
 
-      #071b46 150deg 180deg,
-
-      #087cff 180deg 210deg,
-
-      #071b46 210deg 240deg,
-
-      #087cff 240deg 270deg,
-
-      #071b46 270deg 300deg,
-
-      #087cff 300deg 330deg,
-
-      #071b46 330deg 360deg
-
+      #168cff 300deg 330deg,
+      #061a3d 330deg 360deg
     );
 
-  border: 5px solid #5fdcff;
+  border: 5px solid #72eaff;
 
   box-shadow:
+    0 0 10px #00bfff,
+    0 0 25px #008cff,
+    0 0 55px
+      rgba(0,120,255,.65),
 
-    0 0 10px #00aaff,
-
-    0 0 25px #0077ff,
-
-    0 0 55px rgba(0, 120, 255, .75),
-
-    inset 0 0 30px rgba(0, 180, 255, .55);
+    inset 0 0 25px
+      rgba(0,220,255,.45);
 
   transition:
-    transform 5s cubic-bezier(.12,.7,.12,1);
-
+    transform
+    5.2s
+    cubic-bezier(.10,.72,.08,1);
 }
 
 
-/* 💫 ЗОВНІШНЄ КІЛЬЦЕ */
+/* 🧱 ПЕРЕГОРОДКИ */
 
-.nika-wheel-ring {
+.nika-wheel::after {
+  content: "";
 
   position: absolute;
-
-  inset: 5px;
+  inset: 0;
 
   border-radius: 50%;
-
-  border: 2px solid rgba(255,255,255,.7);
-
-  box-shadow:
-
-    inset 0 0 15px rgba(255,255,255,.4),
-
-    0 0 10px rgba(0,200,255,.8);
 
   pointer-events: none;
 
+  background:
+    repeating-conic-gradient(
+      from -15deg,
+
+      rgba(255,255,255,.95)
+        0deg 1.2deg,
+
+      transparent
+        1.2deg 30deg
+    );
+
+  box-shadow:
+    inset 0 0 18px
+    rgba(255,255,255,.18);
 }
 
 
-/* ✨ СЕКТОРИ */
+/* ⭕ ЗОВНІШНЄ КІЛЬЦЕ */
+
+.nika-wheel-ring {
+  position: absolute;
+
+  inset: -7px;
+
+  border-radius: 50%;
+
+  border: 3px solid
+    rgba(100,225,255,.9);
+
+  box-shadow:
+    0 0 8px #00d9ff,
+    0 0 20px #008cff;
+
+  pointer-events: none;
+
+  z-index: 8;
+}
+
+
+/* 🎁 СЕКТОРИ */
 
 .nika-slot {
-
   position: absolute;
 
   left: 50%;
-
   top: 50%;
 
-  width: 72px;
+  width: 64px;
+  height: 64px;
 
-  height: 72px;
-
-  margin-left: -36px;
-
-  margin-top: -36px;
+  margin-left: -32px;
+  margin-top: -32px;
 
   transform:
     rotate(var(--angle))
-    translateY(-112px)
-    rotate(calc(-1 * var(--angle)));
+    translateY(-113px)
+    rotate(
+      calc(-1 * var(--angle))
+    );
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  font-size: 34px;
+  font-size: 31px;
 
-  z-index: 4;
-
-  filter:
-
-    drop-shadow(
-      0 0 7px
-      rgba(255,255,255,.7)
-    );
+  z-index: 9;
 
   user-select: none;
 
+  filter:
+    drop-shadow(
+      0 0 7px
+      rgba(255,255,255,.75)
+    );
 }
 
 
-/* 🌟 ЦЕНТР */
+/* 🪙 ЦЕНТР */
 
 .nika-center {
-
   position: absolute;
 
-  width: 112px;
-
-  height: 112px;
-
   left: 50%;
-
   top: 50%;
 
-  transform: translate(-50%, -50%);
+  width: 116px;
+  height: 116px;
+
+  transform:
+    translate(-50%,-50%);
+
+  z-index: 15;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   border-radius: 50%;
 
-  z-index: 10;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
   background:
-
     radial-gradient(
       circle,
-      #0a3d82,
-      #06142d
+      #083d83,
+      #03152f
     );
 
-  border: 4px solid #7ce7ff;
+  border: 4px solid
+    #9af3ff;
 
   box-shadow:
+    0 0 12px #00d9ff,
+    0 0 30px #008cff,
 
-    0 0 12px #00c8ff,
-
-    0 0 30px #0077ff,
-
-    inset 0 0 20px rgba(0,200,255,.7);
-
+    inset 0 0 20px
+      rgba(0,200,255,.65);
 }
 
 
-/* 🪙 МОНЕТА NIKA */
+/* 🪙 NIKA */
 
 .nika-coin {
-
-  width: 78px;
-
-  height: 78px;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
+  width: 83px;
+  height: 83px;
 
   position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   overflow: hidden;
 
-  background:
+  border-radius: 50%;
 
+  background:
     radial-gradient(
-      circle at 35% 30%,
-      #d9ffff,
-      #26b9ff 25%,
-      #006de0 60%,
-      #04245e 100%
+      circle,
+      #eaffff,
+      #27bfff 25%,
+      #0876df 62%,
+      #031e54
     );
 
-  border: 4px solid #d9ffff;
+  border: 4px solid
+    #eaffff;
 
   box-shadow:
+    0 0 10px white,
+    0 0 25px #00d9ff,
 
-    0 0 10px #ffffff,
-
-    0 0 25px #00c8ff,
-
-    inset 0 0 12px rgba(255,255,255,.8);
-
+    inset 0 0 15px
+      rgba(255,255,255,.8);
 }
 
 
-/* напис NIKA */
+.nika-coin img {
+  position: absolute;
+
+  width: 72px;
+  height: 72px;
+
+  object-fit: contain;
+
+  border-radius: 50%;
+
+  opacity: .9;
+}
+
 
 .nika-coin span {
-
   position: relative;
-
-  z-index: 3;
+  z-index: 4;
 
   color: white;
 
-  font-size: 17px;
-
+  font-size: 14px;
   font-weight: 1000;
 
   letter-spacing: 1px;
 
   text-shadow:
-
-    0 2px 3px #00366b,
-
-    0 0 8px #ffffff;
-
+    0 2px 4px #00366b,
+    0 0 8px white;
 }
 
 
-/* блиск монети */
-
-.nika-coin-shine {
-
-  position: absolute;
-
-  width: 28px;
-
-  height: 70px;
-
-  left: 5px;
-
-  top: -12px;
-
-  transform: rotate(25deg);
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.7),
-      transparent
-    );
-
-  filter: blur(3px);
-
-}
-
-
-/* 🎡 КНОПКА */
+/* 🎡 КРУТИТИ */
 
 .nika-spin-button {
+  margin-top: 24px;
 
-  margin-top: 35px;
+  width: min(84vw, 310px);
 
-  width: min(85vw, 310px);
+  min-height: 56px;
 
-  min-height: 58px;
-
-  border: 1px solid rgba(120,220,255,.8);
+  border: 1px solid
+    rgba(120,230,255,.8);
 
   border-radius: 18px;
 
   background:
-
     linear-gradient(
       135deg,
-      #087cff,
-      #1740d0
+      #078cff,
+      #3030d9
     );
 
   color: white;
 
-  font-size: 19px;
-
-  font-weight: 900;
-
-  letter-spacing: .5px;
+  font-size: 18px;
+  font-weight: 1000;
 
   box-shadow:
-
     0 0 12px #008cff,
+    0 0 28px
+      rgba(0,100,255,.55),
 
-    0 0 30px rgba(0,100,255,.6),
-
-    inset 0 0 15px rgba(255,255,255,.15);
-
-  cursor: pointer;
-
-  transition:
-
-    transform .15s ease,
-
-    filter .15s ease;
-
+    inset 0 0 15px
+      rgba(255,255,255,.15);
 }
 
 
 .nika-spin-button:active {
-
   transform: scale(.96);
-
-  filter: brightness(1.25);
-
 }
 
 
 .nika-spin-button:disabled {
-
   opacity: .55;
-
-  cursor: not-allowed;
-
 }
 
 
-/* ✨ Анімація світіння */
+/* ← НАЗАД */
 
-@keyframes nikaPulse {
+.nika-back-button {
+  margin-top: 10px;
 
-  0% {
+  background: transparent;
 
-    box-shadow:
-      0 0 10px #00aaff,
-      0 0 25px #0077ff;
+  border: 0;
 
-  }
+  color: #76b9df;
 
-  50% {
+  font-size: 14px;
 
-    box-shadow:
-      0 0 20px #00eaff,
-      0 0 55px #008cff;
-
-  }
-
-  100% {
-
-    box-shadow:
-      0 0 10px #00aaff,
-      0 0 25px #0077ff;
-
-  }
-
-}
-
-
-.nika-wheel {
-
-  animation:
-    nikaPulse 2.5s infinite ease-in-out;
-
+  font-weight: 800;
 }
     
     /* 🎮 ЗАГОЛОВКИ ІГРОВИХ СТОРІНОК */
@@ -2871,158 +3030,244 @@ height: 70vw;
   
 </section>
   
-<!-- 🎡 КОЛЕСО 1000 -->
+<!-- 🎡 КОЛЕСО 1000 NIK -->
 
 <section
   id="wheel1000"
-  class="page wheel-screen"
+  class="page wheel-screen nika-wheel-page"
 >
 
-  <div class="section-title">
-    🎡 Колесо за 1000 🪙
+  <!-- ВЕРХНЯ ПАНЕЛЬ -->
+
+  <div class="wheel-top-panel">
+
+    <div class="wheel-user">
+
+      <div
+        class="wheel-avatar"
+        id="wheelAvatar"
+      >
+        N
+      </div>
+
+      <div
+        class="wheel-username"
+        id="wheelUserName"
+      >
+        @user
+      </div>
+
+    </div>
+
+
+    <div class="wheel-resource">
+
+      <img src="rune.png.PNG">
+
+      <span id="wheelRuneCount">
+        0
+      </span>
+
+    </div>
+
+
+    <div class="wheel-resource">
+
+      <img src="artifact.png.PNG">
+
+      <span id="wheelArtifactCount">
+        0
+      </span>
+
+    </div>
+
+
+    <div class="wheel-resource">
+
+      <img src="coin.png.PNG">
+
+      <span id="wheelStarCount">
+        0
+      </span>
+
+    </div>
+
   </div>
 
- <div class="nika-wheel-stage">
 
-  <!-- СТРІЛКА -->
-  <div class="nika-pointer">
-    <div class="nika-pointer-glow"></div>
-    ▼
+  <!-- ЗАГОЛОВОК -->
+
+  <div class="nika-wheel-title">
+
+    <div>
+      🎡 КОЛЕСО
+    </div>
+
+    <span>
+      1000 NIK
+    </span>
+
   </div>
 
 
   <!-- КОЛЕСО -->
 
-  <div
-    class="nika-wheel"
-    id="nikaWheel1000"
-  >
+  <div class="nika-wheel-stage">
 
-    <div class="nika-wheel-ring"></div>
-
-
-    <!-- 12 СЕКТОРІВ -->
+    <!-- СТРІЛКА -->
 
     <div
-      class="nika-slot"
-      style="--angle: 0deg;"
+      class="nika-pointer"
+      id="nikaPointer1000"
     >
-      🎁
-    </div>
 
-    <div
-      class="nika-slot"
-      style="--angle: 30deg;"
-    >
-      💎
-    </div>
+      <div class="nika-pointer-glow"></div>
 
-    <div
-      class="nika-slot"
-      style="--angle: 60deg;"
-    >
-      🪙
-    </div>
+      ▼
 
-    <div
-      class="nika-slot"
-      style="--angle: 90deg;"
-    >
-      🎁
-    </div>
-
-    <div
-      class="nika-slot"
-      style="--angle: 120deg;"
-    >
-      💎
-    </div>
-
-    <div
-      class="nika-slot"
-      style="--angle: 150deg;"
-    >
-      🪙
-    </div>
-
-    <div
-      class="nika-slot"
-      style="--angle: 180deg;"
-    >
-      🎁
-    </div>
-
-    <div
-      class="nika-slot"
-      style="--angle: 210deg;"
-    >
-      💎
-    </div>
-
-    <div
-      class="nika-slot"
-      style="--angle: 240deg;"
-    >
-      🪙
-    </div>
-
-    <div
-      class="nika-slot"
-      style="--angle: 270deg;"
-    >
-      🎁
-    </div>
-
-    <div
-      class="nika-slot"
-      style="--angle: 300deg;"
-    >
-      💎
-    </div>
-
-    <div
-      class="nika-slot"
-      style="--angle: 330deg;"
-    >
-      🪙
     </div>
 
 
-    <!-- ЦЕНТРАЛЬНА МОНЕТА -->
+    <!-- САМО КОЛЕСО -->
 
-    <div class="nika-center">
+    <div
+      class="nika-wheel"
+      id="nikaWheel1000"
+    >
 
-      <div class="nika-coin">
+      <div class="nika-wheel-ring"></div>
 
-        <div class="nika-coin-shine"></div>
 
-        <span>NIKA</span>
+      <!-- 12 СЕКТОРІВ -->
+
+      <div
+        class="nika-slot"
+        style="--angle:0deg;"
+      >
+        🎁
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:30deg;"
+      >
+        💎
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:60deg;"
+      >
+        🪙
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:90deg;"
+      >
+        🎁
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:120deg;"
+      >
+        💎
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:150deg;"
+      >
+        🪙
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:180deg;"
+      >
+        🎁
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:210deg;"
+      >
+        💎
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:240deg;"
+      >
+        🪙
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:270deg;"
+      >
+        🎁
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:300deg;"
+      >
+        💎
+      </div>
+
+      <div
+        class="nika-slot"
+        style="--angle:330deg;"
+      >
+        🪙
+      </div>
+
+
+      <!-- ЦЕНТРАЛЬНА МОНЕТА -->
+
+      <div class="nika-center">
+
+        <div class="nika-coin">
+
+          <img
+            src="coin.png.PNG"
+            alt="NIKA"
+          >
+
+          <span>
+            NIKA
+          </span>
+
+        </div>
 
       </div>
 
     </div>
 
+
+    <!-- КНОПКА -->
+
+    <button
+      class="nika-spin-button"
+      id="nikaSpin1000"
+      onclick="spinNika1000()"
+    >
+      🎡 КРУТИТИ
+    </button>
+
+
+    <!-- НАЗАД -->
+
+    <button
+      class="nika-back-button"
+      onclick="openPage('wheel')"
+    >
+      ← НАЗАД
+    </button>
+
   </div>
-
-
-  <!-- КНОПКА ОБЕРТАННЯ -->
-
-  <button
-    class="nika-spin-button"
-    id="nikaSpin1000"
-    onclick="spinNika1000()"
-  >
-    🎡 КРУТИТИ
-  </button>
-
-</div>
-
-  <button
-    class="button"
-    onclick="openPage('wheel')"
-  >
-    ← НАЗАД
-  </button>
 
 </section>
 
@@ -4580,6 +4825,46 @@ function loadUser() {
     userName.textContent =
       name;
   }
+    const wheelUserName =
+    document.getElementById(
+      "wheelUserName"
+    );
+
+  if (wheelUserName) {
+    wheelUserName.textContent =
+      name;
+  }
+
+
+  const wheelAvatar =
+    document.getElementById(
+      "wheelAvatar"
+    );
+
+  if (wheelAvatar) {
+
+    if (user.photo_url) {
+
+      wheelAvatar.innerHTML = `
+        <img
+          src="${user.photo_url}"
+          alt="Avatar"
+        >
+      `;
+
+    } else {
+
+      wheelAvatar.textContent =
+        (
+          user.first_name ||
+          "N"
+        )
+          .charAt(0)
+          .toUpperCase();
+
+    }
+
+  }
 
   const userid =
     document.getElementById(
@@ -4765,70 +5050,78 @@ function spinNika1000() {
     return;
   }
 
-
   const wheel =
     document.getElementById(
       "nikaWheel1000"
     );
-
 
   const button =
     document.getElementById(
       "nikaSpin1000"
     );
 
+  const pointer =
+    document.getElementById(
+      "nikaPointer1000"
+    );
 
   if (!wheel || !button) {
     return;
   }
-
 
   nikaWheelSpinning = true;
 
   button.disabled = true;
 
   button.innerText =
-    "✨ КОЛЕСО ОБЕРТАЄТЬСЯ...";
+    "✨ ОБЕРТАЄТЬСЯ...";
 
 
-  /*
-    Випадковий сектор.
-
-    Поки що це лише тестова
-    анімація без реального призу.
-  */
-
-  const randomSector =
+  const randomRotation =
+    1800 +
     Math.floor(
-      Math.random() * 12
+      Math.random() * 1440
     );
 
 
-  /*
-    Декілька повних обертів
-    + випадковий сектор.
-  */
-
-  const extraTurns =
-    5 + Math.floor(
-      Math.random() * 3
-    );
-
-
-  const sectorAngle =
-    randomSector * 30;
-
-
   nikaWheelRotation +=
-    extraTurns * 360;
-
-
-  nikaWheelRotation +=
-    360 - sectorAngle;
+    randomRotation;
 
 
   wheel.style.transform =
     `rotate(${nikaWheelRotation}deg)`;
+
+
+  /* 🔻 ПРУЖНА СТРІЛКА */
+
+  if (pointer) {
+
+    let tick = 0;
+
+    const pointerTimer =
+      setInterval(() => {
+
+        tick++;
+
+        pointer.style.transform =
+          `translateX(-50%)
+           rotate(${tick % 2 === 0 ? 7 : -7}deg)`;
+
+
+        if (tick >= 18) {
+
+          clearInterval(
+            pointerTimer
+          );
+
+          pointer.style.transform =
+            "translateX(-50%) rotate(0deg)";
+
+        }
+
+      }, 130);
+
+  }
 
 
   setTimeout(() => {
@@ -4840,10 +5133,9 @@ function spinNika1000() {
     button.innerText =
       "🎡 КРУТИТИ";
 
-  }, 5200);
+  }, 5300);
 
 }
-
 /* =========================
    РЕФЕРАЛИ
 ========================= */
