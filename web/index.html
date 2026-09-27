@@ -7802,81 +7802,51 @@ function loadUser() {
     userName.textContent =
       name;
   }
-    const wheelUserName =
-    document.getElementById(
-      "wheelUserName"
-    );
+   const wheelUserNames = [
+  "wheelUserName",
+  "wheelUserName5000",
+  "wheelUserName10000",
+  "wheelUserNameFriends"
+];
 
-  if (wheelUserName) {
-    wheelUserName.textContent =
-      name;
+wheelUserNames.forEach(id => {
+
+  const element =
+    document.getElementById(id);
+
+  if (element) {
+    element.textContent = name;
   }
 
+});
 
-  const wheelAvatar =
-    document.getElementById(
-      "wheelAvatar"
-    );
 
-  if (wheelAvatar) {
+const wheelAvatars = [
+  "wheelAvatar",
+  "wheelAvatar5000",
+  "wheelAvatar10000",
+  "wheelAvatarFriends"
+];
 
-    if (user.photo_url) {
+wheelAvatars.forEach(id => {
 
-      wheelAvatar.innerHTML = `
-        <img
-          src="${user.photo_url}"
-          alt="Avatar"
-        >
-      `;
+  const element =
+    document.getElementById(id);
 
-    } else {
-
-      wheelAvatar.textContent =
-        (
-          user.first_name ||
-          "N"
-        )
-          .charAt(0)
-          .toUpperCase();
-
-    }
-
-  }
-
-  const userid =
-    document.getElementById(
-      "userid"
-    );
-
-  if (userid) {
-
-    userid.textContent =
-      "Telegram ID: " +
-      user.id;
-
-  }
-
-  const avatar =
-    document.getElementById(
-      "avatar"
-    );
-
-  if (!avatar)
-    return;
+  if (!element) return;
 
   if (user.photo_url) {
 
-    avatar.innerHTML = `
+    element.innerHTML = `
       <img
         src="${user.photo_url}"
-        class="telegram-avatar"
         alt="Avatar"
       >
     `;
 
   } else {
 
-    avatar.textContent =
+    element.textContent =
       (
         user.first_name ||
         "N"
@@ -7886,7 +7856,7 @@ function loadUser() {
 
   }
 
-}
+});
 
 
 /* =========================
