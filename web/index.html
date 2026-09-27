@@ -7100,7 +7100,38 @@ function updateStars() {
     wheelStarCount.textContent =
       stars;
   }
+  
+const wheelStarCount5000 =
+  document.getElementById(
+    "wheelStarCount5000"
+  );
 
+const wheelStarCount10000 =
+  document.getElementById(
+    "wheelStarCount10000"
+  );
+
+const wheelStarCountFriends =
+  document.getElementById(
+    "wheelStarCountFriends"
+  );
+
+
+if (wheelStarCount5000) {
+  wheelStarCount5000.textContent =
+    stars;
+}
+
+if (wheelStarCount10000) {
+  wheelStarCount10000.textContent =
+    stars;
+}
+
+if (wheelStarCountFriends) {
+  wheelStarCountFriends.textContent =
+    stars;
+}
+  
 }
   
   updateStars();
@@ -7184,43 +7215,89 @@ let artifacts =
  function updateRunesAndArtifacts() {
 
   const runeCount =
-    document.getElementById(
-      "runeCount"
-    );
+    document.getElementById("runeCount");
 
   const artifactCount =
-    document.getElementById(
-      "artifactCount"
-    );
-
-  const wheelRuneCount =
-    document.getElementById(
-      "wheelRuneCount"
-    );
-
-  const wheelArtifactCount =
-    document.getElementById(
-      "wheelArtifactCount"
-    );
+    document.getElementById("artifactCount");
 
   if (runeCount) {
-    runeCount.textContent =
-      runes;
+    runeCount.textContent = runes;
   }
 
   if (artifactCount) {
-    artifactCount.textContent =
-      artifacts;
+    artifactCount.textContent = artifacts;
   }
 
-  if (wheelRuneCount) {
-    wheelRuneCount.textContent =
-      runes;
+
+  // 🔵 1000
+  const wheelRuneCount1000 =
+    document.getElementById("wheelRuneCount");
+
+  const wheelArtifactCount1000 =
+    document.getElementById("wheelArtifactCount");
+
+
+  // 🔴 5000
+  const wheelRuneCount5000 =
+    document.getElementById("wheelRuneCount5000");
+
+  const wheelArtifactCount5000 =
+    document.getElementById("wheelArtifactCount5000");
+
+
+  // 🟣 10000
+  const wheelRuneCount10000 =
+    document.getElementById("wheelRuneCount10000");
+
+  const wheelArtifactCount10000 =
+    document.getElementById("wheelArtifactCount10000");
+
+
+  // 🟡 FRIENDS
+  const wheelRuneCountFriends =
+    document.getElementById("wheelRuneCountFriends");
+
+  const wheelArtifactCountFriends =
+    document.getElementById("wheelArtifactCountFriends");
+
+
+  // 🔵
+  if (wheelRuneCount1000) {
+    wheelRuneCount1000.textContent = runes;
   }
 
-  if (wheelArtifactCount) {
-    wheelArtifactCount.textContent =
-      artifacts;
+  if (wheelArtifactCount1000) {
+    wheelArtifactCount1000.textContent = artifacts;
+  }
+
+
+  // 🔴
+  if (wheelRuneCount5000) {
+    wheelRuneCount5000.textContent = runes;
+  }
+
+  if (wheelArtifactCount5000) {
+    wheelArtifactCount5000.textContent = artifacts;
+  }
+
+
+  // 🟣
+  if (wheelRuneCount10000) {
+    wheelRuneCount10000.textContent = runes;
+  }
+
+  if (wheelArtifactCount10000) {
+    wheelArtifactCount10000.textContent = artifacts;
+  }
+
+
+  // 🟡
+  if (wheelRuneCountFriends) {
+    wheelRuneCountFriends.textContent = runes;
+  }
+
+  if (wheelArtifactCountFriends) {
+    wheelArtifactCountFriends.textContent = artifacts;
   }
 
 }
