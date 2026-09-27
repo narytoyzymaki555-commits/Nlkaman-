@@ -2606,7 +2606,38 @@ width: 26px;
   -webkit-appearance: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
+    
+.nika-chance-button {
+  display: block !important;
 
+  width: auto !important;
+  height: auto !important;
+
+  margin: 4px auto 12px !important;
+  padding: 6px 14px !important;
+
+  background: transparent !important;
+  border: none !important;
+
+  color: #5ec8ff !important;
+
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+
+  text-align: center !important;
+
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.nika-chance-button:active {
+  transform: scale(.96) !important;
+}
+    
 .nika-back-button:active {
   background: transparent !important;
   transform: scale(.96) !important;
@@ -2848,14 +2879,6 @@ width: 26px;
 /* КАРТИНКИ В ІНВЕНТАРІ */
 
 .inventory-item-icon img.nika-prize-img,
-.inventory-item-icon img.nika-resource-prize-img {
-  width: 56px;
-  height: 56px;
-
-  object-fit: contain;
-
-  mix-blend-mode: screen;
-}
     .wheel-resource-img {
   width: 21px;
   height: 21px;
@@ -3591,7 +3614,14 @@ width: 26px;
 </div>
 
 <div class="nika-slot" style="--angle:30deg;">
-  <span class="nika-try-icon">🔄</span>
+  <img
+    src="coin.png.PNG"
+    class="nika-prize-img"
+    alt="250 NIKA"
+  >
+  <span class="nika-coin-amount">
+    250 монет
+  </span>
 </div>
 
 <div class="nika-slot" style="--angle:60deg;">
@@ -3711,7 +3741,14 @@ width: 26px;
     >
       ← НАЗАД
     </button>
-
+    
+<button
+  class="nika-chance-button"
+  onclick="showNikaChances()"
+>
+  🎁 ЯКИЙ ШАНС НА ПРИЗИ?
+</button>
+    
   </div>
 
 </section>
@@ -5263,7 +5300,28 @@ function spinRefWheel() {
   }, 4000);
 
 }
+  function showNikaChances() {
 
+  alert(
+`🎁 ШАНСИ НА ПРИЗИ
+
+🪙 250 монет — 30%
+🪙 500 монет — 29,30%
+🪙 1000 монет — 8,90%
+🪙 1500 монет — 8,96%
+🪙 5000 монет — 6,24%
+
+🧸 Ведмедик — 0,3%
+🌹 Роза — 0,2%
+🔥 NFT — 0,01%
+🏺 1 артефакт — 1%
+🔮 10 Рун — 5%
+🔄 Спробуй ще раз — 10%
+🚀 Ракета — 0,1%`
+  );
+
+}
+  
 function closeWin() {
 
   document.getElementById(
@@ -5607,21 +5665,23 @@ function spinNika1000() {
  const prizes = [
 
   {
-    type: "coins",
-    amount: 500,
-    chance: 35,
-    text: "500 монет",
-    icon:
-      '<img src="coin.png.PNG" class="win-coin">'
-  },
+  type: "coins",
+  amount: 500,
+  chance: 29.2966666667,
+  text: "500 монет",
+  icon:
+    '<img src="coin.png.PNG" class="win-coin">'
+},
 
 
-  {
-    type: "try",
-    chance: 10,
-    text: "Спробуй ще раз",
-    icon: "🔄"
-  },
+{
+  type: "coins",
+  amount: 250,
+  chance: 30,
+  text: "250 монет",
+  icon:
+    '<img src="coin.png.PNG" class="win-coin">'
+},
 
 
   {
@@ -5645,7 +5705,7 @@ function spinNika1000() {
   {
     type: "coins",
     amount: 1000,
-    chance: 17.7966666667,
+    chance: 8.89833333335,
     text: "1000 монет",
     icon:
       '<img src="coin.png.PNG" class="win-coin">'
@@ -5674,7 +5734,7 @@ function spinNika1000() {
   {
     type: "coins",
     amount: 1500,
-    chance: 12.7966666667,
+    chance: 8.95766666669,
     text: "1500 монет",
     icon:
       '<img src="coin.png.PNG" class="win-coin">'
@@ -5694,7 +5754,7 @@ function spinNika1000() {
   {
     type: "coins",
     amount: 5000,
-    chance: 7.7966666667,
+    chance: 6.23733333336,
     text: "5000 монет",
     icon:
       '<img src="coin.png.PNG" class="win-coin">'
@@ -6105,11 +6165,34 @@ function saveInventory() {
 }
 
 
+function extractInventoryImage(icon) {
+
+  if (typeof icon !== "string")
+    return "";
+
+  const match = icon.match(
+    /src=["']([^"']+)["']/i
+  );
+
+  return match
+    ? match[1]
+    : "";
+}
+
+
 function addToInventory(prize) {
+
+  const image =
+    extractInventoryImage(
+      prize.icon
+    );
 
   inventory.push({
 
     id: Date.now(),
+
+    image:
+      image,
 
     icon:
       prize.icon,
@@ -6186,62 +6269,88 @@ function renderInventory() {
 
   container.innerHTML = "";
 
-  inventory.forEach(
-    item => {
+ inventory.forEach(
+  item => {
 
-      const card =
-        document.createElement(
-          "div"
-        );
-
-      card.className =
-        "inventory-item";
-
-      card.innerHTML = `
-
-        <div
-          class="inventory-item-icon"
-        >
-          ${item.icon}
-        </div>
-
-        <div
-          class="inventory-item-info"
-        >
-
-          <div
-            class="inventory-item-name"
-          >
-            ${item.name}
-          </div>
-
-          <div
-            class="inventory-item-subtitle"
-          >
-            Твій виграний подарунок
-          </div>
-
-          <button
-            class="inventory-withdraw-button"
-            onclick="
-              event.stopPropagation();
-              openInventoryItem(${item.id})
-            "
-          >
-            📤 ВИВЕСТИ
-          </button>
-
-        </div>
-
-      `;
-
-      container.appendChild(
-        card
+    const card =
+      document.createElement(
+        "div"
       );
 
-    }
-  );
+    card.className =
+      "inventory-item";
 
+
+    const imageSrc =
+      item.image ||
+      extractInventoryImage(
+        item.icon
+      );
+
+
+    const imageHtml =
+      imageSrc
+        ? `
+          <img
+            src="${imageSrc}"
+            class="inventory-prize-image"
+            alt=""
+          >
+        `
+        : (
+            item.icon ||
+            "🎁"
+          );
+
+
+    card.innerHTML = `
+
+      <div
+        class="inventory-item-icon"
+      >
+        ${imageHtml}
+      </div>
+
+
+      <div
+        class="inventory-item-info"
+      >
+
+        <div
+          class="inventory-item-name"
+        >
+          ${item.name}
+        </div>
+
+
+        <div
+          class="inventory-item-subtitle"
+        >
+          Твій виграний подарунок
+        </div>
+
+
+        <button
+          class="inventory-withdraw-button"
+          onclick="
+            event.stopPropagation();
+            openInventoryItem(${item.id})
+          "
+        >
+          📤 ВИВЕСТИ
+        </button>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(
+      card
+    );
+
+  }
+);
 }
 
 
