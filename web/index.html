@@ -2356,7 +2356,37 @@ transition:
 
   object-fit: contain;
 
+  display: block;
+
   flex-shrink: 0;
+
+  background: transparent;
+
+  border: 0;
+
+  padding: 0;
+
+  margin: 0;
+
+  filter:
+    drop-shadow(
+      0 0 6px
+      rgba(255,255,255,.45)
+    );
+}
+    .nika-prize-img.rune-cut,
+.nika-prize-img.artifact-cut {
+  width: 38px;
+  height: 38px;
+
+  object-fit: contain;
+
+  clip-path: inset(
+    3%
+    3%
+    3%
+    3%
+  );
 }
 
 
@@ -3433,16 +3463,18 @@ transition:
 <div class="nika-tooth" style="--tooth-angle:315deg;"></div>
 <div class="nika-tooth" style="--tooth-angle:345deg;"></div>
 
-     <!-- 12 СЕКТОРІВ -->
+    <!-- 12 СЕКТОРІВ -->
 
 <div
   class="nika-slot"
   style="--angle:0deg;"
 >
-  <div class="nika-coin-prize">
-    <img src="coin.png.PNG">
-    <span>500</span>
-  </div>
+  <img
+    src="coin.png.PNG"
+    class="nika-prize-img"
+    alt="500 NIKA"
+  >
+  <span>500</span>
 </div>
 
 
@@ -3450,9 +3482,7 @@ transition:
   class="nika-slot"
   style="--angle:30deg;"
 >
-  <div class="nika-try-icon">
-    🔄
-  </div>
+  🔄
 </div>
 
 
@@ -3484,10 +3514,12 @@ transition:
   class="nika-slot"
   style="--angle:120deg;"
 >
-  <div class="nika-coin-prize">
-    <img src="coin.png.PNG">
-    <span>1000</span>
-  </div>
+  <img
+    src="coin.png.PNG"
+    class="nika-prize-img"
+    alt="1000 NIKA"
+  >
+  <span>1000</span>
 </div>
 
 
@@ -3509,7 +3541,7 @@ transition:
 >
   <img
     src="artifact.png.PNG"
-    class="nika-resource-prize-img"
+    class="nika-prize-img artifact-cut"
     alt="Артефакт"
   >
 </div>
@@ -3519,10 +3551,12 @@ transition:
   class="nika-slot"
   style="--angle:210deg;"
 >
-  <div class="nika-coin-prize">
-    <img src="coin.png.PNG">
-    <span>1500</span>
-  </div>
+  <img
+    src="coin.png.PNG"
+    class="nika-prize-img"
+    alt="1500 NIKA"
+  >
+  <span>1500</span>
 </div>
 
 
@@ -3532,8 +3566,8 @@ transition:
 >
   <img
     src="rune.png.PNG"
-    class="nika-resource-prize-img"
-    alt="Руни"
+    class="nika-prize-img rune-cut"
+    alt="10 Рун"
   >
 </div>
 
@@ -3542,10 +3576,12 @@ transition:
   class="nika-slot"
   style="--angle:270deg;"
 >
-  <div class="nika-coin-prize">
-    <img src="coin.png.PNG">
-    <span>5000</span>
-  </div>
+  <img
+    src="coin.png.PNG"
+    class="nika-prize-img"
+    alt="5000 NIKA"
+  >
+  <span>5000</span>
 </div>
 
 
@@ -3553,9 +3589,7 @@ transition:
   class="nika-slot"
   style="--angle:300deg;"
 >
-  <div class="nika-try-icon">
-    🔄
-  </div>
+  🔄
 </div>
 
 
@@ -4165,42 +4199,6 @@ function playCoinSound() {
 let wheelSpinOscillator = null;
 let wheelSpinGain = null;
 
-function startWheelSpinSound() {
-
-  if (!soundEnabled) return;
-
-  initAudio();
-
-  if (!audioCtx) return;
-
-  wheelSpinOscillator =
-    audioCtx.createOscillator();
-
-  wheelSpinGain =
-    audioCtx.createGain();
-
-  wheelSpinOscillator.type =
-    "sawtooth";
-
-  wheelSpinOscillator.frequency.value =
-    92;
-
-  wheelSpinGain.gain.setValueAtTime(
-    0.018 * (gameVolume / 100),
-    audioCtx.currentTime
-  );
-
-  wheelSpinOscillator.connect(
-    wheelSpinGain
-  );
-
-  wheelSpinGain.connect(
-    audioCtx.destination
-  );
-
-  wheelSpinOscillator.start();
-}
-
 
 function stopWheelSpinSound() {
 
@@ -4338,14 +4336,6 @@ function startWheelSpinSound() {
 
 }
 
-
-function stopWheelSpinSound(timer) {
-
-  if (timer) {
-    clearInterval(timer);
-  }
-
-}
   
 // 🌲 ЗАГАДКОВИЙ ЛІС — фонова музика
 function playAdventureMusic() {
@@ -5675,206 +5665,164 @@ function spinNika1000() {
      🎡 ПРИЗИ
   ========================= */
 
-  const prizes = [
+ const prizes = [
 
-    {
-      index: 0,
-      angle: 0,
-      chance: 35,
-      type: "coins",
-      amount: 500,
-      text: "500 монет",
-
-      icon:
-        '<div class="nika-coin-prize">' +
-        '<img src="coin.png.PNG">' +
-        '<span>500</span>' +
-        '</div>'
-    },
+  {
+    type: "coins",
+    amount: 500,
+    chance: 35,
+    text: "500 монет",
+    icon:
+      '<img src="coin.png.PNG" class="win-coin">'
+  },
 
 
-    {
-      index: 1,
-      angle: 30,
-      chance: 10,
-      type: "nothing",
-      text: "Спробуй ще раз",
-
-      icon:
-        '<div class="nika-try-icon">🔄</div>'
-    },
+  {
+    type: "try",
+    chance: 10,
+    text: "Спробуй ще раз",
+    icon: "🔄"
+  },
 
 
-    {
-      index: 2,
-      angle: 60,
-      chance: 0.3,
-      type: "gift",
-      text: "Ведмедик",
-
-      icon:
-        '<img src="teddy.png.png" class="nika-prize-img" alt="Ведмедик">'
-    },
+  {
+    type: "gift",
+    chance: 0.3,
+    text: "Ведмедик",
+    icon:
+      '<img src="teddy.png.png" class="win-prize-img">'
+  },
 
 
-    {
-      index: 3,
-      angle: 90,
-      chance: 0.2,
-      type: "gift",
-      text: "Роза",
-
-      icon:
-        '<img src="rose.png.png" class="nika-prize-img" alt="Роза">'
-    },
+  {
+    type: "gift",
+    chance: 0.2,
+    text: "Роза",
+    icon:
+      '<img src="rose.png.png" class="win-prize-img">'
+  },
 
 
-    {
-      index: 4,
-      angle: 120,
-      chance: 17.7967,
-      type: "coins",
-      amount: 1000,
-      text: "1000 монет",
-
-      icon:
-        '<div class="nika-coin-prize">' +
-        '<img src="coin.png.PNG">' +
-        '<span>1000</span>' +
-        '</div>'
-    },
+  {
+    type: "coins",
+    amount: 1000,
+    chance: 17.7966666667,
+    text: "1000 монет",
+    icon:
+      '<img src="coin.png.PNG" class="win-coin">'
+  },
 
 
-    {
-      index: 5,
-      angle: 150,
-      chance: 0.01,
-      type: "gift",
-      text: "NFT",
-
-      icon:
-        '<img src="torch_nft.png.png" class="nika-prize-img" alt="NFT">'
-    },
+  {
+    type: "gift",
+    chance: 0.01,
+    text: "NFT",
+    icon:
+      '<img src="torch_nft.png.png" class="win-prize-img">'
+  },
 
 
-    {
-      index: 6,
-      angle: 180,
-      chance: 1,
-      type: "artifact",
-      amount: 1,
-      text: "1 артефакт",
-
-      icon:
-        '<img src="artifact.png.PNG" class="nika-resource-prize-img" alt="Артефакт">'
-    },
+  {
+    type: "artifact",
+    amount: 1,
+    chance: 1,
+    text: "1 артефакт",
+    icon:
+      '<img src="artifact.png.PNG" class="win-prize-img">'
+  },
 
 
-    {
-      index: 7,
-      angle: 210,
-      chance: 12.7967,
-      type: "coins",
-      amount: 1500,
-      text: "1500 монет",
-
-      icon:
-        '<div class="nika-coin-prize">' +
-        '<img src="coin.png.PNG">' +
-        '<span>1500</span>' +
-        '</div>'
-    },
+  {
+    type: "coins",
+    amount: 1500,
+    chance: 12.7966666667,
+    text: "1500 монет",
+    icon:
+      '<img src="coin.png.PNG" class="win-coin">'
+  },
 
 
-    {
-      index: 8,
-      angle: 240,
-      chance: 5,
-      type: "runes",
-      amount: 10,
-      text: "10 Рун",
-
-      icon:
-        '<img src="rune.png.PNG" class="nika-resource-prize-img" alt="Руни">'
-    },
+  {
+    type: "runes",
+    amount: 10,
+    chance: 5,
+    text: "10 Рун",
+    icon:
+      '<img src="rune.png.PNG" class="win-prize-img">'
+  },
 
 
-    {
-      index: 9,
-      angle: 270,
-      chance: 7.7966,
-      type: "coins",
-      amount: 5000,
-      text: "5000 монет",
-
-      icon:
-        '<div class="nika-coin-prize">' +
-        '<img src="coin.png.PNG">' +
-        '<span>5000</span>' +
-        '</div>'
-    },
+  {
+    type: "coins",
+    amount: 5000,
+    chance: 7.7966666667,
+    text: "5000 монет",
+    icon:
+      '<img src="coin.png.PNG" class="win-coin">'
+  },
 
 
-    {
-      index: 10,
-      angle: 300,
-      chance: 10,
-      type: "nothing",
-      text: "Спробуй ще раз",
-
-      icon:
-        '<div class="nika-try-icon">🔄</div>'
-    },
+  {
+    type: "try",
+    chance: 10,
+    text: "Спробуй ще раз",
+    icon: "🔄"
+  },
 
 
-    {
-      index: 11,
-      angle: 330,
-      chance: 0.1,
-      type: "gift",
-      text: "Ракета",
+  {
+    type: "gift",
+    chance: 0.1,
+    text: "Ракета",
+    icon:
+      '<img src="rocket.png.png" class="win-prize-img">'
+  }
 
-      icon:
-        '<img src="rocket.png.png" class="nika-prize-img" alt="Ракета">'
-    }
-
-  ];
+];
 
 
   /* =========================
      🎯 ВИБІР ПРИЗУ ЗА ШАНСОМ
   ========================= */
 
-  const totalChance =
-    prizes.reduce(
-      (sum, prize) =>
-        sum + prize.chance,
-      0
-    );
+ const totalChance =
+  prizes.reduce(
+    (sum, prize) =>
+      sum + prize.chance,
+    0
+  );
 
-  let random =
-    Math.random() * totalChance;
+const randomChance =
+  Math.random() *
+  totalChance;
 
-  let prize =
-    prizes[0];
+let accumulatedChance = 0;
+let prizeIndex = 0;
 
-  for (const currentPrize of prizes) {
+for (
+  let i = 0;
+  i < prizes.length;
+  i++
+) {
 
-    if (
-      random <
-      currentPrize.chance
-    ) {
+  accumulatedChance +=
+    prizes[i].chance;
 
-      prize =
-        currentPrize;
+  if (
+    randomChance <
+    accumulatedChance
+  ) {
 
-      break;
-    }
+    prizeIndex = i;
 
-    random -=
-      currentPrize.chance;
+    break;
+
   }
 
+}
+
+const prize =
+  prizes[prizeIndex];
 
   /* =========================
      🎡 ПОВЕРТАЄМО КОЛЕСО
