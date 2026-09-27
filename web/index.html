@@ -2314,7 +2314,7 @@ transition:
 
   transform:
     rotate(var(--angle))
-    translateY(-113px)
+   translateY(-100px)
     rotate(
       calc(-1 * var(--angle))
     );
@@ -2351,8 +2351,10 @@ transition:
 
 
 .nika-prize-img {
-width: 32px;
-height: 32px;
+  
+width: 26px;
+  height: 26px;
+  
   object-fit: contain;
 
   display: block;
@@ -2373,6 +2375,19 @@ height: 32px;
       rgba(255,255,255,.45)
     );
 }
+    .nika-try-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  font-size: 25px;
+  line-height: 30px;
+}
+    
     .nika-prize-img.rune-cut,
 .nika-prize-img.artifact-cut {
   width: 38px;
@@ -3473,15 +3488,15 @@ height: 32px;
     class="nika-prize-img"
     alt="500 NIKA"
   >
-  <span>500</span>
+<span class="nika-coin-amount">500 монет</span>
 </div>
 
 
 <div
-  class="nika-slot"
+  class="nika-slot nika-try-slot"
   style="--angle:30deg;"
 >
-  🔄
+  <span class="nika-try-icon">🔄</span>
 </div>
 
 
@@ -3518,7 +3533,7 @@ height: 32px;
     class="nika-prize-img"
     alt="1000 NIKA"
   >
-  <span>1000</span>
+<span class="nika-coin-amount">1000 монет</span>
 </div>
 
 
@@ -3555,7 +3570,7 @@ height: 32px;
     class="nika-prize-img"
     alt="1500 NIKA"
   >
-  <span>1500</span>
+<span class="nika-coin-amount">1500 монет</span>
 </div>
 
 
@@ -3580,15 +3595,15 @@ height: 32px;
     class="nika-prize-img"
     alt="5000 NIKA"
   >
-  <span>5000</span>
+ <span class="nika-coin-amount">5000 монет</span>
 </div>
 
 
 <div
-  class="nika-slot"
+  class="nika-slot nika-try-slot"
   style="--angle:300deg;"
 >
-  🔄
+  <span class="nika-try-icon">🔄</span>
 </div>
 
 
