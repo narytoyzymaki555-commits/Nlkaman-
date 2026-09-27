@@ -3430,6 +3430,91 @@ width: 26px;
   opacity: 1 !important;
 }
     
+    /* =========================
+   🏆 РЕЗУЛЬТАТИ КІЛЬКОХ ПРОКРУТІВ
+========================= */
+
+.win-results {
+  width: 100%;
+  display: grid;
+  gap: 8px;
+  margin: 15px 0 18px;
+  justify-content: center;
+}
+
+.win-results-1,
+.win-results-2,
+.win-results-3,
+.win-results-4,
+.win-results-5 {
+  grid-template-columns: repeat(auto-fit, minmax(55px, 1fr));
+}
+
+.win-results-6,
+.win-results-7,
+.win-results-8,
+.win-results-9,
+.win-results-10 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.win-result-item {
+  min-width: 0;
+  min-height: 82px;
+  padding: 7px 4px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8,55,100,.95),
+      rgba(3,22,45,.98)
+    );
+
+  border: 1px solid rgba(55,165,255,.28);
+
+  box-shadow:
+    0 0 12px rgba(0,120,255,.10);
+}
+
+.win-result-icon {
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+}
+
+.win-result-icon .win-coin {
+  width: 36px;
+  height: 36px;
+}
+
+.win-result-icon .win-prize-img {
+  width: 38px;
+  height: 38px;
+}
+
+.win-result-name {
+  margin-top: 4px;
+
+  color: #eaf7ff;
+
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 11px;
+}
+    
   </style>
 </head>
 
@@ -4727,7 +4812,12 @@ width: 26px;
     >
       Ти виграв приз!
     </div>
-
+    
+<div
+  id="winResults"
+  class="win-results"
+></div>
+    
     <button
       class="button"
       onclick="closeWin()"
@@ -6422,13 +6512,31 @@ function spinNika1000() {
 
 
   /* =========================
+     🔢 КІЛЬКІСТЬ ПРОКРУТОК
+  ========================= */
+
+  const spinCount =
+    Math.max(
+      1,
+      Math.min(
+        10,
+        Number(nikaSpinCount) || 1
+      )
+    );
+
+
+  const totalCost =
+    spinCount * 1000;
+
+
+  /* =========================
      💰 ПЕРЕВІРКА БАЛАНСУ
   ========================= */
 
-  if (stars < 1000) {
+  if (stars < totalCost) {
 
     alert(
-      "❌ Потрібно 1000 NIKA"
+      `❌ Потрібно ${totalCost.toLocaleString("uk-UA")} NIKA`
     );
 
     return;
@@ -6436,10 +6544,22 @@ function spinNika1000() {
 
 
   /* =========================
-     💰 СПИСУЄМО 1000 NIKA
+     🔒 БЛОКУЄМО КОЛЕСО
   ========================= */
 
-  stars -= 1000;
+  nikaWheelSpinning = true;
+
+  button.disabled = true;
+
+  button.innerText =
+    "✨ ОБЕРТАЄТЬСЯ...";
+
+
+  /* =========================
+     💰 СПИСУЄМО NIKA
+  ========================= */
+
+  stars -= totalCost;
 
   localStorage.setItem(
     "nlkaman_stars",
@@ -6450,183 +6570,245 @@ function spinNika1000() {
 
 
   /* =========================
-     🎡 ПРИЗИ
+     🎁 ПРИЗИ
+     
+     ПОРЯДОК = ПОРЯДОК СЕКТОРІВ
   ========================= */
 
- const prizes = [
+  const prizes = [
 
-  {
-  type: "coins",
-  amount: 500,
-  chance: 29.2966666667,
-  text: "500 монет",
-  icon:
-    '<img src="coin.png.PNG" class="win-coin">'
-},
+    // 0° — сектор 1
+    {
+      type: "coins",
+      amount: 500,
+      chance: 29.2966666667,
+      text: "500 монет",
+      icon:
+        '<img src="coin.png.PNG" class="win-coin">'
+    },
 
+    // 30° — сектор 2
+    {
+      type: "coins",
+      amount: 250,
+      chance: 30,
+      text: "250 монет",
+      icon:
+        '<img src="coin.png.PNG" class="win-coin">'
+    },
 
-{
-  type: "coins",
-  amount: 250,
-  chance: 30,
-  text: "250 монет",
-  icon:
-    '<img src="coin.png.PNG" class="win-coin">'
-},
+    // 60° — сектор 3
+    {
+      type: "gift",
+      chance: 0.3,
+      text: "Ведмедик",
+      icon:
+        '<img src="teddy.png.PNG" class="win-prize-img">'
+    },
 
+    // 90° — сектор 4
+    {
+      type: "gift",
+      chance: 0.2,
+      text: "Роза",
+      icon:
+        '<img src="rose.png.PNG" class="win-prize-img">'
+    },
 
-  {
-    type: "gift",
-    chance: 0.3,
-    text: "Ведмедик",
-    icon:
-      '<img src="teddy.png.PNG" class="win-prize-img">'
-  },
+    // 120° — сектор 5
+    {
+      type: "coins",
+      amount: 1000,
+      chance: 8.89833333335,
+      text: "1000 монет",
+      icon:
+        '<img src="coin.png.PNG" class="win-coin">'
+    },
 
+    // 150° — сектор 6
+    {
+      type: "gift",
+      chance: 0.01,
+      text: "NFT",
+      icon:
+        '<img src="torch_nft.png.PNG" class="win-prize-img">'
+    },
 
-  {
-    type: "gift",
-    chance: 0.2,
-    text: "Роза",
-    icon:
-      '<img src="rose.png.PNG" class="win-prize-img">'
-  },
+    // 180° — сектор 7
+    {
+      type: "artifact",
+      amount: 1,
+      chance: 1,
+      text: "1 артефакт",
+      icon:
+        '<img src="artifact.png.PNG" class="win-prize-img">'
+    },
 
+    // 210° — сектор 8
+    {
+      type: "coins",
+      amount: 1500,
+      chance: 8.95766666669,
+      text: "1500 монет",
+      icon:
+        '<img src="coin.png.PNG" class="win-coin">'
+    },
 
-  {
-    type: "coins",
-    amount: 1000,
-    chance: 8.89833333335,
-    text: "1000 монет",
-    icon:
-      '<img src="coin.png.PNG" class="win-coin">'
-  },
+    // 240° — сектор 9
+    {
+      type: "runes",
+      amount: 10,
+      chance: 5,
+      text: "10 Рун",
+      icon:
+        '<img src="rune.png.PNG" class="win-prize-img">'
+    },
 
+    // 270° — сектор 10
+    {
+      type: "coins",
+      amount: 5000,
+      chance: 6.23733333336,
+      text: "5000 монет",
+      icon:
+        '<img src="coin.png.PNG" class="win-coin">'
+    },
 
-  {
-    type: "gift",
-    chance: 0.01,
-    text: "NFT",
-    icon:
-      '<img src="torch_nft.png.PNG" class="win-prize-img">'
-  },
+    // 300° — сектор 11
+    {
+      type: "try",
+      chance: 10,
+      text: "Спробуй ще раз",
+      icon: "🔄"
+    },
 
+    // 330° — сектор 12
+    {
+      type: "gift",
+      chance: 0.1,
+      text: "Ракета",
+      icon:
+        '<img src="rocket.png.PNG" class="win-prize-img">'
+    }
 
-  {
-    type: "artifact",
-    amount: 1,
-    chance: 1,
-    text: "1 артефакт",
-    icon:
-      '<img src="artifact.png.PNG" class="win-prize-img">'
-  },
-
-
-  {
-    type: "coins",
-    amount: 1500,
-    chance: 8.95766666669,
-    text: "1500 монет",
-    icon:
-      '<img src="coin.png.PNG" class="win-coin">'
-  },
-
-
-  {
-    type: "runes",
-    amount: 10,
-    chance: 5,
-    text: "10 Рун",
-    icon:
-      '<img src="rune.png.PNG" class="win-prize-img">'
-  },
-
-
-  {
-    type: "coins",
-    amount: 5000,
-    chance: 6.23733333336,
-    text: "5000 монет",
-    icon:
-      '<img src="coin.png.PNG" class="win-coin">'
-  },
-
-
-  {
-    type: "try",
-    chance: 10,
-    text: "Спробуй ще раз",
-    icon: "🔄"
-  },
-
-
-  {
-    type: "gift",
-    chance: 0.1,
-    text: "Ракета",
-    icon:
-      '<img src="rocket.png.PNG" class="win-prize-img">'
-  }
-
-];
+  ];
 
 
   /* =========================
-     🎯 ВИБІР ПРИЗУ ЗА ШАНСОМ
+     🎲 ЗАГАЛЬНИЙ ШАНС
   ========================= */
 
- const totalChance =
-  prizes.reduce(
-    (sum, prize) =>
-      sum + prize.chance,
-    0
-  );
+  const totalChance =
+    prizes.reduce(
+      (sum, prize) =>
+        sum + prize.chance,
+      0
+    );
 
-const randomChance =
-  Math.random() *
-  totalChance;
 
-let accumulatedChance = 0;
-let prizeIndex = 0;
+  /* =========================
+     🎲 ВИПАДКОВИЙ ПРИЗ
+  ========================= */
 
-for (
-  let i = 0;
-  i < prizes.length;
-  i++
-) {
+  function getRandomPrize() {
 
-  accumulatedChance +=
-    prizes[i].chance;
+    const randomChance =
+      Math.random() *
+      totalChance;
 
-  if (
-    randomChance <
-    accumulatedChance
+    let accumulatedChance = 0;
+
+    for (
+      let i = 0;
+      i < prizes.length;
+      i++
+    ) {
+
+      accumulatedChance +=
+        prizes[i].chance;
+
+      if (
+        randomChance <
+        accumulatedChance
+      ) {
+
+        return {
+          prize: prizes[i],
+          index: i
+        };
+
+      }
+
+    }
+
+    return {
+      prize:
+        prizes[prizes.length - 1],
+      index:
+        prizes.length - 1
+    };
+
+  }
+
+
+  /* =========================
+     🎁 ОТРИМУЄМО ВСІ РЕЗУЛЬТАТИ
+     
+     1 прокрутка = 1 результат
+  ========================= */
+
+  const results = [];
+
+  for (
+    let i = 0;
+    i < spinCount;
+    i++
   ) {
 
-    prizeIndex = i;
-
-    break;
+    results.push(
+      getRandomPrize()
+    );
 
   }
 
-}
 
-const prize =
-  prizes[prizeIndex];
+  console.log(
+    "🎰 Кількість:",
+    spinCount
+  );
+
+  console.log(
+    "🎁 Результати:",
+    results
+  );
+
 
   /* =========================
-     🎡 ПОВЕРТАЄМО КОЛЕСО
-     САМЕ НА ВИБРАНИЙ ПРИЗ
+     🎡 ПЕРША ВИПАВША НА КОЛЕСІ
+     
+     КОЛЕСО ФІЗИЧНО КРУТИТЬСЯ
+     ЛИШЕ ОДИН РАЗ
   ========================= */
 
-  nikaWheelSpinning =
-    true;
+  const firstResult =
+    results[0];
 
-  button.disabled = true;
+  const prizeIndex =
+    firstResult.index;
 
-  button.innerText =
-    "✨ ОБЕРТАЄТЬСЯ...";
 
+  /* =========================
+     🎡 12 СЕКТОРІВ
+     КОЖЕН = 30°
+  ========================= */
+
+  const prizeAngle =
+    prizeIndex * 30;
+
+
+  /* =========================
+     🔄 ПОТОЧНИЙ ПОВОРОТ
+  ========================= */
 
   const startRotation =
     nikaWheelRotation;
@@ -6639,13 +6821,15 @@ const prize =
     ) % 360;
 
 
-  const prizeAngle = prizeIndex * 30;
+  /* =========================
+     🎯 КУДИ МАЄ ЗУПИНИТИСЯ
+  ========================= */
 
-const targetNormalized =
-  (
-    360 -
-    prizeAngle
-  ) % 360;
+  const targetNormalized =
+    (
+      360 -
+      prizeAngle
+    ) % 360;
 
 
   const finalDifference =
@@ -6655,6 +6839,10 @@ const targetNormalized =
       360
     ) % 360;
 
+
+  /* =========================
+     🔄 6–8 ПОВНИХ ОБЕРТІВ
+  ========================= */
 
   const extraTurns =
     6 +
@@ -6673,6 +6861,10 @@ const targetNormalized =
     randomRotation;
 
 
+  /* =========================
+     ⏱ ТРИВАЛІСТЬ
+  ========================= */
+
   const duration =
     5200;
 
@@ -6681,10 +6873,19 @@ const targetNormalized =
     performance.now();
 
 
+  /* =========================
+     🔊 ЗУБЦІ
+  ========================= */
+
   let nextTooth =
     Math.ceil(
       (startRotation - 15) / 30
     ) * 30 + 15;
+
+
+  /* =========================
+     🎡 АНІМАЦІЯ
+  ========================= */
 
   function animateWheel(
     currentTime
@@ -6721,7 +6922,7 @@ const targetNormalized =
 
 
     /* =========================
-       🔺 ЗУБЕЦЬ + ЗВУК
+       🔊 ЗВУК + СТРІЛКА
     ========================= */
 
     while (
@@ -6755,8 +6956,13 @@ const targetNormalized =
 
 
       nextTooth += 30;
+
     }
 
+
+    /* =========================
+       🔄 ПРОДОВЖУЄМО
+    ========================= */
 
     if (
       progress < 1
@@ -6767,6 +6973,7 @@ const targetNormalized =
       );
 
       return;
+
     }
 
 
@@ -6789,72 +6996,224 @@ const targetNormalized =
 
       pointer.style.transform =
         "translateX(-50%) rotate(0deg)";
+
     }
 
 
     /* =========================
-       🏆 ВИДАЄМО ПРИЗ
+       🏆 ВИДАЄМО ВСІ ПРИЗИ
     ========================= */
 
-    if (
-      prize.type ===
-      "coins"
-    ) {
+    results.forEach(
+      result => {
 
-      stars +=
-        prize.amount;
-    }
+        const prize =
+          result.prize;
 
 
-    if (
-      prize.type ===
-      "runes"
-    ) {
+        // 🪙 NIKA
+        if (
+          prize.type ===
+          "coins"
+        ) {
 
-      runes +=
-        prize.amount;
+          stars +=
+            prize.amount;
 
-      localStorage.setItem(
-        "nlkaman_runes",
-        runes
-      );
-    }
+        }
 
 
-    if (
-      prize.type ===
-      "artifact"
-    ) {
+        // 🔮 РУНИ
+        if (
+          prize.type ===
+          "runes"
+        ) {
 
-      artifacts +=
-        prize.amount;
+          runes +=
+            prize.amount;
 
-      localStorage.setItem(
-        "nlkaman_artifacts",
-        artifacts
-      );
-    }
+        }
 
 
-    if (
-      prize.type ===
-      "gift"
-    ) {
+        // 💎 АРТЕФАКТ
+        if (
+          prize.type ===
+          "artifact"
+        ) {
 
-      addToInventory(
-        prize
-      );
-    }
+          artifacts +=
+            prize.amount;
 
+        }
+
+
+        // 🎁 GIFTS
+        if (
+          prize.type ===
+          "gift"
+        ) {
+
+          addToInventory(
+            prize
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       💾 ЗБЕРІГАЄМО
+    ========================= */
 
     localStorage.setItem(
       "nlkaman_stars",
       stars
     );
 
+    localStorage.setItem(
+      "nlkaman_runes",
+      runes
+    );
+
+    localStorage.setItem(
+      "nlkaman_artifacts",
+      artifacts
+    );
+
 
     updateStars();
     updateRunesAndArtifacts();
+
+
+    /* =========================
+       🏆 РЕЗУЛЬТАТИ
+    ========================= */
+
+    const winResults =
+      document.getElementById(
+        "winResults"
+      );
+
+
+    const winIcon =
+      document.getElementById(
+        "winIcon"
+      );
+
+
+    const winText =
+      document.getElementById(
+        "winText"
+      );
+
+
+    /* =========================
+       🧹 ОЧИЩАЄМО СТАРИЙ
+    ========================= */
+
+    if (winResults) {
+
+      winResults.innerHTML = "";
+
+      winResults.className =
+        `win-results win-results-${spinCount}`;
+
+
+      /* =========================
+         🎁 КОЖЕН ВИГРАШ ОКРЕМО
+      ========================= */
+
+      results.forEach(
+        result => {
+
+          const prize =
+            result.prize;
+
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "win-result-item";
+
+
+          item.innerHTML = `
+            <div class="win-result-icon">
+              ${prize.icon}
+            </div>
+
+            <div class="win-result-name">
+              ${prize.text}
+            </div>
+          `;
+
+
+          winResults.appendChild(
+            item
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       📝 ТЕКСТ
+    ========================= */
+
+    if (winText) {
+
+      if (
+        spinCount === 1
+      ) {
+
+        winText.textContent =
+          "Ти виграв: " +
+          results[0].prize.text +
+          "! 🎉";
+
+      } else {
+
+        winText.textContent =
+          `🎉 Виграші — ${spinCount} прокруток`;
+
+      }
+
+    }
+
+
+    /* =========================
+       🖼 ІКОНКА
+       
+       Для 1 прокрутки
+       залишаємо стару логіку
+    ========================= */
+
+    if (
+      winIcon
+    ) {
+
+      if (
+        spinCount === 1
+      ) {
+
+        winIcon.innerHTML =
+          results[0].prize.icon;
+
+      } else {
+
+        winIcon.innerHTML =
+          "🎁";
+
+      }
+
+    }
 
 
     /* =========================
@@ -6868,61 +7227,49 @@ const targetNormalized =
        🏆 МОДАЛЬНЕ ВІКНО
     ========================= */
 
-    const winIcon =
-      document.getElementById(
-        "winIcon"
-      );
-
-    const winText =
-      document.getElementById(
-        "winText"
-      );
-
-
-    if (winIcon) {
-
-      winIcon.innerHTML =
-        prize.icon;
-    }
-
-
-    if (winText) {
-
-      winText.textContent =
-        "Ти виграв: " +
-        prize.text +
-        "! 🎉";
-    }
-
-
     const winModal =
       document.getElementById(
         "winModal"
       );
+
 
     if (winModal) {
 
       winModal.classList.add(
         "show"
       );
+
     }
 
+
+    /* =========================
+       🔓 РОЗБЛОКОВУЄМО
+    ========================= */
 
     nikaWheelSpinning =
       false;
 
+
     button.disabled =
       false;
 
+
     button.innerText =
       "🎡 КРУТИТИ";
+
   }
 
+
+  /* =========================
+     🚀 ЗАПУСК
+  ========================= */
 
   requestAnimationFrame(
     animateWheel
   );
+
 }
+  
 /* =========================
    РЕФЕРАЛИ
 ========================= */
