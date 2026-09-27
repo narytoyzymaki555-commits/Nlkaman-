@@ -4600,10 +4600,202 @@ width: 26px;
   
   </section>
   
-<!-- 🎡 КОЛЕСО 5000 -->
-  
+  <!-- 🔴 КОЛЕСО 5000 — ЗАГАРТ -->
+
 <section
   id="wheel5000"
+  class="page wheel-screen nika-wheel-page"
+>
+
+  <div class="wheel-top-panel">
+
+    <div class="wheel-user">
+      <div
+        class="wheel-avatar"
+        id="wheelAvatar5000"
+      >
+        N
+      </div>
+
+      <div
+        class="wheel-username"
+        id="wheelUserName5000"
+      >
+        @user
+      </div>
+    </div>
+
+    <div class="wheel-resource">
+      <img
+        src="rune.png.PNG"
+        class="wheel-resource-img"
+      >
+      <span id="wheelRuneCount5000">0</span>
+    </div>
+
+    <div class="wheel-resource">
+      <img
+        src="artifact.png.PNG"
+        class="wheel-resource-img"
+      >
+      <span id="wheelArtifactCount5000">0</span>
+    </div>
+
+    <div class="wheel-resource">
+      <img src="coin.png.PNG">
+      <span id="wheelStarCount5000">0</span>
+    </div>
+
+  </div>
+
+
+  <div class="nika-wheel-stage">
+
+    <div
+      class="nika-pointer"
+      id="nikaPointer5000"
+    >
+      <div class="nika-pointer-glow"></div>
+      ▼
+    </div>
+
+
+    <div
+      class="nika-wheel"
+      id="nikaWheel5000"
+    >
+
+      <div class="nika-wheel-ring"></div>
+
+      <div class="nika-slot" style="--angle:0deg;">
+        <img src="coin.png.PNG" class="nika-prize-img">
+        <span class="nika-coin-amount">500 монет</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:30deg;">
+        <img src="coin.png.PNG" class="nika-prize-img">
+        <span class="nika-coin-amount">250 монет</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:60deg;">
+        <img src="teddy.png.PNG" class="nika-prize-img">
+      </div>
+
+      <div class="nika-slot" style="--angle:90deg;">
+        <img src="rose.png.PNG" class="nika-prize-img">
+      </div>
+
+      <div class="nika-slot" style="--angle:120deg;">
+        <img src="coin.png.PNG" class="nika-prize-img">
+        <span class="nika-coin-amount">1000 монет</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:150deg;">
+        <img src="torch_nft.png.PNG" class="nika-prize-img">
+      </div>
+
+      <div class="nika-slot" style="--angle:180deg;">
+        <img src="artifact.png.PNG" class="nika-prize-img">
+      </div>
+
+      <div class="nika-slot" style="--angle:210deg;">
+        <img src="coin.png.PNG" class="nika-prize-img">
+        <span class="nika-coin-amount">1500 монет</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:240deg;">
+        <img src="rune.png.PNG" class="nika-prize-img">
+      </div>
+
+      <div class="nika-slot" style="--angle:270deg;">
+        <img src="coin.png.PNG" class="nika-prize-img">
+        <span class="nika-coin-amount">5000 монет</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:300deg;">
+        <span class="nika-try-icon">🔄</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:330deg;">
+        <img src="rocket.png.PNG" class="nika-prize-img">
+      </div>
+
+      <div class="nika-center">
+        <div class="nika-coin">
+          <img src="coin.png.PNG">
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="nika-spin-settings">
+
+      <div class="nika-spin-settings-title">
+        КІЛЬКІСТЬ ПРОКРУТІВ
+      </div>
+
+      <div class="nika-spin-settings-row">
+
+        <button
+          class="nika-spin-count-btn"
+          onclick="changeWheelSpinCount('wheel5000', -1)"
+        >
+          −
+        </button>
+
+        <div class="nika-spin-count-value">
+          <span id="nikaSpinCount5000">1</span>
+        </div>
+
+        <button
+          class="nika-spin-count-btn"
+          onclick="changeWheelSpinCount('wheel5000', 1)"
+        >
+          +
+        </button>
+
+        <div class="nika-spin-total">
+          <span id="nikaSpinTotal5000">5</span>
+          <img src="rune.png.PNG">
+        </div>
+
+      </div>
+
+      <div class="nika-spin-bottom-row">
+
+        <div class="nika-spin-limit">
+          min 1 · max 10
+        </div>
+
+        <button
+          class="nika-spin-button"
+          id="nikaSpin5000"
+          onclick="spinWheel('wheel5000')"
+        >
+          🎡 КРУТИТИ
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="nika-chances-open-button"
+      onclick="openWheelChances('wheel5000','nikaChances5000')"
+    >
+      🎁 ШАНСИ НА ПРИЗИ
+    </button>
+
+  </div>
+
+</section>
+
+  <!-- 🟣 КОЛЕСО 10 000 — МОГУТНІСТЬ -->
+
+<section
+  id="wheel10000"
   class="page wheel-screen nika-wheel-page"
 >
 
@@ -4615,14 +4807,14 @@ width: 26px;
 
       <div
         class="wheel-avatar"
-        id="wheelAvatar"
+        id="wheelAvatar10000"
       >
         N
       </div>
 
       <div
         class="wheel-username"
-        id="wheelUserName"
+        id="wheelUserName10000"
       >
         @user
       </div>
@@ -4632,43 +4824,44 @@ width: 26px;
 
     <div class="wheel-resource">
 
-  <img
-    src="rune.png.PNG"
-    class="wheel-resource-img"
-  >
+      <img
+        src="rune.png.PNG"
+        class="wheel-resource-img"
+      >
 
-  <span id="wheelRuneCount">
-    0
-  </span>
+      <span id="wheelRuneCount10000">
+        0
+      </span>
 
-</div>
+    </div>
 
 
-<div class="wheel-resource">
+    <div class="wheel-resource">
 
-  <img
-    src="artifact.png.PNG"
-    class="wheel-resource-img"
-  >
+      <img
+        src="artifact.png.PNG"
+        class="wheel-resource-img"
+      >
 
-  <span id="wheelArtifactCount">
-    0
-  </span>
+      <span id="wheelArtifactCount10000">
+        0
+      </span>
 
-</div>
+    </div>
 
 
     <div class="wheel-resource">
 
       <img src="coin.png.PNG">
 
-      <span id="wheelStarCount">
+      <span id="wheelStarCount10000">
         0
       </span>
 
     </div>
 
   </div>
+
 
   <!-- КОЛЕСО -->
 
@@ -4678,7 +4871,7 @@ width: 26px;
 
     <div
       class="nika-pointer"
-      id="nikaPointer5000"
+      id="nikaPointer10000"
     >
 
       <div class="nika-pointer-glow"></div>
@@ -4692,210 +4885,259 @@ width: 26px;
 
     <div
       class="nika-wheel"
-      id="nikaWheel5000"
+      id="nikaWheel10000"
     >
 
       <div class="nika-wheel-ring"></div>
-      
-<!-- ⚙️ ЗУБЦІ КОЛЕСА -->
 
-<div class="nika-tooth" style="--tooth-angle:15deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:45deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:75deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:105deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:135deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:165deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:195deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:225deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:255deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:285deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:315deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:345deg;"></div>
 
-   <!-- 12 СЕКТОРІВ -->
+      <!-- ⚙️ ЗУБЦІ КОЛЕСА -->
 
-<div class="nika-slot" style="--angle:0deg;">
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="500 NIKA"
-  >
-  <span class="nika-coin-amount">500 монет</span>
-</div>
+      <div class="nika-tooth" style="--tooth-angle:15deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:45deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:75deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:105deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:135deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:165deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:195deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:225deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:255deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:285deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:315deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:345deg;"></div>
 
-<div class="nika-slot" style="--angle:30deg;">
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="250 NIKA"
-  >
-  <span class="nika-coin-amount">
-    250 монет
-  </span>
-</div>
 
-<div class="nika-slot" style="--angle:60deg;">
-  <img
-    src="teddy.png.PNG"
-    class="nika-prize-img"
-    alt="Ведмедик"
-  >
-</div>
+      <!-- 12 СЕКТОРІВ -->
 
-<div class="nika-slot" style="--angle:90deg;">
-  <img
-    src="rose.png.PNG"
-    class="nika-prize-img"
-    alt="Роза"
-  >
-</div>
+      <div class="nika-slot" style="--angle:0deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="500 NIKA"
+        >
+        <span class="nika-coin-amount">
+          500 монет
+        </span>
+      </div>
 
-<div class="nika-slot" style="--angle:120deg;">
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="1000 NIKA"
-  >
-  <span class="nika-coin-amount">1000 монет</span>
-</div>
 
-<div class="nika-slot" style="--angle:150deg;">
-  <img
-    src="torch_nft.png.PNG"
-    class="nika-prize-img"
-    alt="NFT"
-  >
-</div>
+      <div class="nika-slot" style="--angle:30deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="250 NIKA"
+        >
+        <span class="nika-coin-amount">
+          250 монет
+        </span>
+      </div>
 
-<div class="nika-slot" style="--angle:180deg;">
-  <img
-    src="artifact.png.PNG"
-    class="nika-prize-img"
-    alt="Артефакт"
-  >
-</div>
 
-<div class="nika-slot" style="--angle:210deg;">
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="1500 NIKA"
-  >
-  <span class="nika-coin-amount">1500 монет</span>
-</div>
+      <div class="nika-slot" style="--angle:60deg;">
+        <img
+          src="teddy.png.PNG"
+          class="nika-prize-img"
+          alt="Ведмедик"
+        >
+      </div>
 
-<div class="nika-slot" style="--angle:240deg;">
-  <img
-    src="rune.png.PNG"
-    class="nika-prize-img"
-    alt="10 Рун"
-  >
-</div>
 
-<div class="nika-slot" style="--angle:270deg;">
-  <img
-    src="coin.png.PNG"
-    class="nika-prize-img"
-    alt="5000 NIKA"
-  >
-  <span class="nika-coin-amount">5000 монет</span>
-</div>
+      <div class="nika-slot" style="--angle:90deg;">
+        <img
+          src="rose.png.PNG"
+          class="nika-prize-img"
+          alt="Роза"
+        >
+      </div>
 
-<div class="nika-slot" style="--angle:300deg;">
-  <span class="nika-try-icon">🔄</span>
-</div>
 
-<div class="nika-slot" style="--angle:330deg;">
-  <img
-    src="rocket.png.PNG"
-    class="nika-prize-img"
-    alt="Ракета"
-  >
-</div>
+      <div class="nika-slot" style="--angle:120deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="1000 NIKA"
+        >
+        <span class="nika-coin-amount">
+          1000 монет
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:150deg;">
+        <img
+          src="torch_nft.png.PNG"
+          class="nika-prize-img"
+          alt="NFT"
+        >
+      </div>
+
+
+      <div class="nika-slot" style="--angle:180deg;">
+        <img
+          src="artifact.png.PNG"
+          class="nika-prize-img"
+          alt="Артефакт"
+        >
+      </div>
+
+
+      <div class="nika-slot" style="--angle:210deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="1500 NIKA"
+        >
+        <span class="nika-coin-amount">
+          1500 монет
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:240deg;">
+        <img
+          src="rune.png.PNG"
+          class="nika-prize-img"
+          alt="10 Рун"
+        >
+      </div>
+
+
+      <div class="nika-slot" style="--angle:270deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="5000 NIKA"
+        >
+        <span class="nika-coin-amount">
+          5000 монет
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:300deg;">
+        <span class="nika-try-icon">
+          🔄
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:330deg;">
+        <img
+          src="rocket.png.PNG"
+          class="nika-prize-img"
+          alt="Ракета"
+        >
+      </div>
 
 
       <!-- ЦЕНТРАЛЬНА МОНЕТА -->
 
       <div class="nika-center">
 
-       <div class="nika-coin">
+        <div class="nika-coin">
 
-  <img
-    src="coin.png.PNG"
-    alt="NIKA"
-  >
+          <img
+            src="coin.png.PNG"
+            alt="NIKA"
+          >
 
-</div>
+        </div>
 
       </div>
 
     </div>
 
 
-   <!-- КІЛЬКІСТЬ ПРОКРУТІВ -->
+    <!-- КІЛЬКІСТЬ ПРОКРУТІВ -->
 
-<div class="nika-spin-settings">
+    <div class="nika-spin-settings">
 
-  <div class="nika-spin-settings-title">
-    КІЛЬКІСТЬ ПРОКРУТІВ
-  </div>
+      <div class="nika-spin-settings-title">
+        КІЛЬКІСТЬ ПРОКРУТІВ
+      </div>
 
-  <div class="nika-spin-settings-row">
 
-    <button
-      class="nika-spin-count-btn"
-      onclick="changeNikaSpinCount(-1)"
-    >
-      −
-    </button>
+      <div class="nika-spin-settings-row">
 
-    <div class="nika-spin-count-value">
-      <span id="nikaSpinCount">1</span>
+        <button
+          class="nika-spin-count-btn"
+          onclick="changeWheelSpinCount('wheel10000', -1)"
+        >
+          −
+        </button>
+
+
+        <div class="nika-spin-count-value">
+
+          <span id="nikaSpinCount10000">
+            1
+          </span>
+
+        </div>
+
+
+        <button
+          class="nika-spin-count-btn"
+          onclick="changeWheelSpinCount('wheel10000', 1)"
+        >
+          +
+        </button>
+
+
+        <div class="nika-spin-total">
+
+          <span id="nikaSpinTotal10000">
+            10
+          </span>
+
+          <img
+            src="rune.png.PNG"
+            alt="Руна"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="nika-spin-bottom-row">
+
+        <div class="nika-spin-limit">
+          min 1 · max 10
+        </div>
+
+
+        <button
+          class="nika-spin-button"
+          id="nikaSpin10000"
+          onclick="spinWheel('wheel10000')"
+        >
+          🎡 КРУТИТИ
+        </button>
+
+      </div>
+
     </div>
 
-    <button
-      class="nika-spin-count-btn"
-      onclick="changeNikaSpinCount(1)"
-    >
-      +
-    </button>
 
-    <div class="nika-spin-total">
-  <span id="nikaSpinTotal">1</span>
-  <img src="rune.png.PNG" alt="Руна">
-</div>
+    <!-- ШАНСИ -->
+
+    <button
+      class="nika-chances-open-button"
+      onclick="openWheelChances('wheel10000', 'nikaChances10000')"
+    >
+      🎁 ШАНСИ НА ПРИЗИ
+    </button>
 
   </div>
 
-  <div class="nika-spin-bottom-row">
+</section>
 
-    <div class="nika-spin-limit">
-      min 1 · max 10
-    </div>
 
-    <button
-      class="nika-spin-button"
-      id="nikaSpin5000"
-      onclick="spinNika1000()"
-    >
-      🎡 КРУТИТИ
-    </button>
-    
-  </div>
-  
-</div>
-    
-    <button
-  class="nika-chances-open-button"
-  onclick="openPage('nikaChances')"
->
-  🎁 ШАНСИ НА ПРИЗИ
-</button>
-    
-<!-- 🎁 ШАНСИ НА ПРИЗИ -->
+<!-- 🎁 ШАНСИ НА ПРИЗИ — 10 000 -->
 
 <section
-  id="nikaChances"
+  id="nikaChances10000"
   class="page nika-chances-page"
 >
 
@@ -4912,13 +5154,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="coin.png.PNG"
           alt="250 монет"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           250 монет
         </div>
@@ -4926,6 +5171,7 @@ width: 26px;
         <div class="nika-chance-percent">
           30%
         </div>
+
       </div>
 
     </div>
@@ -4936,13 +5182,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="coin.png.PNG"
           alt="500 монет"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           500 монет
         </div>
@@ -4950,6 +5199,7 @@ width: 26px;
         <div class="nika-chance-percent">
           29,30%
         </div>
+
       </div>
 
     </div>
@@ -4964,6 +5214,7 @@ width: 26px;
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           Спробуй ще раз
         </div>
@@ -4971,6 +5222,7 @@ width: 26px;
         <div class="nika-chance-percent">
           10%
         </div>
+
       </div>
 
     </div>
@@ -4981,13 +5233,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="coin.png.PNG"
           alt="1500 монет"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           1500 монет
         </div>
@@ -4995,6 +5250,7 @@ width: 26px;
         <div class="nika-chance-percent">
           8,96%
         </div>
+
       </div>
 
     </div>
@@ -5005,13 +5261,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="coin.png.PNG"
           alt="1000 монет"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           1000 монет
         </div>
@@ -5019,6 +5278,7 @@ width: 26px;
         <div class="nika-chance-percent">
           8,90%
         </div>
+
       </div>
 
     </div>
@@ -5029,13 +5289,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="coin.png.PNG"
           alt="5000 монет"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           5000 монет
         </div>
@@ -5043,6 +5306,7 @@ width: 26px;
         <div class="nika-chance-percent">
           6,24%
         </div>
+
       </div>
 
     </div>
@@ -5053,13 +5317,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="rune.png.PNG"
           alt="10 Рун"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           10 Рун
         </div>
@@ -5067,6 +5334,7 @@ width: 26px;
         <div class="nika-chance-percent">
           5%
         </div>
+
       </div>
 
     </div>
@@ -5077,13 +5345,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="artifact.png.PNG"
           alt="1 артефакт"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           1 артефакт
         </div>
@@ -5091,6 +5362,7 @@ width: 26px;
         <div class="nika-chance-percent">
           1%
         </div>
+
       </div>
 
     </div>
@@ -5101,13 +5373,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="teddy.png.PNG"
           alt="Ведмедик"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           Ведмедик
         </div>
@@ -5115,6 +5390,7 @@ width: 26px;
         <div class="nika-chance-percent">
           0,3%
         </div>
+
       </div>
 
     </div>
@@ -5125,13 +5401,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="rose.png.PNG"
           alt="Роза"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           Роза
         </div>
@@ -5139,6 +5418,7 @@ width: 26px;
         <div class="nika-chance-percent">
           0,2%
         </div>
+
       </div>
 
     </div>
@@ -5149,13 +5429,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="rocket.png.PNG"
           alt="Ракета"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           Ракета
         </div>
@@ -5163,6 +5446,7 @@ width: 26px;
         <div class="nika-chance-percent">
           0,1%
         </div>
+
       </div>
 
     </div>
@@ -5173,13 +5457,16 @@ width: 26px;
     <div class="nika-chance-card">
 
       <div class="nika-chance-image">
+
         <img
           src="torch_nft.png.PNG"
           alt="NFT"
         >
+
       </div>
 
       <div class="nika-chance-info">
+
         <div class="nika-chance-name">
           NFT
         </div>
@@ -5187,6 +5474,7 @@ width: 26px;
         <div class="nika-chance-percent">
           0,01%
         </div>
+
       </div>
 
     </div>
@@ -5197,66 +5485,707 @@ width: 26px;
 
   <button
     class="nika-chances-back-button"
-    onclick="openWheel('wheel1000')"
-  >
-    ← НАЗАД
-  </button>
-
-</section>
-  
-  </section>
-
-<!-- 🎡 КОЛЕСО 10 000 -->
-
-<section
-  id="wheel10000"
-  class="page wheel-screen"
->
-
-  <div class="section-title">
-    🎡 Колесо за 10 000 🪙
-  </div>
-
-  <div class="wheel-wrapper">
-
-    <div class="wheel-placeholder">
-      🎡
-    </div>
-
-  </div>
-
-  <button
-    class="button"
-    onclick="openPage('wheel')"
+    onclick="openWheel('wheel10000')"
   >
     ← НАЗАД
   </button>
 
 </section>
 
-
-<!-- 👥 КОЛЕСО ЗА ДРУЗІВ -->
+  <!-- 🟡 КОЛЕСО 1 АРТЕФАКТ — СЛАВА -->
 
 <section
   id="wheelFriends"
-  class="page wheel-screen"
+  class="page wheel-screen nika-wheel-page"
 >
 
-  <div class="section-title">
-    👥 Колесо за друзів
-  </div>
+  <!-- ВЕРХНЯ ПАНЕЛЬ -->
 
-  <div class="wheel-wrapper">
+  <div class="wheel-top-panel">
 
-    <div class="wheel-placeholder">
-      🎡
+    <div class="wheel-user">
+
+      <div
+        class="wheel-avatar"
+        id="wheelAvatarFriends"
+      >
+        N
+      </div>
+
+      <div
+        class="wheel-username"
+        id="wheelUserNameFriends"
+      >
+        @user
+      </div>
+
+    </div>
+
+
+    <div class="wheel-resource">
+
+      <img
+        src="rune.png.PNG"
+        class="wheel-resource-img"
+      >
+
+      <span id="wheelRuneCountFriends">
+        0
+      </span>
+
+    </div>
+
+
+    <div class="wheel-resource">
+
+      <img
+        src="artifact.png.PNG"
+        class="wheel-resource-img"
+      >
+
+      <span id="wheelArtifactCountFriends">
+        0
+      </span>
+
+    </div>
+
+
+    <div class="wheel-resource">
+
+      <img src="coin.png.PNG">
+
+      <span id="wheelStarCountFriends">
+        0
+      </span>
+
     </div>
 
   </div>
 
+
+  <!-- КОЛЕСО -->
+
+  <div class="nika-wheel-stage">
+
+    <!-- СТРІЛКА -->
+
+    <div
+      class="nika-pointer"
+      id="nikaPointerFriends"
+    >
+
+      <div class="nika-pointer-glow"></div>
+
+      ▼
+
+    </div>
+
+
+    <!-- САМО КОЛЕСО -->
+
+    <div
+      class="nika-wheel"
+      id="nikaWheelFriends"
+    >
+
+      <div class="nika-wheel-ring"></div>
+
+
+      <!-- ⚙️ ЗУБЦІ КОЛЕСА -->
+
+      <div class="nika-tooth" style="--tooth-angle:15deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:45deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:75deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:105deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:135deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:165deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:195deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:225deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:255deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:285deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:315deg;"></div>
+      <div class="nika-tooth" style="--tooth-angle:345deg;"></div>
+
+
+      <!-- 12 СЕКТОРІВ -->
+
+      <div class="nika-slot" style="--angle:0deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="500 NIKA"
+        >
+        <span class="nika-coin-amount">
+          500 монет
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:30deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="250 NIKA"
+        >
+        <span class="nika-coin-amount">
+          250 монет
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:60deg;">
+        <img
+          src="teddy.png.PNG"
+          class="nika-prize-img"
+          alt="Ведмедик"
+        >
+      </div>
+
+
+      <div class="nika-slot" style="--angle:90deg;">
+        <img
+          src="rose.png.PNG"
+          class="nika-prize-img"
+          alt="Роза"
+        >
+      </div>
+
+
+      <div class="nika-slot" style="--angle:120deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="1000 NIKA"
+        >
+        <span class="nika-coin-amount">
+          1000 монет
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:150deg;">
+        <img
+          src="torch_nft.png.PNG"
+          class="nika-prize-img"
+          alt="NFT"
+        >
+      </div>
+
+
+      <div class="nika-slot" style="--angle:180deg;">
+        <img
+          src="artifact.png.PNG"
+          class="nika-prize-img"
+          alt="Артефакт"
+        >
+      </div>
+
+
+      <div class="nika-slot" style="--angle:210deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="1500 NIKA"
+        >
+        <span class="nika-coin-amount">
+          1500 монет
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:240deg;">
+        <img
+          src="rune.png.PNG"
+          class="nika-prize-img"
+          alt="10 Рун"
+        >
+      </div>
+
+
+      <div class="nika-slot" style="--angle:270deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+          alt="5000 NIKA"
+        >
+        <span class="nika-coin-amount">
+          5000 монет
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:300deg;">
+        <span class="nika-try-icon">
+          🔄
+        </span>
+      </div>
+
+
+      <div class="nika-slot" style="--angle:330deg;">
+        <img
+          src="rocket.png.PNG"
+          class="nika-prize-img"
+          alt="Ракета"
+        >
+      </div>
+
+
+      <!-- ЦЕНТРАЛЬНА МОНЕТА -->
+
+      <div class="nika-center">
+
+        <div class="nika-coin">
+
+          <img
+            src="coin.png.PNG"
+            alt="NIKA"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- КІЛЬКІСТЬ ПРОКРУТІВ -->
+
+    <div class="nika-spin-settings">
+
+      <div class="nika-spin-settings-title">
+        КІЛЬКІСТЬ ПРОКРУТІВ
+      </div>
+
+
+      <div class="nika-spin-settings-row">
+
+        <button
+          class="nika-spin-count-btn"
+          onclick="changeWheelSpinCount('wheelFriends', -1)"
+        >
+          −
+        </button>
+
+
+        <div class="nika-spin-count-value">
+
+          <span id="nikaSpinCountFriends">
+            1
+          </span>
+
+        </div>
+
+
+        <button
+          class="nika-spin-count-btn"
+          onclick="changeWheelSpinCount('wheelFriends', 1)"
+        >
+          +
+        </button>
+
+
+        <div class="nika-spin-total">
+
+          <span id="nikaSpinTotalFriends">
+            1
+          </span>
+
+          <img
+            src="artifact.png.PNG"
+            alt="Артефакт"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="nika-spin-bottom-row">
+
+        <div class="nika-spin-limit">
+          min 1 · max 10
+        </div>
+
+
+        <button
+          class="nika-spin-button"
+          id="nikaSpinFriends"
+          onclick="spinWheel('wheelFriends')"
+        >
+          🎡 КРУТИТИ
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ШАНСИ -->
+
+    <button
+      class="nika-chances-open-button"
+      onclick="openWheelChances('wheelFriends', 'nikaChancesFriends')"
+    >
+      🎁 ШАНСИ НА ПРИЗИ
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- 🎁 ШАНСИ НА ПРИЗИ — СЛАВА -->
+
+<section
+  id="nikaChancesFriends"
+  class="page nika-chances-page"
+>
+
+  <div class="section-title">
+    🎁 ШАНСИ НА ПРИЗИ
+  </div>
+
+
+  <div class="nika-chances-list">
+
+
+    <!-- 30% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="coin.png.PNG"
+          alt="250 монет"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          250 монет
+        </div>
+
+        <div class="nika-chance-percent">
+          30%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 29,30% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="coin.png.PNG"
+          alt="500 монет"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          500 монет
+        </div>
+
+        <div class="nika-chance-percent">
+          29,30%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 10% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image nika-chance-emoji">
+        🔄
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          Спробуй ще раз
+        </div>
+
+        <div class="nika-chance-percent">
+          10%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 8,96% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="coin.png.PNG"
+          alt="1500 монет"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          1500 монет
+        </div>
+
+        <div class="nika-chance-percent">
+          8,96%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 8,90% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="coin.png.PNG"
+          alt="1000 монет"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          1000 монет
+        </div>
+
+        <div class="nika-chance-percent">
+          8,90%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 6,24% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="coin.png.PNG"
+          alt="5000 монет"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          5000 монет
+        </div>
+
+        <div class="nika-chance-percent">
+          6,24%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 5% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="rune.png.PNG"
+          alt="10 Рун"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          10 Рун
+        </div>
+
+        <div class="nika-chance-percent">
+          5%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 1% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="artifact.png.PNG"
+          alt="1 артефакт"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          1 артефакт
+        </div>
+
+        <div class="nika-chance-percent">
+          1%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 0,3% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="teddy.png.PNG"
+          alt="Ведмедик"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          Ведмедик
+        </div>
+
+        <div class="nika-chance-percent">
+          0,3%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 0,2% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="rose.png.PNG"
+          alt="Роза"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          Роза
+        </div>
+
+        <div class="nika-chance-percent">
+          0,2%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 0,1% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="rocket.png.PNG"
+          alt="Ракета"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          Ракета
+        </div>
+
+        <div class="nika-chance-percent">
+          0,1%
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 0,01% -->
+
+    <div class="nika-chance-card">
+
+      <div class="nika-chance-image">
+
+        <img
+          src="torch_nft.png.PNG"
+          alt="NFT"
+        >
+
+      </div>
+
+      <div class="nika-chance-info">
+
+        <div class="nika-chance-name">
+          NFT
+        </div>
+
+        <div class="nika-chance-percent">
+          0,01%
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
   <button
-    class="button"
-    onclick="openPage('wheel')"
+    class="nika-chances-back-button"
+    onclick="openWheel('wheelFriends')"
   >
     ← НАЗАД
   </button>
