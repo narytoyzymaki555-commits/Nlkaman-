@@ -4196,9 +4196,6 @@ function playCoinSound() {
     now + 0.05
   );
 }
-let wheelSpinOscillator = null;
-let wheelSpinGain = null;
-
 
 function stopWheelSpinSound() {
 
@@ -4311,31 +4308,6 @@ function playSpinSound() {
   }, 60);
 
 }
-
-
-function startWheelSpinSound() {
-
-  if (!soundEnabled) {
-    return null;
-  }
-
-  initAudio();
-
-  playSpinSound();
-
-  return setInterval(() => {
-
-    playTone(
-      125,
-      0.07,
-      "triangle",
-      0.010
-    );
-
-  }, 120);
-
-}
-
   
 // 🌲 ЗАГАДКОВИЙ ЛІС — фонова музика
 function playAdventureMusic() {
@@ -5849,11 +5821,13 @@ const prize =
     ) % 360;
 
 
-  const targetNormalized =
-    (
-      360 -
-      prize.angle
-    ) % 360;
+  const prizeAngle = prizeIndex * 30;
+
+const targetNormalized =
+  (
+    360 -
+    prizeAngle
+  ) % 360;
 
 
   const finalDifference =
@@ -5893,10 +5867,6 @@ const prize =
     Math.ceil(
       (startRotation - 15) / 30
     ) * 30 + 15;
-
-
-  startWheelSpinSound();
-
 
   function animateWheel(
     currentTime
@@ -5992,9 +5962,6 @@ const prize =
 
     wheel.style.transform =
       `rotate(${targetRotation}deg)`;
-
-
-    stopWheelSpinSound();
 
 
     if (pointer) {
