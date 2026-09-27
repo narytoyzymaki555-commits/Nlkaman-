@@ -6244,22 +6244,16 @@ function openPage(pageName) {
     .querySelectorAll(".page")
     .forEach(page => {
 
-      page.classList.remove(
-        "active"
-      );
+      page.classList.remove("active");
 
     });
 
   const page =
-    document.getElementById(
-      pageName
-    );
+    document.getElementById(pageName);
 
   if (page) {
 
-    page.classList.add(
-      "active"
-    );
+    page.classList.add("active");
 
   }
 
@@ -6267,9 +6261,7 @@ function openPage(pageName) {
     .querySelectorAll(".nav-btn")
     .forEach(button => {
 
-      button.classList.remove(
-        "active"
-      );
+      button.classList.remove("active");
 
     });
 
@@ -6280,9 +6272,7 @@ function openPage(pageName) {
 
   if (navButton) {
 
-    navButton.classList.add(
-      "active"
-    );
+    navButton.classList.add("active");
 
   }
 
