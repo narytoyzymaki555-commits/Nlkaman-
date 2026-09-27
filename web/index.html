@@ -3967,6 +3967,34 @@ function playAdventureMusic() {
   ];
 
   let step = 0;
+  
+  // 🎵 ЗАПУСК МУЗИКИ ПІСЛЯ ПЕРШОГО ТАПУ
+
+let firstUserInteraction = false;
+
+function startMusicOnFirstTap() {
+
+  if (firstUserInteraction) return;
+
+  firstUserInteraction = true;
+
+  if (!soundEnabled) return;
+
+  initAudio();
+
+  if (!musicTimer) {
+    playAdventureMusic();
+  }
+
+}
+
+
+// 👆 Перший будь-який тап у Mini App
+document.addEventListener(
+  "pointerdown",
+  startMusicOnFirstTap,
+  { once: true }
+);
 
   function forestNote() {
 
