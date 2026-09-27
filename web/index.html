@@ -2237,6 +2237,8 @@ transition:
     
 /* ⚙️ ЗУБЦІ, ЯКІ ВИСТУПАЮТЬ ЗА КОЛЕСО */
 
+/* 🔻 МАЛЕНЬКІ ТРИКУТНІ ЗУБЦІ */
+
 .nika-tooth {
 
   position: absolute;
@@ -2244,45 +2246,37 @@ transition:
   left: 50%;
   top: 50%;
 
-  width: 16px;
-  height: 31px;
+  width: 0;
+  height: 0;
 
-  margin-left: -8px;
-  margin-top: -15.5px;
+  margin-left: -5px;
+  margin-top: -5px;
 
   transform:
     rotate(var(--tooth-angle))
-    translateY(-175px);
+    translateY(-173px);
 
   transform-origin: center;
-
-  border-radius: 5px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #b9f7ff,
-      #168cff 45%,
-      #063d91
-    );
-
-  border: 2px solid #8eefff;
-
-  box-shadow:
-
-    0 0 6px #00cfff,
-
-    0 0 14px
-      rgba(0,150,255,.8),
-
-    inset 0 0 5px
-      rgba(255,255,255,.8);
 
   z-index: 25;
 
   pointer-events: none;
-}
 
+  /* 🔻 гострий трикутник */
+
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 10px solid #8eefff;
+
+  filter:
+    drop-shadow(
+      0 0 4px #00cfff
+    )
+    drop-shadow(
+      0 0 7px rgba(0,150,255,.75)
+    );
+}
 /* 🎁 СЕКТОРИ */
 
 .nika-slot {
