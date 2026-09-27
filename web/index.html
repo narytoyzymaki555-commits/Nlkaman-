@@ -5096,63 +5096,37 @@ function openWheel(wheelName) {
 let nikaWheelRotation = 0;
 let nikaWheelSpinning = false;
 
-
 function spinNika1000() {
 
-  if (nikaWheelSpinning) {
-    return;
-  }
+  if (nikaWheelSpinning) return;
 
   const wheel =
-    document.getElementById(
-      "nikaWheel1000"
-    );
+    document.getElementById("nikaWheel1000");
 
   const button =
-    document.getElementById(
-      "nikaSpin1000"
-    );
+    document.getElementById("nikaSpin1000");
 
   const pointer =
-    document.getElementById(
-      "nikaPointer1000"
-    );
+    document.getElementById("nikaPointer1000");
 
-  if (!wheel || !button) {
-    return;
-  }
-
+  if (!wheel || !button) return;
 
   nikaWheelSpinning = true;
 
   button.disabled = true;
+  button.innerText = "✨ ОБЕРТАЄТЬСЯ...";
 
-  button.innerText =
-    "✨ ОБЕРТАЄТЬСЯ...";
-
-
-  /*
-    🎡 Загальна кількість обертання
-  */
+  /* 3–4 оберти */
 
   const randomRotation =
-    1800 +
-    Math.floor(
-      Math.random() * 1440
-    );
-
+    1080 +
+    Math.floor(Math.random() * 360);
 
   const startRotation =
     nikaWheelRotation;
 
   const targetRotation =
-    startRotation +
-    randomRotation;
-
-
-  /*
-    🚀 Запускаємо колесо
-  */
+    startRotation + randomRotation;
 
   nikaWheelRotation =
     targetRotation;
@@ -5160,17 +5134,111 @@ function spinNika1000() {
   wheel.style.transform =
     `rotate(${targetRotation}deg)`;
 
-
-  /*
-    🔻 ЕФЕКТ СТРІЛКИ
-  */
-
   if (pointer) {
 
     const startTime =
       performance.now();
 
     const duration = 5000;
+
+    function animatePointer(currentTime) {
+
+      const elapsed =
+        currentTime - startTime;
+
+      const progress =
+        Math.min(
+          elapsed / duration,
+          1
+        );
+
+      /*
+        Повільне завершення обертання
+      */
+
+      const ease =
+        1 -
+        Math.pow(
+          1 - progress,
+          4
+        );
+
+      const currentAngle =
+        startRotation +
+        randomRotation * ease;
+
+      /*
+        ЗУБЦІ знаходяться:
+        15°, 45°, 75°...
+      */
+
+      const toothPosition =
+        (
+          (
+            currentAngle - 15
+          ) % 30 + 30
+        ) % 30;
+
+      const distance =
+        Math.min(
+          toothPosition,
+          30 - toothPosition
+        );
+
+      let pointerAngle = 0;
+
+      /*
+        На швидкому обертанні
+        стрілка майже не реагує.
+
+        Реакція тільки під час
+        уповільнення.
+      */
+
+      if (
+        progress > 0.58 &&
+        distance < 3
+      ) {
+
+        const force =
+          (3 - distance) / 3;
+
+        pointerAngle =
+          -9 * force;
+      }
+
+      pointer.style.transform =
+        `translateX(-50%) rotate(${pointerAngle}deg)`;
+
+      if (progress < 1) {
+
+        requestAnimationFrame(
+          animatePointer
+        );
+
+      } else {
+
+        pointer.style.transform =
+          "translateX(-50%) rotate(0deg)";
+      }
+    }
+
+    requestAnimationFrame(
+      animatePointer
+    );
+  }
+
+  setTimeout(() => {
+
+    nikaWheelSpinning = false;
+
+    button.disabled = false;
+
+    button.innerText =
+      "🎡 КРУТИТИ";
+
+  }, 5100);
+}
 
 
     function animatePointer(
