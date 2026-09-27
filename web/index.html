@@ -7790,75 +7790,116 @@ function loadUser() {
   const name =
     user.username
       ? "@" + user.username
-      : user.first_name ||
-        "Користувач";
+      : user.first_name || "Користувач";
+
+  // =========================
+  // 🏠 ГОЛОВНА
+  // =========================
 
   const userName =
-    document.getElementById(
-      "userName"
-    );
+    document.getElementById("userName");
 
   if (userName) {
-    userName.textContent =
-      name;
-  }
-   const wheelUserNames = [
-  "wheelUserName",
-  "wheelUserName5000",
-  "wheelUserName10000",
-  "wheelUserNameFriends"
-];
-
-wheelUserNames.forEach(id => {
-
-  const element =
-    document.getElementById(id);
-
-  if (element) {
-    element.textContent = name;
+    userName.textContent = name;
   }
 
-});
+  const userid =
+    document.getElementById("userid");
 
+  if (userid) {
+    userid.textContent =
+      "Telegram ID: " + user.id;
+  }
 
-const wheelAvatars = [
-  "wheelAvatar",
-  "wheelAvatar5000",
-  "wheelAvatar10000",
-  "wheelAvatarFriends"
-];
+  const avatar =
+    document.getElementById("avatar");
 
-wheelAvatars.forEach(id => {
+  if (avatar) {
 
-  const element =
-    document.getElementById(id);
+    if (user.photo_url) {
 
-  if (!element) return;
+      avatar.innerHTML = `
+        <img
+          src="${user.photo_url}"
+          class="telegram-avatar"
+          alt="Avatar"
+        >
+      `;
 
-  if (user.photo_url) {
+    } else {
 
-    element.innerHTML = `
-      <img
-        src="${user.photo_url}"
-        alt="Avatar"
-      >
-    `;
+      avatar.textContent =
+        (
+          user.first_name ||
+          "N"
+        )
+          .charAt(0)
+          .toUpperCase();
 
-  } else {
-
-    element.textContent =
-      (
-        user.first_name ||
-        "N"
-      )
-        .charAt(0)
-        .toUpperCase();
+    }
 
   }
 
-});
+  // =========================
+  // 🎡 ВСІ КОЛЕСА
+  // =========================
 
-  }
+  const wheelUserNames = [
+    "wheelUserName",
+    "wheelUserName5000",
+    "wheelUserName10000",
+    "wheelUserNameFriends"
+  ];
+
+  wheelUserNames.forEach(id => {
+
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+      element.textContent = name;
+    }
+
+  });
+
+  const wheelAvatars = [
+    "wheelAvatar",
+    "wheelAvatar5000",
+    "wheelAvatar10000",
+    "wheelAvatarFriends"
+  ];
+
+  wheelAvatars.forEach(id => {
+
+    const element =
+      document.getElementById(id);
+
+    if (!element) return;
+
+    if (user.photo_url) {
+
+      element.innerHTML = `
+        <img
+          src="${user.photo_url}"
+          alt="Avatar"
+        >
+      `;
+
+    } else {
+
+      element.textContent =
+        (
+          user.first_name ||
+          "N"
+        )
+          .charAt(0)
+          .toUpperCase();
+
+    }
+
+  });
+
+}
 
 /* =========================
    НАВІГАЦІЯ
