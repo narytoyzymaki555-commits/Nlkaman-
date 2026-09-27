@@ -1610,7 +1610,96 @@ height: 70vw;
 
       color: #021426 !important;
     }
-    
+    /* 🎡 МЕНЮ КОЛІС */
+
+.wheel-menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  margin: 12px 0 18px;
+}
+
+.wheel-card {
+  min-height: 155px;
+  padding: 14px 10px;
+
+  border-radius: 22px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(50, 140, 255, .16),
+      transparent 55%
+    ),
+    rgba(8, 15, 30, .94);
+
+  border: 1px solid rgba(80, 150, 255, .35);
+
+  box-shadow:
+    0 0 22px rgba(40, 120, 255, .12),
+    inset 0 0 20px rgba(40, 120, 255, .04);
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease;
+}
+
+.wheel-card:active {
+  transform: scale(.97);
+}
+
+.wheel-card-icon {
+  font-size: 45px;
+  margin-bottom: 6px;
+
+  filter:
+    drop-shadow(
+      0 0 14px
+      rgba(50, 150, 255, .45)
+    );
+}
+
+.wheel-card-price {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+
+  text-shadow:
+    0 0 10px
+    rgba(100, 170, 255, .25);
+}
+
+.wheel-card-coin {
+  width: 28px;
+  height: 28px;
+
+  object-fit: contain;
+
+  margin-top: 4px;
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(50, 150, 255, .45)
+    );
+}
+
+.wheel-card-friends {
+  font-size: 28px;
+  margin-top: 4px;
+}
     /* 🎮 ІГРОВІ РЕЖИМИ */
 
 .game-modes {
@@ -1699,7 +1788,17 @@ height: 70vw;
     0 0 10px
     rgba(100, 170, 255, .25);
 }
+    
+/* 🎡 ОКРЕМІ ЕКРАНИ КОЛІС */
 
+.wheel-screen {
+  display: none;
+}
+
+.wheel-screen.active {
+  display: block;
+}
+    
     /* 🎮 ЗАГОЛОВКИ ІГРОВИХ СТОРІНОК */
 
 .game-page-title {
@@ -2169,283 +2268,117 @@ height: 70vw;
 
   </section>
 
-  <!-- РУЛЕТКА -->
+ <!-- 🎡 КОЛЕСО -->
 
-  <section
-    id="wheel"
-    class="page"
-  >
+<section
+  id="wheel"
+  class="page"
+>
 
-    <div class="section-title">
-  🎡 Колесо
-</div>
-    <!-- ⭐ КОЛЕСО ЗА NIK -->
+  <div class="section-title">
+    🎡 Колесо
+  </div>
 
-    <div class="card wheel-game-card">
 
-      <div class="wheel-game-title">
-        🪙 Колесо за NIK
+  <!-- КАРТКИ КОЛІС -->
+
+  <div class="wheel-menu">
+
+
+    <!-- 1000 -->
+
+    <div
+      class="wheel-card"
+      onclick="openWheel('wheel1000')"
+    >
+
+      <div class="wheel-card-icon">
+        🎡
       </div>
 
-      <div class="wheel-wrapper">
-
-        <div class="wheel-pointer">
-          ▼
-        </div>
-
-        <div
-          class="wheel"
-          id="starsWheel"
-        >
-
-          <div class="wheel-sector sector-1">
-
-            <span>
-              <img
-                src="coin.png.PNG"
-                class="wheel-coin"
-              >
-            </span>
-
-            <small>5</small>
-
-          </div>
-
-          <div class="wheel-sector sector-2">
-
-            <span>
-              <img
-                src="coin.png.PNG"
-                class="wheel-coin"
-              >
-            </span>
-
-            <small>10</small>
-
-          </div>
-
-          <div class="wheel-sector sector-3">
-
-            <span>🎟</span>
-
-            <small>
-              +1
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-4">
-
-            <span>🎁</span>
-
-            <small>
-              Gift
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-5">
-
-            <span>
-              <img
-                src="coin.png.PNG"
-                class="wheel-coin"
-              >
-            </span>
-
-            <small>
-              20
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-6">
-
-            <span>🎟</span>
-
-            <small>
-              +2
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-7">
-
-            <span>💎</span>
-
-            <small>
-              NFT
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-8">
-
-            <span>😈</span>
-
-            <small>
-              0
-            </small>
-
-          </div>
-
-          <div class="wheel-center">
-            🪙
-          </div>
-
-        </div>
-
+      <div class="wheel-card-price">
+        1000
       </div>
 
-      <div class="wheel-cost">
-        10 NIK за обертання
-      </div>
-
-      <button
-        class="button"
-        id="starsSpinButton"
+      <img
+        src="coin.png.PNG"
+        class="wheel-card-coin"
       >
-        🎡 КРУТИТИ ЗА NIK
-      </button>
 
     </div>
 
-   <!-- 👥 КОЛЕСО ЗА ДРУЗІВ -->
 
-    <div class="card wheel-game-card">
+    <!-- 5000 -->
 
-      <div class="wheel-game-title">
-  👥 Колесо за друзів
-</div>
+    <div
+      class="wheel-card"
+      onclick="openWheel('wheel5000')"
+    >
 
-      <div class="wheel-wrapper">
-
-        <div class="wheel-pointer">
-          ▼
-        </div>
-
-        <div
-          class="wheel"
-          id="refWheel"
-        >
-
-          <div class="wheel-sector sector-1">
-
-            <span>🎟</span>
-
-            <small>
-              +1
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-2">
-
-            <span>
-              <img
-                src="coin.png.PNG"
-                class="wheel-coin"
-              >
-            </span>
-
-            <small>
-              5
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-3">
-
-            <span>🎁</span>
-
-            <small>
-              Gift
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-4">
-
-            <span>
-              <img
-                src="coin.png.PNG"
-                class="wheel-coin"
-              >
-            </span>
-
-            <small>
-              10
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-5">
-
-            <span>🎟</span>
-
-            <small>
-              +2
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-6">
-
-            <span>💎</span>
-
-            <small>
-              NFT
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-7">
-
-            <span>
-              <img
-                src="coin.png.PNG"
-                class="wheel-coin"
-              >
-            </span>
-
-            <small>
-              20
-            </small>
-
-          </div>
-
-          <div class="wheel-sector sector-8">
-
-            <span>😈</span>
-
-            <small>
-              0
-            </small>
-
-          </div>
-
-          <div class="wheel-center">
-            👥
-          </div>
-
-        </div>
-
+      <div class="wheel-card-icon">
+        🎡
       </div>
 
-      <div class="wheel-cost">
-        1 реферал за обертання
+      <div class="wheel-card-price">
+        5000
       </div>
 
-      <button
-        class="button secondary"
-        id="refSpinButton"
+      <img
+        src="coin.png.PNG"
+        class="wheel-card-coin"
       >
-        🎡 КРУТИТИ ЗА РЕФЕРАЛІВ
-      </button>
 
     </div>
 
-  </section>
+
+    <!-- 10000 -->
+
+    <div
+      class="wheel-card"
+      onclick="openWheel('wheel10000')"
+    >
+
+      <div class="wheel-card-icon">
+        🎡
+      </div>
+
+      <div class="wheel-card-price">
+        10 000
+      </div>
+
+      <img
+        src="coin.png.PNG"
+        class="wheel-card-coin"
+      >
+
+    </div>
+
+
+    <!-- ДРУЗІ -->
+
+    <div
+      class="wheel-card"
+      onclick="openWheel('wheelFriends')"
+    >
+
+      <div class="wheel-card-icon">
+        🎡
+      </div>
+
+      <div class="wheel-card-price">
+        1
+      </div>
+
+      <div class="wheel-card-friends">
+        👥
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
 
   <!-- ЛІДЕРБОРД -->
 
@@ -4019,7 +3952,25 @@ function openPage(pageName) {
   });
 
 }
+  
+// 🎡 ВІДКРИТТЯ КОНКРЕТНОГО КОЛЕСА
 
+function openWheel(wheelName) {
+
+  document
+    .querySelectorAll(".wheel-screen")
+    .forEach(screen => {
+      screen.classList.remove("active");
+    });
+
+  const wheel =
+    document.getElementById(wheelName);
+
+  if (wheel) {
+    wheel.classList.add("active");
+  }
+
+}
 
 /* =========================
    РЕФЕРАЛИ
