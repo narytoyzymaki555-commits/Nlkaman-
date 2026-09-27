@@ -5120,8 +5120,7 @@ function spinNika1000() {
     nikaWheelRotation;
 
   const randomRotation =
-    1080 +
-    Math.floor(Math.random() * 360);
+    1080 + Math.floor(Math.random() * 360);
 
   const targetRotation =
     startRotation + randomRotation;
@@ -5132,14 +5131,12 @@ function spinNika1000() {
     performance.now();
 
   let lastTooth =
-    Math.floor(
-      (startRotation + 15) / 30
-    );
+    Math.floor(startRotation / 30);
 
-  function animateWheel(time) {
+  function animateWheel(currentTime) {
 
     const elapsed =
-      time - startTime;
+      currentTime - startTime;
 
     const progress =
       Math.min(
@@ -5148,10 +5145,8 @@ function spinNika1000() {
       );
 
     /*
-      Швидко на початку,
-      сильно сповільнюється в кінці.
+      Плавне сповільнення
     */
-
     const ease =
       1 -
       Math.pow(
@@ -5166,65 +5161,78 @@ function spinNika1000() {
     wheel.style.transform =
       `rotate(${currentRotation}deg)`;
 
+
     /*
       =================================
-      🔺 ЗУБЕЦЬ ДОХОДИТЬ ДО СТРІЛКИ
+      🔺 ПЕРЕВІРКА ЗУБЦІВ
       =================================
-
-      Зубці знаходяться:
-
-      15°
-      45°
-      75°
-      105°
-      ...
-
-      Тому зубець проходить стрілку,
-      коли колесо доходить до
-      наступного значення.
     */
 
     const currentTooth =
       Math.floor(
-        (currentRotation + 15) / 30
+        currentRotation / 30
       );
 
+
     /*
-      Якщо новий зубець дійшов
-      до стрілки — робимо ОДИН
-      поштовх.
+      Якщо один або декілька зубців
+      пройшли стрілку
     */
 
     if (
-      currentTooth !== lastTooth
+      currentTooth > lastTooth
     ) {
+
+      const teethPassed =
+        currentTooth - lastTooth;
 
       lastTooth =
         currentTooth;
 
+
+      /*
+        Відштовхуємо стрілку
+        окремо для кожного зубця
+      */
+
       if (pointer) {
 
-        /*
-          🔻 СТРІЛКА ВІДХИЛИЛАСЯ
-        */
+        let pushCount =
+          Math.min(
+            teethPassed,
+            3
+          );
 
-        pointer.style.transform =
-          "translateX(-50%) rotate(-12deg)";
+        for (
+          let i = 0;
+          i < pushCount;
+          i++
+        ) {
 
-        /*
-          🔺 Повернення стрілки
-        */
+          setTimeout(() => {
 
-        setTimeout(() => {
+            pointer.style.transform =
+              "translateX(-50%) rotate(-12deg)";
 
-          pointer.style.transform =
-            "translateX(-50%) rotate(0deg)";
+            setTimeout(() => {
 
-        }, 110);
+              pointer.style.transform =
+                "translateX(-50%) rotate(0deg)";
+
+            }, 100);
+
+          }, i * 120);
+
+        }
 
       }
 
     }
+
+
+    /*
+      Продовжуємо обертання
+    */
 
     if (
       progress < 1
@@ -5257,7 +5265,6 @@ function spinNika1000() {
 
       button.innerText =
         "🎡 КРУТИТИ";
-
     }
 
   }
