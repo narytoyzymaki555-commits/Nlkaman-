@@ -3939,6 +3939,11 @@ width: 26px;
 #wheel10000 .nika-slot,
 #wheelFriends .nika-slot {
   z-index: 20 !important;
+
+  transform:
+    rotate(var(--angle))
+    translateY(-88px)
+    rotate(calc(-1 * var(--angle))) !important;
 }
       
       /* 🔒 ФІКС РОЗМІРУ РУН ТА АРТЕФАКТІВ */
@@ -3961,11 +3966,11 @@ width: 26px;
   display: inline-block !important;
 }
 
-.nika-spin-total img {
-  width: 20px !important;
-  height: 20px !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
+.nika-slot .nika-prize-img {
+  width: 22px !important;
+  height: 22px !important;
+  max-width: 22px !important;
+  max-height: 22px !important;
   object-fit: contain !important;
 }
 
