@@ -1854,7 +1854,8 @@ transition:
 .nika-wheel-page {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+overflow-y: visible;
 
   background:
     radial-gradient(
@@ -4008,6 +4009,15 @@ width: 26px;
   max-width: 20px !important;
   max-height: 20px !important;
   object-fit: contain !important;
+}
+
+    /* 🎡 ЗБІЛЬШЕНІ НОВІ КОЛЕСА БЕЗ ОБРІЗАННЯ */
+
+#wheel5000 .nika-wheel,
+#wheel10000 .nika-wheel,
+#wheelFriends .nika-wheel {
+  width: 300px !important;
+  height: 300px !important;
 }
     
   </style>
