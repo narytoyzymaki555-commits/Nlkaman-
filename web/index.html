@@ -4240,7 +4240,10 @@ width: 26px;
   box-shadow: none !important;
 
   overflow: visible !important;
-
+  
+  box-shadow:
+    0 0 18px rgba(30, 120, 255, 0.5),
+    0 0 40px rgba(20, 80, 255, 0.3) !important;
 }
 
 
@@ -4266,7 +4269,10 @@ width: 26px;
   box-shadow: none !important;
 
   overflow: visible !important;
-
+  
+  box-shadow:
+    0 0 18px rgba(255, 40, 20, 0.45),
+    0 0 40px rgba(255, 30, 10, 0.25) !important;
 }
 
 
@@ -4274,20 +4280,75 @@ width: 26px;
    🔒 ХОВАЄМО СТАРУ КОНСТРУКЦІЮ
 ========================= */
 
-#wheelArmor .nika-wheel::after,
 #wheelArmor .nika-wheel-ring,
 #wheelArmor .nika-tooth,
 #wheelArmor .nika-center,
 
-#wheelSwords .nika-wheel::after,
 #wheelSwords .nika-wheel-ring,
 #wheelSwords .nika-tooth,
 #wheelSwords .nika-center {
 
   display: none !important;
+}
+    
+/* 🔵 СИНІЙ ВІДТІНОК БРОНІ */
 
+#wheelArmor .nika-wheel {
+  position: relative !important;
 }
 
+#wheelArmor .nika-wheel::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+
+  border-radius: 50% !important;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 110, 255, 0.12) 0%,
+      rgba(0, 80, 255, 0.08) 45%,
+      rgba(0, 40, 255, 0.18) 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 0 25px rgba(0, 120, 255, 0.35),
+    inset 0 0 55px rgba(0, 70, 255, 0.2) !important;
+
+  pointer-events: none !important;
+  z-index: 5 !important;
+}
+
+
+/* 🔴 ЧЕРВОНИЙ ВІДТІНОК МЕЧІВ */
+
+#wheelSwords .nika-wheel {
+  position: relative !important;
+}
+
+#wheelSwords .nika-wheel::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+
+  border-radius: 50% !important;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 40, 0, 0.12) 0%,
+      rgba(255, 50, 0, 0.08) 45%,
+      rgba(255, 0, 0, 0.18) 100%
+    ) !important;
+
+  box-shadow:
+    inset 0 0 25px rgba(255, 50, 0, 0.35),
+    inset 0 0 55px rgba(255, 20, 0, 0.2) !important;
+
+  pointer-events: none !important;
+  z-index: 5 !important;
+}
 
 /* =========================
    🎁 ПОЗИЦІЇ ПРИЗІВ
