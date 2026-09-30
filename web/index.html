@@ -4224,8 +4224,8 @@ width: 26px;
 
 #wheelArmor .nika-wheel {
 
-  width: 300px !important;
-  height: 300px !important;
+  width: 310px !important;
+  height: 310px !important;
 
   background-image:
     url("wheel_armor.png.PNG") !important;
@@ -4253,8 +4253,8 @@ width: 26px;
 
 #wheelSwords .nika-wheel {
 
-  width: 300px !important;
-  height: 300px !important;
+  width: 310px !important;
+  height: 310px !important;
 
   background-image:
     url("wheel_swords.png.PNG") !important;
@@ -4360,15 +4360,9 @@ width: 26px;
   z-index: 20 !important;
 
   transform:
-
     rotate(var(--angle))
-
-    translateY(-88px)
-
-    rotate(
-      calc(-1 * var(--angle))
-    )
-
+    translateY(-96px)
+    rotate(calc(-1 * var(--angle)))
     !important;
 
 }
@@ -4380,11 +4374,11 @@ width: 26px;
 
 #wheelArmor .nika-prize-img {
 
-  width: 34px !important;
-  height: 34px !important;
+  width: 27px !important;
+height: 27px !important;
 
-  max-width: 34px !important;
-  max-height: 34px !important;
+max-width: 27px !important;
+max-height: 27px !important;
 
   object-fit: contain !important;
 
@@ -4405,11 +4399,11 @@ width: 26px;
 
 #wheelSwords .nika-prize-img {
 
-  width: 34px !important;
-  height: 34px !important;
+  width: 27px !important;
+  height: 27px !important;
 
-  max-width: 34px !important;
-  max-height: 34px !important;
+  max-width: 27px !important;
+  max-height: 27px !important;
 
   object-fit: contain !important;
 
@@ -4433,8 +4427,8 @@ width: 26px;
   #wheelArmor .nika-wheel,
   #wheelSwords .nika-wheel {
 
-    width: 290px !important;
-    height: 290px !important;
+    width: 300px !important;
+    height: 300px !important;
 
   }
 
@@ -9992,7 +9986,7 @@ const wheelStep =
     : 30;
 
 const prizeAngle =
-  prizeIndex * wheelStep + 18;
+  prizeIndex * wheelStep;
 
 
   const startRotation =
@@ -10636,7 +10630,7 @@ function createEquipmentWheel(config) {
     (prize, index) => {
 
       const angle =
-          index * 36 + 18;
+          index * 36;
 
 
       if (
