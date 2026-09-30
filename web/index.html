@@ -9872,8 +9872,16 @@ function spinWheel(wheelId) {
     firstResult.index;
 
 
-  const prizeAngle =
-    prizeIndex * 30;
+const wheelStep =
+  (
+    wheelId === "wheelArmor" ||
+    wheelId === "wheelSwords"
+  )
+    ? 36
+    : 30;
+
+const prizeAngle =
+  prizeIndex * wheelStep;
 
 
   const startRotation =
@@ -9925,14 +9933,6 @@ function spinWheel(wheelId) {
 
   const startTime =
     performance.now();
-
-const wheelStep =
-  (
-    wheelId === "wheelArmor" ||
-    wheelId === "wheelSwords"
-  )
-    ? 36
-    : 30;
 
 let nextTooth =
   Math.ceil(
@@ -10537,19 +10537,6 @@ function createEquipmentPrizes(items) {
   });
 
 }
-
-
-  /*
-    У колесі 12 секторів.
-    10 секторів = предмети.
-    2 сектори = Спробуй ще раз.
-  */
-
-
-  return prizes;
-
-}
-
 
 /* =====================================================
    🎡 СТАНИ КОЛІС
