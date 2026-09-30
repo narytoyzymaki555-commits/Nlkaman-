@@ -4168,6 +4168,49 @@ width: 26px;
     translateY(-88px)
     rotate(calc(-1 * var(--angle))) !important;
 }
+
+    /* 🔵 ІСКРА — НОВА КОНСТРУКЦІЯ */
+
+#wheel1000 .nika-wheel {
+  background-image: url("wheel_iskra.png.PNG") !important;
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  background-color: transparent !important;
+
+  border: 0 !important;
+  box-shadow: none !important;
+
+  overflow: visible !important;
+}
+
+/* Прибираємо стару конструкцію */
+
+#wheel1000 .nika-wheel::after,
+#wheel1000 .nika-wheel-ring,
+#wheel1000 .nika-tooth,
+#wheel1000 .nika-center {
+  display: none !important;
+}
+
+/* 🎁 ПРИЗИ */
+
+#wheel1000 .nika-slot {
+  z-index: 20 !important;
+
+  transform:
+    rotate(var(--angle))
+    translateY(-88px)
+    rotate(calc(-1 * var(--angle))) !important;
+}
+
+    /* 🔵 ІСКРА — РОЗМІР ЯК В ІНШИХ КОЛІС */
+
+#wheel1000 .nika-wheel {
+  width: 300px !important;
+  height: 300px !important;
+}
     
   </style>
 </head>
@@ -4724,23 +4767,6 @@ width: 26px;
       class="nika-wheel"
       id="nikaWheel1000"
     >
-
-      <div class="nika-wheel-ring"></div>
-      
-<!-- ⚙️ ЗУБЦІ КОЛЕСА -->
-
-<div class="nika-tooth" style="--tooth-angle:15deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:45deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:75deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:105deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:135deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:165deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:195deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:225deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:255deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:285deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:315deg;"></div>
-<div class="nika-tooth" style="--tooth-angle:345deg;"></div>
 
    <!-- 12 СЕКТОРІВ -->
 
