@@ -9689,9 +9689,16 @@ function spinWheel(wheelId) {
 
 
   let nextTooth =
+  Math.ceil(
+    (startRotation - 15) / 30
+  ) * 30 + 15;
+
+if (wheelId === "wheel1000") {
+  nextTooth =
     Math.ceil(
-      (startRotation - 15) / 30
-    ) * 30 + 15;
+      startRotation / 30
+    ) * 30;
+}
 
 
   function animateWheel(
