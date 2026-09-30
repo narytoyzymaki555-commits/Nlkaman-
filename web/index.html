@@ -325,7 +325,6 @@ position: fixed;
   padding: 24px 20px;
   text-align: center;
   border-radius: 26px;
-
   background:
     radial-gradient(
       circle at 50% 40%,
@@ -4074,7 +4073,6 @@ width: 26px;
 
 /* 🎡 БАЗОВЕ ПОЗИЦІОНУВАННЯ */
 #wheel5000 .nika-slot,
-#wheel10000 .nika-slot,
 #wheelFriends .nika-slot {
   transform:
     rotate(calc(var(--angle) + var(--wheel-offset)))
@@ -4085,7 +4083,6 @@ width: 26px;
 
 /* 250 монет */
 #wheel5000 .nika-slot:nth-child(3),
-#wheel10000 .nika-slot:nth-child(3),
 #wheelFriends .nika-slot:nth-child(3) {
   transform:
     rotate(calc(32deg + var(--wheel-offset)))
@@ -4096,7 +4093,6 @@ width: 26px;
 
 /* Ведмедик */
 #wheel5000 .nika-slot:nth-child(4),
-#wheel10000 .nika-slot:nth-child(4),
 #wheelFriends .nika-slot:nth-child(4) {
   transform:
     rotate(calc(63deg + var(--wheel-offset)))
@@ -4107,7 +4103,6 @@ width: 26px;
 
 /* 1000 монет */
 #wheel5000 .nika-slot:nth-child(6),
-#wheel10000 .nika-slot:nth-child(6),
 #wheelFriends .nika-slot:nth-child(6) {
   transform:
     rotate(calc(117deg + var(--wheel-offset)))
@@ -4118,7 +4113,6 @@ width: 26px;
 
 /* NFT */
 #wheel5000 .nika-slot:nth-child(7),
-#wheel10000 .nika-slot:nth-child(7),
 #wheelFriends .nika-slot:nth-child(7) {
   transform:
     rotate(calc(147deg + var(--wheel-offset)))
@@ -4129,7 +4123,6 @@ width: 26px;
 
 /* Спробуй ще раз */
 #wheel5000 .nika-slot:nth-child(12),
-#wheel10000 .nika-slot:nth-child(12),
 #wheelFriends .nika-slot:nth-child(12) {
   transform:
     rotate(calc(297deg + var(--wheel-offset)))
@@ -4140,7 +4133,6 @@ width: 26px;
 
 /* 🚀 Ракета */
 #wheel5000 .nika-slot:nth-child(13),
-#wheel10000 .nika-slot:nth-child(13),
 #wheelFriends .nika-slot:nth-child(13) {
   transform:
     rotate(calc(326deg + var(--wheel-offset)))
@@ -4151,7 +4143,6 @@ width: 26px;
 
 /* 1500 монет */
 #wheel5000 .nika-slot:nth-child(9),
-#wheel10000 .nika-slot:nth-child(9),
 #wheelFriends .nika-slot:nth-child(9) {
   transform:
     rotate(calc(207deg + var(--wheel-offset)))
@@ -4162,12 +4153,20 @@ width: 26px;
 
 /* 🟢 Руни */
 #wheel5000 .nika-slot:nth-child(10),
-#wheel10000 .nika-slot:nth-child(10),
 #wheelFriends .nika-slot:nth-child(10) {
   transform:
     rotate(calc(243deg + var(--wheel-offset)))
     translateY(-88px)
     rotate(calc(-1 * (243deg + var(--wheel-offset)))) !important;
+}
+
+    /* 🟣 МОГУТНІСТЬ — ПРИЗИ ПО ЦЕНТРУ СЕКТОРІВ */
+
+#wheel10000 .nika-slot {
+  transform:
+    rotate(var(--angle))
+    translateY(-88px)
+    rotate(calc(-1 * var(--angle))) !important;
 }
     
   </style>
