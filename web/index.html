@@ -9926,18 +9926,19 @@ function spinWheel(wheelId) {
   const startTime =
     performance.now();
 
+const wheelStep =
+  (
+    wheelId === "wheelArmor" ||
+    wheelId === "wheelSwords"
+  )
+    ? 36
+    : 30;
 
-  let nextTooth =
+let nextTooth =
   Math.ceil(
-    (startRotation - 15) / 30
-  ) * 30 + 15;
-
-if (wheelId === "wheel1000") {
-  nextTooth =
-    Math.ceil(
-      startRotation / 30
-    ) * 30;
-}
+    (startRotation - 15) / wheelStep
+  ) * wheelStep + 15;
+  
 
 
   function animateWheel(
@@ -10018,7 +10019,13 @@ if (wheelId === "wheel1000") {
       }
 
 
-      nextTooth += 30;
+     nextTooth +=
+  (
+    wheelId === "wheelArmor" ||
+    wheelId === "wheelSwords"
+  )
+    ? 36
+    : 30;
 
     }
 
@@ -10508,27 +10515,28 @@ const swordItems = [
 
 function createEquipmentPrizes(items) {
 
-  const prizes =
-    items.map(item => {
+  return items.map(item => {
 
-      return {
+    return {
 
-        type: "gift",
+      type: "gift",
 
-        chance: 1,
+      chance: 1,
 
-        text: item[1],
+      text: item[1],
 
-        icon:
-          `<img
-            src="${item[0]}"
-            class="win-prize-img"
-            alt="${item[1]}"
-          >`
+      icon:
+        `<img
+          src="${item[0]}"
+          class="win-prize-img"
+          alt="${item[1]}"
+        >`
 
-      };
+    };
 
-    });
+  });
+
+}
 
 
   /*
@@ -10536,31 +10544,6 @@ function createEquipmentPrizes(items) {
     10 секторів = предмети.
     2 сектори = Спробуй ще раз.
   */
-
-  prizes.push({
-
-    type: "try",
-
-    chance: 1,
-
-    text: "Спробуй ще раз",
-
-    icon: "🔄"
-
-  });
-
-
-  prizes.push({
-
-    type: "try",
-
-    chance: 1,
-
-    text: "Спробуй ще раз",
-
-    icon: "🔄"
-
-  });
 
 
   return prizes;
@@ -10637,7 +10620,7 @@ function createEquipmentWheel(config) {
     (prize, index) => {
 
       const angle =
-        index * 30;
+        index * 36;
 
 
       if (
