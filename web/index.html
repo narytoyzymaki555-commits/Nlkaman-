@@ -4433,6 +4433,54 @@ max-height: 27px !important;
   }
 
 }
+    /* ← НАЗАД ДО МЕНЮ КОЛІС */
+
+.nika-equipment-back-button {
+
+  width: calc(100% - 60px);
+
+  margin: 12px 30px 20px;
+
+  padding: 14px 18px;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(80, 180, 255, .45);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(10, 45, 90, .95),
+      rgba(5, 20, 45, .98)
+    );
+
+  color: #8eefff;
+
+  font-size: 16px;
+
+  font-weight: 900;
+
+  letter-spacing: .5px;
+
+  box-shadow:
+    0 0 15px rgba(0, 130, 255, .18);
+
+  cursor: pointer;
+
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease;
+
+}
+
+.nika-equipment-back-button:active {
+
+  transform: scale(.97);
+
+  box-shadow:
+    0 0 25px rgba(0, 150, 255, .35);
+
+}
     
   </style>
 </head>
@@ -10996,6 +11044,21 @@ function createEquipmentWheel(config) {
 
     </button>
 
+    <!-- НАЗАД ДО МЕНЮ КОЛІС -->
+    
+    <button
+
+  class="nika-equipment-back-button"
+
+  onclick="
+    openWheel('wheel')
+  "
+
+>
+
+  ← НАЗАД ДО КОЛІС
+
+</button>
 
   </div>
 
