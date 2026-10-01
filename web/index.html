@@ -10730,7 +10730,12 @@ function createEquipmentPrizes(items) {
       type: "gift",
       chance: item[2],
       text: item[1],
-      icon: item[0]
+      icon:
+        `<img
+          src="${item[0]}"
+          class="win-prize-img"
+          alt="${item[1]}"
+        >`
     };
   });
 
@@ -10841,7 +10846,7 @@ function createEquipmentWheel(config) {
           >
 
             <img
-  src="${prize.icon}"
+  src="${prize.icon.match(/src="([^"]+)"/)[1]}"
   class="nika-prize-img"
   alt="${prize.text}"
 >
