@@ -3989,6 +3989,24 @@ width: 26px;
   max-height: 24px !important;
   object-fit: contain !important;
 }
+    /* 🟣🟡 ПРЯМИЙ ФІКС КАРТИНОК МОГУТНІСТЬ + СЛАВА */
+
+#wheel10000 .nika-slot .nika-prize-img,
+#wheelFriends .nika-slot .nika-prize-img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 30px !important;
+  height: 30px !important;
+  max-width: 30px !important;
+  max-height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  object-fit: contain !important;
+  position: relative !important;
+  z-index: 9999 !important;
+}
+    
   /* 🔴 ЗАГАРТ — ЧІТКЕ ЧЕРВОНЕ СВІТІННЯ */
 #wheel5000 .nika-prize-img {
   filter:
@@ -4022,17 +4040,55 @@ width: 26px;
   height: 280px !important;
 }
 
-/* 🎁 МЕНШІ ЗНАЧКИ ПРИЗІВ */
+/* 🎁 ПРИЗИ — МОГУТНІСТЬ + СЛАВА */
 
-#wheel5000 .nika-slot .nika-prize-img,
 #wheel10000 .nika-slot .nika-prize-img,
 #wheelFriends .nika-slot .nika-prize-img {
-  width: 20px !important;
-  height: 20px !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  width: 28px !important;
+  height: 28px !important;
+
+  max-width: 28px !important;
+  max-height: 28px !important;
+
+  min-width: 28px !important;
+  min-height: 28px !important;
+
   object-fit: contain !important;
+  position: relative !important;
+  z-index: 999 !important;
 }
+    /* 🟣🟡 ПРИЗИ ПОВЕРХ КОЛЕСА */
+
+#wheel10000 .nika-slot,
+#wheelFriends .nika-slot {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  overflow: visible !important;
+
+  z-index: 999 !important;
+}
+
+#wheel10000 .nika-slot img,
+#wheelFriends .nika-slot img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  position: relative !important;
+  z-index: 1000 !important;
+
+  pointer-events: none !important;
+}
+    
 
     /* 🎡 ЗБІЛЬШЕНІ НОВІ КОЛЕСА БЕЗ ОБРІЗАННЯ */
 
