@@ -4472,6 +4472,498 @@ max-height: 27px !important;
 .nika-wheel-back-button:active {
   transform: scale(.92);
 }
+
+    /* =====================================================
+   🎒 НОВИЙ ІНВЕНТАР
+===================================================== */
+
+.inventory-title {
+  margin-bottom: 16px;
+
+  color: #eaf7ff;
+  font-size: 22px;
+  font-weight: 1000;
+
+  text-align: center;
+
+  text-shadow:
+    0 0 12px rgba(30,150,255,.45);
+}
+
+
+/* =====================================================
+   🖼️ ВИБРАНИЙ ПРЕДМЕТ
+===================================================== */
+
+.inventory-selected {
+
+  width: 100%;
+  min-height: 190px;
+
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(30,145,255,.18),
+      rgba(3,20,42,.80) 65%
+    );
+
+  border:
+    1px solid rgba(45,155,255,.28);
+
+  box-shadow:
+    inset 0 0 30px rgba(0,100,255,.08),
+    0 0 25px rgba(0,100,255,.08);
+
+  overflow: hidden;
+}
+
+
+.inventory-selected-image {
+
+  width: 170px;
+  height: 170px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 70px;
+
+  transition:
+    transform .2s ease,
+    filter .2s ease;
+}
+
+
+.inventory-selected-image img {
+
+  width: 160px;
+  height: 160px;
+
+  object-fit: contain;
+
+  display: block;
+
+  filter:
+    drop-shadow(0 0 12px rgba(255,255,255,.45));
+}
+
+
+/* =====================================================
+   🏷️ ЗАГОЛОВКИ
+===================================================== */
+
+.inventory-category-title {
+
+  margin-top: 18px;
+  margin-bottom: 10px;
+
+  color: #eaf7ff;
+
+  font-size: 16px;
+  font-weight: 1000;
+
+  text-transform: uppercase;
+}
+
+
+.inventory-subtitle {
+
+  margin-top: 10px;
+  margin-bottom: 8px;
+
+  color: #7198c0;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+
+/* =====================================================
+   🧱 СІТКА — 5 ПРЕДМЕТІВ В РЯД
+===================================================== */
+
+.inventory-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 7px;
+
+  width: 100%;
+
+  margin-bottom: 12px;
+}
+
+
+/* =====================================================
+   🎁 КАРТКА ПРЕДМЕТА
+===================================================== */
+
+.inventory-card {
+
+  position: relative;
+
+  min-width: 0;
+
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8,45,85,.95),
+      rgba(3,20,42,.98)
+    );
+
+  border:
+    1px solid rgba(45,155,255,.22);
+
+  cursor: pointer;
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease;
+}
+
+
+.inventory-card:active {
+
+  transform: scale(.94);
+}
+
+
+/* ВИБРАНИЙ */
+
+.inventory-card.selected {
+
+  border:
+    2px solid #1595ff;
+
+  box-shadow:
+    0 0 12px rgba(0,145,255,.55),
+    inset 0 0 12px rgba(0,145,255,.15);
+}
+
+
+/* ЕКІПІРОВАНИЙ */
+
+.inventory-card.equipped {
+
+  border:
+    2px solid #37e67c;
+
+  box-shadow:
+    0 0 13px rgba(55,230,124,.40);
+}
+
+
+/* =====================================================
+   🖼️ КАРТИНКА ПРЕДМЕТА
+===================================================== */
+
+.inventory-card img {
+
+  width: 75%;
+
+  height: 75%;
+
+  object-fit: contain;
+
+  display: block;
+
+  filter:
+    drop-shadow(0 0 7px rgba(255,255,255,.35));
+}
+
+
+/* =====================================================
+   🏷️ НАЗВА ЗБРОЇ / БРОНІ
+===================================================== */
+
+.inventory-card-name {
+
+  position: absolute;
+
+  left: 2px;
+  right: 2px;
+  bottom: 4px;
+
+  padding: 2px;
+
+  color: #ffffff;
+
+  font-size: 7px;
+  font-weight: 900;
+
+  line-height: 9px;
+
+  text-align: center;
+
+  text-shadow:
+    0 1px 4px #000;
+
+  pointer-events: none;
+}
+
+
+/* =====================================================
+   🟢 ПОЗНАЧКА EQUIPPED
+===================================================== */
+
+.inventory-equipped-label {
+
+  position: absolute;
+
+  top: 3px;
+  left: 3px;
+
+  padding: 2px 4px;
+
+  border-radius: 5px;
+
+  background: rgba(25,190,90,.85);
+
+  color: white;
+
+  font-size: 6px;
+
+  font-weight: 1000;
+}
+
+
+/* =====================================================
+   🧩 ПАНЕЛЬ ДІЙ
+===================================================== */
+
+.inventory-actions {
+
+  width: 100%;
+
+  display: flex;
+
+  gap: 8px;
+
+  margin-top: 10px;
+}
+
+
+.inventory-action-button {
+
+  flex: 1;
+
+  padding: 11px 8px;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  color: white;
+
+  font-size: 11px;
+
+  font-weight: 1000;
+
+  cursor: pointer;
+}
+
+
+.inventory-sell-button {
+
+  background:
+    linear-gradient(
+      135deg,
+      #d88b19,
+      #9e5900
+    );
+}
+
+
+.inventory-equip-button {
+
+  background:
+    linear-gradient(
+      135deg,
+      #08b95c,
+      #087c3f
+    );
+}
+
+
+.inventory-withdraw-button-new {
+
+  background:
+    linear-gradient(
+      135deg,
+      #087cff,
+      #0750c7
+    );
+}
+
+
+.inventory-exchange-button {
+
+  background:
+    linear-gradient(
+      135deg,
+      #9147ff,
+      #5d22b8
+    );
+}
+
+
+/* =====================================================
+   🎁 NFT — БЕЗ НАЗВИ
+===================================================== */
+
+.inventory-gift-card {
+
+  position: relative;
+
+  min-width: 0;
+
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(140,70,255,.15),
+      rgba(3,20,42,.98)
+    );
+
+  border:
+    1px solid rgba(150,90,255,.28);
+
+  cursor: pointer;
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease;
+}
+
+
+.inventory-gift-card.selected {
+
+  border:
+    2px solid #a25cff;
+
+  box-shadow:
+    0 0 14px rgba(145,70,255,.50);
+}
+
+
+.inventory-gift-card img {
+
+  width: 78%;
+  height: 78%;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 0 9px rgba(180,120,255,.45));
+}
+
+
+/* =====================================================
+   🚫 ПУСТО
+===================================================== */
+
+#inventoryEmpty {
+
+  min-height: 180px;
+
+  display: none;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 20px;
+
+  border:
+    1px solid rgba(30,145,255,.22);
+
+  background:
+    rgba(5,25,50,.55);
+
+  color: #7198a8;
+
+  text-align: center;
+
+  margin-top: 15px;
+}
+
+
+.inventory-empty-icon {
+
+  font-size: 45px;
+
+  margin-bottom: 10px;
+}
+
+
+/* =====================================================
+   📱 ТЕЛЕФОН
+===================================================== */
+
+@media (max-width: 420px) {
+
+  .inventory-grid {
+
+    gap: 5px;
+  }
+
+  .inventory-card-name {
+
+    font-size: 6px;
+    line-height: 7px;
+  }
+
+  .inventory-selected {
+
+    min-height: 170px;
+  }
+
+  .inventory-selected-image {
+
+    width: 150px;
+    height: 150px;
+  }
+
+  .inventory-selected-image img {
+
+    width: 135px;
+    height: 135px;
+  }
+
+}
     
   </style>
 </head>
@@ -4635,30 +5127,91 @@ max-height: 27px !important;
 
 </section>
 
-  <!-- ІНВЕНТАР -->
+ <!-- 🎒 НОВИЙ ІНВЕНТАР -->
 
-  <section
-    id="inventory"
-    class="page"
+<section
+  id="inventory"
+  class="page"
+>
+
+  <div class="inventory-title">
+    🎒 МІЙ ІНВЕНТАР
+  </div>
+
+  <!-- ВЕЛИКЕ ЗОБРАЖЕННЯ ВИБРАНОГО ПРЕДМЕТА -->
+  <div
+    id="inventorySelected"
+    class="inventory-selected"
   >
 
-    <div class="inventory-title">
-      🎁 Мій інвентар
+    <div
+      id="inventorySelectedImage"
+      class="inventory-selected-image"
+    >
+      🎁
     </div>
 
-    <div class="inventory-empty">
+  </div>
 
-      <div class="inventory-empty-icon">
-        🎁
-      </div>
+  <!-- ⚔️ СПОРЯДЖЕННЯ -->
 
-      <div>
-        Тут з'являться твої виграні подарунки
-      </div>
+  <div class="inventory-category-title">
+    ⚔️ СПОРЯДЖЕННЯ
+  </div>
 
+  <!-- ЗБРОЯ -->
+
+  <div class="inventory-subtitle">
+    ⚔️ ЗБРОЯ
+  </div>
+
+  <div
+    id="inventoryWeapons"
+    class="inventory-grid"
+  ></div>
+
+  <!-- БРОНЯ -->
+
+  <div class="inventory-subtitle">
+    🛡️ ЗАХИСТ
+  </div>
+
+  <div
+    id="inventoryArmor"
+    class="inventory-grid"
+  ></div>
+
+
+  <!-- 🎁 NFT ПОДАРУНКИ -->
+
+  <div class="inventory-category-title">
+    🎁 NFT ПОДАРУНКИ
+  </div>
+
+  <div
+    id="inventoryGifts"
+    class="inventory-grid"
+  ></div>
+
+
+  <!-- ПОВІДОМЛЕННЯ, КОЛИ ІНВЕНТАР ПУСТИЙ -->
+
+  <div
+    id="inventoryEmpty"
+    class="inventory-empty"
+  >
+
+    <div class="inventory-empty-icon">
+      🎁
     </div>
 
-  </section>
+    <div>
+      Тут поки що немає предметів
+    </div>
+
+  </div>
+
+</section>
 
   <!-- 🛠️ МАЙСТЕРНЯ -->
 
@@ -11328,9 +11881,14 @@ let referralLink = "";
 let referrals = 0;
 
 
-/* =========================
-   ІНВЕНТАР
-========================= */
+/* =====================================================
+   🎒 НОВА СИСТЕМА ІНВЕНТАРЮ
+===================================================== */
+
+
+/* =====================================================
+   💾 ІНВЕНТАР
+===================================================== */
 
 let inventory =
   JSON.parse(
@@ -11340,23 +11898,35 @@ let inventory =
   );
 
 
+let selectedInventoryId = null;
+
+
+/* =====================================================
+   💾 ЗБЕРЕЖЕННЯ
+===================================================== */
+
 function saveInventory() {
 
   localStorage.setItem(
     "nlkaman_inventory",
-    JSON.stringify(
-      inventory
-    )
+    JSON.stringify(inventory)
   );
 
 }
+
+
+/* =====================================================
+   🖼️ ОТРИМАННЯ КАРТИНКИ
+===================================================== */
 
 function extractInventoryImage(icon) {
 
   if (
     typeof icon !== "string"
   ) {
+
     return "";
+
   }
 
 
@@ -11369,8 +11939,93 @@ function extractInventoryImage(icon) {
   return match
     ? match[1]
     : "";
+
 }
 
+
+/* =====================================================
+   🔎 ВИЗНАЧЕННЯ ТИПУ ПРЕДМЕТА
+===================================================== */
+
+function getInventoryItemType(
+  name,
+  image
+) {
+
+  const text =
+    (
+      String(name || "") +
+      " " +
+      String(image || "")
+    ).toLowerCase();
+
+
+  /* ⚔️ ЗБРОЯ */
+
+  const weaponWords = [
+
+    "меч",
+    "меча",
+    "вила",
+    "сокира",
+    "blade",
+    "fork_farmer",
+    "axe_woodcutter",
+    "steel_blade",
+    "flame_blade",
+    "blue_flame_blade",
+    "lightning_blade",
+    "dragon_flame_blade",
+    "conqueror_blade",
+    "hydro_blade",
+    "sun_god_blade"
+
+  ];
+
+
+  if (
+    weaponWords.some(
+      word => text.includes(word)
+    )
+  ) {
+
+    return "weapon";
+
+  }
+
+
+  /* 🛡️ БРОНЯ */
+
+  const armorWords = [
+
+    "броня",
+    "armor",
+    "rmor_dragon"
+
+  ];
+
+
+  if (
+    armorWords.some(
+      word => text.includes(word)
+    )
+  ) {
+
+    return "armor";
+
+  }
+
+
+  /* 🎁 ВСЕ ІНШЕ — ПОДАРУНОК */
+
+  return "gift";
+
+}
+
+
+/* =====================================================
+   🎁 ДОДАВАННЯ ПРЕДМЕТА
+===================================================== */
 
 function addToInventory(prize) {
 
@@ -11380,10 +12035,20 @@ function addToInventory(prize) {
     );
 
 
+  const type =
+    getInventoryItemType(
+      prize.text,
+      image
+    );
+
+
   inventory.push({
 
     id:
-      Date.now(),
+      Date.now() +
+      Math.floor(
+        Math.random() * 10000
+      ),
 
     image:
       image,
@@ -11392,7 +12057,13 @@ function addToInventory(prize) {
       prize.icon,
 
     name:
-      prize.text
+      prize.text,
+
+    type:
+      type,
+
+    equipped:
+      false
 
   });
 
@@ -11404,157 +12075,36 @@ function addToInventory(prize) {
 }
 
 
-function renderInventory() {
+/* =====================================================
+   🧹 ВИДАЛЕННЯ
+===================================================== */
 
-  const inventoryPage =
-    document.getElementById(
-      "inventory"
+function removeInventoryItem(
+  itemId
+) {
+
+  inventory =
+    inventory.filter(
+      item =>
+        item.id !== itemId
     );
 
-  if (!inventoryPage)
-    return;
 
-  const empty =
-    inventoryPage.querySelector(
-      ".inventory-empty"
-    );
+  saveInventory();
 
-  if (
-    inventory.length === 0
-  ) {
+  selectedInventoryId =
+    null;
 
-    if (empty) {
-
-      empty.style.display =
-        "flex";
-
-    }
-
-    return;
-
-  }
-
-  if (empty) {
-
-    empty.style.display =
-      "none";
-
-  }
-
-  let container =
-    document.getElementById(
-      "inventoryItems"
-    );
-
-  if (!container) {
-
-    container =
-      document.createElement(
-        "div"
-      );
-
-    container.id =
-      "inventoryItems";
-
-    inventoryPage.appendChild(
-      container
-    );
-
-  }
-
-  container.innerHTML = "";
-
- inventory.forEach(
-  item => {
-
-    const card =
-      document.createElement(
-        "div"
-      );
-
-
-    card.className =
-      "inventory-item";
-
-
-    const imageSrc =
-      item.image ||
-      extractInventoryImage(
-        item.icon
-      );
-
-
-    const imageHtml =
-      imageSrc
-        ? `
-          <img
-            src="${imageSrc}"
-            class="inventory-prize-image"
-            alt=""
-          >
-        `
-        : (
-            item.icon ||
-            "🎁"
-          );
-
-
-    card.innerHTML = `
-
-      <div
-        class="inventory-item-icon"
-      >
-
-        ${imageHtml}
-
-      </div>
-
-
-      <div
-        class="inventory-item-info"
-      >
-
-        <div
-          class="inventory-item-name"
-        >
-          ${item.name}
-        </div>
-
-
-        <div
-          class="inventory-item-subtitle"
-        >
-          Твій виграний подарунок
-        </div>
-
-
-        <button
-          class="inventory-withdraw-button"
-          onclick="
-            event.stopPropagation();
-            openInventoryItem(${item.id})
-          "
-        >
-          📤 ВИВЕСТИ
-        </button>
-
-      </div>
-
-    `;
-
-
-     container.appendChild(
-      card
-    );
-
-  }
-);
-
+  renderInventory();
 
 }
 
 
-function openInventoryItem(
+/* =====================================================
+   🖼️ ВИБІР ПРЕДМЕТА
+===================================================== */
+
+function selectInventoryItem(
   itemId
 ) {
 
@@ -11564,92 +12114,731 @@ function openInventoryItem(
         item.id === itemId
     );
 
-  if (!item)
-    return;
 
-  const action =
-    prompt(
+  if (!item) return;
 
-      "🎁 " +
-      item.name +
-      "\n\n" +
 
-      "Введи номер дії:\n\n" +
+  selectedInventoryId =
+    itemId;
 
-      "1 — 📤 Вивести\n" +
 
-      "2 — 🎟 Продати за 10 квитків\n" +
+  renderInventory();
 
-      "3 — ❌ Скасувати"
+}
 
+
+/* =====================================================
+   🖼️ ВЕЛИКЕ ЗОБРАЖЕННЯ
+===================================================== */
+
+function renderSelectedInventoryItem() {
+
+  const box =
+    document.getElementById(
+      "inventorySelectedImage"
     );
 
-  if (
-    action === "3" ||
-    action === null
-  ) {
+
+  if (!box) return;
+
+
+  const item =
+    inventory.find(
+      item =>
+        item.id ===
+        selectedInventoryId
+    );
+
+
+  if (!item) {
+
+    box.innerHTML = "🎁";
 
     return;
 
   }
 
-  if (
-    action === "1"
-  ) {
 
-    alert(
-
-      "📤 Виведення подарунка\n\n" +
-
-      "Подарунок: " +
-      item.name +
-
-      "\n\n" +
-
-      "Функція виведення буде доступна пізніше."
-
+  const imageSrc =
+    item.image ||
+    extractInventoryImage(
+      item.icon
     );
 
-    return;
+
+  if (imageSrc) {
+
+    box.innerHTML = `
+      <img
+        src="${imageSrc}"
+        alt=""
+      >
+    `;
+
+  } else {
+
+    box.innerHTML =
+      item.icon ||
+      "🎁";
 
   }
 
-  if (
-    action === "2"
-  ) {
+}
 
-    tickets += 10;
 
-    inventory =
-      inventory.filter(
-        item =>
-          item.id !== itemId
+/* =====================================================
+   🧱 СТВОРЕННЯ КАРТКИ
+===================================================== */
+
+function createInventoryCard(
+  item
+) {
+
+  const imageSrc =
+    item.image ||
+    extractInventoryImage(
+      item.icon
+    );
+
+
+  const card =
+    document.createElement(
+      "div"
+    );
+
+
+  const isSelected =
+    selectedInventoryId ===
+    item.id;
+
+
+  const isEquipped =
+    item.equipped === true;
+
+
+  if (item.type === "gift") {
+
+    card.className =
+      "inventory-gift-card" +
+      (
+        isSelected
+          ? " selected"
+          : ""
       );
 
-    saveInventory();
 
-    localStorage.setItem(
-      "nlkaman_tickets",
-      tickets
+  } else {
+
+    card.className =
+      "inventory-card" +
+      (
+        isSelected
+          ? " selected"
+          : ""
+      ) +
+      (
+        isEquipped
+          ? " equipped"
+          : ""
+      );
+
+  }
+
+
+  card.onclick =
+    function() {
+
+      selectInventoryItem(
+        item.id
+      );
+
+    };
+
+
+  let imageHTML;
+
+
+  if (imageSrc) {
+
+    imageHTML = `
+      <img
+        src="${imageSrc}"
+        alt=""
+      >
+    `;
+
+  } else {
+
+    imageHTML =
+      item.icon ||
+      "🎁";
+
+  }
+
+
+  card.innerHTML =
+    imageHTML;
+
+
+  /* ⚔️ НАЗВА ЛИШЕ ДЛЯ СПОРЯДЖЕННЯ */
+
+  if (
+    item.type === "weapon" ||
+    item.type === "armor"
+  ) {
+
+    const name =
+      document.createElement(
+        "div"
+      );
+
+
+    name.className =
+      "inventory-card-name";
+
+
+    name.textContent =
+      item.name || "Предмет";
+
+
+    card.appendChild(
+      name
     );
 
-    updateTickets();
 
-    renderInventory();
+    if (isEquipped) {
 
-    alert(
-      "✅ Подарунок продано!\n+10 квитків"
+      const label =
+        document.createElement(
+          "div"
+        );
+
+
+      label.className =
+        "inventory-equipped-label";
+
+
+      label.textContent =
+        "EQUIPPED";
+
+
+      card.appendChild(
+        label
+      );
+
+    }
+
+  }
+
+
+  return card;
+
+}
+
+
+/* =====================================================
+   🎒 РЕНДЕР ІНВЕНТАРЮ
+===================================================== */
+
+function renderInventory() {
+
+  const weapons =
+    document.getElementById(
+      "inventoryWeapons"
     );
+
+
+  const armor =
+    document.getElementById(
+      "inventoryArmor"
+    );
+
+
+  const gifts =
+    document.getElementById(
+      "inventoryGifts"
+    );
+
+
+  const empty =
+    document.getElementById(
+      "inventoryEmpty"
+    );
+
+
+  if (
+    !weapons ||
+    !armor ||
+    !gifts
+  ) {
 
     return;
 
   }
 
-  alert(
-    "❌ Невірний вибір"
+
+  weapons.innerHTML = "";
+
+  armor.innerHTML = "";
+
+  gifts.innerHTML = "";
+
+
+  /* =================================================
+     СТАРІ ПРЕДМЕТИ
+  ================================================= */
+
+  inventory.forEach(
+    item => {
+
+      /* Якщо старий предмет
+         ще не має type */
+
+      if (!item.type) {
+
+        item.type =
+          getInventoryItemType(
+            item.name,
+            item.image ||
+            item.icon
+          );
+
+      }
+
+
+      if (
+        typeof item.equipped !==
+        "boolean"
+      ) {
+
+        item.equipped =
+          false;
+
+      }
+
+
+      const card =
+        createInventoryCard(
+          item
+        );
+
+
+      if (
+        item.type === "weapon"
+      ) {
+
+        weapons.appendChild(
+          card
+        );
+
+      }
+
+
+      else if (
+        item.type === "armor"
+      ) {
+
+        armor.appendChild(
+          card
+        );
+
+      }
+
+
+      else {
+
+        gifts.appendChild(
+          card
+        );
+
+      }
+
+    }
+  );
+
+
+  saveInventory();
+
+
+  /* =================================================
+     ПУСТО
+  ================================================= */
+
+  if (
+    inventory.length === 0
+  ) {
+
+    empty.style.display =
+      "flex";
+
+  } else {
+
+    empty.style.display =
+      "none";
+
+  }
+
+
+  renderSelectedInventoryItem();
+
+
+  renderInventoryActions();
+
+}
+
+
+/* =====================================================
+   ⚙️ ПАНЕЛЬ ДІЙ
+===================================================== */
+
+function renderInventoryActions() {
+
+  const oldActions =
+    document.getElementById(
+      "inventoryActions"
+    );
+
+
+  if (oldActions) {
+
+    oldActions.remove();
+
+  }
+
+
+  const item =
+    inventory.find(
+      item =>
+        item.id ===
+        selectedInventoryId
+    );
+
+
+  if (!item) return;
+
+
+  const selected =
+    document.getElementById(
+      "inventorySelected"
+    );
+
+
+  if (!selected) return;
+
+
+  const actions =
+    document.createElement(
+      "div"
+    );
+
+
+  actions.id =
+    "inventoryActions";
+
+
+  actions.className =
+    "inventory-actions";
+
+
+  /* ⚔️ ЗБРОЯ / БРОНЯ */
+
+  if (
+    item.type === "weapon" ||
+    item.type === "armor"
+  ) {
+
+    actions.innerHTML = `
+
+      <button
+        class="
+          inventory-action-button
+          inventory-sell-button
+        "
+        onclick="
+          sellInventoryItem(
+            ${item.id}
+          )
+        "
+      >
+        💰 ПРОДАТИ
+      </button>
+
+
+      <button
+        class="
+          inventory-action-button
+          inventory-equip-button
+        "
+        onclick="
+          toggleEquipInventoryItem(
+            ${item.id}
+          )
+        "
+      >
+        ${
+          item.equipped
+            ? "❌ ЗНЯТИ"
+            : "⚔️ ЕКІПІРУВАТИ"
+        }
+      </button>
+
+    `;
+
+  }
+
+
+  /* 🎁 NFT */
+
+  else {
+
+    actions.innerHTML = `
+
+      <button
+        class="
+          inventory-action-button
+          inventory-withdraw-button-new
+        "
+        onclick="
+          withdrawInventoryItem(
+            ${item.id}
+          )
+        "
+      >
+        📤 ВИВЕСТИ
+      </button>
+
+
+      <button
+        class="
+          inventory-action-button
+          inventory-exchange-button
+        "
+        onclick="
+          exchangeInventoryItem(
+            ${item.id}
+          )
+        "
+      >
+        🔄 ОБМІНЯТИ
+      </button>
+
+    `;
+
+  }
+
+
+  selected.appendChild(
+    actions
   );
 
 }
+
+
+/* =====================================================
+   ⚔️ ЕКІПІРУВАТИ
+===================================================== */
+
+function toggleEquipInventoryItem(
+  itemId
+) {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id === itemId
+    );
+
+
+  if (!item) return;
+
+
+  if (
+    item.equipped
+  ) {
+
+    item.equipped =
+      false;
+
+  } else {
+
+    /*
+      Одночасно може бути
+      екіпірований один меч
+      і одна броня.
+    */
+
+    inventory.forEach(
+      other => {
+
+        if (
+          other.type ===
+          item.type
+        ) {
+
+          other.equipped =
+            false;
+
+        }
+
+      }
+    );
+
+
+    item.equipped =
+      true;
+
+  }
+
+
+  saveInventory();
+
+  renderInventory();
+
+}
+
+
+/* =====================================================
+   💰 ПРОДАТИ
+===================================================== */
+
+function sellInventoryItem(
+  itemId
+) {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id === itemId
+    );
+
+
+  if (!item) return;
+
+
+  const confirmSell =
+    confirm(
+      "💰 Продати предмет?\n\n" +
+      (
+        item.name ||
+        "Предмет"
+      ) +
+      "\n\n" +
+      "🎟 +10 квитків"
+    );
+
+
+  if (!confirmSell) return;
+
+
+  tickets += 10;
+
+
+  localStorage.setItem(
+    "nlkaman_tickets",
+    tickets
+  );
+
+
+  updateTickets();
+
+
+  removeInventoryItem(
+    itemId
+  );
+
+
+  alert(
+    "✅ Предмет продано!\n\n" +
+    "🎟 +10 квитків"
+  );
+
+}
+
+
+/* =====================================================
+   📤 ВИВЕСТИ NFT
+===================================================== */
+
+function withdrawInventoryItem(
+  itemId
+) {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id === itemId
+    );
+
+
+  if (!item) return;
+
+
+  alert(
+    "📤 ВИВЕДЕННЯ\n\n" +
+    "Функція виведення буде підключена пізніше."
+  );
+
+}
+
+
+/* =====================================================
+   🔄 ОБМІН NFT
+===================================================== */
+
+function exchangeInventoryItem(
+  itemId
+) {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id === itemId
+    );
+
+
+  if (!item) return;
+
+
+  const confirmExchange =
+    confirm(
+      "🔄 Обміняти цей подарунок?\n\n" +
+      "🎟 +10 квитків"
+    );
+
+
+  if (!confirmExchange) return;
+
+
+  tickets += 10;
+
+
+  localStorage.setItem(
+    "nlkaman_tickets",
+    tickets
+  );
+
+
+  updateTickets();
+
+
+  removeInventoryItem(
+    itemId
+  );
+
+
+  alert(
+    "✅ Подарунок обміняно!\n\n" +
+    "🎟 +10 квитків"
+  );
+
+}
+
+
+/* =====================================================
+   🚀 ЗАПУСК
+===================================================== */
+
+renderInventory();
 
 
 /* =========================
