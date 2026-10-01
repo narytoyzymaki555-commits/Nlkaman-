@@ -6019,10 +6019,7 @@ max-height: 27px !important;
   class="page wheel-screen nika-wheel-page wheel-zahart"
 >
 
-  <!-- ІМ'Я КОРИСТУВАЧА -->
-  <div class="wheel-username" id="wheelUserName5000">
-    @user
-  </div>
+  <!-- ВЕРХНЯ ПАНЕЛЬ -->
 
   <div class="wheel-top-panel">
 
@@ -6036,129 +6033,201 @@ max-height: 27px !important;
         N
       </div>
 
-      <!-- РЕСУРСИ -->
-      <div>
-
-        <div class="wheel-resource">
-          <img
-            src="rune.png.PNG"
-            class="wheel-resource-img"
-          >
-          <span id="wheelRuneCount5000">0</span>
-        </div>
-
-        <div class="wheel-resource">
-          <img
-            src="artifact.png.PNG"
-            class="wheel-resource-img"
-          >
-          <span id="wheelArtifactCount5000">0</span>
-        </div>
-
-        <div class="wheel-resource">
-          <img src="coin.png.PNG">
-          <span id="wheelStarCount5000">0</span>
-        </div>
-
+      <!-- ІМ'Я -->
+      <div
+        class="wheel-username"
+        id="wheelUserName5000"
+      >
+        @user
       </div>
 
     </div>
-  
-<!-- ← НАЗАД ДО МЕНЮ КОЛІС -->
-<button
-  class="nika-wheel-back-button"
-  onclick="openWheel('wheel')"
->
-  ←
-</button>
+
+
+    <!-- РУНИ -->
+
+    <div class="wheel-resource">
+
+      <img
+        src="rune.png.PNG"
+        class="wheel-resource-img"
+      >
+
+      <span id="wheelRuneCount5000">
+        0
+      </span>
+
+    </div>
+
+
+    <!-- АРТЕФАКТИ -->
+
+    <div class="wheel-resource">
+
+      <img
+        src="artifact.png.PNG"
+        class="wheel-resource-img"
+      >
+
+      <span id="wheelArtifactCount5000">
+        0
+      </span>
+
+    </div>
+
+
+    <!-- МОНЕТИ -->
+
+    <div class="wheel-resource">
+
+      <img src="coin.png.PNG">
+
+      <span id="wheelStarCount5000">
+        0
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- ← НАЗАД ДО МЕНЮ КОЛІС -->
+
+  <button
+    class="nika-wheel-back-button"
+    onclick="openWheel('wheel')"
+  >
+    ←
+  </button>
+
+
+  <!-- КОЛЕСО -->
 
   <div class="nika-wheel-stage">
+
+    <!-- СТРІЛКА -->
 
     <div
       class="nika-pointer"
       id="nikaPointer5000"
     >
+
       <div class="nika-pointer-glow"></div>
+
       ▼
+
     </div>
 
+
+    <!-- САМЕ КОЛЕСО -->
 
     <div
-  class="nika-wheel"
-  id="nikaWheel5000"
->
+      class="nika-wheel"
+      id="nikaWheel5000"
+    >
 
-  <div class="nika-wheel-ring"></div>
-
-
-  <!-- 🎁 ПРИЗИ ЧЕРВОНОГО КОЛЕСА -->
-
-  <div class="nika-slot" style="--angle:0deg;">
-    <img src="coin.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">1500</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:30deg;">
-    <img src="coin.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">3000</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:60deg;">
-    <img src="coin.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">5000</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:90deg;">
-    <img src="coin.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">10000</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:120deg;">
-    <img src="rune.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">2</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:150deg;">
-    <img src="rune.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">5</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:180deg;">
-    <img src="rune.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">20</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:210deg;">
-    <img src="artifact.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">1</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:240deg;">
-    <img src="artifact.png.PNG" class="nika-prize-img">
-    <span class="nika-coin-amount">4</span>
-  </div>
-
-  <div class="nika-slot" style="--angle:270deg;">
-    <img src="rose.png.PNG" class="nika-prize-img">
-  </div>
-
-  <div class="nika-slot" style="--angle:300deg;">
-    <img src="rocket.png.PNG" class="nika-prize-img">
-  </div>
-
-  <div class="nika-slot" style="--angle:330deg;">
-    <img src="torch_nft.png.PNG" class="nika-prize-img">
-  </div>
+      <div class="nika-wheel-ring"></div>
 
 
-  <div class="nika-center">
-    <div class="nika-coin">
-      <img src="coin.png.PNG">
+      <!-- 🎁 ПРИЗИ ЧЕРВОНОГО КОЛЕСА -->
+
+      <div class="nika-slot" style="--angle:0deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">1500</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:30deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">3000</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:60deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">5000</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:90deg;">
+        <img
+          src="coin.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">10000</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:120deg;">
+        <img
+          src="rune.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">2</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:150deg;">
+        <img
+          src="rune.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">5</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:180deg;">
+        <img
+          src="rune.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">20</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:210deg;">
+        <img
+          src="artifact.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">1</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:240deg;">
+        <img
+          src="artifact.png.PNG"
+          class="nika-prize-img"
+        >
+        <span class="nika-coin-amount">4</span>
+      </div>
+
+      <div class="nika-slot" style="--angle:270deg;">
+        <img
+          src="rose.png.PNG"
+          class="nika-prize-img"
+        >
+      </div>
+
+      <div class="nika-slot" style="--angle:300deg;">
+        <img
+          src="rocket.png.PNG"
+          class="nika-prize-img"
+        >
+      </div>
+
+      <div class="nika-slot" style="--angle:330deg;">
+        <img
+          src="torch_nft.png.PNG"
+          class="nika-prize-img"
+        >
+      </div>
+
     </div>
-  </div>
 
-</div>
 
+    <!-- КІЛЬКІСТЬ ПРОКРУТІВ -->
 
     <div class="nika-spin-settings">
 
@@ -6211,6 +6280,8 @@ max-height: 27px !important;
 
     </div>
 
+
+    <!-- ШАНСИ -->
 
     <button
       class="nika-chances-open-button"
