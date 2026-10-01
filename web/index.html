@@ -4621,7 +4621,75 @@ max-height: 27px !important;
 
   text-transform: uppercase;
 }
+/* =====================================================
+   🔄 ПЕРЕМИКАЧ ІНВЕНТАРЮ
+===================================================== */
 
+.inventory-tabs {
+
+  width: 100%;
+
+  display: flex;
+
+  gap: 8px;
+
+  margin-bottom: 14px;
+}
+
+
+.inventory-tab {
+
+  flex: 1;
+
+  padding: 12px 8px;
+
+  border: 1px solid rgba(45,155,255,.28);
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8,45,85,.95),
+      rgba(3,20,42,.98)
+    );
+
+  color: #7198c0;
+
+  font-size: 12px;
+
+  font-weight: 1000;
+
+  cursor: pointer;
+
+  transition:
+    .15s ease;
+}
+
+
+.inventory-tab.active {
+
+  color: #ffffff;
+
+  border-color: #1595ff;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15,120,220,.75),
+      rgba(5,55,110,.95)
+    );
+
+  box-shadow:
+    0 0 12px rgba(0,145,255,.35);
+}
+
+
+.inventory-tab:active {
+
+  transform: scale(.96);
+
+}
 
 .inventory-subtitle {
 
@@ -5202,63 +5270,66 @@ max-height: 27px !important;
 
   <!-- ⚔️ СПОРЯДЖЕННЯ -->
 
-  <div class="inventory-category-title">
-    ⚔️ СПОРЯДЖЕННЯ
-  </div>
+<div class="inventory-category-title">
+  ⚔️ СПОРЯДЖЕННЯ
+</div>
 
-  <!-- ЗБРОЯ -->
+<!-- 🔄 ПЕРЕМИКАЧ -->
 
-  <div class="inventory-subtitle">
-    ⚔️ ЗБРОЯ
-  </div>
+<div class="inventory-tabs">
 
-  <div
-    id="inventoryWeapons"
-    class="inventory-grid"
-  ></div>
-
-  <!-- БРОНЯ -->
-
-  <div class="inventory-subtitle">
-    🛡️ ЗАХИСТ
-  </div>
-
-  <div
-    id="inventoryArmor"
-    class="inventory-grid"
-  ></div>
-
-
-  <!-- 🎁 NFT ПОДАРУНКИ -->
-
-  <div class="inventory-category-title">
-    🎁 NFT ПОДАРУНКИ
-  </div>
-
-  <div
-    id="inventoryGifts"
-    class="inventory-grid"
-  ></div>
-
-
-  <!-- ПОВІДОМЛЕННЯ, КОЛИ ІНВЕНТАР ПУСТИЙ -->
-
-  <div
-    id="inventoryEmpty"
-    class="inventory-empty"
+  <button
+    id="inventoryTabEquipment"
+    class="inventory-tab active"
+    onclick="switchInventoryTab('equipment')"
   >
+    ⚔️ СПОРЯДЖЕННЯ
+  </button>
 
-    <div class="inventory-empty-icon">
-      🎁
-    </div>
+  <button
+    id="inventoryTabNFT"
+    class="inventory-tab"
+    onclick="switchInventoryTab('nft')"
+  >
+    🎁 NFT
+  </button>
 
-    <div>
-      Тут поки що немає предметів
-    </div>
+</div>
 
+
+<!-- 📦 СПОРЯДЖЕННЯ -->
+
+<div
+  id="inventoryEquipment"
+  class="inventory-grid"
+></div>
+
+
+<!-- 🎁 NFT -->
+
+<div
+  id="inventoryNFT"
+  class="inventory-grid"
+  style="display:none;"
+></div>
+
+
+<!-- ПОВІДОМЛЕННЯ, КОЛИ ІНВЕНТАР ПУСТИЙ -->
+
+<div
+  id="inventoryEmpty"
+  class="inventory-empty"
+>
+
+  <div class="inventory-empty-icon">
+    🎁
   </div>
 
-</section>
+  <div>
+    Тут поки що немає предметів
+  </div>
+
+</div>
 
   <!-- 🛠️ МАЙСТЕРНЯ -->
 
@@ -11394,12 +11465,11 @@ let referrals = 0;
    💾 ІНВЕНТАР
 ===================================================== */
 
-let inventory =
-  JSON.parse(
-    localStorage.getItem(
-      "nlkaman_inventory"
-    ) || "[]"
-  );
+inventory = [];
+
+localStorage.removeItem(
+  "nlkaman_inventory"
+);
 
 
 let selectedInventoryId = null;
@@ -11844,25 +11914,103 @@ function createInventoryCard(
    🎒 РЕНДЕР ІНВЕНТАРЮ
 ===================================================== */
 
+let inventoryTab =
+  "equipment";
+
+
+function switchInventoryTab(
+  tab
+) {
+
+  inventoryTab =
+    tab;
+
+  selectedInventoryId =
+    null;
+
+  const equipment =
+    document.getElementById(
+      "inventoryEquipment"
+    );
+
+  const nft =
+    document.getElementById(
+      "inventoryNFT"
+    );
+
+  const equipmentButton =
+    document.getElementById(
+      "inventoryTabEquipment"
+    );
+
+  const nftButton =
+    document.getElementById(
+      "inventoryTabNFT"
+    );
+
+
+  if (!equipment || !nft) {
+    return;
+  }
+
+
+  if (
+    tab === "equipment"
+  ) {
+
+    equipment.style.display =
+      "grid";
+
+    nft.style.display =
+      "none";
+
+    equipmentButton?.classList.add(
+      "active"
+    );
+
+    nftButton?.classList.remove(
+      "active"
+    );
+
+  } else {
+
+    equipment.style.display =
+      "none";
+
+    nft.style.display =
+      "grid";
+
+    equipmentButton?.classList.remove(
+      "active"
+    );
+
+    nftButton?.classList.add(
+      "active"
+    );
+
+  }
+
+
+  renderInventory();
+
+}
+
+
+/* =====================================================
+   🎒 РЕНДЕР
+===================================================== */
+
 function renderInventory() {
 
-  const weapons =
+  const equipment =
     document.getElementById(
-      "inventoryWeapons"
+      "inventoryEquipment"
     );
 
-
-  const armor =
+  const nft =
     document.getElementById(
-      "inventoryArmor"
+      "inventoryNFT"
     );
-
-
-  const gifts =
-    document.getElementById(
-      "inventoryGifts"
-    );
-
 
   const empty =
     document.getElementById(
@@ -11871,9 +12019,9 @@ function renderInventory() {
 
 
   if (
-    !weapons ||
-    !armor ||
-    !gifts
+    !equipment ||
+    !nft ||
+    !empty
   ) {
 
     return;
@@ -11881,22 +12029,17 @@ function renderInventory() {
   }
 
 
-  weapons.innerHTML = "";
+  equipment.innerHTML =
+    "";
 
-  armor.innerHTML = "";
+  nft.innerHTML =
+    "";
 
-  gifts.innerHTML = "";
-
-
-  /* =================================================
-     СТАРІ ПРЕДМЕТИ
-  ================================================= */
 
   inventory.forEach(
     item => {
 
-      /* Якщо старий предмет
-         ще не має type */
+      /* Старі предмети */
 
       if (!item.type) {
 
@@ -11927,31 +12070,27 @@ function renderInventory() {
         );
 
 
+      /* ⚔️ СПОРЯДЖЕННЯ */
+
       if (
-        item.type === "weapon"
-      ) {
-
-        weapons.appendChild(
-          card
-        );
-
-      }
-
-
-      else if (
+        item.type === "weapon" ||
         item.type === "armor"
       ) {
 
-        armor.appendChild(
+        equipment.appendChild(
           card
         );
 
       }
 
 
-      else {
+      /* 🎁 NFT */
 
-        gifts.appendChild(
+      else if (
+        item.type === "nft"
+      ) {
+
+        nft.appendChild(
           card
         );
 
@@ -11964,27 +12103,46 @@ function renderInventory() {
   saveInventory();
 
 
-  /* =================================================
-     ПУСТО
-  ================================================= */
+  /* Перевіряємо,
+     чи є предмети
+     у вибраній вкладці */
+
+  let visibleCount;
+
 
   if (
-    inventory.length === 0
+    inventoryTab ===
+    "equipment"
   ) {
 
-    empty.style.display =
-      "flex";
+    visibleCount =
+      inventory.filter(
+        item =>
+          item.type ===
+            "weapon" ||
+          item.type ===
+            "armor"
+      ).length;
 
   } else {
 
-    empty.style.display =
-      "none";
+    visibleCount =
+      inventory.filter(
+        item =>
+          item.type ===
+          "nft"
+      ).length;
 
   }
 
 
-  renderSelectedInventoryItem();
+  empty.style.display =
+    visibleCount === 0
+      ? "flex"
+      : "none";
 
+
+  renderSelectedInventoryItem();
 
   renderInventoryActions();
 
