@@ -9345,9 +9345,20 @@ function openPage(pageName) {
   const page =
     document.getElementById(pageName);
 
-  if (page) {
-    page.classList.add("active");
+  if (!page) {
+    console.error(
+      "Сторінка не знайдена:",
+      pageName
+    );
+
+    document
+      .getElementById("home")
+      ?.classList.add("active");
+
+    return;
   }
+
+  page.classList.add("active");
 
   document
     .querySelectorAll(".nav-btn")
@@ -9371,153 +9382,57 @@ function openPage(pageName) {
 }
 
 
-  /* =========================
-     🎁 ВКЛАДКА ШАНСІВ
-     
-     ВОНА ЗНАХОДИТЬСЯ
-     ВСЕРЕДИНІ wheel1000
-  ========================= */
-
-  /* =========================
-     📄 ЗВИЧАЙНІ СТОРІНКИ
-  ========================= */
-
-  const page =
-    document.getElementById(
-      pageName
-    );
-
-
-  if (page) {
-
-  page.classList.add(
-    "active"
-  );
-
-} else {
-
-  console.error(
-    "❌ Сторінка не знайдена:",
-    pageName
-  );
-
-  const home =
-    document.getElementById("home");
-
-  if (home) {
-    home.classList.add("active");
-  }
-
-}
-
-
-  /* =========================
-     🔘 НИЖНЯ НАВІГАЦІЯ
-  ========================= */
-
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(button => {
-
-      button.classList.remove(
-        "active"
-      );
-
-    });
-
-
-  const navButton =
-    document.getElementById(
-      "nav-" + pageName
-    );
-
-
-  if (navButton) {
-
-    navButton.classList.add(
-      "active"
-    );
-
-  }
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-  
 // 🎡 ВІДКРИТТЯ КОНКРЕТНОГО КОЛЕСА
 
 function openWheel(wheelName) {
 
-  function openPage(pageName) {
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
+      page.classList.remove("active");
+    });
 
-  console.log("OPEN PAGE:", pageName);
+  document
+    .querySelectorAll(".wheel-screen")
+    .forEach(screen => {
+      screen.classList.remove("active");
+    });
 
-  const pages =
-    document.querySelectorAll(".page");
+  const wheel =
+    document.getElementById(wheelName);
 
-  pages.forEach(page => {
-    page.classList.remove("active");
-  });
-
-  const page =
-    document.getElementById(pageName);
-
-  console.log("FOUND PAGE:", page);
-
-  if (!page) {
-
+  if (!wheel) {
     console.error(
-      "PAGE NOT FOUND:",
-      pageName
+      "Колесо не знайдено:",
+      wheelName
     );
 
     document
-      .getElementById("home")
+      .getElementById("wheel")
       ?.classList.add("active");
 
     return;
   }
 
-  page.classList.add("active");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
-
+  wheel.classList.add("active");
 
   document
     .querySelectorAll(".nav-btn")
     .forEach(button => {
-
       button.classList.remove("active");
-
     });
 
-
   const wheelNav =
-    document.getElementById(
-      "nav-wheel"
-    );
-
+    document.getElementById("nav-wheel");
 
   if (wheelNav) {
-
     wheelNav.classList.add("active");
-
   }
-
 
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
-
 }
 
  // =================================
@@ -11732,14 +11647,6 @@ let inventory =
   );
 
 let selectedInventoryId = null;
-
-  let inventory =
-  JSON.parse(
-    localStorage.getItem(
-      "nlkaman_inventory"
-    ) || "[]"
-  );
-
 /* =====================================================
    💾 ЗБЕРЕЖЕННЯ
 ===================================================== */
