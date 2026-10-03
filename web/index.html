@@ -5448,6 +5448,152 @@ body,
   box-shadow:
     0 3px 10px rgba(0,0,0,.35) !important;
 }
+
+    /* =========================================
+   🏰 ЧИСТИЙ RPG ІНТЕРФЕЙС
+   БЕЗ СИНІХ РАМOК
+   ========================================= */
+
+/* Великі інформаційні блоки */
+.card,
+.inventory-selected,
+.inventory-empty,
+.settings-card,
+.bear-clicker,
+.wheel-game-card {
+  border: none !important;
+  box-shadow: none !important;
+
+  background: rgba(8, 12, 18, .22) !important;
+}
+
+/* Вибраний предмет */
+.inventory-selected {
+  min-height: 190px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px !important;
+}
+
+/* Порожній інвентар */
+.inventory-empty {
+  min-height: 180px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #bcae94 !important;
+  text-align: center;
+}
+
+/* Прибираємо синю рамку перемикача */
+.inventory-tabs {
+  border: none !important;
+}
+
+/* Кнопки СПОРЯДЖЕННЯ / ПОДАРУНКИ */
+.inventory-tab {
+  border: none !important;
+  outline: none !important;
+
+  border-radius: 12px !important;
+
+  background: rgba(55, 38, 20, .45) !important;
+
+  color: #c7b99f !important;
+
+  font-size: 11px !important;
+  font-weight: 900 !important;
+
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+
+  padding: 10px 5px !important;
+
+  box-shadow: none !important;
+}
+
+/* Активна вкладка */
+.inventory-tab.active {
+  border: none !important;
+
+  background: rgba(120, 82, 30, .42) !important;
+
+  color: #e7c878 !important;
+
+  box-shadow: none !important;
+}
+
+/* Щоб СПОРЯДЖЕННЯ точно влазило */
+#inventoryTabEquipment,
+#inventoryTabGifts {
+  font-size: 11px !important;
+  letter-spacing: 0 !important;
+}
+
+/* Текст усередині блоків */
+.stat-label,
+.inventory-subtitle,
+.inventory-empty,
+.settings-name {
+  text-shadow: 0 2px 3px rgba(0,0,0,.9) !important;
+}
+
+/* Майстерня / Лідербол */
+#workshop .card,
+#leaderboard .card,
+#friends .card {
+  border: none !important;
+  box-shadow: none !important;
+
+  background: rgba(8, 12, 18, .20) !important;
+}
+
+/* Текст повідомлень — не синій */
+#workshop .card > div,
+#leaderboard .card > div,
+#friends .card > div {
+  color: #c7b99f !important;
+}
+
+/* Довгі повідомлення — акуратно по ширині */
+#workshop .card,
+#leaderboard .card,
+#friends .card {
+  overflow: hidden !important;
+}
+
+#workshop .card > div,
+#leaderboard .card > div,
+#friends .card > div {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Кнопки друзів */
+#friends button {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Ніяких синіх outline */
+button,
+.card,
+.inventory-card,
+.inventory-selected,
+.inventory-empty,
+.settings-card,
+.bear-clicker,
+.wheel-card,
+.wheel-game-card {
+  outline: none !important;
+}
     
   </style>
 </head>
