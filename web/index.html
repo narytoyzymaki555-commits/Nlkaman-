@@ -4381,7 +4381,7 @@ max-height: 27px !important;
 
   color: #7198c0;
 
-  font-size: 12px;
+  font-size: 11px;
 
   font-weight: 1000;
 
@@ -5706,6 +5706,91 @@ button,
 
 .game-page-title {
   font-size: 18px !important;
+}
+
+    /* =========================================
+   📐 ТЕКСТ НЕ ВИХОДИТЬ ЗА МЕЖІ БЛОКІВ
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.inventory-tab,
+.button,
+.home-wheel-button,
+.nav-btn {
+  min-width: 0 !important;
+  max-width: 100% !important;
+
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+
+  text-align: center;
+}
+
+
+/* ТЕКСТ ВСЕРЕДИНІ КАРТОК */
+
+.section-card,
+.inventory-card,
+.settings-card,
+.wheel-game-card,
+.daily-bonus-card,
+.friends-card {
+  min-width: 0 !important;
+  max-width: 100% !important;
+
+  overflow: hidden !important;
+}
+
+
+/* ЗВИЧАЙНИЙ ТЕКСТ */
+
+.section-card *,
+.inventory-card *,
+.settings-card *,
+.wheel-game-card *,
+.daily-bonus-card *,
+.friends-card * {
+  max-width: 100%;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ЩОБ FLEX-ЕЛЕМЕНТИ НЕ ВИШТОВХУВАЛИ ТЕКСТ */
+
+.inventory-tabs {
+  min-width: 0 !important;
+}
+
+.inventory-tab {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+}
+
+
+/* ТЕКСТ У КНОПКАХ */
+
+.inventory-tab {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1.15 !important;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+    .inventory-tab {
+  white-space: nowrap !important;
+  font-size: 11px !important;
+  padding: 10px 4px !important;
+  letter-spacing: -0.2px;
+  min-width: 0 !important;
+  overflow: hidden !important;
 }
     
   </style>
