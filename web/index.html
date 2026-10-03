@@ -4351,62 +4351,73 @@ max-height: 27px !important;
 ===================================================== */
 
 .inventory-tabs {
-
-  width: 100%;
+  width: calc(100% + 16px);
+  margin-left: -8px;
 
   display: flex;
-
-  gap: 8px;
+  gap: 6px;
 
   margin-bottom: 14px;
+
+  box-sizing: border-box;
 }
 
 
 .inventory-tab {
+  flex: 1 1 0;
 
-  flex: 1;
+  min-width: 0;
 
-  padding: 12px 8px;
+  box-sizing: border-box;
 
-  border: 1px solid rgba(45,155,255,.28);
+  padding: 14px 10px;
+
+  min-height: 52px;
+
+  border: 1px solid rgba(180,120,70,.55);
 
   border-radius: 13px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(8,45,85,.95),
-      rgba(3,20,42,.98)
+      #8a5734,
+      #5d351f
     );
 
-  color: #7198c0;
+  color: #f1dcc0;
 
-  font-size: 11px;
-
+  font-size: 12px;
   font-weight: 1000;
+
+  line-height: 1.15;
+
+  white-space: nowrap;
+
+  text-align: center;
+
+  overflow: hidden;
 
   cursor: pointer;
 
-  transition:
-    .15s ease;
+  transition: .15s ease;
 }
 
 
 .inventory-tab.active {
+  color: #fff0d2;
 
-  color: #ffffff;
-
-  border-color: #1595ff;
+  border-color: rgba(220,170,105,.75);
 
   background:
     linear-gradient(
       135deg,
-      rgba(15,120,220,.75),
-      rgba(5,55,110,.95)
+      #a66b3e,
+      #70401f
     );
 
   box-shadow:
-    0 0 12px rgba(0,145,255,.35);
+    0 3px 10px rgba(70,35,15,.35);
 }
 
 
