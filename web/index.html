@@ -5470,6 +5470,84 @@ body,
   text-shadow:
     0 1px 3px rgba(0,0,0,.95) !important;
 }
+
+    /* =========================================
+   🏰 RPG — ПРИБИРАЄМО НЕОНОВІ СИНІ РАМКИ
+   ========================================= */
+
+/* Усі стандартні рамки */
+.top-stat,
+.user-box,
+.ref-link,
+.wheel-game-card,
+.daily-bonus-card,
+.daily-bonus-day,
+.home-wheel-card,
+.inventory-card,
+.section-card,
+.game-card {
+  border-color: rgba(126, 91, 48, .38) !important;
+
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.35) !important;
+}
+
+/* Активні елементи */
+.daily-bonus-day.active,
+.nav-btn.active {
+  border-color: rgba(190, 145, 65, .55) !important;
+}
+
+/* Верхня панель */
+.top-stat,
+.user-box {
+  border-color: rgba(125, 91, 50, .35) !important;
+}
+
+/* Кнопки */
+.button,
+.home-wheel-button {
+  border-color: rgba(150, 105, 45, .45) !important;
+
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,220,150,.08) !important;
+}
+
+/* Картки коліс */
+.wheel-game-card {
+  border-color: rgba(135, 95, 45, .40) !important;
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,.45) !important;
+}
+
+/* Інвентар */
+.inventory-card {
+  border-color: rgba(125, 88, 45, .35) !important;
+}
+
+/* Прибираємо синє світіння від рамок */
+* {
+  outline-color: transparent !important;
+}
+
+    /* ❌ ПРИБИРАЄМО СИНІ GLOW */
+
+.wheel-center {
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.55) !important;
+
+  border-color:
+    rgba(145,105,50,.55) !important;
+}
+
+.wheel-game-card,
+.home-wheel-card,
+.daily-bonus-card {
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.45) !important;
+}
     
   </style>
 </head>
