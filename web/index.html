@@ -9368,11 +9368,25 @@ function openPage(pageName) {
 
   if (page) {
 
-    page.classList.add(
-      "active"
-    );
+  page.classList.add(
+    "active"
+  );
 
+} else {
+
+  console.error(
+    "❌ Сторінка не знайдена:",
+    pageName
+  );
+
+  const home =
+    document.getElementById("home");
+
+  if (home) {
+    home.classList.add("active");
   }
+
+}
 
 
   /* =========================
