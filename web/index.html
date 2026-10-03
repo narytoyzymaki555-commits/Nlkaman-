@@ -21,14 +21,12 @@
   color: white;
   min-height: 100vh;
   overflow-x: hidden;
-  background: #101010;
-}
 
-      background:
-        radial-gradient(circle at 20% 20%, rgba(76, 0, 255, .25), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(0, 183, 255, .20), transparent 30%),
-        linear-gradient(145deg, #070812, #10132b 50%, #070812);
-    }
+  background:
+    radial-gradient(circle at 20% 20%, rgba(76, 0, 255, .25), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(0, 183, 255, .20), transparent 30%),
+    linear-gradient(145deg, #070812, #10132b 50%, #070812);
+}}
 
     body::before {
       content: "";
@@ -7943,7 +7941,11 @@ max-height: 27px !important;
 
 <script>
 
-const tg = window.Telegram.WebApp;
+const tg = window.Telegram?.WebApp || {
+  ready() {},
+  expand() {},
+  initDataUnsafe: {}
+};
 
 tg.ready();
 tg.expand();
@@ -11677,13 +11679,6 @@ let referrals = 0;
 /* =====================================================
    💾 ІНВЕНТАР
 ===================================================== */
-
-inventory = [];
-
-localStorage.removeItem(
-  "nlkaman_inventory"
-);
-
 
 let selectedInventoryId = null;
 
