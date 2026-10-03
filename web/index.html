@@ -9430,35 +9430,43 @@ function openPage(pageName) {
 
 function openWheel(wheelName) {
 
-  document
-    .querySelectorAll(".page")
-    .forEach(page => {
+  function openPage(pageName) {
 
-      page.classList.remove("active");
+  console.log("OPEN PAGE:", pageName);
 
-    });
+  const pages =
+    document.querySelectorAll(".page");
 
+  pages.forEach(page => {
+    page.classList.remove("active");
+  });
 
-  document
-    .querySelectorAll(".wheel-screen")
-    .forEach(screen => {
+  const page =
+    document.getElementById(pageName);
 
-      screen.classList.remove("active");
+  console.log("FOUND PAGE:", page);
 
-    });
+  if (!page) {
 
-
-  const wheel =
-    document.getElementById(
-      wheelName
+    console.error(
+      "PAGE NOT FOUND:",
+      pageName
     );
 
+    document
+      .getElementById("home")
+      ?.classList.add("active");
 
-  if (wheel) {
-
-    wheel.classList.add("active");
-
+    return;
   }
+
+  page.classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
 
 
   document
