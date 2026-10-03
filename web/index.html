@@ -11680,6 +11680,13 @@ let referrals = 0;
    💾 ІНВЕНТАР
 ===================================================== */
 
+let inventory =
+  JSON.parse(
+    localStorage.getItem(
+      "nlkaman_inventory"
+    ) || "[]"
+  );
+
 let selectedInventoryId = null;
 
 
