@@ -5273,6 +5273,181 @@ body,
   box-shadow:
     0 8px 22px rgba(0,0,0,.45) !important;
 }
+
+    /* =========================================
+   🏰 ФІНАЛЬНИЙ RPG ІНТЕРФЕЙС
+   БЕЗ СИНІХ РАМОК
+   ========================================= */
+
+/* ===== ПОВНІСТЮ ПРИБИРАЄМО ОБВОДКИ ===== */
+
+.card,
+.settings-card,
+.inventory-selected,
+.inventory-empty,
+.inventory-item,
+.inventory-tab,
+.wheel-card,
+.wheel-game-card,
+.home-wheel-card,
+.top-panel,
+.top-stat,
+.user-box,
+.ref-link,
+.telegram-id-box,
+.daily-bonus-card,
+.daily-bonus-day {
+  border: none !important;
+  outline: none !important;
+}
+
+/* ===== НЕМАЄ СИНЬОГО GLOW ВІД КАРТОК ===== */
+
+.card,
+.settings-card,
+.inventory-selected,
+.inventory-empty,
+.inventory-item,
+.wheel-card,
+.wheel-game-card,
+.home-wheel-card,
+.daily-bonus-card {
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.35) !important;
+}
+
+/* ===== ВКЛАДКИ СПОРЯДЖЕННЯ / ПОДАРУНКИ ===== */
+
+.inventory-tab {
+  border: none !important;
+
+  background:
+    rgba(35,30,25,.65) !important;
+
+  color: #b9aa91 !important;
+
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.35) !important;
+}
+
+.inventory-tab.active {
+  border: none !important;
+
+  background:
+    rgba(120,85,35,.45) !important;
+
+  color: #f0d28a !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,220,150,.08),
+    0 4px 12px rgba(0,0,0,.4) !important;
+}
+
+/* ===== ТЕКСТ ЩОБ НЕ ВИЛАЗИВ ЗА МЕЖІ ===== */
+
+.game-page-title {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  font-size: clamp(20px, 6vw, 24px) !important;
+  line-height: 1.15;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  text-align: center;
+
+  color: #f0e3c9 !important;
+
+  text-shadow:
+    0 2px 4px rgba(0,0,0,.9) !important;
+}
+
+/* Заголовок інвентарю */
+.inventory-title {
+  font-size: clamp(20px, 6vw, 24px) !important;
+  line-height: 1.15;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  text-align: center;
+}
+
+/* Назви категорій */
+.inventory-category-title {
+  font-size: clamp(17px, 5vw, 21px) !important;
+  line-height: 1.2;
+
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+/* Текст усередині карток */
+.card .stat-label {
+  font-size: 17px !important;
+  line-height: 1.3;
+}
+
+.card > div[style] {
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+
+  max-width: 92%;
+  margin-left: auto;
+  margin-right: auto;
+
+  overflow-wrap: break-word;
+}
+
+/* Довгий текст у лідерборді */
+#leaderboard .card {
+  padding: 18px 14px !important;
+}
+
+#leaderboard .card > div {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* Довгий текст у друзях */
+#friends .card {
+  padding: 18px 14px !important;
+}
+
+#friends .card > div {
+  overflow-wrap: break-word;
+}
+
+/* ===== НАЛАШТУВАННЯ ===== */
+
+.settings-name {
+  font-size: clamp(16px, 4.5vw, 20px) !important;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+/* ===== КНОПКИ НЕ РОБИМО НЕОНОВИМИ ===== */
+
+.button,
+.home-wheel-button,
+.inventory-withdraw-button {
+  box-shadow:
+    0 4px 12px rgba(0,0,0,.4) !important;
+}
+
+/* ===== ВЕРХНЯ ПАНЕЛЬ ===== */
+
+.top-stat,
+.user-box {
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.35) !important;
+}
     
   </style>
 </head>
