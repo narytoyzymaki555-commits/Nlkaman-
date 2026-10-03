@@ -9336,24 +9336,39 @@ function loadUser() {
 
 function openPage(pageName) {
 
-  console.log("CLICK PAGE =", pageName);
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
+      page.classList.remove("active");
+    });
 
-  const page = document.getElementById(pageName);
+  const page =
+    document.getElementById(pageName);
 
-  console.log("PAGE ELEMENT =", page);
-
-  if (!page) {
-    console.error("❌ PAGE NOT FOUND:", pageName);
-    return;
+  if (page) {
+    page.classList.add("active");
   }
 
   document
-    .querySelectorAll(".page")
-    .forEach(p => {
-      p.classList.remove("active");
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
+      button.classList.remove("active");
     });
 
-  page.classList.add("active");
+  const navButton =
+    document.getElementById(
+      "nav-" + pageName
+    );
+
+  if (navButton) {
+    navButton.classList.add("active");
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
 
 
   /* =========================
@@ -11718,6 +11733,12 @@ let inventory =
 
 let selectedInventoryId = null;
 
+  let inventory =
+  JSON.parse(
+    localStorage.getItem(
+      "nlkaman_inventory"
+    ) || "[]"
+  );
 
 /* =====================================================
    💾 ЗБЕРЕЖЕННЯ
