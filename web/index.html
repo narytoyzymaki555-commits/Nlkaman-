@@ -17,10 +17,12 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
-      color: white;
-      min-height: 100vh;
-      overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #101010;
+}
 
       background:
         radial-gradient(circle at 20% 20%, rgba(76, 0, 255, .25), transparent 30%),
@@ -5079,6 +5081,232 @@ max-height: 27px !important;
   }
 
 }
+
+    /* =====================================================
+   🎮 НОВІ ФОНИ ГРИ
+===================================================== */
+
+#home {
+  position: relative;
+  min-height: calc(100vh - 95px);
+
+  background-image: url("home_bg.png.PNG");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+#inventory,
+#workshop,
+#leaderboard,
+#referrals,
+#settings,
+#adventure,
+#runes {
+  min-height: calc(100vh - 95px);
+
+  background-image: url("game_bg.png.PNG");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#clicker {
+  min-height: calc(100vh - 95px);
+
+  background-image: url("coin_bg.png.PNG");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+    /* =====================================================
+   🗺️ КЛІКАБЕЛЬНІ ОБ'ЄКТИ НА ГОЛОВНОМУ ФОНІ
+===================================================== */
+
+.home-world-hotspots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.world-hotspot {
+  position: absolute;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 🎡 колесо — ліва верхня частина */
+.hotspot-wheel {
+  left: 5%;
+  top: 20%;
+  width: 32%;
+  height: 25%;
+}
+
+/* 🪙 пеньок — ліва нижча частина */
+.hotspot-coin {
+  left: 3%;
+  top: 48%;
+  width: 25%;
+  height: 20%;
+}
+
+/* 🔨 кузня — центральна частина */
+.hotspot-workshop {
+  left: 30%;
+  top: 27%;
+  width: 38%;
+  height: 25%;
+}
+
+/* 🎒 сундук — справа */
+.hotspot-inventory {
+  right: 3%;
+  top: 36%;
+  width: 30%;
+  height: 22%;
+}
+
+/* 🪜 сходи — справа внизу */
+.hotspot-adventure {
+  right: 0;
+  bottom: 3%;
+  width: 27%;
+  height: 30%;
+}
+
+    /* =====================================================
+   👤 ВЕРХНІЙ ІНТЕРФЕЙС
+===================================================== */
+
+.top-panel {
+  position: relative;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 6px;
+
+  border-radius: 14px;
+
+  background: rgba(15, 20, 25, .82);
+  border: 1px solid rgba(255, 255, 255, .15);
+
+  backdrop-filter: blur(8px);
+}
+
+.top-player {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  min-width: 0;
+  flex: 1;
+}
+
+.top-player-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.top-avatar {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.top-level-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+}
+
+.top-level-image {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.top-level-progress {
+  min-width: 55px;
+  flex: 1;
+}
+
+.top-level-progress-bar {
+  width: 100%;
+  height: 6px;
+  overflow: hidden;
+
+  border-radius: 10px;
+  background: rgba(255,255,255,.15);
+}
+
+.top-level-progress-fill {
+  width: 0%;
+  height: 100%;
+
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    #48b9ff,
+    #7cff7c
+  );
+
+  transition: width .3s ease;
+}
+
+.top-level-text {
+  margin-top: 2px;
+
+  font-size: 8px;
+  font-weight: 900;
+  color: #dcecff;
+}
+
+.top-resources {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.top-resource {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  min-width: 30px;
+  height: 31px;
+
+  padding: 3px 4px;
+
+  border-radius: 8px;
+
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.12);
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.top-resource img {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+}
     
   </style>
 </head>
@@ -5090,9 +5318,10 @@ max-height: 27px !important;
   <!-- ГОЛОВНЕ -->
   <section id="home" class="page active">
 
-  <div class="top-panel">
+ <div class="top-panel">
 
-  <div class="user-box">
+  <!-- ЛІВА ЧАСТИНА -->
+  <div class="top-player">
 
     <div
       class="avatar top-avatar"
@@ -5101,7 +5330,7 @@ max-height: 27px !important;
       N
     </div>
 
-    <div class="user-info">
+    <div class="top-player-info">
 
       <div
         class="user-name"
@@ -5110,137 +5339,118 @@ max-height: 27px !important;
         @user
       </div>
 
+      <div class="top-level-row">
+
+        <img
+          id="topLevelImage"
+          src="level_bronze.png.PNG"
+          class="top-level-image"
+        >
+
+        <div class="top-level-progress">
+
+          <div
+            class="top-level-progress-bar"
+          >
+            <div
+              id="topLevelProgress"
+              class="top-level-progress-fill"
+            ></div>
+          </div>
+
+          <div
+            id="topLevelText"
+            class="top-level-text"
+          >
+            РІВЕНЬ 1
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
   </div>
 
 
-  <div class="top-stat rune-stat">
+  <!-- РЕСУРСИ -->
+  <div class="top-resources">
 
-    <div class="top-stat-icon">
+    <!-- РУНИ -->
+    <div class="top-resource">
+      <img src="rune.png.PNG">
+      <span id="runeCount">0</span>
+    </div>
 
-  <img
-    src="rune.png.PNG"
-    class="top-resource-image"
-  >
+    <!-- АРТЕФАКТИ -->
+    <div class="top-resource">
+      <img src="artifact.png.PNG">
+      <span id="artifactCount">0</span>
+    </div>
+
+    <!-- ДЕРЕВО -->
+    <div class="top-resource">
+      <img src="wood.png.PNG">
+      <span id="woodCount">0</span>
+    </div>
+
+    <!-- МЕТАЛ -->
+    <div class="top-resource">
+      <img src="metal.png.PNG">
+      <span id="metalCount">0</span>
+    </div>
+
+    <!-- МОНЕТИ -->
+    <div class="top-resource">
+      <img src="coin.png.PNG">
+      <span id="coinCount">0</span>
+    </div>
+
+  </div>
 
 </div>
 
-    <div
-      class="top-stat-value"
-      id="runeCount"
-    >
-      0
-    </div>
+   <!-- 🗺️ КЛІКАБЕЛЬНИЙ СВІТ -->
 
-  </div>
-
-
-  <div class="top-stat artifact-stat">
-
-   <div class="top-stat-icon">
-
-  <img
-    src="artifact.png.PNG"
-    class="top-resource-image"
-  >
-
-</div>
-
-    <div
-      class="top-stat-value"
-      id="artifactCount"
-    >
-      0
-    </div>
-
-  </div>
-
-
-  <div class="top-stat stars-box">
-
-    <div class="top-stat-icon">
-
-      <img
-        src="coin.png.PNG"
-        class="kam-coin"
-      >
-
-    </div>
-
-    <div
-      class="top-stat-value stars"
-      id="starCount"
-    >
-      0
-    </div>
-
-  </div>
-
-</div>
-
-    <!-- 🎮 ІГРОВІ РЕЖИМИ -->
-
-<div class="game-modes">
-
-  <!-- КЛІКЕР -->
-  <div
-    class="game-mode-card"
-    onclick="openPage('clicker')"
-  >
-
-    <div class="game-mode-image">
-      <img
-        src="coin.png.PNG"
-        alt="Клікер"
-      >
-    </div>
-
-    <div class="game-mode-title">
-      Клікер
-    </div>
-
-  </div>
-
-
-  <!-- ПОДОРОЖУВАТИ -->
-  <div
-    class="game-mode-card"
-    onclick="openPage('adventure')"
-  >
-
-    <div class="game-mode-image adventure-placeholder">
-      🌍
-    </div>
-
-    <div class="game-mode-title">
-      Подорожувати
-    </div>
-
-  </div>
+<div class="home-world-hotspots">
 
   <!-- 🎡 КОЛЕСО -->
-<div
-  class="game-mode-card"
-  onclick="openPage('wheel')"
->
+  <button
+    class="world-hotspot hotspot-wheel"
+    onclick="openPage('wheel')"
+    aria-label="Колесо"
+  ></button>
 
-  <div class="game-mode-image">
-    <img
-      src="wheel_iskra.png.PNG"
-      alt="Колесо"
-    >
-  </div>
+  <!-- 🪙 ПЕНЬОК / МОНЕТКА -->
+  <button
+    class="world-hotspot hotspot-coin"
+    onclick="openPage('clicker')"
+    aria-label="Монетка"
+  ></button>
 
-  <div class="game-mode-title">
-    Колесо
-  </div>
+  <!-- 🔨 КУЗНЯ -->
+  <button
+    class="world-hotspot hotspot-workshop"
+    onclick="openPage('workshop')"
+    aria-label="Майстерня"
+  ></button>
+
+  <!-- 🎒 СУНДУК -->
+  <button
+    class="world-hotspot hotspot-inventory"
+    onclick="openPage('inventory')"
+    aria-label="Інвентар"
+  ></button>
+
+  <!-- 🪜 СХОДИ -->
+  <button
+    class="world-hotspot hotspot-adventure"
+    onclick="openPage('adventure')"
+    aria-label="Подорож"
+  ></button>
 
 </div>
-
-</div>
-
-</section>
 
  <!-- 🎒 НОВИЙ ІНВЕНТАР -->
 
@@ -8286,317 +8496,8 @@ let stars =
     )
   ) || 0;
 
-function updateStars() {
 
-  const starCount =
-    document.getElementById(
-      "starCount"
-    );
-
-  const bearStarCount =
-    document.getElementById(
-      "bearStarCount"
-    );
-
-  const wheelStarCount =
-    document.getElementById(
-      "wheelStarCount"
-    );
-
-  if (starCount) {
-    starCount.textContent =
-      stars;
-  }
-
-  if (bearStarCount) {
-    bearStarCount.textContent =
-      stars;
-  }
-
-  if (wheelStarCount) {
-    wheelStarCount.textContent =
-      stars;
-  }
   
-const wheelStarCount5000 =
-  document.getElementById(
-    "wheelStarCount5000"
-  );
-
-const wheelStarCount10000 =
-  document.getElementById(
-    "wheelStarCount10000"
-  );
-
-const wheelStarCountFriends =
-  document.getElementById(
-    "wheelStarCountFriends"
-  );
-
-
-if (wheelStarCount5000) {
-  wheelStarCount5000.textContent =
-    stars;
-}
-
-if (wheelStarCount10000) {
-  wheelStarCount10000.textContent =
-    stars;
-}
-
-if (wheelStarCountFriends) {
-  wheelStarCountFriends.textContent =
-    stars;
-}
-  
-}
-  
-  updateStars();
-  
-function clickBear() {
-
-  stars++;
-
-  localStorage.setItem(
-    "nlkaman_stars",
-    stars
-  );
-
-  updateStars();
-
-  playCoinSound();
-
-  const bear =
-    document.querySelector(
-      ".bear"
-    );
-
-  if (bear) {
-
-    bear.classList.remove(
-      "coin-flash"
-    );
-
-    void bear.offsetWidth;
-
-    bear.classList.add(
-      "coin-flash"
-    );
-
-  }
-
-}
-function handleBearTouch(event) {
-  if (window.Telegram?.WebApp?.HapticFeedback) {
-  Telegram.WebApp.HapticFeedback.impactOccurred("light");
-}
-
-  event.preventDefault();
-
-  const touches =
-    event.changedTouches;
-
-  for (
-    let i = 0;
-    i < touches.length;
-    i++
-  ) {
-
-    clickBear();
-
-  }
-
-}
-
-let tickets =
-  Number(
-    localStorage.getItem(
-      "nlkaman_tickets"
-    )
-  ) || 0;
-  
-  let runes =
-  Number(
-    localStorage.getItem(
-      "nlkaman_runes"
-    )
-  ) || 0;
-
-let artifacts =
-  Number(
-    localStorage.getItem(
-      "nlkaman_artifacts"
-    )
-  ) || 0;
-  
- function updateRunesAndArtifacts() {
-
-  const runeCount =
-    document.getElementById("runeCount");
-
-  const artifactCount =
-    document.getElementById("artifactCount");
-
-  if (runeCount) {
-    runeCount.textContent = runes;
-  }
-
-  if (artifactCount) {
-    artifactCount.textContent = artifacts;
-  }
-
-
-  // 🔵 1000
-  const wheelRuneCount1000 =
-    document.getElementById("wheelRuneCount");
-
-  const wheelArtifactCount1000 =
-    document.getElementById("wheelArtifactCount");
-
-
-  // 🔴 5000
-  const wheelRuneCount5000 =
-    document.getElementById("wheelRuneCount5000");
-
-  const wheelArtifactCount5000 =
-    document.getElementById("wheelArtifactCount5000");
-
-
-  // 🟣 10000
-  const wheelRuneCount10000 =
-    document.getElementById("wheelRuneCount10000");
-
-  const wheelArtifactCount10000 =
-    document.getElementById("wheelArtifactCount10000");
-
-
-  // 🟡 FRIENDS
-  const wheelRuneCountFriends =
-    document.getElementById("wheelRuneCountFriends");
-
-  const wheelArtifactCountFriends =
-    document.getElementById("wheelArtifactCountFriends");
-
-
-  // 🔵
-  if (wheelRuneCount1000) {
-    wheelRuneCount1000.textContent = runes;
-  }
-
-  if (wheelArtifactCount1000) {
-    wheelArtifactCount1000.textContent = artifacts;
-  }
-
-
-  // 🔴
-  if (wheelRuneCount5000) {
-    wheelRuneCount5000.textContent = runes;
-  }
-
-  if (wheelArtifactCount5000) {
-    wheelArtifactCount5000.textContent = artifacts;
-  }
-
-
-  // 🟣
-  if (wheelRuneCount10000) {
-    wheelRuneCount10000.textContent = runes;
-  }
-
-  if (wheelArtifactCount10000) {
-    wheelArtifactCount10000.textContent = artifacts;
-  }
-
-
-  // 🟡
-  if (wheelRuneCountFriends) {
-    wheelRuneCountFriends.textContent = runes;
-  }
-
-  if (wheelArtifactCountFriends) {
-    wheelArtifactCountFriends.textContent = artifacts;
-  }
-
-}
-
-updateRunesAndArtifacts();
-  
-function updateTickets() {
-
-  const ticketCount =
-    document.getElementById(
-      "ticketCount"
-    );
-
-  if (ticketCount) {
-    ticketCount.textContent =
-      tickets;
-  }
-
-}
-
-let starsWheelRotation = 0;
-let refWheelRotation = 0;
-
-function spinStarsWheel() {
-
-  const wheel =
-    document.getElementById(
-      "starsWheel"
-    );
-
-  const button =
-    document.getElementById(
-      "starsSpinButton"
-    );
-
-  if (!wheel || !button)
-    return;
-
-  if (stars < 10) {
-
-    alert(
-      "❌ Потрібно 10 NIKA"
-    );
-
-    return;
-
-  }
-
-  stars -= 10;
-
-  localStorage.setItem(
-    "nlkaman_stars",
-    stars
-  );
-
-  updateStars();
-
-  button.disabled = true;
-
-  const randomRotation =
-    1800 +
-    Math.floor(
-      Math.random() * 1440
-    );
-
-  starsWheelRotation +=
-    randomRotation;
-
-  wheel.style.transform =
-    `rotate(${starsWheelRotation}deg)`;
-
-  setTimeout(() => {
-
-    const prizes = [
-
-      {
-        icon:
-          '<img src="coin.png.PNG" class="win-coin">',
-        text:
-          "5 зірок"
-      },
-
       {
         icon:
           '<img src="coin.png.PNG" class="win-coin">',
@@ -8722,7 +8623,7 @@ function spinStarsWheel() {
     );
 
     updateStars();
-    updateTickets();
+  updateTickets();
 
     playWinSound();
 
