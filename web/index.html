@@ -4334,15 +4334,33 @@ max-height: 27px !important;
    🏷️ ЗАГОЛОВКИ
 ===================================================== */
 
+.inventory-equipment-section {
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 12px;
+  margin-bottom: 16px;
+
+  padding: 0 0 4px 0;
+
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
 .inventory-category-title {
+  width: 100%;
+  box-sizing: border-box;
 
-  margin-top: 18px;
-  margin-bottom: 10px;
+  margin: 0 0 12px 8px;
+  padding: 0;
 
-  color: #eaf7ff;
+  color: #f5dfc4;
 
   font-size: 16px;
   font-weight: 1000;
+
+  text-align: left;
 
   text-transform: uppercase;
 }
@@ -4351,60 +4369,61 @@ max-height: 27px !important;
 ===================================================== */
 
 .inventory-tabs {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
+  width: 100%;
+  box-sizing: border-box;
 
-  width: 100% !important;
-  gap: 10px !important;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
-  margin: 0 0 14px 0 !important;
+  gap: 10px;
 
-  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
 }
 
 
 .inventory-tab {
-  display: flex !important;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
+  height: 52px;
 
-  height: 52px !important;
+  margin: 0;
+  padding: 0 8px;
 
-  padding: 0 4px !important;
-  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  box-sizing: border-box !important;
+  border: 1px solid #b77a4d;
+  border-radius: 14px;
 
-  align-items: center !important;
-  justify-content: center !important;
+  background: #85502f;
 
-  border-radius: 12px !important;
+  color: #f5dfc4;
 
-  background: #85502f !important;
-  border: 1px solid #b77a4d !important;
+  font-size: 12px;
+  font-weight: 1000;
+  line-height: 1;
 
-  color: #f5dfc4 !important;
+  white-space: nowrap;
+  overflow: hidden;
 
-  font-size: 11px !important;
-  font-weight: 900 !important;
+  cursor: pointer;
 
-  line-height: 1 !important;
-
-  white-space: nowrap !important;
-  overflow: hidden !important;
+  box-shadow: none;
 }
 
 
 .inventory-tab.active {
-  background: #a4683d !important;
+  background: #a4683d;
 
-  border: 1px solid #d09a68 !important;
+  border: 1px solid #d09a68;
 
-  color: #fff0d8 !important;
+  color: #fff0d8;
 
-  box-shadow: none !important;
+  box-shadow: none;
 }
 
 
