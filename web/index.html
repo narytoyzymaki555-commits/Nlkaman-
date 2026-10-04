@@ -370,10 +370,10 @@ position: fixed;
       align-items: center;
       justify-content: center;
 
-     width: 70vw;
-     height: 70vw;
-      max-width: 300px;
-      max-height: 300px;
+     width: 58vw;
+height: 58vw;
+max-width: 250px;
+max-height: 250px;
 
       margin: 0 auto;
 
@@ -432,11 +432,11 @@ position: fixed;
   }
 }
 .click-coin {
-width: 70vw;
-height: 70vw;
+width: 58vw;
+height: 58vw;
 
-  max-width: 300px;
-  max-height: 300px;
+max-width: 250px;
+max-height: 250px;
 
   object-fit: contain;
   user-select: none;
@@ -6129,6 +6129,92 @@ button,
   
   <!-- 🎮 КЛІКЕР -->
 <section id="clicker" class="page">
+  <div class="top-panel">
+
+  <!-- ПРОФІЛЬ -->
+  <div class="top-player">
+
+    <div
+      class="avatar top-avatar"
+      id="clickerAvatar"
+    >
+      N
+    </div>
+
+    <div class="top-player-info">
+
+      <div
+        class="user-name"
+        id="clickerUserName"
+      >
+        @user
+      </div>
+
+      <div class="top-level-row">
+
+        <img
+          id="clickerTopLevelImage"
+          src="level_bronze.png.PNG"
+          class="top-level-image"
+        >
+
+        <div class="top-level-progress">
+
+          <div class="top-level-progress-bar">
+            <div
+              id="clickerTopLevelProgress"
+              class="top-level-progress-fill"
+            ></div>
+          </div>
+
+          <div
+            id="clickerTopLevelText"
+            class="top-level-text"
+          >
+            РІВЕНЬ 1
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- РЕСУРСИ -->
+  <div class="top-resources">
+
+    <div class="top-resource">
+      <img src="rune.png.PNG">
+      <span id="clickerRuneCount">0</span>
+    </div>
+
+    <div class="top-resource">
+      <img src="artifact.png.PNG">
+      <span id="clickerArtifactCount">0</span>
+    </div>
+
+    <div class="top-resource">
+      <img src="wood.png.PNG">
+      <span id="clickerWoodCount">0</span>
+    </div>
+
+    <div class="top-resource">
+      <img src="metal.png.PNG">
+      <span id="clickerMetalCount">0</span>
+    </div>
+
+    <div class="top-resource">
+      <img src="coin.png.PNG">
+      <span id="clickerCoinCount">0</span>
+    </div>
+
+  </div>
+
+</div>
+  
 
   <div class="game-page-title">
     🪙 КЛІКЕР
@@ -9006,6 +9092,13 @@ let stars =
 
 function updateStars() {
 
+    const clickerCoinCount =
+    document.getElementById("clickerCoinCount");
+
+  if (clickerCoinCount) {
+    clickerCoinCount.textContent = stars;
+  }
+  
   const starCount =
     document.getElementById(
       "starCount"
@@ -9149,6 +9242,43 @@ let artifacts =
   
  function updateRunesAndArtifacts() {
 
+     const clickerRuneCount =
+    document.getElementById("clickerRuneCount");
+
+  const clickerArtifactCount =
+    document.getElementById("clickerArtifactCount");
+
+  const clickerWoodCount =
+    document.getElementById("clickerWoodCount");
+
+  const clickerMetalCount =
+    document.getElementById("clickerMetalCount");
+
+  const clickerCoinCount =
+    document.getElementById("clickerCoinCount");
+
+  if (clickerRuneCount) {
+    clickerRuneCount.textContent = runes;
+  }
+
+  if (clickerArtifactCount) {
+    clickerArtifactCount.textContent = artifacts;
+  }
+
+  if (clickerWoodCount) {
+    clickerWoodCount.textContent =
+      Number(localStorage.getItem("nlkaman_wood")) || 0;
+  }
+
+  if (clickerMetalCount) {
+    clickerMetalCount.textContent =
+      Number(localStorage.getItem("nlkaman_metal")) || 0;
+  }
+
+  if (clickerCoinCount) {
+    clickerCoinCount.textContent = stars;
+  }
+   
   const runeCount =
     document.getElementById("runeCount");
 
