@@ -6069,7 +6069,334 @@ button,
   background-color: #3b2415 !important;
   background-position: center !important;
 }
-    
+
+    /* =====================================================
+   🛠️ МАЙСТЕРНЯ
+===================================================== */
+
+#workshop {
+  padding-bottom: 110px;
+}
+
+.workshop-item-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin: 10px 12px 18px;
+  padding: 16px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(105,65,36,.96),
+      rgba(50,28,15,.98)
+    ) !important;
+
+  border: 1px solid
+    rgba(190,130,75,.55) !important;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.35);
+}
+
+.workshop-item-image {
+  width: 100px;
+  height: 100px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background:
+    rgba(35,20,10,.65);
+
+  border: 1px solid
+    rgba(190,130,75,.45);
+
+  overflow: hidden;
+
+  font-size: 42px;
+}
+
+.workshop-item-image img {
+  width: 86%;
+  height: 86%;
+
+  object-fit: contain;
+}
+
+.workshop-item-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.workshop-item-name {
+  font-size: 20px;
+  font-weight: 900;
+
+  color: #f5dfc4;
+
+  margin-bottom: 5px;
+
+  overflow-wrap: anywhere;
+}
+
+.workshop-item-type {
+  font-size: 13px;
+  color: #c49a70;
+
+  margin-bottom: 10px;
+}
+
+.workshop-level {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-weight: 800;
+}
+
+.workshop-level span:first-child {
+  color: #ffd27f;
+  letter-spacing: 1px;
+}
+
+.workshop-level span:last-child {
+  color: #e2c19a;
+  font-size: 12px;
+}
+
+
+/* ЗАГОЛОВКИ */
+
+.workshop-section-title {
+  margin: 18px 14px 9px;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  color: #e8c79e;
+
+  letter-spacing: .4px;
+}
+
+
+/* ХАРАКТЕРИСТИКИ */
+
+.workshop-stats-card {
+  margin: 0 12px;
+
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 8px;
+}
+
+.workshop-stat {
+  min-width: 0;
+
+  padding: 13px 7px;
+
+  text-align: center;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(91,54,30,.94),
+      rgba(43,24,13,.98)
+    );
+
+  border: 1px solid
+    rgba(180,120,65,.45);
+}
+
+.workshop-stat span {
+  display: block;
+
+  font-size: 11px;
+  color: #c5a27c;
+
+  margin-bottom: 6px;
+}
+
+.workshop-stat strong {
+  font-size: 19px;
+  color: #fff0d8;
+}
+
+
+/* РЕСУРСИ */
+
+.workshop-resources-card {
+  margin: 0 12px;
+
+  display: grid;
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 8px;
+
+  padding: 10px;
+
+  border-radius: 16px;
+
+  background:
+    rgba(54,31,17,.82);
+
+  border: 1px solid
+    rgba(180,120,65,.38);
+}
+
+.workshop-resource {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  min-width: 0;
+
+  color: #f5dfc4;
+  font-weight: 900;
+}
+
+.workshop-resource img {
+  width: 25px;
+  height: 25px;
+
+  object-fit: contain;
+}
+
+.workshop-resource span {
+  font-size: 13px;
+}
+
+
+/* КНОПКИ */
+
+.workshop-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+
+  margin: 16px 12px;
+}
+
+.workshop-action-button {
+  min-height: 48px;
+
+  border: 1px solid #c18a57;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #a96d3e,
+      #704321
+    );
+
+  color: #fff0d8;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,.3);
+}
+
+.workshop-action-button:active {
+  transform: scale(.97);
+}
+
+.workshop-action-button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+
+/* СПИСОК СПОРЯДЖЕННЯ */
+
+.workshop-equipment-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 9px;
+
+  padding: 0 12px 20px;
+}
+
+.workshop-equipment-card {
+  min-width: 0;
+
+  padding: 9px;
+
+  border-radius: 15px;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(91,54,30,.94),
+      rgba(43,24,13,.98)
+    );
+
+  border: 1px solid
+    rgba(180,120,65,.45);
+
+  cursor: pointer;
+}
+
+.workshop-equipment-card.selected {
+  border-color: #e0a968;
+
+  box-shadow:
+    0 0 14px
+    rgba(220,160,90,.35);
+}
+
+.workshop-equipment-card img {
+  width: 65px;
+  height: 65px;
+
+  object-fit: contain;
+}
+
+.workshop-equipment-card-name {
+  margin-top: 5px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  color: #f0d6b5;
+
+  overflow-wrap: anywhere;
+}
+
+.workshop-equipment-card-level {
+  margin-top: 3px;
+
+  color: #ffd27f;
+
+  font-size: 11px;
+}
+  
   </style>
 </head>
 
@@ -6308,7 +6635,6 @@ button,
 </section>
 
 <!-- 🛠️ МАЙСТЕРНЯ -->
-  <!-- 🛠️ МАЙСТЕРНЯ -->
 
 <section
   id="workshop"
@@ -6319,23 +6645,137 @@ button,
     🛠️ МАЙСТЕРНЯ
   </div>
 
-  <div class="card">
+  <!-- ВИБРАНИЙ ПРЕДМЕТ -->
 
-    <div class="stat-label">
-      Твої предмети
+  <div class="workshop-item-card">
+
+    <div class="workshop-item-image" id="workshopItemImage">
+      ⚔️
     </div>
 
-    <div
-      style="
-        text-align:center;
-        padding:30px 10px;
-        color:#7198c0;
-      "
-    >
-      ⚒️ Тут можна буде створювати та покращувати предмети.
+    <div class="workshop-item-info">
+
+      <div
+        class="workshop-item-name"
+        id="workshopItemName"
+      >
+        Виберіть спорядження
+      </div>
+
+      <div
+        class="workshop-item-type"
+        id="workshopItemType"
+      >
+        Предмет не вибрано
+      </div>
+
+      <!-- ⭐ РІВЕНЬ -->
+
+      <div class="workshop-level">
+
+        <span id="workshopStars">
+          ☆☆☆☆☆☆
+        </span>
+
+        <span id="workshopLevelText">
+          0 / 6
+        </span>
+
+      </div>
+
     </div>
 
   </div>
+
+
+  <!-- ХАРАКТЕРИСТИКИ -->
+
+  <div class="workshop-section-title">
+    ⚔️ ХАРАКТЕРИСТИКИ
+  </div>
+
+  <div class="workshop-stats-card">
+
+    <div class="workshop-stat">
+      <span>⚔️ Атака</span>
+      <strong id="workshopAttack">—</strong>
+    </div>
+
+    <div class="workshop-stat">
+      <span>🛡️ Захист</span>
+      <strong id="workshopDefense">—</strong>
+    </div>
+
+    <div class="workshop-stat">
+      <span>❤️ Здоров'я</span>
+      <strong id="workshopHealth">—</strong>
+    </div>
+
+  </div>
+
+
+  <!-- РЕСУРСИ -->
+
+  <div class="workshop-section-title">
+    🔨 РЕСУРСИ ДЛЯ ПОКРАЩЕННЯ
+  </div>
+
+  <div class="workshop-resources-card">
+
+    <div class="workshop-resource">
+      <img src="rune.png.PNG">
+      <span id="workshopRuneCost">0</span>
+    </div>
+
+    <div class="workshop-resource">
+      <img src="artifact.png.PNG">
+      <span id="workshopArtifactCost">0</span>
+    </div>
+
+    <div class="workshop-resource">
+      <img src="wood.png.PNG">
+      <span id="workshopWoodCost">0</span>
+    </div>
+
+    <div class="workshop-resource">
+      <img src="metal.png.PNG">
+      <span id="workshopMetalCost">0</span>
+    </div>
+
+  </div>
+
+
+  <!-- КНОПКИ -->
+
+  <div class="workshop-actions">
+
+    <button
+      class="workshop-action-button"
+      id="workshopForgeButton"
+    >
+      🔨 ЗКУВАТИ
+    </button>
+
+    <button
+      class="workshop-action-button"
+      id="workshopUpgradeButton"
+    >
+      ⬆️ ПОКРАЩИТИ
+    </button>
+
+  </div>
+
+
+  <!-- ВИБІР СПОРЯДЖЕННЯ -->
+
+  <div class="workshop-section-title">
+    ⚔️ ТВОЄ СПОРЯДЖЕННЯ
+  </div>
+
+  <div
+    id="workshopEquipment"
+    class="workshop-equipment-grid"
+  ></div>
 
 </section>
   
@@ -9479,6 +9919,20 @@ function handleBearTouch(event) {
 
 }
 
+  let wood =
+  Number(
+    localStorage.getItem(
+      "nlkaman_wood"
+    )
+  ) || 0;
+
+let metal =
+  Number(
+    localStorage.getItem(
+      "nlkaman_metal"
+    )
+  ) || 0;
+  
 let tickets =
   Number(
     localStorage.getItem(
@@ -10314,6 +10768,18 @@ function openPage(pageName) {
     top: 0,
     behavior: "smooth"
   });
+
+  /* 🛠️ ОНОВЛЕННЯ МАЙСТЕРНІ */
+
+  if (pageName === "workshop") {
+
+    prepareWorkshopItems();
+
+    renderWorkshop();
+
+    updateWorkshopTopResources();
+
+  }
 }
 
 
@@ -12744,7 +13210,23 @@ function addToInventory(prize) {
       type,
 
     equipped:
-      false
+  false,
+
+level:
+  0,
+
+attack:
+  type === "weapon"
+    ? 10
+    : 0,
+
+defense:
+  type === "armor"
+    ? 10
+    : 0,
+
+health:
+  10
 
   });
 
@@ -13989,6 +14471,751 @@ document.addEventListener(
   }
 );
 
+  /* =====================================================
+   🛠️ МАЙСТЕРНЯ
+===================================================== */
+
+function prepareWorkshopItems() {
+
+  inventory.forEach(item => {
+
+    if (
+      item.type !== "weapon" &&
+      item.type !== "armor"
+    ) {
+      return;
+    }
+
+    if (
+      typeof item.level !== "number"
+    ) {
+      item.level = 0;
+    }
+
+    if (
+      typeof item.attack !== "number"
+    ) {
+      item.attack =
+        item.type === "weapon"
+          ? 10
+          : 0;
+    }
+
+    if (
+      typeof item.defense !== "number"
+    ) {
+      item.defense =
+        item.type === "armor"
+          ? 10
+          : 0;
+    }
+
+    if (
+      typeof item.health !== "number"
+    ) {
+      item.health = 10;
+    }
+
+  });
+
+  saveInventory();
+}
+
+
+/* =====================================================
+   🛠️ РЕНДЕР МАЙСТЕРНІ
+===================================================== */
+
+let workshopSelectedId = null;
+
+
+function renderWorkshop() {
+
+  const equipment =
+    document.getElementById(
+      "workshopEquipment"
+    );
+
+  if (!equipment) {
+    return;
+  }
+
+  prepareWorkshopItems();
+
+  equipment.innerHTML = "";
+
+  const items =
+    inventory.filter(
+      item =>
+        item.type === "weapon" ||
+        item.type === "armor"
+    );
+
+  items.forEach(item => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "workshop-equipment-card" +
+      (
+        workshopSelectedId === item.id
+          ? " selected"
+          : ""
+      );
+
+    const imageSrc =
+      item.image ||
+      extractInventoryImage(
+        item.icon
+      );
+
+    card.innerHTML = `
+
+      ${
+        imageSrc
+          ? `
+            <img
+              src="${imageSrc}"
+              alt=""
+            >
+          `
+          : "⚔️"
+      }
+
+      <div
+        class="workshop-equipment-card-name"
+      >
+        ${item.name || "Предмет"}
+      </div>
+
+      <div
+        class="workshop-equipment-card-level"
+      >
+        ${renderWorkshopStars(item.level)}
+      </div>
+
+    `;
+
+    card.onclick =
+      function() {
+
+        workshopSelectedId =
+          item.id;
+
+        renderWorkshop();
+
+      };
+
+    equipment.appendChild(card);
+
+  });
+
+
+  renderWorkshopSelected();
+
+}
+
+
+/* =====================================================
+   ⭐ ЗІРКИ
+===================================================== */
+
+function renderWorkshopStars(level) {
+
+  const safeLevel =
+    Math.max(
+      0,
+      Math.min(
+        6,
+        Number(level) || 0
+      )
+    );
+
+  return (
+    "★".repeat(safeLevel) +
+    "☆".repeat(6 - safeLevel)
+  );
+
+}
+
+
+/* =====================================================
+   🛠️ ВИБРАНИЙ ПРЕДМЕТ
+===================================================== */
+
+function renderWorkshopSelected() {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id ===
+        workshopSelectedId
+    );
+
+
+  const image =
+    document.getElementById(
+      "workshopItemImage"
+    );
+
+  const name =
+    document.getElementById(
+      "workshopItemName"
+    );
+
+  const type =
+    document.getElementById(
+      "workshopItemType"
+    );
+
+  const starsBox =
+    document.getElementById(
+      "workshopStars"
+    );
+
+  const levelText =
+    document.getElementById(
+      "workshopLevelText"
+    );
+
+  const attack =
+    document.getElementById(
+      "workshopAttack"
+    );
+
+  const defense =
+    document.getElementById(
+      "workshopDefense"
+    );
+
+  const health =
+    document.getElementById(
+      "workshopHealth"
+    );
+
+  const forgeButton =
+    document.getElementById(
+      "workshopForgeButton"
+    );
+
+  const upgradeButton =
+    document.getElementById(
+      "workshopUpgradeButton"
+    );
+
+
+  if (!item) {
+
+    if (image) {
+      image.innerHTML = "⚔️";
+    }
+
+    if (name) {
+      name.textContent =
+        "Виберіть спорядження";
+    }
+
+    if (type) {
+      type.textContent =
+        "Предмет не вибрано";
+    }
+
+    if (starsBox) {
+      starsBox.textContent =
+        "☆☆☆☆☆☆";
+    }
+
+    if (levelText) {
+      levelText.textContent =
+        "0 / 6";
+    }
+
+    if (attack) {
+      attack.textContent = "—";
+    }
+
+    if (defense) {
+      defense.textContent = "—";
+    }
+
+    if (health) {
+      health.textContent = "—";
+    }
+
+    updateWorkshopCosts();
+
+    if (forgeButton) {
+      forgeButton.disabled = true;
+    }
+
+    if (upgradeButton) {
+      upgradeButton.disabled = true;
+    }
+
+    return;
+  }
+
+
+  const imageSrc =
+    item.image ||
+    extractInventoryImage(
+      item.icon
+    );
+
+
+  if (image) {
+
+    image.innerHTML =
+      imageSrc
+        ? `
+          <img
+            src="${imageSrc}"
+            alt=""
+          >
+        `
+        : "⚔️";
+
+  }
+
+
+  if (name) {
+    name.textContent =
+      item.name || "Предмет";
+  }
+
+
+  if (type) {
+    type.textContent =
+      item.type === "weapon"
+        ? "⚔️ Зброя"
+        : "🛡️ Броня";
+  }
+
+
+  if (starsBox) {
+    starsBox.textContent =
+      renderWorkshopStars(
+        item.level
+      );
+  }
+
+
+  if (levelText) {
+    levelText.textContent =
+      `${item.level} / 6`;
+  }
+
+
+  if (attack) {
+    attack.textContent =
+      item.attack;
+  }
+
+
+  if (defense) {
+    defense.textContent =
+      item.defense;
+  }
+
+
+  if (health) {
+    health.textContent =
+      item.health;
+  }
+
+
+  if (forgeButton) {
+    forgeButton.disabled = false;
+  }
+
+
+  if (upgradeButton) {
+
+    upgradeButton.disabled =
+      Number(item.level) >= 6;
+
+  }
+
+
+  updateWorkshopCosts();
+
+}
+
+
+/* =====================================================
+   💰 ЦІНА ПОКРАЩЕННЯ
+===================================================== */
+
+function getWorkshopUpgradeCost(level) {
+
+  const nextLevel =
+    Number(level) + 1;
+
+  return {
+
+    runes:
+      nextLevel * 2,
+
+    artifacts:
+      nextLevel,
+
+    wood:
+      nextLevel * 5,
+
+    metal:
+      nextLevel * 3
+
+  };
+
+}
+
+
+/* =====================================================
+   💰 ПОКАЗ ЦІНИ
+===================================================== */
+
+function updateWorkshopCosts() {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id ===
+        workshopSelectedId
+    );
+
+
+  const rune =
+    document.getElementById(
+      "workshopRuneCost"
+    );
+
+  const artifact =
+    document.getElementById(
+      "workshopArtifactCost"
+    );
+
+  const wood =
+    document.getElementById(
+      "workshopWoodCost"
+    );
+
+  const metal =
+    document.getElementById(
+      "workshopMetalCost"
+    );
+
+
+  if (!item) {
+
+    if (rune) rune.textContent = "0";
+    if (artifact) artifact.textContent = "0";
+    if (wood) wood.textContent = "0";
+    if (metal) metal.textContent = "0";
+
+    return;
+  }
+
+
+  if (Number(item.level) >= 6) {
+
+    if (rune) rune.textContent = "MAX";
+    if (artifact) artifact.textContent = "MAX";
+    if (wood) wood.textContent = "MAX";
+    if (metal) metal.textContent = "MAX";
+
+    return;
+  }
+
+
+  const cost =
+    getWorkshopUpgradeCost(
+      item.level
+    );
+
+
+  if (rune) {
+    rune.textContent =
+      cost.runes;
+  }
+
+  if (artifact) {
+    artifact.textContent =
+      cost.artifacts;
+  }
+
+  if (wood) {
+    wood.textContent =
+      cost.wood;
+  }
+
+  if (metal) {
+    metal.textContent =
+      cost.metal;
+  }
+
+}
+
+
+/* =====================================================
+   🔨 ПОКРАЩЕННЯ
+===================================================== */
+
+function upgradeWorkshopItem() {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id ===
+        workshopSelectedId
+    );
+
+
+  if (!item) {
+
+    alert(
+      "❌ Спочатку виберіть предмет"
+    );
+
+    return;
+  }
+
+
+  if (Number(item.level) >= 6) {
+
+    alert(
+      "⭐ Предмет уже має максимальний рівень"
+    );
+
+    return;
+  }
+
+
+  const cost =
+    getWorkshopUpgradeCost(
+      item.level
+    );
+
+
+  const currentWood =
+    Number(
+      localStorage.getItem(
+        "nlkaman_wood"
+      )
+    ) || 0;
+
+
+  const currentMetal =
+    Number(
+      localStorage.getItem(
+        "nlkaman_metal"
+      )
+    ) || 0;
+
+
+  if (runes < cost.runes) {
+
+    alert(
+      `❌ Потрібно ${cost.runes} рун`
+    );
+
+    return;
+  }
+
+
+  if (artifacts < cost.artifacts) {
+
+    alert(
+      `❌ Потрібно ${cost.artifacts} артефактів`
+    );
+
+    return;
+  }
+
+
+  if (currentWood < cost.wood) {
+
+    alert(
+      `❌ Потрібно ${cost.wood} дерева`
+    );
+
+    return;
+  }
+
+
+  if (currentMetal < cost.metal) {
+
+    alert(
+      `❌ Потрібно ${cost.metal} металу`
+    );
+
+    return;
+  }
+
+
+  /* ВИТРАЧАЄМО РЕСУРСИ */
+
+  runes -= cost.runes;
+
+  artifacts -= cost.artifacts;
+
+
+  localStorage.setItem(
+    "nlkaman_runes",
+    runes
+  );
+
+  localStorage.setItem(
+    "nlkaman_artifacts",
+    artifacts
+  );
+
+
+  localStorage.setItem(
+    "nlkaman_wood",
+    currentWood - cost.wood
+  );
+
+  localStorage.setItem(
+    "nlkaman_metal",
+    currentMetal - cost.metal
+  );
+
+
+  /* ПІДВИЩУЄМО РІВЕНЬ */
+
+  item.level =
+    Number(item.level) + 1;
+
+
+  /* ЗБІЛЬШУЄМО ХАРАКТЕРИСТИКИ */
+
+  if (item.type === "weapon") {
+
+    item.attack += 5;
+
+  }
+
+
+  if (item.type === "armor") {
+
+    item.defense += 5;
+
+  }
+
+
+  item.health += 10;
+
+
+  saveInventory();
+
+
+  updateRunesAndArtifacts();
+
+
+  renderWorkshop();
+
+  updateWorkshopTopResources();
+
+
+  alert(
+    `⭐ ${item.name} покращено до ${item.level} рівня!`
+  );
+
+}
+
+
+/* =====================================================
+   🔨 ЗКУВАТИ
+===================================================== */
+
+function forgeWorkshopItem() {
+
+  const item =
+    inventory.find(
+      item =>
+        item.id ===
+        workshopSelectedId
+    );
+
+
+  if (!item) {
+
+    alert(
+      "❌ Спочатку виберіть спорядження"
+    );
+
+    return;
+  }
+
+
+  alert(
+    "🔨 Предмет уже викуваний. Тут пізніше підключимо систему створення нового спорядження."
+  );
+
+}
+
+
+/* =====================================================
+   💰 РЕСУРСИ В МАЙСТЕРНІ
+===================================================== */
+
+function updateWorkshopTopResources() {
+
+  const wood =
+    Number(
+      localStorage.getItem(
+        "nlkaman_wood"
+      )
+    ) || 0;
+
+  const metal =
+    Number(
+      localStorage.getItem(
+        "nlkaman_metal"
+      )
+    ) || 0;
+
+
+  const woodElement =
+    document.getElementById(
+      "clickerWoodCount"
+    );
+
+  const metalElement =
+    document.getElementById(
+      "clickerMetalCount"
+    );
+
+
+  if (woodElement) {
+    woodElement.textContent =
+      wood;
+  }
+
+  if (metalElement) {
+    metalElement.textContent =
+      metal;
+  }
+
+}
+
+
+/* =====================================================
+   🚀 ЗАПУСК
+===================================================== */
+
+if (
+  typeof inventory !==
+  "undefined"
+) {
+
+  prepareWorkshopItems();
+
+  updateWorkshopTopResources();
+
+}
+  
 </script>
 
 </div>
