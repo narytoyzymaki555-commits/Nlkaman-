@@ -321,34 +321,16 @@ position: fixed;
     /* 🧸 ВЕДМЕДИК */
 
 .bear-clicker {
-  margin-top: 15px;
-  padding: 24px 20px;
+  margin-top: 5px;
+  padding: 0;
+
   text-align: center;
-  border-radius: 26px;
-  background:
-    radial-gradient(
-      circle at 50% 40%,
-      rgba(30,145,255,.24),
-      transparent 55%
-    ),
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(0,75,220,.14),
-      transparent 60%
-    ),
-    linear-gradient(
-      145deg,
-      rgba(5,38,82,.98),
-      rgba(2,13,31,.99)
-    );
 
-  border: 1px solid rgba(55,165,255,.48);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 
-  box-shadow:
-    0 15px 40px rgba(0,0,0,.50),
-    0 0 35px rgba(0,110,255,.16),
-    inset 0 1px 0 rgba(255,255,255,.07),
-    inset 0 -20px 40px rgba(0,50,140,.08);
+  border-radius: 0;
 }
 
 .bear-title {
@@ -370,10 +352,10 @@ position: fixed;
       align-items: center;
       justify-content: center;
 
-     width: 58vw;
-height: 58vw;
-max-width: 250px;
-max-height: 250px;
+     width: 52vw;
+height: 52vw;
+max-width: 235px;
+max-height: 235px;
 
       margin: 0 auto;
 
@@ -432,11 +414,10 @@ max-height: 250px;
   }
 }
 .click-coin {
-width: 58vw;
-height: 58vw;
-
-max-width: 250px;
-max-height: 250px;
+width: 52vw;
+height: 52vw;
+max-width: 235px;
+max-height: 235px;
 
   object-fit: contain;
   user-select: none;
@@ -9904,6 +9885,45 @@ function loadUser() {
     }
 
   }
+
+    // 🎮 КЛІКЕР — ІМ'Я ТА АВАТАР
+
+  const clickerUserName =
+    document.getElementById("clickerUserName");
+
+  if (clickerUserName) {
+    clickerUserName.textContent = name;
+  }
+
+  const clickerAvatar =
+    document.getElementById("clickerAvatar");
+
+  if (clickerAvatar) {
+
+    if (user.photo_url) {
+
+      clickerAvatar.innerHTML = `
+        <img
+          src="${user.photo_url}"
+          class="telegram-avatar"
+          alt="Avatar"
+        >
+      `;
+
+    } else {
+
+      clickerAvatar.textContent =
+        (
+          user.first_name ||
+          "N"
+        )
+          .charAt(0)
+          .toUpperCase();
+
+    }
+
+  }
+  
 
   // =========================
   // 🎡 ВСІ КОЛЕСА
