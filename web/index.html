@@ -4865,44 +4865,60 @@ max-height: 27px !important;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* 🎡 колесо — ліва верхня частина */
+/* 🎡 КОЛЕСО */
 .hotspot-wheel {
-  left: 5%;
-  top: 20%;
-  width: 32%;
-  height: 25%;
+  left: 2%;
+  top: 35%;
+  width: 25%;
+  height: 15%;
 }
 
-/* 🪙 пеньок — ліва нижча частина */
+/* 🪙 ПЕНЬОК / МОНЕТКА */
 .hotspot-coin {
   left: 3%;
+  top: 56%;
+  width: 15%;
+  height: 13%;
+}
+
+/* 🔨 КУЗНЯ / МАЙСТЕРНЯ */
+.hotspot-workshop {
+  left: 34%;
+  top: 47%;
+  width: 29%;
+  height: 17%;
+}
+
+/* 🧪 АЛХІМІЧНИЙ СТІЛ / ЛАБОРАТОРІЯ */
+.hotspot-laboratory {
+  left: 62%;
   top: 48%;
   width: 25%;
-  height: 20%;
+  height: 16%;
 }
 
-/* 🔨 кузня — центральна частина */
-.hotspot-workshop {
-  left: 30%;
-  top: 27%;
-  width: 38%;
-  height: 25%;
+/* 🏰 ВИШКА / ГІЛЬДІЯ */
+.hotspot-guild {
+  left: 56%;
+  top: 11%;
+  width: 25%;
+  height: 35%;
 }
 
-/* 🎒 сундук — справа */
+/* 🎒 СУНДУК / ІНВЕНТАР */
 .hotspot-inventory {
-  right: 3%;
-  top: 36%;
-  width: 30%;
-  height: 22%;
+  right: 1%;
+  top: 55%;
+  width: 20%;
+  height: 16%;
 }
 
-/* 🪜 сходи — справа внизу */
+/* 🪜 СХОДИ / ПОДОРОЖ */
 .hotspot-adventure {
   right: 0;
-  bottom: 3%;
-  width: 27%;
-  height: 30%;
+  top: 39%;
+  width: 16%;
+  height: 20%;
 }
 
     /* =====================================================
@@ -7035,21 +7051,35 @@ button,
     aria-label="Монетка"
   ></button>
 
-  <!-- 🔨 КУЗНЯ -->
+  <!-- 🔨 КУЗНЯ / МАЙСТЕРНЯ -->
   <button
     class="world-hotspot hotspot-workshop"
     onclick="openPage('workshop')"
     aria-label="Майстерня"
   ></button>
 
-  <!-- 🎒 СУНДУК -->
+  <!-- 🧪 АЛХІМІЧНИЙ СТІЛ / ЛАБОРАТОРІЯ -->
+  <button
+    class="world-hotspot hotspot-laboratory"
+    onclick="openPage('laboratory')"
+    aria-label="Лабораторія"
+  ></button>
+
+  <!-- 🏰 ВИШКА / ГІЛЬДІЯ -->
+  <button
+    class="world-hotspot hotspot-guild"
+    onclick="openPage('guild')"
+    aria-label="Гільдія"
+  ></button>
+
+  <!-- 🎒 СУНДУК / ІНВЕНТАР -->
   <button
     class="world-hotspot hotspot-inventory"
     onclick="openPage('inventory')"
     aria-label="Інвентар"
   ></button>
 
-  <!-- 🪜 СХОДИ -->
+  <!-- 🪜 СХОДИ / ПОДОРОЖ -->
   <button
     class="world-hotspot hotspot-adventure"
     onclick="openPage('adventure')"
