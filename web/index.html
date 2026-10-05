@@ -6065,8 +6065,8 @@ button,
 #home {
   background-color: #3b2415 !important;
 
-  background-size: 110% auto !important;
-  background-position: center 18px !important;
+  background-size: cover !important;
+background-position: center top !important;
   background-repeat: no-repeat !important;
 }
 
@@ -6079,8 +6079,8 @@ button,
 #runes {
   background-color: #3b2415 !important;
 
-  background-size: 110% auto !important;
-  background-position: center 18px !important;
+  background-size: cover !important;
+background-position: center top !important;
   background-repeat: no-repeat !important;
 }
 
@@ -6930,6 +6930,107 @@ button,
     font-size: 10px;
   }
 
+}
+
+    /* =====================================================
+   🖼️ ФІНАЛЬНИЙ ФОН НА ВЕСЬ ЕКРАН
+===================================================== */
+
+#home,
+#inventory,
+#workshop,
+#leaderboard,
+#referrals,
+#settings,
+#adventure,
+#runes {
+  min-height: 100dvh !important;
+  height: 100dvh !important;
+
+  box-sizing: border-box !important;
+
+  background-size: cover !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+}
+
+/* ГОЛОВНА */
+#home {
+  background-size: cover !important;
+  background-position: center top !important;
+}
+
+/* ВСІ ВНУТРІШНІ ВКЛАДКИ */
+#inventory,
+#workshop,
+#leaderboard,
+#referrals,
+#settings,
+#adventure,
+#runes {
+  background-size: cover !important;
+  background-position: center top !important;
+}
+
+/* Нижня навігація залишається поверх фону */
+.bottom-nav {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 40 !important;
+}
+
+    /* =====================================================
+   🔠 ЗБІЛЬШЕНИЙ ШРИФТ
+===================================================== */
+
+.section-title {
+  font-size: 22px !important;
+}
+
+.inventory-title {
+  font-size: 24px !important;
+}
+
+.stat-label {
+  font-size: 17px !important;
+}
+
+.inventory-subtitle {
+  font-size: 15px !important;
+}
+
+.inventory-empty {
+  font-size: 16px !important;
+}
+
+.workshop-item-name {
+  font-size: 20px !important;
+}
+
+.workshop-description-text {
+  font-size: 14px !important;
+}
+
+.workshop-rarity {
+  font-size: 13px !important;
+}
+
+.workshop-characteristics div {
+  font-size: 12px !important;
+}
+
+.workshop-cost {
+  font-size: 13px !important;
+}
+
+.nav-btn {
+  font-size: 12px !important;
+}
+
+.nav-btn span {
+  font-size: 22px !important;
 }
     
   </style>
