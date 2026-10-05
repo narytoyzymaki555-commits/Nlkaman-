@@ -10578,6 +10578,13 @@ function updateStars() {
     const clickerCoinCount =
     document.getElementById("clickerCoinCount");
 
+    const coinCount =
+    document.getElementById("coinCount");
+
+  if (coinCount) {
+    coinCount.textContent = stars;
+  }
+
   if (clickerCoinCount) {
     clickerCoinCount.textContent = stars;
   }
