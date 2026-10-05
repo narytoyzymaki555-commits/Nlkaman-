@@ -10573,6 +10573,26 @@ let stars =
     )
   ) || 0;
 
+  function formatResourceNumber(value) {
+  value = Number(value) || 0;
+
+  if (value >= 1000000) {
+    return (value / 1000000)
+      .toFixed(2)
+      .replace(/\.00$/, '')
+      .replace(/(\.\d)0$/, '$1') + 'м';
+  }
+
+  if (value >= 10000) {
+    return (value / 1000)
+      .toFixed(2)
+      .replace(/\.00$/, '')
+      .replace(/(\.\d)0$/, '$1') + 'к';
+  }
+
+  return value.toString();
+}
+  
 function updateStars() {
 
     const clickerCoinCount =
@@ -10582,11 +10602,12 @@ function updateStars() {
     document.getElementById("coinCount");
 
   if (coinCount) {
-    coinCount.textContent = stars;
+    coinCount.textContent = formatResourceNumber(stars);
   }
 
   if (clickerCoinCount) {
-    clickerCoinCount.textContent = stars;
+    clickerCoinCount.textContent =
+  formatResourceNumber(stars);
   }
   
   const starCount =
@@ -10606,30 +10627,37 @@ function updateStars() {
 
   if (starCount) {
     starCount.textContent =
+  formatResourceNumber(stars);
       stars;
   }
 
   if (bearStarCount) {
     bearStarCount.textContent =
+  formatResourceNumber(stars);
       stars;
   }
 
   if (wheelStarCount) {
     wheelStarCount.textContent =
+  formatResourceNumber(stars);
       stars;
   }
   
-const wheelStarCount5000 =
+const wheelStarCount5000.textContent =
+  formatResourceNumber(stars);
+ =
   document.getElementById(
     "wheelStarCount5000"
   );
 
-const wheelStarCount10000 =
+const wheelStarCount10000.textContent =
+  formatResourceNumber(stars);
   document.getElementById(
     "wheelStarCount10000"
   );
 
-const wheelStarCountFriends =
+const wheelStarCountFriends.textContent =
+  formatResourceNumber(stars);
   document.getElementById(
     "wheelStarCountFriends"
   );
@@ -10762,25 +10790,32 @@ let artifacts =
     document.getElementById("clickerCoinCount");
 
   if (clickerRuneCount) {
-    clickerRuneCount.textContent = runes;
+    clickerRuneCount.textContent =
+  formatResourceNumber(runes);
   }
 
   if (clickerArtifactCount) {
-    clickerArtifactCount.textContent = artifacts;
+    clickerArtifactCount.textContent =
+  formatResourceNumber(artifacts);
   }
 
   if (clickerWoodCount) {
     clickerWoodCount.textContent =
-      Number(localStorage.getItem("nlkaman_wood")) || 0;
+  formatResourceNumber(
+    Number(localStorage.getItem("nlkaman_wood")) || 0
+  );
   }
 
   if (clickerMetalCount) {
     clickerMetalCount.textContent =
-      Number(localStorage.getItem("nlkaman_metal")) || 0;
+  formatResourceNumber(
+    Number(localStorage.getItem("nlkaman_metal")) || 0
+  );
   }
 
   if (clickerCoinCount) {
-    clickerCoinCount.textContent = stars;
+    clickerCoinCount.textContent =
+  formatResourceNumber(stars);
   }
    
   const runeCount =
@@ -10790,11 +10825,13 @@ let artifacts =
     document.getElementById("artifactCount");
 
   if (runeCount) {
-    runeCount.textContent = runes;
+    runeCount.textContent =
+  formatResourceNumber(runes);
   }
 
   if (artifactCount) {
-    artifactCount.textContent = artifacts;
+    artifactCount.textContent =
+  formatResourceNumber(artifacts);
   }
 
 
@@ -10831,43 +10868,54 @@ let artifacts =
 
 
   // 🔵
-  if (wheelRuneCount1000) {
-    wheelRuneCount1000.textContent = runes;
-  }
+ if (wheelRuneCount1000) {
+  wheelRuneCount1000.textContent =
+    formatResourceNumber(runes);
+}
 
-  if (wheelArtifactCount1000) {
-    wheelArtifactCount1000.textContent = artifacts;
-  }
-
-
-  // 🔴
-  if (wheelRuneCount5000) {
-    wheelRuneCount5000.textContent = runes;
-  }
-
-  if (wheelArtifactCount5000) {
-    wheelArtifactCount5000.textContent = artifacts;
-  }
+if (wheelArtifactCount1000) {
+  wheelArtifactCount1000.textContent =
+    formatResourceNumber(artifacts);
+}
 
 
-  // 🟣
-  if (wheelRuneCount10000) {
-    wheelRuneCount10000.textContent = runes;
-  }
+// 🔴 5000
 
-  if (wheelArtifactCount10000) {
-    wheelArtifactCount10000.textContent = artifacts;
-  }
+if (wheelRuneCount5000) {
+  wheelRuneCount5000.textContent =
+    formatResourceNumber(runes);
+}
+
+if (wheelArtifactCount5000) {
+  wheelArtifactCount5000.textContent =
+    formatResourceNumber(artifacts);
+}
 
 
-  // 🟡
-  if (wheelRuneCountFriends) {
-    wheelRuneCountFriends.textContent = runes;
-  }
+// 🟣 10000
 
-  if (wheelArtifactCountFriends) {
-    wheelArtifactCountFriends.textContent = artifacts;
-  }
+if (wheelRuneCount10000) {
+  wheelRuneCount10000.textContent =
+    formatResourceNumber(runes);
+}
+
+if (wheelArtifactCount10000) {
+  wheelArtifactCount10000.textContent =
+    formatResourceNumber(artifacts);
+}
+
+
+// 🟡 FRIENDS
+
+if (wheelRuneCountFriends) {
+  wheelRuneCountFriends.textContent =
+    formatResourceNumber(runes);
+}
+
+if (wheelArtifactCountFriends) {
+  wheelArtifactCountFriends.textContent =
+    formatResourceNumber(artifacts);
+}
 
 }
 
