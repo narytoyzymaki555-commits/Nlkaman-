@@ -10595,53 +10595,72 @@ let stars =
   
 function updateStars() {
 
-    const clickerCoinCount =
+  const clickerCoinCount =
     document.getElementById("clickerCoinCount");
 
-    const coinCount =
+  const coinCount =
     document.getElementById("coinCount");
 
+  const starCount =
+    document.getElementById("starCount");
+
+  const bearStarCount =
+    document.getElementById("bearStarCount");
+
+  const wheelStarCount =
+    document.getElementById("wheelStarCount");
+
+  const wheelStarCount5000 =
+    document.getElementById("wheelStarCount5000");
+
+  const wheelStarCount10000 =
+    document.getElementById("wheelStarCount10000");
+
+  const wheelStarCountFriends =
+    document.getElementById("wheelStarCountFriends");
+
+
   if (coinCount) {
-    coinCount.textContent = formatResourceNumber(stars);
+    coinCount.textContent =
+      formatResourceNumber(stars);
   }
 
   if (clickerCoinCount) {
     clickerCoinCount.textContent =
-  formatResourceNumber(stars);
+      formatResourceNumber(stars);
   }
-  
-  const starCount =
-    document.getElementById(
-      "starCount"
-    );
-
-  const bearStarCount =
-    document.getElementById(
-      "bearStarCount"
-    );
-
-  const wheelStarCount =
-    document.getElementById(
-      "wheelStarCount"
-    );
 
   if (starCount) {
     starCount.textContent =
-  formatResourceNumber(stars);
-      stars;
+      formatResourceNumber(stars);
   }
 
   if (bearStarCount) {
     bearStarCount.textContent =
-  formatResourceNumber(stars);
-      stars;
+      formatResourceNumber(stars);
   }
 
   if (wheelStarCount) {
     wheelStarCount.textContent =
-  formatResourceNumber(stars);
-      stars;
+      formatResourceNumber(stars);
   }
+
+  if (wheelStarCount5000) {
+    wheelStarCount5000.textContent =
+      formatResourceNumber(stars);
+  }
+
+  if (wheelStarCount10000) {
+    wheelStarCount10000.textContent =
+      formatResourceNumber(stars);
+  }
+
+  if (wheelStarCountFriends) {
+    wheelStarCountFriends.textContent =
+      formatResourceNumber(stars);
+  }
+
+}
   
 const wheelStarCount5000.textContent =
   formatResourceNumber(stars);
