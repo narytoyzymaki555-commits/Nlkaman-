@@ -7056,6 +7056,56 @@ background-position: center top !important;
 #workshopForgeButton:disabled{opacity:.45;cursor:not-allowed}
 @media(max-width:420px){.forge-equipment-grid{gap:5px;padding-left:8px;padding-right:8px}.forge-equipment-card{min-height:96px;padding:5px 2px}.forge-equipment-card img{width:45px;height:45px}.forge-equipment-card-name{font-size:8px}}
 
+    /* =====================================================
+   🔮 ПРОЗОРЕ СКЛО ВЕРХНЬОЇ ПАНЕЛІ
+===================================================== */
+
+.top-panel,
+#home .top-panel,
+#workshop .top-panel {
+
+  background: rgba(255,255,255,0.025) !important;
+
+  border: 1px solid rgba(255,255,255,0.14) !important;
+
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.08),
+    0 4px 18px rgba(0,0,0,0.12) !important;
+}
+
+
+/* 👤 Блок з аватаркою та ніком */
+
+.user-box {
+
+  background: rgba(255,255,255,0.025) !important;
+
+  border: 1px solid rgba(255,255,255,0.08) !important;
+
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+}
+
+
+/* 💰 РЕСУРСИ */
+
+.top-stat,
+.top-resource {
+
+  background: rgba(255,255,255,0.025) !important;
+
+  border: 1px solid rgba(255,255,255,0.09) !important;
+
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,0.06) !important;
+}
+  
 </style>
 </head>
 
