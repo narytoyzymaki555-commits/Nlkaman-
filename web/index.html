@@ -12866,16 +12866,16 @@ function openWheelChances(wheelId, chancesId) {
 ========================= */
 
 const armorItems = [
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/fork_farmer.png.PNG", "Броня Фермера", 35],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/axe_woodcutter.png.PNG", "Броня Лісоруба", 22],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/steel_blade.png.PNG", "Сталева броня", 20],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Броня Полум'я", 10],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Броня Синього полум'я", 5],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/lightning_blade.png.PNG", "Броня Блискавки", 3],
-  ["rmor_https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Броня Драконячого полум'я", 2],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/conqueror_blade.png.PNG", "Броня Завойовника", 1.5],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/hydro_blade.png.PNG", "Броня Гідро", 1],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/sun_god_blade.png.PNG", "Броня Бога Сонця", 0.5]
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_fork_farmer.png.PNG", "Броня Фермера", 35],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_axe_woodcutter.png.PNG", "Броня Лісоруба", 22],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_steel_blade.png.PNG", "Сталева броня", 20],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_flame_blade.png.PNG", "Броня Полум'я", 10],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_blue_flame_blade.png.PNG", "Броня Синього полум'я", 5],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_lightning_blade.png.PNG", "Броня Блискавки", 3],
+  ["rmor_https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_flame_blade.png.PNG", "Броня Драконячого полум'я", 2],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_conqueror_blade.png.PNG", "Броня Завойовника", 1.5],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_hydro_blade.png.PNG", "Броня Гідро", 1],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_sun_god_blade.png.PNG", "Броня Бога Сонця", 0.5]
 ];
 
 
@@ -12888,9 +12888,9 @@ const swordItems = [
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/axe_woodcutter.png.PNG", "Сокира Лісоруба", 22],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/steel_blade.png.PNG", "Сталевий меч", 20],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Меч Полум'я", 10],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Меч Синього полум'я", 5],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_flame_blade.png.PNG", "Меч Синього полум'я", 5],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/lightning_blade.png.PNG", "Меч Блискавки", 3],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Меч Драконячого полум'я", 2],
+  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_flame_blade.png.PNG", "Меч Драконячого полум'я", 2],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/conqueror_blade.png.PNG", "Меч Завойовника", 1.5],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/hydro_blade.png.PNG", "Гідромеч", 1],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/sun_god_blade.png.PNG", "Меч Бога Сонця", 0.5]
@@ -15161,24 +15161,24 @@ const forgeRecipes = {
     {level:2,name:"СОКИРА",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/axe_woodcutter.png.PNG"},
     {level:3,name:"СТАЛЕВИЙ КЛИНОК",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/steel_blade.png.PNG"},
     {level:4,name:"ВОГНЯНИЙ КЛИНОК",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
-    {level:5,name:"СИНЄ ПОЛУМ'Я",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
+    {level:5,name:"СИНЄ ПОЛУМ'Я",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_flame_blade.png.PNG"},
     {level:6,name:"БЛИСКАВИЧНИЙ КЛИНОК",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/lightning_blade.png.PNG"},
-    {level:7,name:"ДРАКОНЯЧИЙ КЛИНОК",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
+    {level:7,name:"ДРАКОНЯЧИЙ КЛИНОК",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_flame_blade.png.PNG"},
     {level:8,name:"КЛИНОК ЗАВОЙОВНИКА",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/conqueror_blade.png.PNG"},
     {level:9,name:"ГІДРО КЛИНОК",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/hydro_blade.png.PNG"},
     {level:10,name:"КЛИНОК БОГА СОНЦЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/sun_god_blade.png.PNG"}
   ],
   armor: [
-    {level:1,name:"БРОНЯ ВИЛ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/fork_farmer.png.PNG"},
-    {level:2,name:"БРОНЯ СОКИРИ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/axe_woodcutter.png.PNG"},
-    {level:3,name:"СТАЛЕВА БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/steel_blade.png.PNG"},
-    {level:4,name:"ВОГНЯНА БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
-    {level:5,name:"БРОНЯ СИНЬОГО ПОЛУМ'Я",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
-    {level:6,name:"БРОНЯ БЛИСКАВКИ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/lightning_blade.png.PNG"},
-    {level:7,name:"ДРАКОНЯЧА БРОНЯ",image:"rmor_https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
-    {level:8,name:"БРОНЯ ЗАВОЙОВНИКА",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/conqueror_blade.png.PNG"},
-    {level:9,name:"ГІДРО БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/hydro_blade.png.PNG"},
-    {level:10,name:"БРОНЯ БОГА СОНЦЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/sun_god_blade.png.PNG"}
+    {level:1,name:"БРОНЯ ВИЛ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_fork_farmer.png.PNG"},
+    {level:2,name:"БРОНЯ СОКИРИ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_axe_woodcutter.png.PNG"},
+    {level:3,name:"СТАЛЕВА БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_steel_blade.png.PNG"},
+    {level:4,name:"ВОГНЯНА БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_flame_blade.png.PNG"},
+    {level:5,name:"БРОНЯ СИНЬОГО ПОЛУМ'Я",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_blue_flame_blade.png.PNG"},
+    {level:6,name:"БРОНЯ БЛИСКАВКИ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_lightning_blade.png.PNG"},
+    {level:7,name:"ДРАКОНЯЧА БРОНЯ",image:"rmor_https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_flame_blade.png.PNG"},
+    {level:8,name:"БРОНЯ ЗАВОЙОВНИКА",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_conqueror_blade.png.PNG"},
+    {level:9,name:"ГІДРО БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_hydro_blade.png.PNG"},
+    {level:10,name:"БРОНЯ БОГА СОНЦЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_sun_god_blade.png.PNG"}
   ]
 };
 
@@ -15378,5 +15378,4 @@ function openWorkshop(){workshopMode="forge";forgeCategory="weapon";forgeSelecte
 
 </body>
 </html>
-
 
