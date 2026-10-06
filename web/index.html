@@ -151,16 +151,23 @@
 }
     
 .top-panel {
+  position: relative;
+  z-index: 20;
+
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 5px 6px;
-  margin-bottom: 8px;
-  border-radius: 13px;
-  background: rgba(22, 25, 53, .88);
-  border: 1px solid rgba(124, 92, 255, .35);
+  gap: 8px;
+
   width: 100%;
-  overflow: hidden;
+  min-height: 58px;
+  padding: 5px 6px;
+
+  border-radius: 14px;
+
+  background: rgba(15, 20, 25, .82);
+  border: 1px solid rgba(255, 255, 255, .15);
+
+  backdrop-filter: blur(8px);
 }
 
 .user-box {
@@ -4970,7 +4977,7 @@ max-height: 27px !important;
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .top-level-image {
@@ -4982,6 +4989,7 @@ max-height: 27px !important;
 
 .top-level-progress {
   min-width: 55px;
+  max-width: 105px;
   flex: 1;
 }
 
@@ -7095,24 +7103,14 @@ background-position: center top !important;
         >
 
         <div class="top-level-progress">
+  <div id="topLevelText" class="top-level-text">
+    РІВЕНЬ 1
+  </div>
 
-          <div
-            class="top-level-progress-bar"
-          >
-            <div
-              id="topLevelProgress"
-              class="top-level-progress-fill"
-            ></div>
-          </div>
-
-          <div
-            id="topLevelText"
-            class="top-level-text"
-          >
-            РІВЕНЬ 1
-          </div>
-
-        </div>
+  <div class="top-level-progress-bar">
+    <div id="topLevelProgress" class="top-level-progress-fill"></div>
+  </div>
+</div>
 
       </div>
 
