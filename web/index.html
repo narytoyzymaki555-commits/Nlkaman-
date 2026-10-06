@@ -10634,7 +10634,6 @@ function updateStars() {
 function clickBear() {
 
   stars++;
-
   updateStars();
 
   localStorage.setItem(
@@ -10650,6 +10649,11 @@ function clickBear() {
     void bear.offsetWidth;
 
     bear.classList.add("coin-flash");
+  }
+
+  // Звук кліку
+  if (typeof playCoinSound === "function") {
+    playCoinSound();
   }
 
 }
