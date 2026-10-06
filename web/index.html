@@ -4965,7 +4965,15 @@ max-height: 27px !important;
 .top-player-info {
   min-width: 0;
   flex: 1;
-  position: relative;
+  overflow: visible;
+}
+
+.user-name {
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  font-size: 16px;
+  font-weight: 900;
 }
 
 .top-avatar {
@@ -5029,7 +5037,7 @@ max-height: 27px !important;
 .top-resources {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   flex-shrink: 0;
 }
 
@@ -5039,10 +5047,10 @@ max-height: 27px !important;
   justify-content: center;
   gap: 2px;
 
-  min-width: 30px;
+  min-width: 0;
   height: 31px;
 
-  padding: 3px 4px;
+  padding: 4px 6px;
 
   border-radius: 8px;
 
