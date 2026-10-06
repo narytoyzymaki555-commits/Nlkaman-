@@ -10521,57 +10521,25 @@ let stars =
 }
   
 function updateStars() {
-  const clickerCoinCount =
-    document.getElementById("clickerCoinCount");
+  const clickerCoinCount = document.getElementById("clickerCoinCount");
+  const coinCount = document.getElementById("coinCount");
+  const starCount = document.getElementById("starCount");
+  const bearStarCount = document.getElementById("bearStarCount");
+  const wheelStarCount = document.getElementById("wheelStarCount");
+  const wheelStarCount5000 = document.getElementById("wheelStarCount5000");
+  const wheelStarCount10000 = document.getElementById("wheelStarCount10000");
+  const wheelStarCountFriends = document.getElementById("wheelStarCountFriends");
 
-  const coinCount =
-    document.getElementById("coinCount");
-
-  const wheelStarCount =
-    document.getElementById("wheelStarCount");
-
-  const wheelStarCount5000 =
-    document.getElementById("wheelStarCount5000");
-
-  const wheelStarCount10000 =
-    document.getElementById("wheelStarCount10000");
-
-  const wheelStarCountFriends =
-    document.getElementById("wheelStarCountFriends");
-
-  if (coinCount) {
-    coinCount.textContent =
-      formatResourceNumber(stars);
-  }
-
-  if (clickerCoinCount) {
-    clickerCoinCount.textContent =
-      formatResourceNumber(stars);
-  }
-
-  if (wheelStarCount) {
-    wheelStarCount.textContent =
-      formatResourceNumber(stars);
-  }
-
-  if (wheelStarCount5000) {
-    wheelStarCount5000.textContent =
-      formatResourceNumber(stars);
-  }
-
-  if (wheelStarCount10000) {
-    wheelStarCount10000.textContent =
-      formatResourceNumber(stars);
-  }
-
-  if (wheelStarCountFriends) {
-    wheelStarCountFriends.textContent =
-      formatResourceNumber(stars);
-  }
+  if (coinCount) coinCount.textContent = formatResourceNumber(stars);
+  if (clickerCoinCount) clickerCoinCount.textContent = formatResourceNumber(stars);
+  if (starCount) starCount.textContent = formatResourceNumber(stars);
+  if (bearStarCount) bearStarCount.textContent = formatResourceNumber(stars);
+  if (wheelStarCount) wheelStarCount.textContent = formatResourceNumber(stars);
+  if (wheelStarCount5000) wheelStarCount5000.textContent = formatResourceNumber(stars);
+  if (wheelStarCount10000) wheelStarCount10000.textContent = formatResourceNumber(stars);
+  if (wheelStarCountFriends) wheelStarCountFriends.textContent = formatResourceNumber(stars);
 }
-  
-  updateStars();
-  
+
 function clickBear() {
 
   stars++;
@@ -11579,7 +11547,7 @@ const nikaWheelStates = {
     rotation: 0,
     spinning: false,
     spinCount: 1,
-    cost: 0,
+    cost: 1,
     currency: "runes"
   },
 
@@ -11588,7 +11556,7 @@ const nikaWheelStates = {
     rotation: 0,
     spinning: false,
     spinCount: 1,
-    cost: 0,
+    cost: 5,
     currency: "runes"
   },
 
@@ -11597,7 +11565,7 @@ const nikaWheelStates = {
     rotation: 0,
     spinning: false,
     spinCount: 1,
-    cost: 0,
+    cost: 10,
     currency: "runes"
   },
 
@@ -11606,7 +11574,7 @@ const nikaWheelStates = {
     rotation: 0,
     spinning: false,
     spinCount: 1,
-    cost: 0,
+    cost: 1,
     currency: "artifacts"
   }
 
@@ -12904,7 +12872,7 @@ const armorItems = [
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Броня Полум'я", 10],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Броня Синього полум'я", 5],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/lightning_blade.png.PNG", "Броня Блискавки", 3],
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/rmor_https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Броня Драконячого полум'я", 2],
+  ["rmor_https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Броня Драконячого полум'я", 2],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/conqueror_blade.png.PNG", "Броня Завойовника", 1.5],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/hydro_blade.png.PNG", "Броня Гідро", 1],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/sun_god_blade.png.PNG", "Броня Бога Сонця", 0.5]
@@ -13056,7 +13024,7 @@ function createEquipmentWheel(config) {
           >
 
             <img
-  src="${prize.icon.match(/src="([^"]+)"/)[1]}"
+  src="${(prize.icon.match(/src=["\']([^"\']+)["\']/) || [null, ""])[1]}"
   class="nika-prize-img"
   alt="${prize.text}"
 >
@@ -13831,18 +13799,22 @@ function getInventoryItemType(
   image
 ) {
 
-  const text =
-    (
-      String(name || "") +
-      " " +
-      String(image || "")
-    ).toLowerCase();
+  const text = (String(name || "") + " " + String(image || "")).toLowerCase();
 
+  /* 🛡️ БРОНЯ — ПЕРЕВІРЯЄМО ПЕРШОЮ,
+     бо назви armor_* містять blade/fork/axe */
+  const armorWords = [
+    "броня",
+    "armor_",
+    "rmor_dragon"
+  ];
+
+  if (armorWords.some(word => text.includes(word))) {
+    return "armor";
+  }
 
   /* ⚔️ ЗБРОЯ */
-
   const weaponWords = [
-
     "меч",
     "меча",
     "вила",
@@ -13858,47 +13830,13 @@ function getInventoryItemType(
     "conqueror_blade",
     "hydro_blade",
     "sun_god_blade"
-
   ];
 
-
-  if (
-    weaponWords.some(
-      word => text.includes(word)
-    )
-  ) {
-
+  if (weaponWords.some(word => text.includes(word))) {
     return "weapon";
-
   }
-
-
-  /* 🛡️ БРОНЯ */
-
-  const armorWords = [
-
-    "броня",
-    "armor",
-    "rmor_dragon"
-
-  ];
-
-
-  if (
-    armorWords.some(
-      word => text.includes(word)
-    )
-  ) {
-
-    return "armor";
-
-  }
-
-
-  /* 🎁 ВСЕ ІНШЕ — ПОДАРУНОК */
 
   return "gift";
-
 }
 
 
@@ -15237,7 +15175,7 @@ const forgeRecipes = {
     {level:4,name:"ВОГНЯНА БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
     {level:5,name:"БРОНЯ СИНЬОГО ПОЛУМ'Я",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
     {level:6,name:"БРОНЯ БЛИСКАВКИ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/lightning_blade.png.PNG"},
-    {level:7,name:"ДРАКОНЯЧА БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/rmor_https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
+    {level:7,name:"ДРАКОНЯЧА БРОНЯ",image:"rmor_https://long-dust-06f3.narytoyzymaki555.workers.dev/dragon_https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG"},
     {level:8,name:"БРОНЯ ЗАВОЙОВНИКА",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/conqueror_blade.png.PNG"},
     {level:9,name:"ГІДРО БРОНЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/hydro_blade.png.PNG"},
     {level:10,name:"БРОНЯ БОГА СОНЦЯ",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/armor_https://long-dust-06f3.narytoyzymaki555.workers.dev/sun_god_blade.png.PNG"}
