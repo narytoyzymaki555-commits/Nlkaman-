@@ -10581,53 +10581,32 @@ function updateStars() {
   if (wheelStarCountFriends) wheelStarCountFriends.textContent = formatResourceNumber(stars);
 }
 
- let lastClickSound = 0;
-let lastSaveTime = 0;
-
-function clickBear() {
+ function clickBear() {
 
   stars++;
 
-  // Оновлюємо цифру
   updateStars();
 
-  const now = Date.now();
+  localStorage.setItem(
+    "nlkaman_stars",
+    stars
+  );
 
-  // Зберігаємо не на кожен клік
-  if (now - lastSaveTime > 300) {
-    localStorage.setItem(
-      "nlkaman_stars",
-      stars
-    );
-
-    lastSaveTime = now;
-  }
-
-  // Звук максимум раз на 70 мс
-  if (now - lastClickSound > 70) {
-    playCoinSound();
-    lastClickSound = now;
-  }
-
-  // Анімація
   const bear = document.querySelector(".bear");
 
   if (bear) {
     bear.classList.remove("coin-flash");
 
-    requestAnimationFrame(() => {
-      bear.classList.add("coin-flash");
-    });
+    void bear.offsetWidth;
+
+    bear.classList.add("coin-flash");
   }
 }
+
 
 function handleBearTouch(event) {
 
   event.preventDefault();
-
-  if (window.Telegram?.WebApp?.HapticFeedback) {
-    Telegram.WebApp.HapticFeedback.impactOccurred("light");
-  }
 
   clickBear();
 }
