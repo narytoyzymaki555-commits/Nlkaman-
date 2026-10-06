@@ -10581,58 +10581,56 @@ function updateStars() {
   if (wheelStarCountFriends) wheelStarCountFriends.textContent = formatResourceNumber(stars);
 }
 
+ let lastClickSound = 0;
+let lastSaveTime = 0;
+
 function clickBear() {
 
   stars++;
 
-  localStorage.setItem(
-    "nlkaman_stars",
-    stars
-  );
-
+  // Оновлюємо цифру
   updateStars();
 
-  playCoinSound();
+  const now = Date.now();
 
-  const bear =
-    document.querySelector(
-      ".bear"
+  // Зберігаємо не на кожен клік
+  if (now - lastSaveTime > 300) {
+    localStorage.setItem(
+      "nlkaman_stars",
+      stars
     );
 
-  if (bear) {
-
-    bear.classList.remove(
-      "coin-flash"
-    );
-
-    void bear.offsetWidth;
-
-    bear.classList.add(
-      "coin-flash"
-    );
-
+    lastSaveTime = now;
   }
 
+  // Звук максимум раз на 70 мс
+  if (now - lastClickSound > 70) {
+    playCoinSound();
+    lastClickSound = now;
+  }
+
+  // Анімація
+  const bear = document.querySelector(".bear");
+
+  if (bear) {
+    bear.classList.remove("coin-flash");
+
+    requestAnimationFrame(() => {
+      bear.classList.add("coin-flash");
+    });
+  }
 }
+
 function handleBearTouch(event) {
-  if (window.Telegram?.WebApp?.HapticFeedback) {
-  Telegram.WebApp.HapticFeedback.impactOccurred("light");
-}
 
   event.preventDefault();
 
-  const touches =
-    event.changedTouches;
-
-  for (
-    let i = 0;
-    i < touches.length;
-    i++
-  ) {
-
-    clickBear();
-
+  if (window.Telegram?.WebApp?.HapticFeedback) {
+    Telegram.WebApp.HapticFeedback.impactOccurred("light");
   }
+
+  clickBear();
+}
 
 }
 
