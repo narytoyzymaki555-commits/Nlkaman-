@@ -156,18 +156,21 @@
 
   display: flex;
   align-items: center;
-  gap: 8px;
 
+  gap: 5px;
   width: 100%;
-  min-height: 72px;
+
   padding: 5px 6px;
+  border-radius: 13px;
 
-  border-radius: 14px;
+  background: rgba(15, 20, 25, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 
-  background: rgba(15, 20, 25, .82);
-  border: 1px solid rgba(255, 255, 255, .15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
-  backdrop-filter: blur(8px);
+  min-height: 58px;
+  box-sizing: border-box;
 }
 
 .user-box {
@@ -183,8 +186,8 @@
 }
 
 .top-avatar {
-  width: 28px;
-  height: 28px;
+  width: 29px;
+  height: 29px;
   flex-shrink: 0;
 }
 
@@ -4956,7 +4959,7 @@ max-height: 27px !important;
 .top-player {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 5px;
 
   min-width: 0;
   flex: 1;
@@ -4984,30 +4987,27 @@ max-height: 27px !important;
 
 .top-level-row {
   display: flex;
-  align-items: flex-start;
-  gap: 5px;
-  margin-top: 10px;
-  transform: translateY(8px);
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
 }
 
 .top-level-image {
-  width: 24px;
-  height: 24px;
+  width: 19px;
+  height: 19px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .top-level-progress {
-  min-width: 55px;
-  max-width: 105px;
+  min-width: 40px;
   flex: 1;
 }
 
 .top-level-progress-bar {
   width: 100%;
-  height: 6px;
+  height: 5px;
   overflow: hidden;
-
   border-radius: 10px;
   background: rgba(255,255,255,.15);
 }
@@ -5027,17 +5027,15 @@ max-height: 27px !important;
 }
 
 .top-level-text {
-  margin-top: 2px;
-
-  font-size: 8px;
+  margin-top: 1px;
+  font-size: 7px;
   font-weight: 900;
-  color: #dcecff;
 }
 
 .top-resources {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
   flex-shrink: 0;
 }
 
@@ -5045,25 +5043,29 @@ max-height: 27px !important;
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 2px;
 
   min-width: 0;
-  height: 31px;
+  height: 27px;
 
-  padding: 4px 6px;
+  padding: 2px 4px;
 
   border-radius: 8px;
 
-  background: rgba(0,0,0,.35);
-  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.10);
 
-  font-size: 10px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  font-size: 9px;
   font-weight: 900;
 }
 
 .top-resource img {
-  width: 19px;
-  height: 19px;
+  width: 16px;
+  height: 16px;
   object-fit: contain;
 }
 
