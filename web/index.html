@@ -10628,7 +10628,10 @@ function updateStars() {
       formatResourceNumber(stars);
   }
 
- function clickBear() {
+}
+
+
+function clickBear() {
 
   stars++;
 
@@ -10649,11 +10652,15 @@ function updateStars() {
     bear.classList.add("coin-flash");
   }
 
+}
+
+
 function handleBearTouch(event) {
 
   event.preventDefault();
 
   clickBear();
+
 }
 
   let wood =
