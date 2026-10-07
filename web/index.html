@@ -1091,7 +1091,7 @@ transition:
       z-index: 40;
 
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(3, 1fr);
 
       padding: 8px 7px calc(8px + env(safe-area-inset-bottom));
 
@@ -4940,9 +4940,9 @@ max-height: 27px !important;
 
 /* 🪜 СХОДИ / ПОДОРОЖ */
 .hotspot-adventure {
-  right: 0;
-  top: 39%;
-  width: 16%;
+  right: 2%;
+  bottom: 10%;
+  width: 20%;
   height: 20%;
 }
 
@@ -7112,15 +7112,19 @@ background-position: center top !important;
 ===================================================== */
 .tab-header-image {
   display: block;
-  width: 60%;
-  height: 110px;
-  max-height: 110px;
+  width: calc(100% + 32px);
+  height: 66px;
+  max-height: 66px;
   object-fit: cover;
   object-position: center center;
   border-radius: 18px;
-  margin: 0 auto 10px;
+  margin: 0 -16px 10px;
   border: 1px solid rgba(255,255,255,.12);
   box-shadow: 0 8px 25px rgba(0,0,0,.28);
+}
+
+.top-panel + .tab-header-image {
+  margin-top: 0 !important;
 }
 
 .travel-options {
@@ -7500,9 +7504,7 @@ background-position: center top !important;
 
   <div class="card">
 
-    <div class="stat-label">
-      Гільдія
-    </div>
+
 
     <div
       style="
@@ -7774,13 +7776,7 @@ background-position: center top !important;
 
 
 
-  <img
-    src="https://aged-bird-05af.narytoyzymaki555.workers.dev/clickerHeader.png.PNG"
-    class="tab-header-image"
-    alt=""
-  >
 
-  
 
   <div class="bear-clicker">
 
@@ -9870,24 +9866,6 @@ background-position: center top !important;
 
   <button
     class="nav-btn"
-    id="nav-inventory"
-    onclick="openPage('inventory')"
-  >
-    <span>🎁</span>
-    Інвентар
-  </button>
-
-  <button
-  class="nav-btn"
-  id="nav-workshop"
-  onclick="openPage('workshop')"
->
-  <span>🛠️</span>
-  Майстерня
-</button>
-
-  <button
-    class="nav-btn"
     id="nav-leaderboard"
     onclick="openPage('leaderboard')"
   >
@@ -9902,15 +9880,6 @@ background-position: center top !important;
   >
     <span>👥</span>
     Друзі
-  </button>
-
-  <button
-    class="nav-btn"
-    id="nav-adventure"
-    onclick="openPage('adventure')"
-  >
-    <span>🪜</span>
-    Подорож
   </button>
 
 </div>
