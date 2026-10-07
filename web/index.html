@@ -7106,6 +7106,107 @@ background-position: center top !important;
     inset 0 1px 1px rgba(255,255,255,0.06) !important;
 }
   
+
+/* =====================================================
+   🖼️ ЗАГОЛОВКИ ВКЛАДОК
+===================================================== */
+.tab-header-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 190px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin: 0 0 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 8px 25px rgba(0,0,0,.28);
+}
+
+.travel-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.travel-option-card {
+  min-width: 0;
+  min-height: 170px;
+  padding: 8px;
+  border-radius: 20px;
+  background: rgba(8,15,30,.88);
+  border: 1px solid rgba(80,150,255,.35);
+  box-shadow: 0 0 22px rgba(40,120,255,.12);
+  cursor: pointer;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .15s ease, border-color .15s ease;
+}
+
+.travel-option-card:active {
+  transform: scale(.97);
+}
+
+.travel-option-card img {
+  display: block;
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.travel-option-title {
+  margin-top: 8px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.travel-subpage {
+  display: none;
+  margin-top: 12px;
+}
+
+.travel-subpage.active {
+  display: block;
+}
+
+.travel-back {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 11px 12px;
+  border: 1px solid rgba(80,150,255,.35);
+  border-radius: 13px;
+  background: rgba(8,25,50,.8);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.travel-soon {
+  padding: 28px 16px;
+  text-align: center;
+  border-radius: 18px;
+  background: rgba(8,15,30,.78);
+  border: 1px solid rgba(80,150,255,.25);
+  color: #dfeaff;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.travel-soon small {
+  display: block;
+  margin-top: 8px;
+  color: #91a7c5;
+  font-size: 12px;
+}
+
+@media (max-width: 360px) {
+  .travel-options { grid-template-columns: 1fr 1fr; gap: 7px; }
+  .travel-option-card { min-height: 145px; padding: 6px; }
+  .travel-option-card img { height: 105px; }
+}
 </style>
 </head>
 
@@ -7263,6 +7364,13 @@ background-position: center top !important;
   class="page"
 >
 
+  <img
+    src="https://long-dust-06f3.narytoyzymaki555.workers.dev/inventoryHeader.png"
+    class="tab-header-image"
+    alt=""
+  >
+
+
   <div class="inventory-title">
     🎒 МІЙ ІНВЕНТАР
   </div>
@@ -7354,6 +7462,13 @@ background-position: center top !important;
   class="page"
 >
 
+  <img
+    src="https://long-dust-06f3.narytoyzymaki555.workers.dev/laboratoryHeader.png"
+    class="tab-header-image"
+    alt=""
+  >
+
+
   <div class="game-page-title">
     🧪 ЛАБОРАТОРІЯ
   </div>
@@ -7386,6 +7501,13 @@ background-position: center top !important;
   class="page"
 >
 
+  <img
+    src="https://long-dust-06f3.narytoyzymaki555.workers.dev/guildHeader.png"
+    class="tab-header-image"
+    alt=""
+  >
+
+
   <div class="game-page-title">
     🏰 ГІЛЬДІЯ
   </div>
@@ -7412,6 +7534,13 @@ background-position: center top !important;
   
 <!-- 🛠️ МАЙСТЕРНЯ -->
 <section id="workshop" class="page">
+
+  <img
+    src="https://long-dust-06f3.narytoyzymaki555.workers.dev/workshopHeader.png"
+    class="tab-header-image"
+    alt=""
+  >
+
 
   <div class="top-panel">
     <div class="top-player">
@@ -7580,6 +7709,13 @@ background-position: center top !important;
   
   <!-- 🎮 КЛІКЕР -->
 <section id="clicker" class="page">
+
+  <img
+    src="https://long-dust-06f3.narytoyzymaki555.workers.dev/clickerHeader.png"
+    class="tab-header-image"
+    alt=""
+  >
+
   <div class="top-panel">
 
   <!-- ПРОФІЛЬ -->
@@ -7693,8 +7829,54 @@ background-position: center top !important;
 <!-- 🌍 ПОДОРОЖУВАТИ -->
 <section id="adventure" class="page">
 
-  <div class="game-page-title">
-    🌍 ПОДОРОЖУВАТИ
+  <div id="travelMenu">
+    <div class="travel-options">
+
+      <div class="travel-option-card" onclick="openTravelOption('solo')">
+        <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/soloTravelHeader.png" alt="Подорожувати самому">
+        <div class="travel-option-title">ПОДОРОЖУВАТИ САМОМУ</div>
+      </div>
+
+      <div class="travel-option-card" onclick="openTravelOption('friend')">
+        <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/friendTravelHeader.png" alt="Подорожувати з другом">
+        <div class="travel-option-title">ПОДОРОЖУВАТИ З ДРУГОМ</div>
+      </div>
+
+      <div class="travel-option-card" onclick="openTravelOption('squad')">
+        <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/squadHeader.png" alt="Отряд">
+        <div class="travel-option-title">ОТРЯД</div>
+      </div>
+
+      <div class="travel-option-card" onclick="openTravelOption('guild')">
+        <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/guild2Header.png" alt="Подорож з гільдією">
+        <div class="travel-option-title">З ГІЛЬДІЄЮ</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="travelSolo" class="travel-subpage">
+    <button class="travel-back" onclick="closeTravelOption()">← НАЗАД</button>
+    <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/soloTravelHeader.png" class="tab-header-image" alt="">
+    <div class="travel-soon">🚧 СКОРО БУДЕМО РОБИТИ<small>Цей режим подорожі поки що в розробці.</small></div>
+  </div>
+
+  <div id="travelFriend" class="travel-subpage">
+    <button class="travel-back" onclick="closeTravelOption()">← НАЗАД</button>
+    <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/friendTravelHeader.png" class="tab-header-image" alt="">
+    <div class="travel-soon">🚧 СКОРО БУДЕМО РОБИТИ<small>Цей режим подорожі поки що в розробці.</small></div>
+  </div>
+
+  <div id="travelSquad" class="travel-subpage">
+    <button class="travel-back" onclick="closeTravelOption()">← НАЗАД</button>
+    <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/squadHeader.png" class="tab-header-image" alt="">
+    <div class="travel-soon">🚧 СКОРО БУДЕМО РОБИТИ<small>Цей режим подорожі поки що в розробці.</small></div>
+  </div>
+
+  <div id="travelGuild" class="travel-subpage">
+    <button class="travel-back" onclick="closeTravelOption()">← НАЗАД</button>
+    <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/guild2Header.png" class="tab-header-image" alt="">
+    <div class="travel-soon">🚧 СКОРО БУДЕМО РОБИТИ<small>Цей режим подорожі поки що в розробці.</small></div>
   </div>
 
 </section>
@@ -7767,6 +7949,13 @@ background-position: center top !important;
     class="page"
   >
 
+  <img
+    src="https://long-dust-06f3.narytoyzymaki555.workers.dev/friendsHeader.png"
+    class="tab-header-image"
+    alt=""
+  >
+
+
    <div class="section-title">
   👥 Друзі
 </div>
@@ -7811,6 +8000,13 @@ background-position: center top !important;
   id="wheel"
   class="page"
 >
+
+  <img
+    src="https://long-dust-06f3.narytoyzymaki555.workers.dev/wheelsHeader.png"
+    class="tab-header-image"
+    alt=""
+  >
+
 
 <div class="wheel-menu">
 
@@ -9667,6 +9863,13 @@ background-position: center top !important;
     class="page"
   >
 
+  <img
+    src="https://long-dust-06f3.narytoyzymaki555.workers.dev/leaderboardHeader.png"
+    class="tab-header-image"
+    alt=""
+  >
+
+
     <div class="section-title">
   🏆 Лідербол
 </div>
@@ -11485,6 +11688,40 @@ function loadUser() {
 
   });
 
+}
+
+
+
+/* 🧭 ВАРІАНТИ ПОДОРОЖІ */
+function openTravelOption(option) {
+  const map = {
+    solo: 'travelSolo',
+    friend: 'travelFriend',
+    squad: 'travelSquad',
+    guild: 'travelGuild'
+  };
+
+  document.getElementById('travelMenu')?.style.setProperty('display', 'none');
+
+  document.querySelectorAll('.travel-subpage').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  const target = document.getElementById(map[option]);
+  if (target) target.classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeTravelOption() {
+  document.querySelectorAll('.travel-subpage').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  const menu = document.getElementById('travelMenu');
+  if (menu) menu.style.display = '';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* =========================
@@ -15454,4 +15691,3 @@ function openWorkshop(){workshopMode="forge";forgeCategory="weapon";forgeSelecte
 
 </body>
 </html>
-
