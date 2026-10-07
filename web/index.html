@@ -1091,7 +1091,7 @@ transition:
       z-index: 40;
 
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
 
       padding: 8px 7px calc(8px + env(safe-area-inset-bottom));
 
@@ -7112,12 +7112,13 @@ background-position: center top !important;
 ===================================================== */
 .tab-header-image {
   display: block;
-  width: 100%;
-  height: auto;
-  max-height: 190px;
+  width: 60%;
+  height: 110px;
+  max-height: 110px;
   object-fit: cover;
+  object-position: center center;
   border-radius: 18px;
-  margin: 0 0 14px;
+  margin: 0 auto 10px;
   border: 1px solid rgba(255,255,255,.12);
   box-shadow: 0 8px 25px rgba(0,0,0,.28);
 }
@@ -7165,7 +7166,7 @@ background-position: center top !important;
 
 .travel-subpage {
   display: none;
-  margin-top: 12px;
+  margin-top: 0;
 }
 
 .travel-subpage.active {
@@ -7174,7 +7175,7 @@ background-position: center top !important;
 
 .travel-back {
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   padding: 11px 12px;
   border: 1px solid rgba(80,150,255,.35);
   border-radius: 13px;
@@ -7370,11 +7371,6 @@ background-position: center top !important;
     alt=""
   >
 
-
-  <div class="inventory-title">
-    🎒 МІЙ ІНВЕНТАР
-  </div>
-
   <!-- ВЕЛИКЕ ЗОБРАЖЕННЯ ВИБРАНОГО ПРЕДМЕТА -->
   <div
     id="inventorySelected"
@@ -7468,11 +7464,6 @@ background-position: center top !important;
     alt=""
   >
 
-
-  <div class="game-page-title">
-    🧪 ЛАБОРАТОРІЯ
-  </div>
-
   <div class="card">
 
     <div class="stat-label">
@@ -7507,11 +7498,6 @@ background-position: center top !important;
     alt=""
   >
 
-
-  <div class="game-page-title">
-    🏰 ГІЛЬДІЯ
-  </div>
-
   <div class="card">
 
     <div class="stat-label">
@@ -7533,16 +7519,7 @@ background-position: center top !important;
 </section>
   
 <!-- 🛠️ МАЙСТЕРНЯ -->
-<section id="workshop" class="page">
-
-  <img
-    src="https://aged-bird-05af.narytoyzymaki555.workers.dev/workshopHeader.png.PNG"
-    class="tab-header-image"
-    alt=""
-  >
-
-
-  <div class="top-panel">
+<section id="workshop" class="page"><div class="top-panel">
     <div class="top-player">
       <div class="avatar top-avatar" id="workshopAvatar">N</div>
       <div class="top-player-info">
@@ -7565,7 +7542,16 @@ background-position: center top !important;
     </div>
   </div>
 
-  <div class="game-page-title">🛠️ МАЙСТЕРНЯ</div>
+
+
+  <img
+    src="https://aged-bird-05af.narytoyzymaki555.workers.dev/workshopHeader.png.PNG"
+    class="tab-header-image"
+    alt=""
+  >
+
+
+  
 
   <div class="workshop-mode-tabs">
     <button id="workshopForgeModeTab" class="workshop-mode-tab active" onclick="switchWorkshopMode('forge')">🔨 ЗКУВАТИ</button>
@@ -7641,10 +7627,6 @@ background-position: center top !important;
   class="page"
 >
 
-  <div class="game-page-title">
-    🧪 ЛАБОРАТОРІЯ
-  </div>
-
   <div class="card">
 
     <div class="stat-label">
@@ -7672,10 +7654,6 @@ background-position: center top !important;
   id="guild"
   class="page"
 >
-
-  <div class="game-page-title">
-    🏰 ГІЛЬДІЯ
-  </div>
 
   <div class="card">
 
@@ -7708,15 +7686,7 @@ background-position: center top !important;
 </div>
   
   <!-- 🎮 КЛІКЕР -->
-<section id="clicker" class="page">
-
-  <img
-    src="https://aged-bird-05af.narytoyzymaki555.workers.dev/clickerHeader.png.PNG"
-    class="tab-header-image"
-    alt=""
-  >
-
-  <div class="top-panel">
+<section id="clicker" class="page"><div class="top-panel">
 
   <!-- ПРОФІЛЬ -->
   <div class="top-player">
@@ -7801,11 +7771,16 @@ background-position: center top !important;
   </div>
 
 </div>
-  
 
-  <div class="game-page-title">
-    🪙 КЛІКЕР
-  </div>
+
+
+  <img
+    src="https://aged-bird-05af.narytoyzymaki555.workers.dev/clickerHeader.png.PNG"
+    class="tab-header-image"
+    alt=""
+  >
+
+  
 
   <div class="bear-clicker">
 
@@ -7834,22 +7809,18 @@ background-position: center top !important;
 
       <div class="travel-option-card" onclick="openTravelOption('solo')">
         <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/soloTravelHeader.png.PNG" alt="Подорожувати самому">
-        <div class="travel-option-title">ПОДОРОЖУВАТИ САМОМУ</div>
       </div>
 
       <div class="travel-option-card" onclick="openTravelOption('friend')">
         <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/friendTravelHeader.png.PNG" alt="Подорожувати з другом">
-        <div class="travel-option-title">ПОДОРОЖУВАТИ З ДРУГОМ</div>
       </div>
 
       <div class="travel-option-card" onclick="openTravelOption('squad')">
         <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/squadHeader.png.PNG" alt="Отряд">
-        <div class="travel-option-title">ОТРЯД</div>
       </div>
 
       <div class="travel-option-card" onclick="openTravelOption('guild')">
         <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/guild2Header.png.PNG" alt="Подорож з гільдією">
-        <div class="travel-option-title">З ГІЛЬДІЄЮ</div>
       </div>
 
     </div>
@@ -7954,11 +7925,6 @@ background-position: center top !important;
     class="tab-header-image"
     alt=""
   >
-
-
-   <div class="section-title">
-  👥 Друзі
-</div>
 
     <div class="card">
 
@@ -9869,11 +9835,6 @@ background-position: center top !important;
     alt=""
   >
 
-
-    <div class="section-title">
-  🏆 Лідербол
-</div>
-
     <div class="card">
 
       <div class="stat-label">
@@ -9941,6 +9902,15 @@ background-position: center top !important;
   >
     <span>👥</span>
     Друзі
+  </button>
+
+  <button
+    class="nav-btn"
+    id="nav-adventure"
+    onclick="openPage('adventure')"
+  >
+    <span>🪜</span>
+    Подорож
   </button>
 
 </div>
@@ -11701,14 +11671,40 @@ function openTravelOption(option) {
     guild: 'travelGuild'
   };
 
-  document.getElementById('travelMenu')?.style.setProperty('display', 'none');
+  const targetId = map[option];
+  const target = targetId ? document.getElementById(targetId) : null;
+  const menu = document.getElementById('travelMenu');
 
+  if (!target) {
+    console.error('Подорож: підсторінку не знайдено:', targetId);
+    return;
+  }
+
+  // Закриваємо всі сторінки подорожі
   document.querySelectorAll('.travel-subpage').forEach(page => {
     page.classList.remove('active');
   });
 
-  const target = document.getElementById(map[option]);
-  if (target) target.classList.add('active');
+  // Ховаємо меню варіантів
+  if (menu) menu.style.display = 'none';
+
+  // Відкриваємо потрібний варіант
+  target.classList.add('active');
+
+  // Переконуємося, що сама вкладка "Подорож" активна
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  const adventurePage = document.getElementById('adventure');
+  if (adventurePage) adventurePage.classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(button => {
+    button.classList.remove('active');
+  });
+
+  const adventureNav = document.getElementById('nav-adventure');
+  if (adventureNav) adventureNav.classList.add('active');
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -11720,6 +11716,9 @@ function closeTravelOption() {
 
   const menu = document.getElementById('travelMenu');
   if (menu) menu.style.display = '';
+
+  const adventurePage = document.getElementById('adventure');
+  if (adventurePage) adventurePage.classList.add('active');
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -11753,6 +11752,14 @@ function openPage(pageName) {
   }
 
   page.classList.add("active");
+
+  if (pageName === "adventure") {
+    document.querySelectorAll(".travel-subpage").forEach(subpage => {
+      subpage.classList.remove("active");
+    });
+    const travelMenu = document.getElementById("travelMenu");
+    if (travelMenu) travelMenu.style.display = "";
+  }
 
   document
     .querySelectorAll(".nav-btn")
