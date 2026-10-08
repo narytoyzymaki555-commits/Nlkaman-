@@ -4882,12 +4882,27 @@ max-height: 27px !important;
 .world-hotspot {
   position: absolute;
   display: block;
-  padding: 0;
-  border: 0;
-  background: transparent;
+  width: auto;
+  height: auto;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
   pointer-events: auto;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+}
+.world-hotspot::before,
+.world-hotspot::after {
+  content: none !important;
+  display: none !important;
 }
 
 /* 🎡 КОЛЕСО */
@@ -6645,26 +6660,36 @@ background-position: center top !important;
 }
 
 .workshop-costs {
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 25px;
-
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: stretch;
+  align-items: stretch;
+  gap: 7px;
+  width: 100%;
   margin-bottom: 12px;
 }
 
 .workshop-cost {
+  min-width: 0;
   display: flex;
   align-items: center;
-
-  gap: 5px;
-
+  justify-content: center;
+  gap: 4px;
+  padding: 7px 5px;
+  border-radius: 10px;
+  background: rgba(75,43,23,.72);
+  border: 1px solid rgba(190,130,75,.25);
   color: #e3bd91;
-
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.workshop-cost span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .workshop-cost img {
@@ -6878,6 +6903,22 @@ background-position: center top !important;
 ========================= */
 
 @media (max-width: 600px) {
+
+  .workshop-costs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .workshop-cost {
+    font-size: 10px;
+    padding: 6px 3px;
+  }
+
+  .workshop-cost img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
 
   .workshop-selected {
     grid-template-columns:
@@ -10739,12 +10780,14 @@ function toggleSound() {
 
 }
 
-let stars =
-  Number(
-    localStorage.getItem(
-      "nlkaman_stars"
-    )
-  ) || 0;
+const TEST_RESOURCE_BALANCE = 10000000;
+
+// Тестовий баланс: кожного ресурсу по 10 000 000.
+["nlkaman_stars","nlkaman_wood","nlkaman_metal","nlkaman_runes","nlkaman_artifacts","nlkaman_tickets"].forEach(key => {
+  localStorage.setItem(key, String(TEST_RESOURCE_BALANCE));
+});
+
+let stars = TEST_RESOURCE_BALANCE;
 
   function formatResourceNumber(value) {
   value = Number(value) || 0;
