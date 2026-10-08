@@ -7072,6 +7072,93 @@ background-position: center top !important;
 .workshop-equipment-card-name{font-size:11px!important;line-height:1.15!important;overflow-wrap:anywhere}
 .workshop-equipment-card-stars{font-size:12px!important;color:#e6e6e6!important}
 
+
+/* ===== МАЙСТЕРНЯ — СІРИЙ СТИЛЬ + СТАН РЕСУРСІВ ===== */
+.workshop-mode-tab,
+.workshop-upgrade-button,
+.workshop-equipment-tab,
+.forge-equipment-card,
+.workshop-equipment-card,
+.workshop-upgrade,
+.workshop-description,
+.workshop-item,
+.workshop-info,
+.workshop-selected,
+.workshop-job-pop,
+.workshop-job-toast,
+.workshop-cost {
+  background: #55585c !important;
+  border-color: #777b80 !important;
+  color: #f2f2f2 !important;
+}
+.workshop-mode-tab.active,
+.workshop-equipment-tab.active {
+  background: #c9ccd0 !important;
+  color: #202225 !important;
+  border-color: #e2e4e7 !important;
+  box-shadow: 0 3px 12px rgba(0,0,0,.22) !important;
+}
+.workshop-upgrade-button {
+  background: #666a6f !important;
+}
+.workshop-cost {
+  min-height: 58px !important;
+  justify-content: center !important;
+  padding: 10px 11px !important;
+  gap: 6px !important;
+}
+.resource-status {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:20px;
+  height:20px;
+  margin-left:3px;
+  border-radius:50%;
+  font-size:12px;
+  font-weight:1000;
+  background:#34373a;
+  color:#ff6f6f;
+  flex:0 0 20px;
+}
+.resource-status.ok { color:#8ff0a7; }
+.resource-status.no { color:#ff7777; }
+.workshop-costs {
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:9px !important;
+}
+.workshop-upgrade-large {
+  padding:16px !important;
+  margin-top:12px !important;
+}
+.workshop-upgrade-large .workshop-upgrade-title {
+  font-size:14px !important;
+  margin-bottom:13px !important;
+}
+.forge-equipment-card.locked {
+  filter:none !important;
+  opacity:.52 !important;
+}
+.workshop-job-fab {
+  width:58px !important;
+  height:58px !important;
+  background:#c9ccd0 !important;
+  border:2px solid #e4e6e8 !important;
+  color:#202225 !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.35) !important;
+  flex-direction:column !important;
+  gap:0 !important;
+}
+.workshop-job-fab .job-fab-icon {font-size:22px;line-height:20px}
+.workshop-job-fab .job-fab-time {font-size:8px;font-weight:1000;line-height:10px;color:#303338;max-width:54px;white-space:nowrap}
+.workshop-job-pop {background:#c9ccd0 !important;color:#202225 !important;border-color:#e4e6e8 !important}
+.workshop-job-name {color:#202225 !important}
+.workshop-job-time {color:#3d4146 !important}
+.workshop-job-ready {color:#7b5200 !important}
+.workshop-job-toast {background:#c9ccd0 !important;color:#202225 !important;border-color:#e4e6e8 !important}
+@media(max-width:600px){.workshop-costs{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+
 /* ⏳ АКТИВНІ ПРОЦЕСИ */
 .workshop-job-fab{position:fixed;right:12px;bottom:142px;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#777c81,#3f4348);border:1px solid rgba(245,245,245,.30);box-shadow:0 8px 24px rgba(0,0,0,.42);z-index:120;font-size:23px;color:#fff;cursor:pointer;transition:.18s}
 .workshop-job-fab.has-jobs{animation:workshopJobPulse 1.8s ease-in-out infinite}
@@ -7621,11 +7708,11 @@ background-position: center top !important;
   <div id="workshopForgePanel" class="workshop-upgrade">
     <div class="workshop-upgrade-title">Для зкування потрібно:</div>
     <div class="workshop-costs">
-      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/wood.png.PNG"><span id="forgeWoodCost">1000</span><span>дерева</span></div>
-      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/metal.png.PNG"><span id="forgeMetalCost">500</span><span>металу</span></div>
-      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG"><span id="forgeCoinCost">10000</span><span>монет</span></div>
-      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/rune.png.PNG"><span id="forgeRuneCost">0</span><span>рун</span></div>
-      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/artifact.png.PNG"><span id="forgeArtifactCost">0</span><span>артефактів</span></div>
+      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/wood.png.PNG"><span id="forgeWoodCost">1000</span><span>дерева</span><b id="forgeWoodStatus" class="resource-status">✗</b></div>
+      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/metal.png.PNG"><span id="forgeMetalCost">500</span><span>металу</span><b id="forgeMetalStatus" class="resource-status">✗</b></div>
+      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG"><span id="forgeCoinCost">10000</span><span>монет</span><b id="forgeCoinStatus" class="resource-status">✗</b></div>
+      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/rune.png.PNG"><span id="forgeRuneCost">0</span><span>рун</span><b id="forgeRuneStatus" class="resource-status">✓</b></div>
+      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/artifact.png.PNG"><span id="forgeArtifactCost">0</span><span>артефактів</span><b id="forgeArtifactStatus" class="resource-status">✓</b></div>
       <div class="workshop-cost"><span>⏳</span><span id="forgeTimeCost">1 хв</span></div>
     </div>
     <button id="workshopForgeButton" class="workshop-upgrade-button" onclick="forgeWorkshopItem()">🔨 ЗКУВАТИ</button>
@@ -7640,12 +7727,12 @@ background-position: center top !important;
     <div id="forgeEquipment" class="forge-equipment-grid"></div>
   </div>
 
-  <div id="workshopUpgradePanel" class="workshop-upgrade" style="display:none;">
+  <div id="workshopUpgradePanel" class="workshop-upgrade workshop-upgrade-large" style="display:none;">
     <div class="workshop-upgrade-title">Для покращення потрібно:</div>
     <div class="workshop-costs">
-      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG"><span id="workshopCoinCost">0</span><span>монет</span></div>
-      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/rune.png.PNG"><span id="workshopRuneCost">0</span><span>рун</span></div>
-      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/artifact.png.PNG"><span id="workshopArtifactCost">0</span><span>артефактів</span></div>
+      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG"><span id="workshopCoinCost">0</span><span>монет</span><b id="upgradeCoinStatus" class="resource-status">✗</b></div>
+      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/rune.png.PNG"><span id="workshopRuneCost">0</span><span>рун</span><b id="upgradeRuneStatus" class="resource-status">✓</b></div>
+      <div class="workshop-cost"><img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/artifact.png.PNG"><span id="workshopArtifactCost">0</span><span>артефактів</span><b id="upgradeArtifactStatus" class="resource-status">✓</b></div>
       <div class="workshop-cost"><span>⏳</span><span id="workshopUpgradeTime">0 сек</span></div>
     </div>
     <button id="workshopUpgradeButton" class="workshop-upgrade-button" onclick="upgradeWorkshopItem()">⬆️ ПОКРАЩИТИ</button>
@@ -15583,7 +15670,20 @@ function getUpgradeRuneCost(category,weaponLevel,starLevel){let v=Math.ceil(getU
 function getUpgradeCoinCost(category,weaponLevel,starLevel){let v=Math.ceil(getUpgradeBase(starLevel).coins*getUpgradeScale(weaponLevel));if(category==="armor")v=Math.ceil(v*1.1);return Math.ceil(v);}
 function getUpgradeTime(category,weaponLevel,starLevel){let v=Math.ceil(getUpgradeBase(starLevel).seconds*Math.pow(1.2,Math.max(0,Number(weaponLevel)-1)));if(category==="armor")v=Math.ceil(v*1.22);return Math.ceil(v);}
 function getUpgradeArtifactCost(category,weaponLevel,targetStar){const w=Number(weaponLevel);const map={5:{6:1},6:{6:2},7:{5:1,6:2},8:{4:1,5:2,6:3},9:{3:1,4:2,5:4,6:7},10:{1:1,2:3,3:5,4:10,5:20,6:50}};let v=Number(map[w]?.[targetStar]||0);if(category==="armor"&&v)v=Math.ceil(v*1.1);return v;}
-function getItemMeta(item){let idx=WEAPON_META.findIndex(x=>item.image===x.image||item.name===x.name);if(idx<0)idx=ARMOR_META.findIndex(x=>x.image===item.image||item.name===x.name);return idx<0?null:(item.type==="armor"?ARMOR_META[idx]:WEAPON_META[idx]);}
+function getItemMeta(item){
+  if(!item)return null;
+  const image=String(item.image||extractInventoryImage(item.icon)||"").toLowerCase();
+  const name=String(item.name||"").trim().toUpperCase();
+  const list=item.type==="armor"?ARMOR_META:WEAPON_META;
+  let meta=list.find(x=>String(x.image||"").toLowerCase()===image);
+  if(!meta) meta=list.find(x=>String(x.name||"").trim().toUpperCase()===name);
+  if(!meta){
+    const aliases={"ВИЛА":"КІРКА","БРОНЯ ВИЛ":"БРОНЯ КІРКИ","СТАЛЕВИЙ КЛИНОК":"КЛИНОК","ДРАКОНЯЧИЙ КЛИНОК":"ПОЛУМ'Я ДРАКОНА","КЛИНОК ЗАВОЙОВНИКА":"ЗАВОЙОВНИК","КЛИНОК БОГА СОНЦЯ":"БОГ СОНЦЯ"};
+    const normalized=aliases[name]||name;
+    meta=list.find(x=>String(x.name||"").trim().toUpperCase()===normalized);
+  }
+  return meta||null;
+}
 function getItemLevel(item){return Math.max(0,Math.min(6,Number(item.workshopLevel)||0));}
 function getItemStats(item){const meta=getItemMeta(item);if(!meta)return null;const level=getItemLevel(item);return item.type==="armor"?getArmorStats(meta.level,level):getWeaponStats(meta.level,level);}
 function elementsText(elements){if(!elements||!elements.length)return "Немає";return elements.map(e=>ELEMENTS[e.key]?.name||e.key).join(" · ");}
@@ -15604,7 +15704,33 @@ function switchWorkshopMode(mode){
 }
 function switchForgeCategory(category){forgeCategory=category==="armor"?"armor":"weapon";document.getElementById("forgeWeaponsTab")?.classList.toggle("active",forgeCategory==="weapon");document.getElementById("forgeArmorTab")?.classList.toggle("active",forgeCategory==="armor");if(forgeSelectedLevel>getForgeMaxLevel())forgeSelectedLevel=getForgeMaxLevel();renderForgeEquipment();renderForgeSelected();}
 function renderForgeEquipment(){const c=document.getElementById("forgeEquipment");if(!c)return;c.innerHTML="";const max=getForgeMaxLevel();(forgeRecipes[forgeCategory]||[]).forEach(r=>{const locked=r.level>max,card=document.createElement("div");card.className="forge-equipment-card"+(forgeSelectedLevel===r.level?" selected":"")+(locked?" locked":"");card.innerHTML=`${locked?'<div class="forge-equipment-lock">🔒</div>':""}<img src="${r.image}" alt="${r.name}"><div class="forge-equipment-level">${r.level===1?"БАЗА":r.level+" РІВЕНЬ"}</div><div class="forge-equipment-card-name">${r.name}</div>${locked?`<div class="forge-required-level">Потрібен рівень ${r.level-1}</div>`:""}`;if(!locked)card.onclick=()=>{forgeSelectedLevel=r.level;renderForgeSelected();renderForgeEquipment();};c.appendChild(card);});}
-function renderForgeSelected(){const recipe=getSelectedForgeRecipe();if(!recipe)return;const locked=recipe.level>getForgeMaxLevel(),meta=getForgeMeta(forgeCategory,recipe.level),s=forgeCategory==="armor"?getArmorStats(recipe.level):getWeaponStats(recipe.level),c=getForgeCost(recipe.level);document.getElementById("workshopDescription").textContent=locked?`Цей предмет буде доступний після досягнення ${recipe.level-1} рівня.`:`${recipe.name} готовий до кування. Після кування його можна буде послідовно покращувати до 6 ⭐.`;document.getElementById("workshopItemImage").innerHTML=`<img src="${recipe.image}" alt="${recipe.name}">`;document.getElementById("workshopItemName").textContent=recipe.name;document.getElementById("workshopRarity").textContent=recipe.level>=8?"МІФІЧНИЙ":recipe.level>=5?"ЛЕГЕНДАРНИЙ":recipe.level>=3?"ЕПІЧНИЙ":"РІДКІСНИЙ";document.getElementById("workshopStars").textContent="☆ ☆ ☆ ☆ ☆ ☆";document.getElementById("workshopStrength").textContent=s.strength;document.getElementById("workshopAttack").textContent=s.attack;document.getElementById("workshopDefense").textContent=s.defense;document.getElementById("workshopAgility").textContent=s.agility;document.getElementById("workshopBlood").textContent=s.blood;document.getElementById("workshopHarvest").textContent=s.harvest?`+${s.harvest} ${meta.harvestType==="wood"?"дерева":meta.harvestType==="metal"?"металу":""}`:"+0";document.getElementById("workshopElements").textContent=elementsText(s.elements);document.getElementById("forgeWoodCost").textContent=c.wood.toLocaleString("uk-UA");document.getElementById("forgeMetalCost").textContent=c.metal.toLocaleString("uk-UA");document.getElementById("forgeCoinCost").textContent=c.coins.toLocaleString("uk-UA");document.getElementById("forgeRuneCost").textContent=c.runes||0;document.getElementById("forgeArtifactCost").textContent=c.artifacts||0;document.getElementById("forgeTimeCost").textContent=formatDuration(c.forgeSeconds);const btn=document.getElementById("workshopForgeButton");const busy=getActiveJobs().some(j=>j.type==="forge"&&j.recipeLevel===recipe.level&&j.category===forgeCategory);btn.disabled=locked||busy||getWorkshopWood()<c.wood||getWorkshopMetal()<c.metal||getWorkshopCoins()<c.coins||getWorkshopRunes()<c.runes||getWorkshopArtifacts()<c.artifacts;btn.textContent=busy?"⏳ КУЄТЬСЯ":locked?`🔒 ПОТРІБЕН РІВЕНЬ ${recipe.level-1}`:"🔨 ЗКУВАТИ";}
+function setResourceStatus(id,have,need){const el=document.getElementById(id);if(!el)return;const ok=Number(have)>=Number(need);el.textContent=ok?"✓":"✗";el.classList.toggle("ok",ok);el.classList.toggle("no",!ok);}
+function renderForgeSelected(){
+  const recipe=getSelectedForgeRecipe();if(!recipe)return;
+  const locked=recipe.level>getForgeMaxLevel(),meta=getForgeMeta(forgeCategory,recipe.level),s=forgeCategory==="armor"?getArmorStats(recipe.level):getWeaponStats(recipe.level),c=getForgeCost(recipe.level);
+  document.getElementById("workshopDescription").textContent=locked?`Цей предмет буде доступний після досягнення ${recipe.level-1} рівня.`:`${recipe.name} готовий до кування. Після кування його можна буде послідовно покращувати до 6 ⭐.`;
+  document.getElementById("workshopItemImage").innerHTML=`<img src="${recipe.image}" alt="${recipe.name}">`;
+  document.getElementById("workshopItemName").textContent=recipe.name;
+  document.getElementById("workshopRarity").textContent=recipe.level>=8?"МІФІЧНИЙ":recipe.level>=5?"ЛЕГЕНДАРНИЙ":recipe.level>=3?"ЕПІЧНИЙ":"РІДКІСНИЙ";
+  document.getElementById("workshopStars").textContent="☆ ☆ ☆ ☆ ☆ ☆";
+  document.getElementById("workshopStrength").textContent=s.strength;
+  document.getElementById("workshopAttack").textContent=s.attack;
+  document.getElementById("workshopDefense").textContent=s.defense;
+  document.getElementById("workshopAgility").textContent=s.agility;
+  document.getElementById("workshopBlood").textContent=s.blood;
+  document.getElementById("workshopHarvest").textContent=s.harvest?`+${s.harvest} ${meta.harvestType==="wood"?"дерева":meta.harvestType==="metal"?"металу":""}`:"+0";
+  document.getElementById("workshopElements").textContent=elementsText(s.elements);
+  document.getElementById("forgeWoodCost").textContent=c.wood.toLocaleString("uk-UA");
+  document.getElementById("forgeMetalCost").textContent=c.metal.toLocaleString("uk-UA");
+  document.getElementById("forgeCoinCost").textContent=c.coins.toLocaleString("uk-UA");
+  document.getElementById("forgeRuneCost").textContent=c.runes||0;
+  document.getElementById("forgeArtifactCost").textContent=c.artifacts||0;
+  document.getElementById("forgeTimeCost").textContent=formatDuration(c.forgeSeconds);
+  setResourceStatus("forgeWoodStatus",getWorkshopWood(),c.wood);setResourceStatus("forgeMetalStatus",getWorkshopMetal(),c.metal);setResourceStatus("forgeCoinStatus",getWorkshopCoins(),c.coins);setResourceStatus("forgeRuneStatus",getWorkshopRunes(),c.runes);setResourceStatus("forgeArtifactStatus",getWorkshopArtifacts(),c.artifacts);
+  const btn=document.getElementById("workshopForgeButton"),busy=getActiveJobs().some(j=>j.type==="forge"&&j.recipeLevel===recipe.level&&j.category===forgeCategory);
+  btn.disabled=locked||busy||getWorkshopWood()<c.wood||getWorkshopMetal()<c.metal||getWorkshopCoins()<c.coins||getWorkshopRunes()<c.runes||getWorkshopArtifacts()<c.artifacts;
+  btn.textContent=busy?"⏳ КУЄТЬСЯ":locked?`🔒 ПОТРІБЕН РІВЕНЬ ${recipe.level-1}`:"🔨 ЗКУВАТИ";
+}
 function getWorkshopCoins(){return Number(localStorage.getItem("nlkaman_stars"))||0;}function getWorkshopRunes(){return Number(localStorage.getItem("nlkaman_runes"))||0;}function getWorkshopArtifacts(){return Number(localStorage.getItem("nlkaman_artifacts"))||0;}
 function spendForgeResources(c){localStorage.setItem("nlkaman_wood",String(getWorkshopWood()-c.wood));localStorage.setItem("nlkaman_metal",String(getWorkshopMetal()-c.metal));localStorage.setItem("nlkaman_stars",String(getWorkshopCoins()-c.coins));localStorage.setItem("nlkaman_runes",String(getWorkshopRunes()-c.runes));localStorage.setItem("nlkaman_artifacts",String(getWorkshopArtifacts()-c.artifacts));}
 function getActiveJobs(){try{return JSON.parse(localStorage.getItem("nlkaman_workshop_jobs")||"[]")}catch{return []}}
@@ -15615,19 +15741,112 @@ function prepareWorkshopItems(){inventory.forEach(item=>{if(item.type!=="weapon"
 function switchWorkshopCategory(category){workshopCategory=category;document.getElementById("workshopWeaponsTab")?.classList.toggle("active",category==="weapon");document.getElementById("workshopArmorTab")?.classList.toggle("active",category==="armor");renderWorkshopEquipment();}
 function renderWorkshopEquipment(){const c=document.getElementById("workshopEquipment");if(!c)return;c.innerHTML="";const items=inventory.filter(i=>i.type===workshopCategory);if(!items.length){c.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:25px 10px;color:#b8bcc1;font-size:12px;">${workshopCategory==="weapon"?"⚔️ У тебе ще немає зброї":"🛡️ У тебе ще немає броні"}</div>`;return;}items.forEach(item=>{const card=document.createElement("div");card.className="workshop-equipment-card"+(workshopSelectedId===item.id?" selected":"");const imageSrc=item.image||extractInventoryImage(item.icon);card.innerHTML=`${imageSrc?`<img src="${imageSrc}" alt="">`:`<div style="font-size:40px;margin-bottom:8px;">${item.type==="weapon"?"⚔️":"🛡️"}</div>`}<div class="workshop-equipment-card-name">${item.name||"Предмет"}</div><div class="workshop-equipment-card-stars">${getWorkshopStars(item)}</div>`;card.onclick=()=>{workshopSelectedId=item.id;renderWorkshopSelected();renderWorkshopEquipment();};c.appendChild(card);});}
 function getWorkshopStars(item){const l=getItemLevel(item);return "★".repeat(l)+"☆".repeat(6-l);}
-function renderWorkshopSelected(){const item=inventory.find(i=>i.id===workshopSelectedId);const ids=["workshopStrength","workshopAttack","workshopDefense","workshopAgility","workshopBlood","workshopHarvest","workshopElements"];if(!item){document.getElementById("workshopDescription").textContent="Виберіть предмет зі спорядження.";document.getElementById("workshopItemImage").innerHTML="⚔️";document.getElementById("workshopItemName").textContent="ВИБЕРІТЬ ПРЕДМЕТ";document.getElementById("workshopRarity").textContent="—";document.getElementById("workshopStars").textContent="☆ ☆ ☆ ☆ ☆ ☆";ids.forEach(id=>document.getElementById(id).textContent="—");updateWorkshopCost();return;}const meta=getItemMeta(item);if(!meta)return;const level=getItemLevel(item),current=item.type==="armor"?getArmorStats(meta.level,level):getWeaponStats(meta.level,level),nextLevel=level<6?level+1:null,next=nextLevel!==null?(item.type==="armor"?getArmorStats(meta.level,nextLevel):getWeaponStats(meta.level,nextLevel)):null;const imageSrc=item.image||extractInventoryImage(item.icon);document.getElementById("workshopDescription").textContent=nextLevel!==null?`${item.name}: наступне покращення доступне тільки на ${nextLevel} ⭐.`:`${item.name}: максимальний рівень 6 ⭐.`;document.getElementById("workshopItemImage").innerHTML=imageSrc?`<img src="${imageSrc}" alt="">`:(item.type==="weapon"?"⚔️":"🛡️");document.getElementById("workshopItemName").textContent=item.name||"ПРЕДМЕТ";document.getElementById("workshopRarity").textContent=item.rarity||"МІФІЧНИЙ";document.getElementById("workshopStars").textContent=getWorkshopStars(item).split("").join(" ");document.getElementById("workshopStrength").textContent=current.strength;document.getElementById("workshopAttack").textContent=nextLevel!==null?formatStatPreview(current.attack,next.attack):current.attack;document.getElementById("workshopDefense").textContent=nextLevel!==null?formatStatPreview(current.defense,next.defense):current.defense;document.getElementById("workshopAgility").textContent=nextLevel!==null?formatStatPreview(current.agility,next.agility):current.agility;document.getElementById("workshopBlood").textContent=nextLevel!==null?formatStatPreview(current.blood,next.blood):current.blood;document.getElementById("workshopHarvest").textContent=current.harvest?`+${current.harvest} ${meta.harvestType==="wood"?"дерева":meta.harvestType==="metal"?"металу":""}`:"+0";document.getElementById("workshopElements").textContent=elementsText(current.elements);updateWorkshopCost();}
-function updateWorkshopCost(){const item=inventory.find(i=>i.id===workshopSelectedId),ce=document.getElementById("workshopCoinCost"),re=document.getElementById("workshopRuneCost"),ae=document.getElementById("workshopArtifactCost"),te=document.getElementById("workshopUpgradeTime"),btn=document.getElementById("workshopUpgradeButton");if(!item){[ce,re,ae,te].forEach(x=>{if(x)x.textContent="0"});if(btn)btn.disabled=true;return;}const level=getItemLevel(item);if(level>=6){ce.textContent="MAX";re.textContent="MAX";ae.textContent="MAX";te.textContent="MAX";btn.disabled=true;btn.textContent="⭐ МАКСИМАЛЬНИЙ РІВЕНЬ";return;}const meta=getItemMeta(item),weaponLevel=meta?.level||1,category=item.type,coins=getUpgradeCoinCost(category,weaponLevel,level),runes=getUpgradeRuneCost(category,weaponLevel,level),arts=getUpgradeArtifactCost(category,weaponLevel,level+1),time=getUpgradeTime(category,weaponLevel,level),busy=getActiveJobs().some(j=>j.type==="upgrade"&&j.itemId===item.id);ce.textContent=coins.toLocaleString("uk-UA");re.textContent=runes;ae.textContent=arts;te.textContent=formatDuration(time);btn.disabled=busy||getWorkshopCoins()<coins||getWorkshopRunes()<runes||getWorkshopArtifacts()<arts;btn.textContent=busy?"⏳ ПОКРАЩУЄТЬСЯ":"⬆️ ПОКРАЩИТИ";}
-function upgradeWorkshopItem(){const item=inventory.find(i=>i.id===workshopSelectedId);if(!item)return;const level=getItemLevel(item);if(level>=6){alert("Цей предмет уже має максимальний рівень.");return;}if(getActiveJobs().some(j=>j.type==="upgrade"&&j.itemId===item.id)){alert("Цей предмет уже покращується.");return;}const meta=getItemMeta(item),weaponLevel=meta?.level||1,coins=getUpgradeCoinCost(item.type,weaponLevel,level),runes=getUpgradeRuneCost(item.type,weaponLevel,level),arts=getUpgradeArtifactCost(item.type,weaponLevel,level+1),time=getUpgradeTime(item.type,weaponLevel,level);if(getWorkshopCoins()<coins||getWorkshopRunes()<runes||getWorkshopArtifacts()<arts){alert("Недостатньо монет, рун або артефактів.");return;}localStorage.setItem("nlkaman_stars",String(getWorkshopCoins()-coins));localStorage.setItem("nlkaman_runes",String(getWorkshopRunes()-runes));localStorage.setItem("nlkaman_artifacts",String(getWorkshopArtifacts()-arts));const jobs=getActiveJobs();jobs.push({id:"upgrade_"+Date.now()+Math.random(),type:"upgrade",itemId:item.id,finishAt:Date.now()+time*1000,name:item.name,image:item.image||extractInventoryImage(item.icon),targetLevel:level+1});saveJobs(jobs);updateRunesAndArtifacts();updateStars();updateWorkshopTopResources();updateWorkshopCost();renderWorkshopJobs();}
-function completeWorkshopJob(job){if(job.type==="forge"){const meta=getForgeMeta(job.category,job.recipeLevel);const type=job.category==="weapon"?"weapon":"armor";const base=type==="armor"?getArmorStats(meta.level,0):getWeaponStats(meta.level,0);inventory.push({id:Date.now()+Math.floor(Math.random()*10000),image:meta.image,icon:`<img src="${meta.image}" class="win-prize-img">`,name:meta.name,type,equipped:false,level:0,workshopLevel:0,weaponLevel:meta.level,rarity:meta.level>=8?"МІФІЧНИЙ":meta.level>=5?"ЛЕГЕНДАРНИЙ":meta.level>=3?"ЕПІЧНИЙ":"РІДКІСНИЙ",description:`${meta.name}. Базовий рівень.`,baseStats:base});saveInventory();renderInventory();showWorkshopToast(`Ваш предмет готовий до використання: ${meta.name}`);}else if(job.type==="upgrade"){const item=inventory.find(i=>i.id===job.itemId);if(item){item.workshopLevel=Math.min(6,job.targetLevel);item.baseStats=item.type==="armor"?getArmorStats(getItemMeta(item).level,item.workshopLevel):getWeaponStats(getItemMeta(item).level,item.workshopLevel);saveInventory();renderInventory();if(workshopSelectedId===item.id){renderWorkshopSelected();updateWorkshopCost();}showWorkshopToast(`Ваш предмет готовий до використання: ${item.name} — ${item.workshopLevel} ⭐`);}}}
-function processWorkshopJobs(){const jobs=getActiveJobs(),now=Date.now(),ready=jobs.filter(j=>now>=j.finishAt),pending=jobs.filter(j=>now<j.finishAt);if(ready.length){ready.forEach(completeWorkshopJob);saveJobs(pending);}renderWorkshopJobs();}
-function renderWorkshopJobs(){const fab=document.getElementById("workshopJobFab"),pop=document.getElementById("workshopJobPop");if(!fab||!pop)return;const jobs=getActiveJobs();fab.style.display=jobs.length?"flex":"none";fab.classList.toggle("has-jobs",jobs.length>0);pop.innerHTML=jobs.length?jobs.map(j=>`<div class="workshop-job-row"><img src="${j.image||""}" alt=""><div class="workshop-job-main"><div class="workshop-job-name">${j.name}</div><div class="workshop-job-time" data-job-id="${j.id}">${formatRemaining(j.finishAt)}</div></div></div>`).join(""):"";}
-function formatRemaining(t){return formatDuration(Math.ceil((Number(t)-Date.now())/1000));}
+function renderWorkshopSelected(){
+  const item=inventory.find(i=>String(i.id)===String(workshopSelectedId));
+  const ids=["workshopStrength","workshopAttack","workshopDefense","workshopAgility","workshopBlood","workshopHarvest","workshopElements"];
+  if(!item){
+    document.getElementById("workshopDescription").textContent="Виберіть предмет зі спорядження.";
+    document.getElementById("workshopItemImage").innerHTML="⚔️";
+    document.getElementById("workshopItemName").textContent="ВИБЕРІТЬ ПРЕДМЕТ";
+    document.getElementById("workshopRarity").textContent="—";
+    document.getElementById("workshopStars").textContent="☆ ☆ ☆ ☆ ☆ ☆";
+    ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent="—";});
+    updateWorkshopCost();
+    return;
+  }
+  const meta=getItemMeta(item);
+  if(!meta){
+    document.getElementById("workshopDescription").textContent="Не вдалося визначити характеристики цього предмета.";
+    updateWorkshopCost();
+    return;
+  }
+  const level=getItemLevel(item);
+  const current=item.type==="armor"?getArmorStats(meta.level,level):getWeaponStats(meta.level,level);
+  const nextLevel=level<6?level+1:null;
+  const next=nextLevel!==null?(item.type==="armor"?getArmorStats(meta.level,nextLevel):getWeaponStats(meta.level,nextLevel)):null;
+  const imageSrc=item.image||extractInventoryImage(item.icon);
+  document.getElementById("workshopDescription").textContent=nextLevel!==null?`${item.name}: наступне покращення — ${nextLevel} ⭐.`:`${item.name}: максимальний рівень 6 ⭐.`;
+  document.getElementById("workshopItemImage").innerHTML=imageSrc?`<img src="${imageSrc}" alt="">`:(item.type==="weapon"?"⚔️":"🛡️");
+  document.getElementById("workshopItemName").textContent=item.name||meta.name||"ПРЕДМЕТ";
+  document.getElementById("workshopRarity").textContent=item.rarity||"МІФІЧНИЙ";
+  document.getElementById("workshopStars").textContent=getWorkshopStars(item).split("").join(" ");
+  document.getElementById("workshopStrength").textContent=current.strength;
+  document.getElementById("workshopAttack").textContent=nextLevel!==null?formatStatPreview(current.attack,next.attack):current.attack;
+  document.getElementById("workshopDefense").textContent=nextLevel!==null?formatStatPreview(current.defense,next.defense):current.defense;
+  document.getElementById("workshopAgility").textContent=nextLevel!==null?formatStatPreview(current.agility,next.agility):current.agility;
+  document.getElementById("workshopBlood").textContent=nextLevel!==null?formatStatPreview(current.blood,next.blood):current.blood;
+  document.getElementById("workshopHarvest").textContent=current.harvest?`+${current.harvest} ${meta.harvestType==="wood"?"дерева":meta.harvestType==="metal"?"металу":""}`:"+0";
+  document.getElementById("workshopElements").textContent=elementsText(current.elements);
+  updateWorkshopCost();
+}
+function updateWorkshopCost(){
+  const item=inventory.find(i=>String(i.id)===String(workshopSelectedId));
+  const ce=document.getElementById("workshopCoinCost"),re=document.getElementById("workshopRuneCost"),ae=document.getElementById("workshopArtifactCost"),te=document.getElementById("workshopUpgradeTime"),btn=document.getElementById("workshopUpgradeButton");
+  if(!item){[ce,re,ae,te].forEach(x=>{if(x)x.textContent="0"});["upgradeCoinStatus","upgradeRuneStatus","upgradeArtifactStatus"].forEach(id=>setResourceStatus(id,0,1));if(btn)btn.disabled=true;return;}
+  const level=getItemLevel(item);
+  if(level>=6){ce.textContent="MAX";re.textContent="MAX";ae.textContent="MAX";te.textContent="MAX";["upgradeCoinStatus","upgradeRuneStatus","upgradeArtifactStatus"].forEach(id=>{const e=document.getElementById(id);if(e){e.textContent="✓";e.classList.add("ok");e.classList.remove("no");}});btn.disabled=true;btn.textContent="⭐ МАКСИМАЛЬНИЙ РІВЕНЬ";return;}
+  const meta=getItemMeta(item),weaponLevel=meta?.level||1,category=item.type,coins=getUpgradeCoinCost(category,weaponLevel,level),runes=getUpgradeRuneCost(category,weaponLevel,level),arts=getUpgradeArtifactCost(category,weaponLevel,level+1),time=getUpgradeTime(category,weaponLevel,level),busy=getActiveJobs().some(j=>j.type==="upgrade"&&String(j.itemId)===String(item.id));
+  ce.textContent=coins.toLocaleString("uk-UA");re.textContent=runes;ae.textContent=arts;te.textContent=formatDuration(time);
+  setResourceStatus("upgradeCoinStatus",getWorkshopCoins(),coins);setResourceStatus("upgradeRuneStatus",getWorkshopRunes(),runes);setResourceStatus("upgradeArtifactStatus",getWorkshopArtifacts(),arts);
+  btn.disabled=busy||getWorkshopCoins()<coins||getWorkshopRunes()<runes||getWorkshopArtifacts()<arts;
+  btn.textContent=busy?"⏳ ПОКРАЩУЄТЬСЯ":"⬆️ ПОКРАЩИТИ";
+}
+function upgradeWorkshopItem(){
+  const item=inventory.find(i=>String(i.id)===String(workshopSelectedId));if(!item)return;
+  const level=getItemLevel(item);if(level>=6){alert("Цей предмет уже має максимальний рівень.");return;}
+  if(getActiveJobs().some(j=>j.type==="upgrade"&&String(j.itemId)===String(item.id))){alert("Цей предмет уже покращується.");return;}
+  const meta=getItemMeta(item);if(!meta){alert("Не вдалося визначити характеристики предмета.");return;}
+  const weaponLevel=meta.level,coins=getUpgradeCoinCost(item.type,weaponLevel,level),runes=getUpgradeRuneCost(item.type,weaponLevel,level),arts=getUpgradeArtifactCost(item.type,weaponLevel,level+1),time=getUpgradeTime(item.type,weaponLevel,level);
+  if(getWorkshopCoins()<coins||getWorkshopRunes()<runes||getWorkshopArtifacts()<arts){updateWorkshopCost();alert("Недостатньо ресурсів для покращення.");return;}
+  localStorage.setItem("nlkaman_stars",String(getWorkshopCoins()-coins));localStorage.setItem("nlkaman_runes",String(getWorkshopRunes()-runes));localStorage.setItem("nlkaman_artifacts",String(getWorkshopArtifacts()-arts));
+  const jobs=getActiveJobs();jobs.push({id:"upgrade_"+Date.now()+Math.random(),type:"upgrade",itemId:item.id,finishAt:Date.now()+time*1000,name:item.name,image:item.image||extractInventoryImage(item.icon),targetLevel:level+1});saveJobs(jobs);
+  updateRunesAndArtifacts();updateStars();updateWorkshopTopResources();updateWorkshopCost();renderWorkshopJobs();
+}
+function completeWorkshopJob(job){
+  try{
+    if(job.type==="forge"){
+      const meta=getForgeMeta(job.category,job.recipeLevel);if(!meta)return;
+      const type=job.category==="weapon"?"weapon":"armor";
+      const base=type==="armor"?getArmorStats(meta.level,0):getWeaponStats(meta.level,0);
+      inventory.push({id:Date.now()+Math.floor(Math.random()*10000),image:meta.image,icon:`<img src="${meta.image}" class="win-prize-img">`,name:meta.name,type,equipped:false,level:0,workshopLevel:0,weaponLevel:meta.level,rarity:meta.level>=8?"МІФІЧНИЙ":meta.level>=5?"ЛЕГЕНДАРНИЙ":meta.level>=3?"ЕПІЧНИЙ":"РІДКІСНИЙ",description:`${meta.name}. Базовий рівень.`,baseStats:base});
+      saveInventory();renderInventory();showWorkshopToast(`Ваш предмет готовий до використання: ${meta.name}`);
+    }else if(job.type==="upgrade"){
+      const item=inventory.find(i=>String(i.id)===String(job.itemId));
+      if(item){const meta=getItemMeta(item);if(meta){item.workshopLevel=Math.min(6,job.targetLevel);item.baseStats=item.type==="armor"?getArmorStats(meta.level,item.workshopLevel):getWeaponStats(meta.level,item.workshopLevel);saveInventory();renderInventory();if(workshopSelectedId===item.id){renderWorkshopSelected();updateWorkshopCost();}showWorkshopToast(`Ваш предмет готовий до використання: ${item.name} — ${item.workshopLevel} ⭐`);}}
+    }
+  }catch(err){console.error("Workshop job completion error",err);}
+}
+function processWorkshopJobs(){
+  const jobs=getActiveJobs(),now=Date.now(),pending=[];
+  jobs.forEach(job=>{if(now>=Number(job.finishAt)){completeWorkshopJob(job);}else pending.push(job);});
+  saveJobs(pending);renderWorkshopJobs();
+  if(workshopMode==="forge"){renderForgeSelected();}else{renderWorkshopSelected();}
+}
+function renderWorkshopJobs(){
+  const fab=document.getElementById("workshopJobFab"),pop=document.getElementById("workshopJobPop");if(!fab||!pop)return;
+  const jobs=getActiveJobs();
+  fab.style.display=jobs.length?"flex":"none";fab.classList.toggle("has-jobs",jobs.length>0);
+  if(!jobs.length){pop.classList.remove("show");pop.innerHTML="";return;}
+  const nearest=jobs.reduce((a,b)=>Number(a.finishAt)<Number(b.finishAt)?a:b);
+  const timeEl=formatRemaining(nearest.finishAt);
+  fab.innerHTML=`<span class="job-fab-icon">⚒️</span><span class="job-fab-time">${timeEl}</span>`;
+  pop.innerHTML=jobs.map(j=>`<div class="workshop-job-row"><img src="${j.image||""}" alt=""><div class="workshop-job-main"><div class="workshop-job-name">${j.name}</div><div class="workshop-job-time" data-job-id="${j.id}">${formatRemaining(j.finishAt)}</div></div></div>`).join("");
+}
+function formatRemaining(t){const sec=Math.max(0,Math.ceil((Number(t)-Date.now())/1000));return formatDuration(sec);}
 function toggleWorkshopJobs(){document.getElementById("workshopJobPop")?.classList.toggle("show");renderWorkshopJobs();}
-function showWorkshopToast(text){const el=document.getElementById("workshopJobToast");if(!el)return;el.textContent="✅ "+text;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),4500);}
+function showWorkshopToast(text){const el=document.getElementById("workshopJobToast");if(!el)return;el.textContent="✅ "+text;el.classList.add("show");clearTimeout(window.__workshopToastTimer);window.__workshopToastTimer=setTimeout(()=>el.classList.remove("show"),4500);}
 setInterval(()=>{processWorkshopJobs();document.querySelectorAll("[data-job-id]").forEach(el=>{const j=getActiveJobs().find(x=>x.id===el.dataset.jobId);if(j)el.textContent=formatRemaining(j.finishAt);});},1000);
 
 function switchWorkshopCategory(category){workshopCategory=category;document.getElementById("workshopWeaponsTab")?.classList.toggle("active",category==="weapon");document.getElementById("workshopArmorTab")?.classList.toggle("active",category==="armor");renderWorkshopEquipment();}
-function renderWorkshop(){prepareWorkshopItems();if(workshopMode==="forge"){if(!forgeSelectedLevel)forgeSelectedLevel=1;renderForgeEquipment();renderForgeSelected();updateWorkshopTopResources();return;}const items=inventory.filter(i=>i.type==="weapon"||i.type==="armor");if(!workshopSelectedId){const first=items.find(i=>i.type===workshopCategory)||items[0];if(first){workshopSelectedId=first.id;workshopCategory=first.type;}}switchWorkshopCategory(workshopCategory);renderWorkshopSelected();updateWorkshopTopResources();renderWorkshopJobs();}
+function renderWorkshop(){
+  prepareWorkshopItems();
+  if(workshopMode==="forge"){if(!forgeSelectedLevel)forgeSelectedLevel=1;renderForgeEquipment();renderForgeSelected();updateWorkshopTopResources();return;}
+  const items=inventory.filter(i=>i.type==="weapon"||i.type==="armor");
+  if(!items.length){workshopSelectedId=null;renderWorkshopEquipment();renderWorkshopSelected();updateWorkshopTopResources();renderWorkshopJobs();return;}
+  const selected=inventory.find(i=>String(i.id)===String(workshopSelectedId)&& (i.type==="weapon"||i.type==="armor"));
+  if(!selected){const first=items.find(i=>i.type===workshopCategory)||items[0];workshopSelectedId=first.id;workshopCategory=first.type;}
+  switchWorkshopCategory(workshopCategory);renderWorkshopSelected();updateWorkshopTopResources();renderWorkshopJobs();
+}
 
 function updateWorkshopTopResources(){
   const name=user.username?"@"+user.username:user.first_name||"Користувач";
@@ -15642,6 +15861,7 @@ function updateWorkshopTopResources(){
 }
 
 function openWorkshop(){processWorkshopJobs();workshopMode="forge";forgeCategory="weapon";forgeSelectedLevel=1;switchWorkshopMode("forge");updateWorkshopTopResources();renderWorkshopJobs();}
+processWorkshopJobs();
   
 </script>
 
