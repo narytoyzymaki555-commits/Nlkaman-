@@ -7073,92 +7073,28 @@ background-position: center top !important;
 .workshop-equipment-card-stars{font-size:12px!important;color:#e6e6e6!important}
 
 
-/* ===== МАЙСТЕРНЯ — СІРИЙ СТИЛЬ + СТАН РЕСУРСІВ ===== */
-.workshop-mode-tab,
-.workshop-upgrade-button,
-.workshop-equipment-tab,
-.forge-equipment-card,
-.workshop-equipment-card,
-.workshop-upgrade,
-.workshop-description,
-.workshop-item,
-.workshop-info,
-.workshop-selected,
-.workshop-job-pop,
-.workshop-job-toast,
-.workshop-cost {
-  background: #55585c !important;
-  border-color: #777b80 !important;
-  color: #f2f2f2 !important;
-}
-.workshop-mode-tab.active,
-.workshop-equipment-tab.active {
-  background: #c9ccd0 !important;
-  color: #202225 !important;
-  border-color: #e2e4e7 !important;
-  box-shadow: 0 3px 12px rgba(0,0,0,.22) !important;
-}
-.workshop-upgrade-button {
-  background: #666a6f !important;
-}
-.workshop-cost {
-  min-height: 58px !important;
-  justify-content: center !important;
-  padding: 10px 11px !important;
-  gap: 6px !important;
-}
-.resource-status {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:20px;
-  height:20px;
-  margin-left:3px;
-  border-radius:50%;
-  font-size:12px;
-  font-weight:1000;
-  background:#34373a;
-  color:#ff6f6f;
-  flex:0 0 20px;
-}
-.resource-status.ok { color:#8ff0a7; }
-.resource-status.no { color:#ff7777; }
-.workshop-costs {
-  display:grid !important;
-  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-  gap:9px !important;
-}
-.workshop-upgrade-large {
-  padding:16px !important;
-  margin-top:12px !important;
-}
-.workshop-upgrade-large .workshop-upgrade-title {
-  font-size:14px !important;
-  margin-bottom:13px !important;
-}
-.forge-equipment-card.locked {
-  filter:none !important;
-  opacity:.52 !important;
-}
-.workshop-job-fab {
-  width:58px !important;
-  height:58px !important;
-  background:#c9ccd0 !important;
-  border:2px solid #e4e6e8 !important;
-  color:#202225 !important;
-  box-shadow:0 8px 24px rgba(0,0,0,.35) !important;
-  flex-direction:column !important;
-  gap:0 !important;
-}
-.workshop-job-fab .job-fab-icon {font-size:22px;line-height:20px}
-.workshop-job-fab .job-fab-time {font-size:8px;font-weight:1000;line-height:10px;color:#303338;max-width:54px;white-space:nowrap}
-.workshop-job-pop {background:#c9ccd0 !important;color:#202225 !important;border-color:#e4e6e8 !important}
-.workshop-job-name {color:#202225 !important}
-.workshop-job-time {color:#3d4146 !important}
-.workshop-job-ready {color:#7b5200 !important}
-.workshop-job-toast {background:#c9ccd0 !important;color:#202225 !important;border-color:#e4e6e8 !important}
+/* ===== КОРИЧНЕВИЙ СТИЛЬ + СТАН РЕСУРСІВ ===== */
+:root{--brown-bg:#2d170d;--brown-card:#4f2f1c;--brown-card-2:#5d351f;--brown-button:#6f4325;--brown-button-dark:#4a2918;--brown-switch:#b97843;--brown-switch-active:#c98a50;--brown-text:#f3dfc7}
+body{background-color:var(--brown-bg)!important;color:var(--brown-text)!important}
+body::before{opacity:.08!important;background-image:none!important}
+.card,.home-wheel-card,.settings-card,.inventory-item,.workshop-selected,.workshop-description,.workshop-info,.workshop-upgrade,.workshop-item,.workshop-cost,.workshop-job-pop,.workshop-job-toast,.forge-equipment-card,.workshop-equipment-card{background:linear-gradient(145deg,var(--brown-card-2),var(--brown-card))!important;border-color:rgba(218,168,116,.24)!important;color:var(--brown-text)!important;box-shadow:0 8px 24px rgba(0,0,0,.28)!important}
+button,.button,.home-wheel-button,.inventory-withdraw-button,.workshop-upgrade-button{background:linear-gradient(145deg,var(--brown-button),var(--brown-button-dark))!important;border:1px solid rgba(220,170,115,.38)!important;color:#fff1df!important;box-shadow:0 5px 15px rgba(0,0,0,.28)!important}
+button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#49301f!important;color:#a88b73!important}
+.workshop-mode-tab,.workshop-equipment-tab{background:linear-gradient(145deg,var(--brown-switch-active),var(--brown-switch))!important;border:1px solid rgba(255,225,194,.55)!important;color:#fff7ed!important;box-shadow:0 4px 12px rgba(0,0,0,.20)!important}
+.workshop-mode-tab.active,.workshop-equipment-tab.active{background:linear-gradient(145deg,#d09a62,#ad7040)!important;color:#2d170d!important;border-color:#e5bd91!important}
+.workshop-cost{background:rgba(112,68,38,.72)!important}
+.resource-status{background:#382014!important;color:#ff8b75!important}
+.resource-status.ok{color:#9ff0a8!important}.resource-status.no{color:#ff8174!important}
+.workshop-characteristics div{background:rgba(113,68,38,.50)!important;border-color:rgba(218,168,116,.20)!important}
+.workshop-characteristics strong,.workshop-item-name,.workshop-equipment-card-name,.forge-equipment-card-name{color:#fff0dc!important}
+.workshop-rarity,.workshop-equipment-card-stars,.forge-equipment-level{color:#e1b987!important}
+.forge-equipment-card.locked{background:linear-gradient(145deg,#4a2d1c,#352015)!important;opacity:.55!important}
+.forge-equipment-card.selected,.workshop-equipment-card.selected{border-color:#d5a06a!important;box-shadow:0 0 16px rgba(191,126,70,.28)!important}
+.workshop-job-fab{background:linear-gradient(145deg,#d09a62,#ad7040)!important;border:2px solid #e5bd91!important;color:#2d170d!important;box-shadow:0 8px 24px rgba(0,0,0,.38)!important}
+.workshop-job-fab .job-fab-time{color:#2d170d!important}.workshop-job-pop,.workshop-job-toast{background:#5a351f!important;border-color:#b77a48!important}.workshop-job-name{color:#fff0dc!important}.workshop-job-time{color:#d6b28e!important}.workshop-job-ready{color:#ffd08e!important}
+.settings-button{background:linear-gradient(145deg,#d09a62,#ad7040)!important;border-color:#e5bd91!important;color:#2d170d!important}
+.bottom-nav{background:linear-gradient(180deg,#5a351f,#3d2112)!important;border-color:rgba(207,153,96,.30)!important}.nav-btn.active{background:linear-gradient(145deg,#87522e,#6b3e22)!important;color:#fff0dc!important}.nav-btn{color:#d5b28f!important}
 @media(max-width:600px){.workshop-costs{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
-
 /* ⏳ АКТИВНІ ПРОЦЕСИ */
 .workshop-job-fab{position:fixed;right:12px;bottom:142px;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#777c81,#3f4348);border:1px solid rgba(245,245,245,.30);box-shadow:0 8px 24px rgba(0,0,0,.42);z-index:120;font-size:23px;color:#fff;cursor:pointer;transition:.18s}
 .workshop-job-fab.has-jobs{animation:workshopJobPulse 1.8s ease-in-out infinite}
@@ -15659,6 +15595,7 @@ function getArmorMaster(level){
   return ({1:"Майстер захисту кірки",2:"Майстер захисту сокири",3:"Майстер пробивного захисту",4:"Майстер вогняного захисту",5:"Майстер синього полум'я",6:"Майстер блискавичного захисту",7:"Майстер захисту полум'я дракона",8:"Майстер захисту Завойовника",9:"Майстер гідрозахисту",10:"Майстер захисту Бога"})[level]||"";
 }
 
+function getPlayerLevel(){return Math.max(1,Math.min(10,Number(localStorage.getItem("nlkaman_player_level"))||1));}
 function getForgeMaxLevel(){return Math.min(10,getPlayerLevel()+1);}
 function getForgeMeta(category,level){return (category==="armor"?ARMOR_META:WEAPON_META).find(x=>x.level===Number(level));}
 function getSelectedForgeRecipe(){const recipes=forgeRecipes[forgeCategory]||[];return recipes.find(r=>r.level===forgeSelectedLevel)||recipes[0];}
