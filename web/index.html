@@ -7427,6 +7427,20 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   .clicker-upgrade-levels { font-size:9px; }
 }
 
+
+/* Fix: ensure the clicker coin receives touch/pointer input in Telegram WebView. */
+#bear {
+  position: relative;
+  z-index: 25;
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+#bear .click-coin {
+  pointer-events: none !important;
+  user-select: none;
+  -webkit-user-drag: none;
+}
 </style>
 </head>
 
@@ -16172,14 +16186,41 @@ processWorkshopJobs();
     panel.style.display=opening?"block":"none";
     if(opening) renderClickerUpgrades();
   };
-  const coinImage=document.querySelector(".click-coin");
-  if(coinImage) {
-    coinImage.removeAttribute("onclick");
-    coinImage.addEventListener("click",event=>{
+  // Надійний обробник для Telegram WebView: слухаємо всю область монетки,
+  // а не лише IMG (у деяких WebView клік по зображенню може губитися).
+  const coinTarget=document.getElementById("bear");
+  if(coinTarget && !coinTarget.dataset.clickerBound) {
+    coinTarget.dataset.clickerBound="1";
+    coinTarget.style.pointerEvents="auto";
+    coinTarget.style.touchAction="manipulation";
+    coinTarget.style.cursor="pointer";
+    const coinImage=coinTarget.querySelector(".click-coin");
+    if(coinImage) {
+      coinImage.removeAttribute("onclick");
+      coinImage.style.pointerEvents="none";
+      coinImage.draggable=false;
+    }
+    let lastPointerTap=0;
+    coinTarget.addEventListener("pointerup",event=>{
+      if(event.button!==undefined && event.button!==0) return;
       event.preventDefault();
       event.stopPropagation();
-      window.clickBear();
-    });
+      lastPointerTap=Date.now();
+      if(typeof window.clickBear==="function") window.clickBear();
+    },{passive:false});
+    // Fallback for older Telegram WebViews without Pointer Events.
+    if(!("PointerEvent" in window)) {
+      coinTarget.addEventListener("touchend",event=>{
+        event.preventDefault();
+        event.stopPropagation();
+        if(typeof window.clickBear==="function") window.clickBear();
+      },{passive:false});
+      coinTarget.addEventListener("click",event=>{
+        event.preventDefault();
+        event.stopPropagation();
+        if(Date.now()-lastPointerTap>500 && typeof window.clickBear==="function") window.clickBear();
+      });
+    }
   }
   const upgradeToggle=document.getElementById("clickerUpgradeToggle");
   if(upgradeToggle) {
