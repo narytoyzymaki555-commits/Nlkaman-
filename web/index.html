@@ -7436,8 +7436,12 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   touch-action: manipulation;
   cursor: pointer;
 }
+#bear:focus-visible {
+  outline: 2px solid #ffd58b;
+  outline-offset: 5px;
+}
 #bear .click-coin {
-  pointer-events: none !important;
+  pointer-events: auto !important;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -7980,6 +7984,10 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
     <div
       class="bear"
       id="bear"
+      role="button"
+      tabindex="0"
+      onclick="if (typeof window.clickBear === 'function') window.clickBear();"
+      onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); if (typeof window.clickBear === 'function') window.clickBear(); }"
     >
       <img
         src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG"
@@ -16186,40 +16194,17 @@ processWorkshopJobs();
     panel.style.display=opening?"block":"none";
     if(opening) renderClickerUpgrades();
   };
-  // Надійний обробник для Telegram WebView: слухаємо всю область монетки,
-  // а не лише IMG (у деяких WebView клік по зображенню може губитися).
+  // Клік монетки обробляється також inline onclick на #bear.
+  // Це гарантує роботу навіть якщо WebView пропускає pointerup або пізній listener.
   const coinTarget=document.getElementById("bear");
-  if(coinTarget && !coinTarget.dataset.clickerBound) {
-    coinTarget.dataset.clickerBound="1";
+  if(coinTarget) {
     coinTarget.style.pointerEvents="auto";
     coinTarget.style.touchAction="manipulation";
     coinTarget.style.cursor="pointer";
     const coinImage=coinTarget.querySelector(".click-coin");
     if(coinImage) {
-      coinImage.removeAttribute("onclick");
-      coinImage.style.pointerEvents="none";
+      coinImage.style.pointerEvents="auto";
       coinImage.draggable=false;
-    }
-    let lastPointerTap=0;
-    coinTarget.addEventListener("pointerup",event=>{
-      if(event.button!==undefined && event.button!==0) return;
-      event.preventDefault();
-      event.stopPropagation();
-      lastPointerTap=Date.now();
-      if(typeof window.clickBear==="function") window.clickBear();
-    },{passive:false});
-    // Fallback for older Telegram WebViews without Pointer Events.
-    if(!("PointerEvent" in window)) {
-      coinTarget.addEventListener("touchend",event=>{
-        event.preventDefault();
-        event.stopPropagation();
-        if(typeof window.clickBear==="function") window.clickBear();
-      },{passive:false});
-      coinTarget.addEventListener("click",event=>{
-        event.preventDefault();
-        event.stopPropagation();
-        if(Date.now()-lastPointerTap>500 && typeof window.clickBear==="function") window.clickBear();
-      });
     }
   }
   const upgradeToggle=document.getElementById("clickerUpgradeToggle");
@@ -16276,6 +16261,18 @@ processWorkshopJobs();
       stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
       if(state.charge<=0) {
         renderClickerUpgrades();
+        const bear=document.getElementById("bear");
+        if(bear) {
+          bear.classList.remove("coin-flash");
+          void bear.offsetWidth;
+          bear.classList.add("coin-flash");
+        }
+        const chargeText=document.getElementById("clickerChargeText");
+        if(chargeText) {
+          const previous=chargeText.textContent;
+          chargeText.textContent="⚡ Заряд відновлюється…";
+          window.setTimeout(()=>{ if(chargeText.isConnected) chargeText.textContent=previous; },900);
+        }
         return;
       }
       const reward=tapIncomeAtLevel(state.tapLevel);
