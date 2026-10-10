@@ -421,63 +421,33 @@ max-height: 235px;
 }
 
 @keyframes coinFlash {
-  0% {
-    filter: brightness(1);
-  }
-
-  50% {
-    filter: brightness(1.25);
-  }
-
-  100% {
-    filter: brightness(1);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.025); }
 }
-.click-coin {
-width: 52vw;
-height: 52vw;
-max-width: 235px;
-max-height: 235px;
 
+.click-coin {
+  width: 52vw;
+  height: 52vw;
+  max-width: 235px;
+  max-height: 235px;
   object-fit: contain;
   transform: translateY(calc(70px + 10%));
   user-select: none;
   -webkit-user-drag: none;
-
-  filter:
-    drop-shadow(0 12px 20px rgba(0,0,0,.45))
-    drop-shadow(0 0 18px rgba(0,140,255,.50))
-    drop-shadow(0 0 40px rgba(0,100,255,.28));
-
+  /* Telegram WebView: avoid animating multiple drop-shadow filters on every frame. */
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,.35));
   animation: coinGlow 2.4s ease-in-out infinite;
-
-  transition:
-    transform .12s ease,
-    filter .12s ease;
+  transition: transform .12s ease, opacity .12s ease;
 }
 
 @keyframes coinGlow {
-  0%,
-  100% {
-    filter:
-      drop-shadow(0 12px 20px rgba(0,0,0,.45))
-      drop-shadow(0 0 18px rgba(0,140,255,.45))
-      drop-shadow(0 0 35px rgba(0,100,255,.22));
-  }
-
-  50% {
-    filter:
-      drop-shadow(0 12px 20px rgba(0,0,0,.45))
-      drop-shadow(0 0 25px rgba(0,160,255,.70))
-      drop-shadow(0 0 50px rgba(0,100,255,.35));
-  }
+  0%, 100% { transform: translateY(calc(70px + 10%)) scale(1); opacity: .96; }
+  50% { transform: translateY(calc(70px + 10%)) scale(1.015); opacity: 1; }
 }
 
-  .bear:active .click-coin {
-  filter:
-    drop-shadow(0 6px 12px rgba(0,0,0,.50))
-    drop-shadow(0 0 25px rgba(30,160,255,.75))
-    drop-shadow(0 0 45px rgba(0,90,255,.35));
+.bear:active .click-coin {
+  transform: translateY(calc(70px + 10%)) scale(.97);
+  opacity: .9;
 }
 
 .bear-reward {
@@ -16115,34 +16085,49 @@ processWorkshopJobs();
     // Інакше фіксуємо час поточного обліку, щоб не зарахувати той самий інтервал двічі.
     LS.setItem(key,String(now));
   };
+  let workerRenderSignature = "";
   const renderWorkers = () => {
     const host=document.getElementById("clickerWorkers");
     if(!host) return;
-    host.innerHTML="";
-    workerDefs.forEach((def,index)=>{
-      const level=state.workerLevels[index];
-      const currentIncome=workerIncomeAtLevel(index,level);
-      const nextLevel=level<10?level+1:null;
-      const nextIncome=nextLevel===null?null:workerIncomeAtLevel(index,nextLevel);
-      const cost=level>=10?null:workerUpgradeCost(index,level);
-      const card=document.createElement("div");
-      card.className="clicker-worker-card";
-      const info=document.createElement("div");
-      info.className="clicker-worker-info";
-      info.innerHTML=level===0
-        ? `<strong>${def.name}</strong><br>Рівень 0 · 0 🪙/год → Рівень 1 · ${format(def.income)} 🪙/год`
-        : level>=10
-          ? `<strong>${def.name}</strong><br>Рівень 10 · ${format(currentIncome)} 🪙/год`
-          : `<strong>${def.name}</strong><br>Рівень ${level} · ${format(currentIncome)} 🪙/год → Рівень ${nextLevel} · ${format(nextIncome)} 🪙/год`;
-      const button=document.createElement("button");
-      button.className="clicker-worker-buy";
-      button.type="button";
-      button.textContent=cost===null?"МАКС":`${format(cost)} 🪙`;
-      button.disabled=cost===null || stars<cost;
-      button.addEventListener("click",()=>buyWorker(index));
-      card.append(info,button);
-      host.appendChild(card);
-    });
+    const signature=state.workerLevels.join(",");
+    if(signature!==workerRenderSignature || host.children.length!==workerDefs.length) {
+      host.innerHTML="";
+      workerDefs.forEach((def,index)=>{
+        const level=state.workerLevels[index];
+        const currentIncome=workerIncomeAtLevel(index,level);
+        const nextLevel=level<10?level+1:null;
+        const nextIncome=nextLevel===null?null:workerIncomeAtLevel(index,nextLevel);
+        const cost=level>=10?null:workerUpgradeCost(index,level);
+        const card=document.createElement("div");
+        card.className="clicker-worker-card";
+        const info=document.createElement("div");
+        info.className="clicker-worker-info";
+        info.innerHTML=level===0
+          ? `<strong>${def.name}</strong><br>Рівень 0 · 0 🪙/год → Рівень 1 · ${format(def.income)} 🪙/год`
+          : level>=10
+            ? `<strong>${def.name}</strong><br>Рівень 10 · ${format(currentIncome)} 🪙/год`
+            : `<strong>${def.name}</strong><br>Рівень ${level} · ${format(currentIncome)} 🪙/год → Рівень ${nextLevel} · ${format(nextIncome)} 🪙/год`;
+        const button=document.createElement("button");
+        button.className="clicker-worker-buy";
+        button.type="button";
+        button.textContent=cost===null?"МАКС":`${format(cost)} 🪙`;
+        button.disabled=cost===null || stars<cost;
+        button.addEventListener("click",()=>buyWorker(index));
+        card.append(info,button);
+        host.appendChild(card);
+      });
+      workerRenderSignature=signature;
+    } else {
+      workerDefs.forEach((def,index)=>{
+        const button=host.children[index]?.querySelector(".clicker-worker-buy");
+        const level=state.workerLevels[index];
+        const cost=level>=10?null:workerUpgradeCost(index,level);
+        if(button) {
+          button.textContent=cost===null?"МАКС":`${format(cost)} 🪙`;
+          button.disabled=cost===null || stars<cost;
+        }
+      });
+    }
   };
   const renderClickerUpgrades = () => {
     const exact=document.getElementById("clickerExactBalance");
