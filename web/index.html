@@ -8000,11 +8000,11 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 
   <div id="clickerFloatingRewards" class="clicker-floating-rewards" aria-live="polite"></div>
 
-  <button id="clickerUpgradeToggle" class="clicker-upgrade-toggle" onclick="toggleClickerUpgrades()">
+  <button id="clickerUpgradeToggle" class="clicker-upgrade-toggle" type="button" aria-expanded="false" aria-controls="clickerUpgradePanel">
     🚀 Покращення
   </button>
 
-  <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;">
+  <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;" aria-hidden="true">
     <div class="clicker-upgrade-heading">🚀 Покращуй та заробляй більше!</div>
     <div class="clicker-upgrade-section-title">Активний дохід</div>
     <div id="clickerTapUpgrade" class="clicker-upgrade-row">
@@ -10922,7 +10922,15 @@ let stars = Number(localStorage.getItem("nlkaman_stars") ?? TEST_RESOURCE_BALANC
 
   function formatResourceNumber(value) {
   value = Number(value) || 0;
+  return Math.floor(value).toLocaleString("uk-UA");
+}
 
+// Короткий формат лише для вузьких лічильників у верхніх панелях.
+function formatCompactResourceNumber(value) {
+  value = Math.max(0, Number(value) || 0);
+  if (value >= 1_000_000_000) return (value / 1_000_000_000).toLocaleString("uk-UA", { maximumFractionDigits: 1 }) + "млрд";
+  if (value >= 1_000_000) return (value / 1_000_000).toLocaleString("uk-UA", { maximumFractionDigits: 1 }) + "млн";
+  if (value >= 1_000) return (value / 1_000).toLocaleString("uk-UA", { maximumFractionDigits: 1 }) + "тис.";
   return Math.floor(value).toLocaleString("uk-UA");
 }
   
@@ -10960,17 +10968,17 @@ function updateStars() {
 
   if (coinCount) {
     coinCount.textContent =
-      formatResourceNumber(stars);
+      formatCompactResourceNumber(stars);
   }
 
   if (clickerCoinCount) {
     clickerCoinCount.textContent =
-      formatResourceNumber(stars);
+      formatCompactResourceNumber(stars);
   }
 
   if (starCount) {
     starCount.textContent =
-      formatResourceNumber(stars);
+      formatCompactResourceNumber(stars);
   }
 
   if (bearStarCount) {
@@ -10980,22 +10988,22 @@ function updateStars() {
 
   if (wheelStarCount) {
     wheelStarCount.textContent =
-      formatResourceNumber(stars);
+      formatCompactResourceNumber(stars);
   }
 
   if (wheelStarCount5000) {
     wheelStarCount5000.textContent =
-      formatResourceNumber(stars);
+      formatCompactResourceNumber(stars);
   }
 
   if (wheelStarCount10000) {
     wheelStarCount10000.textContent =
-      formatResourceNumber(stars);
+      formatCompactResourceNumber(stars);
   }
 
   if (wheelStarCountFriends) {
     wheelStarCountFriends.textContent =
-      formatResourceNumber(stars);
+      formatCompactResourceNumber(stars);
   }
 
 }
@@ -11123,7 +11131,7 @@ let artifacts =
 
   if (clickerCoinCount) {
     clickerCoinCount.textContent =
-  formatResourceNumber(stars);
+  formatCompactResourceNumber(stars);
   }
    
   const runeCount =
@@ -16153,7 +16161,7 @@ processWorkshopJobs();
   };
   const renderClickerUpgrades = () => {
     const exact=document.getElementById("clickerExactBalance");
-    if(exact) exact.textContent=format(stars);
+    if(exact) exact.textContent=Math.floor(Number(stars)||0).toLocaleString("uk-UA");
     const charge=maxCharge();
     state.charge=Math.min(charge,state.charge);
     const fill=document.getElementById("clickerChargeFill");
@@ -16188,11 +16196,20 @@ processWorkshopJobs();
     window.setTimeout(()=>el.remove(),900);
   };
   window.toggleClickerUpgrades = function() {
-    const panel=document.getElementById("clickerUpgradePanel");
-    if(!panel) return;
-    const opening=panel.style.display==="none"||!panel.style.display;
-    panel.style.display=opening?"block":"none";
-    if(opening) renderClickerUpgrades();
+    const panel = document.getElementById("clickerUpgradePanel");
+    const button = document.getElementById("clickerUpgradeToggle");
+    if (!panel) {
+      console.error("Clicker: не знайдено #clickerUpgradePanel");
+      return;
+    }
+    const opening = getComputedStyle(panel).display === "none";
+    panel.style.setProperty("display", opening ? "block" : "none", "important");
+    panel.setAttribute("aria-hidden", opening ? "false" : "true");
+    if (button) button.setAttribute("aria-expanded", opening ? "true" : "false");
+    if (opening) {
+      renderClickerUpgrades();
+      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
   };
   // Клік монетки обробляється також inline onclick на #bear.
   // Це гарантує роботу навіть якщо WebView пропускає pointerup або пізній listener.
@@ -16259,24 +16276,10 @@ processWorkshopJobs();
       recharge();
       // Прочитати актуальний баланс перед кожною операцією, а не використовувати застаріле значення.
       stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
-      if(state.charge<=0) {
-        renderClickerUpgrades();
-        const bear=document.getElementById("bear");
-        if(bear) {
-          bear.classList.remove("coin-flash");
-          void bear.offsetWidth;
-          bear.classList.add("coin-flash");
-        }
-        const chargeText=document.getElementById("clickerChargeText");
-        if(chargeText) {
-          const previous=chargeText.textContent;
-          chargeText.textContent="⚡ Заряд відновлюється…";
-          window.setTimeout(()=>{ if(chargeText.isConnected) chargeText.textContent=previous; },900);
-        }
-        return;
-      }
+      // Натискання завжди приносить монети. Заряд лише витрачається, якщо він є,
+      // щоб нульовий заряд не перетворював натискання на "нічого не відбувається".
       const reward=tapIncomeAtLevel(state.tapLevel);
-      state.charge=Math.max(0,state.charge-1);
+      if (state.charge > 0) state.charge = Math.max(0, state.charge - 1);
       stars+=reward;
       putNum("nlkaman_stars",stars);
       persistState();
