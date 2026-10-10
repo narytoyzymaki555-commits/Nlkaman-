@@ -7323,6 +7323,126 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 .workshop-cost img{flex:0 0 auto!important;width:27px!important;height:27px!important;object-fit:contain!important}
 .workshop-cost b.resource-status{flex:0 0 auto!important;width:20px!important;height:20px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:14px!important}
 @media(max-width:420px){.workshop-cost{padding:7px 6px!important;gap:3px!important;font-size:11px!important}.workshop-cost img{width:24px!important;height:24px!important}.workshop-cost b.resource-status{width:18px!important;font-size:13px!important}}
+
+/* ===== ДОДАТКОВІ ВИПРАВЛЕННЯ: КОРИЧНЕВА ТЕМА, ІНВЕНТАР, КОЛЕСА ТА КЛІКЕР ===== */
+.settings-button {
+  background: linear-gradient(145deg,#9a6338,#6b3e22) !important;
+  border: 1px solid rgba(226,177,112,.45) !important;
+  box-shadow: 0 0 14px rgba(90,48,20,.25) !important;
+}
+.settings-title { color:#f0cf9f !important; text-shadow:0 0 12px rgba(180,120,60,.25) !important; }
+.settings-card { background:rgba(69,42,24,.94) !important; border-color:rgba(210,160,100,.32) !important; }
+#volumeSlider { accent-color:#d3a06b !important; }
+.volume-value { color:#e2bd8c !important; }
+
+.nav-btn { border:0 !important; outline:0 !important; box-shadow:none !important; }
+.nav-btn.active { border:0 !important; box-shadow:none !important; }
+.nav-btn .nav-image-wrap { display:flex !important; align-items:center; justify-content:center; width:27px; height:25px; margin:0 auto 3px; font-size:0 !important; }
+.nav-btn .nav-image-wrap img { display:block; width:25px; height:25px; object-fit:contain; }
+.nav-btn span { margin-bottom:3px; }
+
+#inventory .tab-header-image { content:url("https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/inventory-header-new.png.PNG") !important; }
+#wheel > .tab-header-image { content:url("https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/wheel-header-new.png.PNG") !important; }
+#inventorySelected { min-height:76px !important; padding:12px !important; }
+#inventorySelectedImage.inventory-selected-placeholder {
+  display:flex !important; align-items:center; justify-content:center;
+  height:auto !important; min-height:52px; width:100% !important; padding:12px 8px; font-size:14px !important; font-weight:800;
+  color:#d9c09c; text-align:center; background:transparent !important; border:0 !important;
+}
+.inventory-item, .inventory-card, .inventory-gift-card, #inventoryEquipment .inventory-card, #inventoryGifts .inventory-gift-card {
+  background:linear-gradient(145deg,rgba(20,70,130,.98),rgba(8,35,78,.98)) !important;
+  border:1px solid rgba(174,105,255,.8) !important;
+  box-shadow:0 0 12px rgba(153,76,255,.42), inset 0 0 12px rgba(65,135,255,.12) !important;
+}
+.inventory-card.selected, .inventory-gift-card.selected {
+  border:2px solid #b47cff !important;
+  box-shadow:0 0 16px rgba(166,95,255,.72),inset 0 0 12px rgba(65,135,255,.18) !important;
+}
+.inventory-empty { background:linear-gradient(145deg,rgba(20,70,130,.85),rgba(8,35,78,.9)) !important; border:1px solid rgba(174,105,255,.65) !important; color:#d9c8f4 !important; }
+.inventory-empty-icon { display:none !important; }
+
+#wheel {
+  background-image:url("https://long-dust-06f3.narytoyzymaki555.workers.dev/game_bg.png.PNG") !important;
+  background-size:100% 100% !important; background-position:center top !important; background-repeat:no-repeat !important;
+  background-color:#3b2415 !important;
+}
+#wheel .wheel-card {
+  background:linear-gradient(145deg,rgba(105,67,39,.92),rgba(56,34,20,.96)) !important;
+  border:1px solid rgba(210,160,100,.35) !important;
+  box-shadow:0 5px 16px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,220,170,.07) !important;
+}
+.nika-wheel-page {
+  background-image:url("https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/wheel-game-bg-new.png.PNG") !important;
+  background-size:cover !important; background-position:center center !important; background-repeat:no-repeat !important;
+  background-color:#3b2415 !important;
+}
+.nika-wheel-page::before { background:linear-gradient(180deg,rgba(39,23,13,.24),rgba(39,23,13,.42)) !important; opacity:1 !important; }
+.wheel-top-panel { background:rgba(63,39,23,.88) !important; border-color:rgba(211,164,105,.38) !important; box-shadow:0 0 18px rgba(0,0,0,.25) !important; }
+.wheel-resource { background:rgba(49,30,17,.78) !important; border-color:rgba(211,164,105,.25) !important; }
+.wheel-game-card { background:rgba(63,39,23,.55) !important; border-color:rgba(211,164,105,.22) !important; }
+.wheel-game-title, .nika-wheel-title { text-shadow:0 2px 6px rgba(0,0,0,.8) !important; }
+
+#clicker { background-image:url("https://long-dust-06f3.narytoyzymaki555.workers.dev/coin_bg.png.PNG") !important; background-size:cover !important; background-position:center !important; }
+.clicker-balance-panel {
+  width:100%; margin:10px auto 4px; padding:10px 12px 9px; border-radius:14px;
+  background:rgba(61,38,22,.82); border:1px solid rgba(211,164,105,.38);
+  box-shadow:0 4px 14px rgba(0,0,0,.22); text-align:center;
+}
+.clicker-balance-label { font-size:10px; letter-spacing:1.3px; font-weight:900; color:#d5b28f; }
+.clicker-exact-balance { margin:3px 0 8px; font-size:clamp(22px,6vw,30px); font-weight:1000; color:#fff0d8; line-height:1.15; overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+.charge-track { height:12px; width:100%; overflow:hidden; border-radius:99px; background:#26170e; border:1px solid #a9794b; box-shadow:inset 0 1px 3px #140b06; }
+.charge-fill { height:100%; width:100%; border-radius:inherit; background:linear-gradient(90deg,#b67838,#edc27c); transition:width .2s linear; }
+.charge-meta { display:flex; justify-content:space-between; gap:8px; margin-top:5px; font-size:10px; color:#e1c29d; }
+.charge-help { margin-top:4px; font-size:10px; color:#c4a17a; }
+.bear-clicker { position:relative; }
+.click-coin { transform:translateY(0) !important; }
+.clicker-floating-rewards { position:relative; height:0; z-index:15; pointer-events:none; }
+.clicker-float { position:absolute; left:50%; top:-165px; transform:translateX(-50%); color:#ffe2a6; font-weight:1000; font-size:24px; text-shadow:0 2px 5px #28170b,0 0 12px rgba(255,183,77,.45); animation:clickerFloatUp .85s ease-out forwards; white-space:nowrap; }
+@keyframes clickerFloatUp { 0%{opacity:0;transform:translate(-50%,8px) scale(.85)} 15%{opacity:1} 100%{opacity:0;transform:translate(-50%,-58px) scale(1.08)} }
+.clicker-upgrade-toggle { display:block; width:80%; max-width:420px; margin:14px auto 12px; padding:12px 14px; border-radius:14px; border:1px solid rgba(222,174,113,.5); background:linear-gradient(145deg,#8a542f,#5e371e); color:#fff0dc; font-weight:900; box-shadow:0 4px 12px rgba(0,0,0,.25); }
+.clicker-upgrade-panel { width:100%; margin:0 auto 16px; padding:12px; border-radius:17px; background:rgba(57,35,20,.96); border:1px solid rgba(211,164,105,.38); box-shadow:0 8px 20px rgba(0,0,0,.25); }
+.clicker-upgrade-heading { text-align:center; font-size:16px; font-weight:1000; color:#ffe0b5; margin:2px 0 12px; }
+.clicker-upgrade-section-title { margin:12px 0 7px; color:#e5bd87; font-size:12px; font-weight:1000; letter-spacing:.5px; text-transform:uppercase; }
+.clicker-upgrade-row { display:flex; align-items:center; gap:8px; padding:10px 8px; margin-bottom:7px; border-radius:12px; background:rgba(116,75,42,.36); border:1px solid rgba(211,164,105,.2); }
+.clicker-upgrade-info { min-width:0; flex:1; }
+.clicker-upgrade-name { font-size:12px; font-weight:900; color:#fff0dc; line-height:1.25; }
+.clicker-upgrade-levels { margin-top:5px; color:#d7b58b; font-size:10px; line-height:1.35; overflow-wrap:anywhere; }
+.clicker-cost-button { flex-shrink:0; min-width:74px; max-width:105px; padding:9px 7px; border-radius:10px; border:1px solid rgba(232,187,126,.42); background:linear-gradient(145deg,#b47b45,#80502b); color:#fff4e3; font-size:11px; font-weight:1000; overflow-wrap:anywhere; }
+.clicker-cost-button:disabled { opacity:.42; filter:grayscale(.5); }
+.clicker-passive-heading { color:#f0d0a1; font-weight:1000; font-size:13px; margin:3px 0 8px; }
+.clicker-workers { display:flex; flex-direction:column; gap:7px; }
+.clicker-worker-card { display:flex; align-items:center; gap:8px; padding:9px 8px; border-radius:12px; background:rgba(116,75,42,.28); border:1px solid rgba(211,164,105,.18); }
+.clicker-worker-info { min-width:0; flex:1; font-size:10px; color:#d7b58b; line-height:1.45; overflow-wrap:anywhere; }
+.clicker-worker-info strong { color:#fff0dc; font-size:11px; }
+.clicker-worker-buy { flex-shrink:0; min-width:78px; max-width:110px; padding:8px 6px; border-radius:9px; border:1px solid rgba(232,187,126,.42); background:linear-gradient(145deg,#b47b45,#80502b); color:#fff4e3; font-size:10px; font-weight:1000; overflow-wrap:anywhere; }
+.clicker-worker-buy:disabled { opacity:.42; filter:grayscale(.5); }
+#workshop .top-panel { display:flex !important; }
+.workshop-selected { grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) !important; align-items:start !important; }
+.workshop-description { grid-column:1 !important; grid-row:1 !important; }
+.workshop-item { grid-column:1 !important; grid-row:2 !important; }
+.workshop-info { grid-column:2 !important; grid-row:1 / span 2 !important; min-width:0 !important; }
+.workshop-description, .workshop-item, .workshop-info { min-width:0 !important; }
+.workshop-characteristics { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+.workshop-characteristics > div { min-width:0; }
+.workshop-characteristics strong { overflow-wrap:anywhere; }
+.workshop-costs { gap:5px !important; }
+.workshop-cost { min-width:0 !important; padding:6px 5px !important; }
+.workshop-equipment-tabs { position:sticky; bottom:70px; z-index:12; background:rgba(61,38,22,.96); padding:5px 0; }
+.workshop-job-fab { top:44% !important; right:10px !important; width:42px !important; height:42px !important; font-size:18px !important; }
+.workshop-job-time { font-size:11px !important; }
+.travel-option-card, .travel-card, .travel-item-card { border:0 !important; background:transparent !important; box-shadow:none !important; padding:0 !important; min-height:0 !important; overflow:visible !important; border-radius:0 !important; }
+.travel-option-card img, .travel-subpage img { display:block !important; width:100% !important; height:auto !important; max-height:none !important; object-fit:contain !important; border:0 !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; }
+.travel-options { gap:10px !important; }
+@media(max-width:600px) {
+  .workshop-selected { grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr) !important; }
+  .workshop-info { grid-column:2 !important; grid-row:1 / span 2 !important; }
+  .workshop-costs { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .clicker-balance-panel { margin-top:8px; }
+  .clicker-upgrade-panel { padding:9px; }
+  .clicker-upgrade-row { gap:6px; padding:8px 6px; }
+  .clicker-upgrade-levels { font-size:9px; }
+}
+
 </style>
 </head>
 
@@ -7481,7 +7601,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 >
 
   <img
-    src="https://aged-bird-05af.narytoyzymaki555.workers.dev/inventoryHeader.png.PNG"
+    src="https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/inventory-header-new.png.PNG"
     class="tab-header-image"
     alt=""
   >
@@ -7494,9 +7614,9 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 
     <div
       id="inventorySelectedImage"
-      class="inventory-selected-image"
+      class="inventory-selected-image inventory-selected-placeholder"
     >
-      🎁
+      Виберіть предмет щоб переглянути
     </div>
 
   </div>
@@ -7740,61 +7860,9 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 
 </section>
 
-<!-- 🧪 ЛАБОРАТОРІЯ -->
 
-<section
-  id="laboratory"
-  class="page"
->
 
-  <div class="card">
-
-    <div class="stat-label">
-      АЛХІМІЧНИЙ СТІЛ
-    </div>
-
-    <div
-      style="
-        text-align:center;
-        padding:40px 10px;
-        color:#d5ad82;
-        font-size:18px;
-      "
-    >
-      🧪 Тут буде лабораторія
-    </div>
-
-  </div>
-
-</section>
-
-  <!-- 🏰 ГІЛЬДІЯ -->
-
-<section
-  id="guild"
-  class="page"
->
-
-  <div class="card">
-
-    <div class="stat-label">
-      ГІЛЬДІЯ
-    </div>
-
-    <div
-      style="
-        text-align:center;
-        padding:40px 10px;
-        color:#d5ad82;
-        font-size:18px;
-      "
-    >
-      🏰 Тут буде гільдія
-    </div>
-
-  </div>
-
-</section>
+  
   
   
   <!-- ⚙️ НАЛАШТУВАННЯ -->
@@ -7896,20 +7964,61 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 
 
 
+  <div class="clicker-balance-panel">
+    <div class="clicker-balance-label">ТВІЙ БАЛАНС</div>
+    <div id="clickerExactBalance" class="clicker-exact-balance">10 000 000</div>
+    <div class="charge-track" aria-label="Заряд">
+      <div id="clickerChargeFill" class="charge-fill"></div>
+    </div>
+    <div class="charge-meta">
+      <span id="clickerChargeText">Заряд: 1000 / 1000</span>
+      <span id="clickerChargeTime">Повний заряд: 0 с</span>
+    </div>
+    <div class="charge-help">1 заряд — 3 секунди до повного заряду</div>
+  </div>
+
   <div class="bear-clicker">
 
     <div
       class="bear"
       id="bear"
-      ontouchstart="handleBearTouch(event)"
     >
       <img
         src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG"
         class="click-coin"
+        onclick="clickBear()"
         draggable="false"
       >
     </div>
 
+  </div>
+
+  <div id="clickerFloatingRewards" class="clicker-floating-rewards" aria-live="polite"></div>
+
+  <button id="clickerUpgradeToggle" class="clicker-upgrade-toggle" onclick="toggleClickerUpgrades()">
+    🚀 Покращення
+  </button>
+
+  <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;">
+    <div class="clicker-upgrade-heading">🚀 Покращуй та заробляй більше!</div>
+    <div class="clicker-upgrade-section-title">Активний дохід</div>
+    <div id="clickerTapUpgrade" class="clicker-upgrade-row">
+      <div class="clicker-upgrade-info">
+        <div class="clicker-upgrade-name">Збільшити кількість монет за клік</div>
+        <div id="clickerTapLevels" class="clicker-upgrade-levels">Рівень 1 · 1 🪙 → Рівень 2 · 2 🪙</div>
+      </div>
+      <button id="clickerTapBuy" class="clicker-cost-button" onclick="buyClickerTapUpgrade()">300 🪙</button>
+    </div>
+    <div id="clickerChargeUpgrade" class="clicker-upgrade-row">
+      <div class="clicker-upgrade-info">
+        <div class="clicker-upgrade-name">Збільшити запас зарядності</div>
+        <div id="clickerChargeLevels" class="clicker-upgrade-levels">Рівень 1 · 1000 ⚡ → Рівень 2 · 1050 ⚡</div>
+      </div>
+      <button id="clickerChargeBuy" class="clicker-cost-button" onclick="buyClickerChargeUpgrade()">1 000 🪙</button>
+    </div>
+    <div class="clicker-upgrade-section-title passive-income-title">Пасивний дохід</div>
+    <div class="clicker-passive-heading">Найняти робітника</div>
+    <div id="clickerWorkers" class="clicker-workers"></div>
   </div>
 
 </section>
@@ -8082,7 +8191,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 >
 
   <img
-    src="https://aged-bird-05af.narytoyzymaki555.workers.dev/wheelsHeader.png.PNG"
+    src="https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/wheel-header-new.png.PNG"
     class="tab-header-image"
     alt=""
   >
@@ -9672,7 +9781,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 </div>
 
 <div class="nika-slot" style="--angle:240deg;">
-  <img src="blue_diamond.PNG" class="nika-prize-img">
+  <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/blue_diamond.png.PNG" class="nika-prize-img">
 </div>
 
 <div class="nika-slot" style="--angle:270deg;">
@@ -9978,7 +10087,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
     id="nav-home"
     onclick="openPage('home')"
   >
-    <span>🎮</span>
+    <span class="nav-image-wrap"><img src="https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/nav-games-new.png.PNG" alt=""></span>
     Ігри
   </button>
 
@@ -9987,7 +10096,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
     id="nav-leaderboard"
     onclick="openPage('leaderboard')"
   >
-    <span>🏆</span>
+    <span class="nav-image-wrap"><img src="https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/nav-leaderboard-new.png.PNG" alt=""></span>
     Лідербол
   </button>
 
@@ -9996,7 +10105,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
     id="nav-referrals"
     onclick="openPage('referrals')"
   >
-    <span>👥</span>
+    <span class="nav-image-wrap"><img src="https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/nav-friends-new.png.PNG" alt=""></span>
     Друзі
   </button>
 
@@ -10796,31 +10905,20 @@ function toggleSound() {
 
 const TEST_RESOURCE_BALANCE = 10000000;
 
-// Тестовий баланс: кожного ресурсу по 10 000 000.
+// Початковий тестовий баланс задається лише один раз для профілю без збереженого ресурсу.
+// Наявний прогрес не перезаписується при кожному відкритті гри.
 ["nlkaman_stars","nlkaman_wood","nlkaman_metal","nlkaman_runes","nlkaman_artifacts","nlkaman_tickets"].forEach(key => {
-  localStorage.setItem(key, String(TEST_RESOURCE_BALANCE));
+  if (localStorage.getItem(key) === null) {
+    localStorage.setItem(key, String(TEST_RESOURCE_BALANCE));
+  }
 });
 
-let stars = TEST_RESOURCE_BALANCE;
+let stars = Number(localStorage.getItem("nlkaman_stars") ?? TEST_RESOURCE_BALANCE);
 
   function formatResourceNumber(value) {
   value = Number(value) || 0;
 
-  if (value >= 1000000) {
-    return (value / 1000000)
-      .toFixed(2)
-      .replace(/\.00$/, '')
-      .replace(/(\.\d)0$/, '$1') + 'м';
-  }
-
-  if (value >= 10000) {
-    return (value / 1000)
-      .toFixed(2)
-      .replace(/\.00$/, '')
-      .replace(/(\.\d)0$/, '$1') + 'к';
-  }
-
-  return value.toString();
+  return Math.floor(value).toLocaleString("uk-UA");
 }
   
 function updateStars() {
@@ -15864,6 +15962,400 @@ function updateWorkshopTopResources(){
 function openWorkshop(){processWorkshopJobs();workshopMode="forge";forgeCategory="weapon";forgeSelectedLevel=1;switchWorkshopMode("forge");updateWorkshopTopResources();renderWorkshopJobs();}
 processWorkshopJobs();
   
+
+/* ===== ДОДАТКОВА ЛОГІКА КЛІКЕРА: РІВНІ, ЗАРЯД, РОБІТНИКИ ===== */
+(function initNlkamanClickerSystems() {
+  const LS = window.localStorage;
+  const getNum = (key, fallback) => {
+    const raw = LS.getItem(key);
+    if (raw === null || raw === "" || !Number.isFinite(Number(raw))) return fallback;
+    return Number(raw);
+  };
+  const putNum = (key, value) => LS.setItem(key, String(Math.max(0, Math.floor(Number(value) || 0))));
+  const format = value => Math.floor(Number(value) || 0).toLocaleString("uk-UA");
+  const tapIncomeAtLevel = level => {
+    const lvl = Math.max(1, Math.min(100, Math.floor(Number(level) || 1)));
+    const fixed = {1:1,2:2,3:4,4:6,5:9,6:13};
+    if (fixed[lvl]) return fixed[lvl];
+    let income = 13;
+    for (let current = 7; current <= lvl; current++) {
+      income = Math.ceil(income * (current >= 57 ? 1.08 : 1.10));
+    }
+    return income;
+  };
+  const tapUpgradeCost = level => {
+    let cost = 300;
+    for (let current = 2; current <= level; current++) cost = Math.ceil(cost * 1.15);
+    return cost;
+  };
+  const chargeUpgradeCost = level => {
+    if (level <= 1) return 1000;
+    let cost = 2000;
+    for (let current = 3; current <= level; current++) cost = Math.ceil(cost * 2.5);
+    return cost;
+  };
+  const workerDefs = [
+    {name:"Робітник 1",cost:15000,income:5000,incomeMult:2,costMult:3,firstUpgradeCost:null},
+    {name:"Робітник 2",cost:20000,income:10000,incomeMult:1.5,costMult:2,firstUpgradeCost:null},
+    {name:"Робітник 3",cost:100000,income:30000,incomeMult:1.5,costMult:2,firstUpgradeCost:200000},
+    {name:"Робітник 4",cost:1000000,income:100000,incomeMult:1.5,costMult:2,firstUpgradeCost:2000000},
+    {name:"Робітник 5",cost:10000000,income:1000000,incomeMult:1.5,costMult:2,firstUpgradeCost:25000000},
+    {name:"Робітник 6",cost:2000000000,income:10000000,incomeMult:1.5,costMult:2,firstUpgradeCost:5000000000}
+  ];
+  const state = {
+    tapLevel: Math.max(1,Math.min(100,getNum("nlkaman_clicker_level",1))),
+    chargeLevel: Math.max(1,Math.min(30,getNum("nlkaman_charge_level",1))),
+    charge: Math.max(0,getNum("nlkaman_charge",1000)),
+    lastChargeAt: getNum("nlkaman_charge_last_at",Date.now()),
+    workerLevels: []
+  };
+  workerDefs.forEach((def,index)=>state.workerLevels[index]=Math.max(0,Math.min(10,getNum("nlkaman_worker_"+index,0))));
+  const maxCharge = () => 1000 + (state.chargeLevel - 1) * 50;
+  const workerIncomeAtLevel = (index,level) => {
+    if (level <= 0) return 0;
+    let income=workerDefs[index].income;
+    for(let i=2;i<=level;i++) income=Math.ceil(income*workerDefs[index].incomeMult);
+    return income;
+  };
+  const workerUpgradeCost = (index,level) => {
+    const def=workerDefs[index];
+    if(level<=0) return def.cost;
+    let cost=def.firstUpgradeCost || Math.ceil(def.cost*def.costMult);
+    for(let current=1;current<level;current++) cost=Math.ceil(cost*def.costMult);
+    return cost;
+  };
+  const totalHourlyIncome = () => state.workerLevels.reduce((sum,level,index)=>sum+workerIncomeAtLevel(index,level),0);
+  const persistState = () => {
+    putNum("nlkaman_clicker_level",state.tapLevel);
+    putNum("nlkaman_charge_level",state.chargeLevel);
+    putNum("nlkaman_charge",state.charge);
+    putNum("nlkaman_charge_last_at",state.lastChargeAt);
+    state.workerLevels.forEach((level,index)=>putNum("nlkaman_worker_"+index,level));
+  };
+  const recharge = (now=Date.now()) => {
+    const max=maxCharge();
+    const elapsed=Math.max(0,now-state.lastChargeAt);
+    const units=Math.floor(elapsed/3000);
+    if(units>0) {
+      state.charge=Math.min(max,state.charge+units);
+      state.lastChargeAt += units*3000;
+    }
+    if(state.charge>=max) {
+      state.charge=max;
+      state.lastChargeAt=now;
+    }
+    persistState();
+  };
+  const creditPassiveIncome = (now=Date.now()) => {
+    const key="nlkaman_workers_last_credit";
+    const last=getNum(key,now);
+    const rawElapsed=Math.max(0,now-last);
+    const elapsed=Math.min(12*60*60*1000,rawElapsed);
+    const fractionKey="nlkaman_workers_fractional_coin";
+    const previousFraction=Math.max(0,Math.min(0.999999,getNum(fractionKey,0)));
+    const exactIncome=totalHourlyIncome()*elapsed/3600000+previousFraction;
+    const earned=Math.floor(exactIncome);
+    LS.setItem(fractionKey,String(exactIncome-earned));
+    if(earned>0) {
+      stars += earned;
+      putNum("nlkaman_stars",stars);
+      if(typeof updateStars==="function") updateStars();
+    }
+    // Якщо накопичення перевищило 12 годин, обрізаємо старий період і починаємо новий зараз.
+    // Інакше фіксуємо час поточного обліку, щоб не зарахувати той самий інтервал двічі.
+    LS.setItem(key,String(now));
+  };
+  const renderWorkers = () => {
+    const host=document.getElementById("clickerWorkers");
+    if(!host) return;
+    host.innerHTML="";
+    workerDefs.forEach((def,index)=>{
+      const level=state.workerLevels[index];
+      const currentIncome=workerIncomeAtLevel(index,level);
+      const nextLevel=level<10?level+1:null;
+      const nextIncome=nextLevel===null?null:workerIncomeAtLevel(index,nextLevel);
+      const cost=level>=10?null:workerUpgradeCost(index,level);
+      const card=document.createElement("div");
+      card.className="clicker-worker-card";
+      const info=document.createElement("div");
+      info.className="clicker-worker-info";
+      info.innerHTML=level===0
+        ? `<strong>${def.name}</strong><br>Рівень 0 · 0 🪙/год → Рівень 1 · ${format(def.income)} 🪙/год`
+        : level>=10
+          ? `<strong>${def.name}</strong><br>Рівень 10 · ${format(currentIncome)} 🪙/год`
+          : `<strong>${def.name}</strong><br>Рівень ${level} · ${format(currentIncome)} 🪙/год → Рівень ${nextLevel} · ${format(nextIncome)} 🪙/год`;
+      const button=document.createElement("button");
+      button.className="clicker-worker-buy";
+      button.type="button";
+      button.textContent=cost===null?"МАКС":`${format(cost)} 🪙`;
+      button.disabled=cost===null || stars<cost;
+      button.addEventListener("click",()=>buyWorker(index));
+      card.append(info,button);
+      host.appendChild(card);
+    });
+  };
+  const renderClickerUpgrades = () => {
+    const exact=document.getElementById("clickerExactBalance");
+    if(exact) exact.textContent=format(stars);
+    const charge=maxCharge();
+    state.charge=Math.min(charge,state.charge);
+    const fill=document.getElementById("clickerChargeFill");
+    if(fill) fill.style.width=(charge ? state.charge/charge*100 : 0)+"%";
+    const chargeText=document.getElementById("clickerChargeText");
+    if(chargeText) chargeText.textContent=`Заряд: ${format(state.charge)} / ${format(charge)}`;
+    const time=document.getElementById("clickerChargeTime");
+    if(time) {
+      const seconds=Math.max(0,(charge-state.charge)*3);
+      const hours=Math.floor(seconds/3600),minutes=Math.floor(seconds%3600/60),secs=seconds%60;
+      time.textContent=seconds===0?"Повний заряд: 0 с":`До повного: ${hours?hours+" год ": ""}${minutes?minutes+" хв ": ""}${secs?secs+" с":""}`.trim();
+    }
+    const tapNext=state.tapLevel<100?state.tapLevel+1:null;
+    const tapLevels=document.getElementById("clickerTapLevels");
+    if(tapLevels) tapLevels.textContent=tapNext===null?`Рівень 100 · ${format(tapIncomeAtLevel(100))} 🪙 · МАКС`:`Рівень ${state.tapLevel} · ${format(tapIncomeAtLevel(state.tapLevel))} 🪙 → Рівень ${tapNext} · ${format(tapIncomeAtLevel(tapNext))} 🪙`;
+    const tapBuy=document.getElementById("clickerTapBuy");
+    if(tapBuy) { tapBuy.textContent=tapNext===null?"МАКС":`${format(tapUpgradeCost(state.tapLevel))} 🪙`; tapBuy.disabled=tapNext===null||stars<tapUpgradeCost(state.tapLevel); }
+    const chargeNext=state.chargeLevel<30?state.chargeLevel+1:null;
+    const chargeLevels=document.getElementById("clickerChargeLevels");
+    if(chargeLevels) chargeLevels.textContent=chargeNext===null?`Рівень 30 · ${format(maxCharge())} ⚡ · МАКС`:`Рівень ${state.chargeLevel} · ${format(maxCharge())} ⚡ → Рівень ${chargeNext} · ${format(maxCharge()+50)} ⚡`;
+    const chargeBuy=document.getElementById("clickerChargeBuy");
+    if(chargeBuy) { chargeBuy.textContent=chargeNext===null?"МАКС":`${format(chargeUpgradeCost(state.chargeLevel))} 🪙`; chargeBuy.disabled=chargeNext===null||stars<chargeUpgradeCost(state.chargeLevel); }
+    renderWorkers();
+  };
+  const showReward = amount => {
+    const host=document.getElementById("clickerFloatingRewards");
+    if(!host) return;
+    const el=document.createElement("div");
+    el.className="clicker-float";
+    el.textContent=`+${format(amount)} 🪙`;
+    host.appendChild(el);
+    window.setTimeout(()=>el.remove(),900);
+  };
+  window.toggleClickerUpgrades = function() {
+    const panel=document.getElementById("clickerUpgradePanel");
+    if(!panel) return;
+    const opening=panel.style.display==="none"||!panel.style.display;
+    panel.style.display=opening?"block":"none";
+    if(opening) renderClickerUpgrades();
+  };
+  window.buyClickerTapUpgrade = function() {
+    if(state.tapLevel>=100) return;
+    const cost=tapUpgradeCost(state.tapLevel);
+    if(stars<cost) { alert("Недостатньо монет."); return; }
+    stars-=cost; state.tapLevel++;
+    putNum("nlkaman_stars",stars); persistState();
+    if(typeof updateStars==="function") updateStars();
+    renderClickerUpgrades();
+  };
+  window.buyClickerChargeUpgrade = function() {
+    if(state.chargeLevel>=30) return;
+    const cost=chargeUpgradeCost(state.chargeLevel);
+    if(stars<cost) { alert("Недостатньо монет."); return; }
+    stars-=cost; state.chargeLevel++;
+    state.charge=Math.min(maxCharge(),state.charge+50);
+    putNum("nlkaman_stars",stars); persistState();
+    if(typeof updateStars==="function") updateStars();
+    renderClickerUpgrades();
+  };
+  window.buyWorker = function(index) {
+    if(!Number.isInteger(index)||!workerDefs[index]) return;
+    const level=state.workerLevels[index];
+    if(level>=10) return;
+    const cost=workerUpgradeCost(index,level);
+    if(stars<cost) { alert("Недостатньо монет."); return; }
+    stars-=cost;
+    state.workerLevels[index]++;
+    putNum("nlkaman_stars",stars);
+    persistState();
+    if(typeof updateStars==="function") updateStars();
+    renderClickerUpgrades();
+  };
+  window.clickBear = function() {
+    recharge();
+    if(state.charge<=0) {
+      renderClickerUpgrades();
+      return;
+    }
+    const reward=tapIncomeAtLevel(state.tapLevel);
+    state.charge=Math.max(0,state.charge-1);
+    stars+=reward;
+    putNum("nlkaman_stars",stars);
+    persistState();
+    if(typeof updateStars==="function") updateStars();
+    renderClickerUpgrades();
+    showReward(reward);
+    const bear=document.querySelector(".bear");
+    if(bear) {
+      bear.classList.remove("coin-flash");
+      void bear.offsetWidth;
+      bear.classList.add("coin-flash");
+    }
+    if(typeof playCoinSound==="function") {
+      try { playCoinSound(); } catch(error) { console.warn("Coin sound skipped",error); }
+    }
+  };
+  window.handleBearTouch = function(event) {
+    if(event && typeof event.preventDefault==="function") event.preventDefault();
+    window.clickBear();
+  };
+  // Worker income is credited in bounded intervals and capped to 12 hours on return.
+  creditPassiveIncome(Date.now());
+  recharge(Date.now());
+  renderClickerUpgrades();
+  window.setInterval(()=>{
+    recharge(Date.now());
+    creditPassiveIncome(Date.now());
+    renderClickerUpgrades();
+  },3000);
+  // Keep charge timestamps aligned when the page is backgrounded/restored.
+  document.addEventListener("visibilitychange",()=>{
+    if(!document.hidden) {
+      creditPassiveIncome(Date.now());
+      recharge(Date.now());
+      renderClickerUpgrades();
+    }
+  });
+})();
+
+
+/* ===== FIX: WORKSHOP CATEGORY FILTERS, ITEM STATS AND TOP PANEL ===== */
+function renderWorkshopEquipment() {
+  const container=document.getElementById("workshopEquipment");
+  if(!container) return;
+  container.innerHTML="";
+  const wanted=workshopCategory==="armor"?"armor":"weapon";
+  const items=inventory.filter(item=>String(item.type||"").toLowerCase()===wanted);
+  if(!items.length) {
+    container.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:20px 10px;color:#e0c29b;font-size:12px;">${wanted==="weapon"?"⚔️ У тебе ще немає зброї":"🛡️ У тебе ще немає броні"}</div>`;
+    return;
+  }
+  items.forEach(item=>{
+    const card=document.createElement("div");
+    card.className="workshop-equipment-card"+(String(workshopSelectedId)===String(item.id)?" selected":"");
+    const imageSrc=item.image||extractInventoryImage(item.icon);
+    const level=Math.max(0,Math.min(6,getItemLevel(item)));
+    card.innerHTML=`${imageSrc?`<img src="${imageSrc}" alt="">`:`<div style="font-size:40px;margin-bottom:8px;">${wanted==="weapon"?"⚔️":"🛡️"}</div>`}<div class="workshop-equipment-card-name">${String(item.name||"Предмет").replace(/[<>&"]/g,"")}</div><div class="workshop-equipment-card-stars">${"★".repeat(level)+"☆".repeat(6-level)}</div>`;
+    card.addEventListener("click",()=>{
+      workshopSelectedId=item.id;
+      renderWorkshopSelected();
+      renderWorkshopEquipment();
+    });
+    container.appendChild(card);
+  });
+}
+function renderWorkshopSelected() {
+  const item=inventory.find(entry=>String(entry.id)===String(workshopSelectedId));
+  const ids=["workshopStrength","workshopAttack","workshopDefense","workshopAgility","workshopBlood","workshopHarvest","workshopElements"];
+  const description=document.getElementById("workshopDescription");
+  const image=document.getElementById("workshopItemImage");
+  const name=document.getElementById("workshopItemName");
+  const rarity=document.getElementById("workshopRarity");
+  const starsEl=document.getElementById("workshopStars");
+  if(!item) {
+    if(description) description.textContent="Виберіть предмет зі спорядження.";
+    if(image) image.textContent="⚔️";
+    if(name) name.textContent="ВИБЕРІТЬ ПРЕДМЕТ";
+    if(rarity) rarity.textContent="—";
+    if(starsEl) starsEl.textContent="☆ ☆ ☆ ☆ ☆ ☆";
+    ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent="—";});
+    updateWorkshopCost();
+    return;
+  }
+  const meta=getItemMeta(item);
+  if(!meta) {
+    if(description) description.textContent="Характеристики цього предмета недоступні: перевірте тип і рівень предмета.";
+    if(image) image.innerHTML=item.image?`<img src="${item.image}" alt="">`:(item.type==="armor"?"🛡️":"⚔️");
+    if(name) name.textContent=item.name||"ПРЕДМЕТ";
+    if(rarity) rarity.textContent=item.rarity||"—";
+    if(starsEl) starsEl.textContent=getWorkshopStars(item).split("").join(" ");
+    ids.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent="—";});
+    updateWorkshopCost();
+    return;
+  }
+  const level=getItemLevel(item);
+  const current=item.type==="armor"?getArmorStats(meta.level,level):getWeaponStats(meta.level,level);
+  const imageSrc=item.image||extractInventoryImage(item.icon);
+  if(description) description.textContent=level<6?`${item.name||meta.name}: наступне покращення — ${level+1} ⭐.`:`${item.name||meta.name}: максимальний рівень 6 ⭐.`;
+  if(image) image.innerHTML=imageSrc?`<img src="${imageSrc}" alt="">`:(item.type==="armor"?"🛡️":"⚔️");
+  if(name) name.textContent=item.name||meta.name||"ПРЕДМЕТ";
+  if(rarity) rarity.textContent=item.rarity||meta.rarity||"РІДКІСНИЙ";
+  if(starsEl) starsEl.textContent=getWorkshopStars(item).split("").join(" ");
+  const values={workshopStrength:current.strength,workshopAttack:current.attack,workshopDefense:current.defense,workshopAgility:current.agility,workshopBlood:current.blood,workshopHarvest:current.harvest?`+${current.harvest} ${meta.harvestType==="wood"?"дерева":meta.harvestType==="metal"?"металу":""}`:"+0",workshopElements:elementsText(current.elements)};
+  Object.entries(values).forEach(([id,value])=>{const el=document.getElementById(id);if(el)el.textContent=value??"—";});
+  updateWorkshopCost();
+}
+const originalOpenWorkshopForTopPanel = window.openWorkshop;
+function openWorkshop() {
+  processWorkshopJobs();
+  workshopMode="forge";
+  forgeCategory="weapon";
+  forgeSelectedLevel=1;
+  switchWorkshopMode("forge");
+  updateWorkshopTopResources();
+  renderWorkshopJobs();
+  const top=document.querySelector("#workshop .top-panel");
+  if(top) top.style.display="flex";
+}
+
+
+/* ===== WORKSHOP: HIDE UNUSED RESOURCES, KEEP TOP PANEL AND REFRESH STATS ===== */
+(function() {
+  const hideUnusedWorkshopCosts = () => {
+    const groups = [
+      {panel:"workshopForgePanel", pairs:[["forgeWoodCost","forgeWoodStatus"],["forgeMetalCost","forgeMetalStatus"],["forgeCoinCost","forgeCoinStatus"],["forgeRuneCost","forgeRuneStatus"],["forgeArtifactCost","forgeArtifactStatus"]]},
+      {panel:"workshopUpgradePanel", pairs:[["workshopCoinCost","upgradeCoinStatus"],["workshopRuneCost","upgradeRuneStatus"],["workshopArtifactCost","upgradeArtifactStatus"]]}
+    ];
+    groups.forEach(group=>{
+      const panel=document.getElementById(group.panel);
+      if(!panel) return;
+      group.pairs.forEach(([costId,statusId])=>{
+        const cost=document.getElementById(costId);
+        const status=document.getElementById(statusId);
+        const row=cost?.closest(".workshop-cost");
+        if(!row||!cost) return;
+        const raw=String(cost.textContent||"").replace(/[\\s,.]/g,"");
+        const numeric=Number(raw);
+        row.style.display=(raw!=="" && Number.isFinite(numeric) && numeric===0)?"none":"";
+      });
+    });
+  };
+  const oldForge=window.renderForgeSelected;
+  if(typeof oldForge==="function") {
+    window.renderForgeSelected=function(...args) {
+      const result=oldForge.apply(this,args);
+      hideUnusedWorkshopCosts();
+      const top=document.querySelector("#workshop .top-panel");
+      if(top) top.style.display="flex";
+      return result;
+    };
+  }
+  const oldCost=window.updateWorkshopCost;
+  if(typeof oldCost==="function") {
+    window.updateWorkshopCost=function(...args) {
+      const result=oldCost.apply(this,args);
+      hideUnusedWorkshopCosts();
+      return result;
+    };
+  }
+  document.querySelectorAll("#workshop .top-panel").forEach(el=>el.style.display="flex");
+  hideUnusedWorkshopCosts();
+})();
+
+
+function renderSelectedInventoryItem() {
+  const box=document.getElementById("inventorySelectedImage");
+  if(!box) return;
+  const item=inventory.find(entry=>String(entry.id)===String(selectedInventoryId));
+  if(!item) {
+    box.classList.add("inventory-selected-placeholder");
+    box.textContent="Виберіть предмет щоб переглянути";
+    return;
+  }
+  box.classList.remove("inventory-selected-placeholder");
+  const imageSrc=item.image||extractInventoryImage(item.icon);
+  if(imageSrc) box.innerHTML=`<img src="${imageSrc}" alt="">`;
+  else box.innerHTML=item.icon|| (item.type==="armor"?"🛡️":item.type==="weapon"?"⚔️":"🎁");
+}
+
 </script>
 
 <div id="workshopJobFab" class="workshop-job-fab" onclick="toggleWorkshopJobs()" style="display:none">⚒️</div>
