@@ -11107,24 +11107,24 @@ let artifacts =
 
   if (clickerRuneCount) {
     clickerRuneCount.textContent =
-  formatResourceNumber(runes);
+  formatCompactResourceNumber(runes);
   }
 
   if (clickerArtifactCount) {
     clickerArtifactCount.textContent =
-  formatResourceNumber(artifacts);
+  formatCompactResourceNumber(artifacts);
   }
 
   if (clickerWoodCount) {
     clickerWoodCount.textContent =
-  formatResourceNumber(
+  formatCompactResourceNumber(
     Number(localStorage.getItem("nlkaman_wood")) || 0
   );
   }
 
   if (clickerMetalCount) {
     clickerMetalCount.textContent =
-  formatResourceNumber(
+  formatCompactResourceNumber(
     Number(localStorage.getItem("nlkaman_metal")) || 0
   );
   }
@@ -16202,13 +16202,13 @@ processWorkshopJobs();
       console.error("Clicker: не знайдено #clickerUpgradePanel");
       return;
     }
-    const opening = getComputedStyle(panel).display === "none";
+    const opening = panel.style.display === "none" || panel.style.display === "";
     panel.style.setProperty("display", opening ? "block" : "none", "important");
     panel.setAttribute("aria-hidden", opening ? "false" : "true");
     if (button) button.setAttribute("aria-expanded", opening ? "true" : "false");
     if (opening) {
       renderClickerUpgrades();
-      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      try { panel.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
     }
   };
   // Клік монетки обробляється також inline onclick на #bear.
@@ -16226,12 +16226,8 @@ processWorkshopJobs();
   }
   const upgradeToggle=document.getElementById("clickerUpgradeToggle");
   if(upgradeToggle) {
-    upgradeToggle.removeAttribute("onclick");
-    upgradeToggle.addEventListener("click",event=>{
-      event.preventDefault();
-      event.stopPropagation();
-      window.toggleClickerUpgrades();
-    });
+    // Keep the direct inline handler as a fallback for Telegram WebView.
+    upgradeToggle.setAttribute("onclick", "window.toggleClickerUpgrades(); return false;");
   }
   window.buyClickerTapUpgrade = function() {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
