@@ -431,7 +431,7 @@ max-height: 235px;
   max-width: 235px;
   max-height: 235px;
   object-fit: contain;
-  transform: translateY(calc(70px + 10%));
+  transform: translateY(0);
   user-select: none;
   -webkit-user-drag: none;
   /* Telegram WebView: avoid animating multiple drop-shadow filters on every frame. */
@@ -441,8 +441,8 @@ max-height: 235px;
 }
 
 @keyframes coinGlow {
-  0%, 100% { transform: translateY(calc(70px + 10%)) scale(1); opacity: .96; }
-  50% { transform: translateY(calc(70px + 10%)) scale(1.015); opacity: 1; }
+  0%, 100% { transform: translateY(0) scale(1); opacity: .96; }
+  50% { transform: translateY(0) scale(1.015); opacity: 1; }
 }
 
 .bear:active .click-coin {
@@ -7876,95 +7876,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 </div>
   
   <!-- 🎮 КЛІКЕР -->
-<section id="clicker" class="page"><div class="top-panel">
-
-  <!-- ПРОФІЛЬ -->
-  <div class="top-player">
-
-    <div
-      class="avatar top-avatar"
-      id="clickerAvatar"
-    >
-      N
-    </div>
-
-    <div class="top-player-info">
-
-      <div
-        class="user-name"
-        id="clickerUserName"
-      >
-        @user
-      </div>
-
-      <div class="top-level-row">
-
-        <img
-          id="clickerTopLevelImage"
-          src="https://long-dust-06f3.narytoyzymaki555.workers.dev/level_bronze.png.PNG"
-          class="top-level-image"
-        >
-
-        <div class="top-level-progress">
-
-          <div class="top-level-progress-bar">
-            <div
-              id="clickerTopLevelProgress"
-              class="top-level-progress-fill"
-            ></div>
-          </div>
-
-          <div
-            id="clickerTopLevelText"
-            class="top-level-text"
-          >
-            РІВЕНЬ 1
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- РЕСУРСИ -->
-  <div class="top-resources">
-
-    <div class="top-resource">
-      <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/rune.png.PNG">
-      <span id="clickerRuneCount">0</span>
-    </div>
-
-    <div class="top-resource">
-      <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/artifact.png.PNG">
-      <span id="clickerArtifactCount">0</span>
-    </div>
-
-    <div class="top-resource">
-      <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/wood.png.PNG">
-      <span id="clickerWoodCount">0</span>
-    </div>
-
-    <div class="top-resource">
-      <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/metal.png.PNG">
-      <span id="clickerMetalCount">0</span>
-    </div>
-
-    <div class="top-resource">
-      <img src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG">
-      <span id="clickerCoinCount">0</span>
-    </div>
-
-  </div>
-
-</div>
-
-
-
-
+<section id="clicker" class="page clicker-page">
 
   <div class="clicker-balance-panel">
     <div class="clicker-balance-label">ТВІЙ БАЛАНС</div>
@@ -8000,11 +7912,11 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 
   <div id="clickerFloatingRewards" class="clicker-floating-rewards" aria-live="polite"></div>
 
-  <button id="clickerUpgradeToggle" class="clicker-upgrade-toggle" type="button" aria-expanded="false" aria-controls="clickerUpgradePanel">
+  <button id="clickerUpgradeToggle" class="clicker-upgrade-toggle" onclick="toggleClickerUpgrades()">
     🚀 Покращення
   </button>
 
-  <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;" aria-hidden="true">
+  <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;">
     <div class="clicker-upgrade-heading">🚀 Покращуй та заробляй більше!</div>
     <div class="clicker-upgrade-section-title">Активний дохід</div>
     <div id="clickerTapUpgrade" class="clicker-upgrade-row">
@@ -10922,15 +10834,7 @@ let stars = Number(localStorage.getItem("nlkaman_stars") ?? TEST_RESOURCE_BALANC
 
   function formatResourceNumber(value) {
   value = Number(value) || 0;
-  return Math.floor(value).toLocaleString("uk-UA");
-}
 
-// Короткий формат лише для вузьких лічильників у верхніх панелях.
-function formatCompactResourceNumber(value) {
-  value = Math.max(0, Number(value) || 0);
-  if (value >= 1_000_000_000) return (value / 1_000_000_000).toLocaleString("uk-UA", { maximumFractionDigits: 1 }) + "млрд";
-  if (value >= 1_000_000) return (value / 1_000_000).toLocaleString("uk-UA", { maximumFractionDigits: 1 }) + "млн";
-  if (value >= 1_000) return (value / 1_000).toLocaleString("uk-UA", { maximumFractionDigits: 1 }) + "тис.";
   return Math.floor(value).toLocaleString("uk-UA");
 }
   
@@ -10968,17 +10872,17 @@ function updateStars() {
 
   if (coinCount) {
     coinCount.textContent =
-      formatCompactResourceNumber(stars);
+      formatResourceNumber(stars);
   }
 
   if (clickerCoinCount) {
     clickerCoinCount.textContent =
-      formatCompactResourceNumber(stars);
+      formatResourceNumber(stars);
   }
 
   if (starCount) {
     starCount.textContent =
-      formatCompactResourceNumber(stars);
+      formatResourceNumber(stars);
   }
 
   if (bearStarCount) {
@@ -10988,22 +10892,22 @@ function updateStars() {
 
   if (wheelStarCount) {
     wheelStarCount.textContent =
-      formatCompactResourceNumber(stars);
+      formatResourceNumber(stars);
   }
 
   if (wheelStarCount5000) {
     wheelStarCount5000.textContent =
-      formatCompactResourceNumber(stars);
+      formatResourceNumber(stars);
   }
 
   if (wheelStarCount10000) {
     wheelStarCount10000.textContent =
-      formatCompactResourceNumber(stars);
+      formatResourceNumber(stars);
   }
 
   if (wheelStarCountFriends) {
     wheelStarCountFriends.textContent =
-      formatCompactResourceNumber(stars);
+      formatResourceNumber(stars);
   }
 
 }
@@ -11107,31 +11011,31 @@ let artifacts =
 
   if (clickerRuneCount) {
     clickerRuneCount.textContent =
-  formatCompactResourceNumber(runes);
+  formatResourceNumber(runes);
   }
 
   if (clickerArtifactCount) {
     clickerArtifactCount.textContent =
-  formatCompactResourceNumber(artifacts);
+  formatResourceNumber(artifacts);
   }
 
   if (clickerWoodCount) {
     clickerWoodCount.textContent =
-  formatCompactResourceNumber(
+  formatResourceNumber(
     Number(localStorage.getItem("nlkaman_wood")) || 0
   );
   }
 
   if (clickerMetalCount) {
     clickerMetalCount.textContent =
-  formatCompactResourceNumber(
+  formatResourceNumber(
     Number(localStorage.getItem("nlkaman_metal")) || 0
   );
   }
 
   if (clickerCoinCount) {
     clickerCoinCount.textContent =
-  formatCompactResourceNumber(stars);
+  formatResourceNumber(stars);
   }
    
   const runeCount =
@@ -16160,8 +16064,10 @@ processWorkshopJobs();
     }
   };
   const renderClickerUpgrades = () => {
+    // The exact balance and every resource counter must use the same persisted balance.
+    stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     const exact=document.getElementById("clickerExactBalance");
-    if(exact) exact.textContent=Math.floor(Number(stars)||0).toLocaleString("uk-UA");
+    if(exact) exact.textContent=Math.floor(stars).toLocaleString("uk-UA");
     const charge=maxCharge();
     state.charge=Math.min(charge,state.charge);
     const fill=document.getElementById("clickerChargeFill");
@@ -16198,17 +16104,14 @@ processWorkshopJobs();
   window.toggleClickerUpgrades = function() {
     const panel = document.getElementById("clickerUpgradePanel");
     const button = document.getElementById("clickerUpgradeToggle");
-    if (!panel) {
-      console.error("Clicker: не знайдено #clickerUpgradePanel");
-      return;
-    }
-    const opening = panel.style.display === "none" || panel.style.display === "";
+    if (!panel) return;
+    const opening = window.getComputedStyle(panel).display === "none";
     panel.style.setProperty("display", opening ? "block" : "none", "important");
     panel.setAttribute("aria-hidden", opening ? "false" : "true");
     if (button) button.setAttribute("aria-expanded", opening ? "true" : "false");
     if (opening) {
+      stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
       renderClickerUpgrades();
-      try { panel.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (_) {}
     }
   };
   // Клік монетки обробляється також inline onclick на #bear.
@@ -16226,8 +16129,14 @@ processWorkshopJobs();
   }
   const upgradeToggle=document.getElementById("clickerUpgradeToggle");
   if(upgradeToggle) {
-    // Keep the direct inline handler as a fallback for Telegram WebView.
-    upgradeToggle.setAttribute("onclick", "window.toggleClickerUpgrades(); return false;");
+    upgradeToggle.type = "button";
+    upgradeToggle.setAttribute("aria-controls", "clickerUpgradePanel");
+    upgradeToggle.setAttribute("aria-expanded", "false");
+    // Assign one handler only, so re-entering the clicker never stacks listeners.
+    upgradeToggle.onclick = function(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      window.toggleClickerUpgrades();
+    };
   }
   window.buyClickerTapUpgrade = function() {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
@@ -16272,10 +16181,8 @@ processWorkshopJobs();
       recharge();
       // Прочитати актуальний баланс перед кожною операцією, а не використовувати застаріле значення.
       stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
-      // Натискання завжди приносить монети. Заряд лише витрачається, якщо він є,
-      // щоб нульовий заряд не перетворював натискання на "нічого не відбувається".
       const reward=tapIncomeAtLevel(state.tapLevel);
-      if (state.charge > 0) state.charge = Math.max(0, state.charge - 1);
+      if (state.charge > 0) state.charge=Math.max(0,state.charge-1);
       stars+=reward;
       putNum("nlkaman_stars",stars);
       persistState();
@@ -16475,3 +16382,13 @@ function renderSelectedInventoryItem() {
 
 </body>
 </html>
+
+/* CLICKER FIX: no resource strip here; stable layout on every visit */
+#clicker.clicker-page { padding: 8px 12px 96px !important; display:none; box-sizing:border-box; }
+#clicker.clicker-page.active { display:block !important; }
+#clicker .clicker-balance-panel { margin: 0 auto 8px !important; position:relative; z-index:2; }
+#clicker .bear-clicker { margin-top: 0 !important; padding-top: 0 !important; min-height: 0 !important; }
+#clicker .bear { margin: 0 auto !important; transform:none !important; }
+#clicker .click-coin { transform:translateY(0) !important; }
+#clicker .clicker-upgrade-toggle { position:relative; z-index:20; cursor:pointer; touch-action:manipulation; }
+#clicker .clicker-upgrade-panel { position:relative; z-index:20; }
