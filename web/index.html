@@ -10929,26 +10929,69 @@ function updateStars() {
 
 
 function clickBear() {
+  // Якщо основний обробник клікеру завантажився, передаємо керування йому.
+  // Якщо його блок не запустився, використовуємо безпечний резервний обробник.
+  if (typeof window.clickBear === "function" && window.clickBear !== clickBear) {
+    window.clickBear();
+    return;
+  }
+
+  const now = Date.now();
+  const level = Math.max(1, Math.min(30, Number(localStorage.getItem("nlkaman_charge_level")) || 1));
+  const maxCharge = 1000 + (level - 1) * 50;
+  let charge = Math.max(0, Math.min(maxCharge, Number(localStorage.getItem("nlkaman_charge")) || 0));
+  let lastAt = Number(localStorage.getItem("nlkaman_charge_last_at")) || now;
+
+  // Відновлюємо заряд, що встиг накопичитися з моменту попереднього оновлення.
+  if (charge < maxCharge) {
+    const units = Math.floor(Math.max(0, now - lastAt) / 3000);
+    if (units > 0) {
+      const gained = Math.min(units, maxCharge - charge);
+      charge += gained;
+      lastAt += gained * 3000;
+    }
+  } else {
+    lastAt = now;
+  }
+
+  const fill = document.getElementById("clickerChargeFill");
+  const label = document.getElementById("clickerChargeText");
+  const time = document.getElementById("clickerChargeTime");
+  const drawCharge = () => {
+    if (fill) fill.style.width = (charge / maxCharge * 100) + "%";
+    if (label) label.textContent = `Заряд: ${Math.floor(charge).toLocaleString("uk-UA")} / ${maxCharge.toLocaleString("uk-UA")}`;
+    if (time) {
+      const seconds = charge >= maxCharge ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, Date.now() - lastAt) / 1000));
+      time.textContent = seconds === 0 ? "Повний заряд: 0 с" : `Наступний заряд: ${seconds} с`;
+    }
+  };
+
+  if (charge <= 0) {
+    localStorage.setItem("nlkaman_charge", "0");
+    localStorage.setItem("nlkaman_charge_last_at", String(lastAt));
+    drawCharge();
+    return;
+  }
+
+  if (charge === maxCharge) lastAt = now;
+  charge = Math.max(0, charge - 1);
+  localStorage.setItem("nlkaman_charge", String(charge));
+  localStorage.setItem("nlkaman_charge_last_at", String(lastAt));
+  drawCharge();
 
   stars = Math.max(0, Number(localStorage.getItem("nlkaman_stars")) || 0) + 1;
   localStorage.setItem("nlkaman_stars", String(stars));
-  updateStars();
+  if (typeof updateStars === "function") updateStars();
 
   const bear = document.querySelector(".bear");
-
   if (bear) {
     bear.classList.remove("coin-flash");
-
     void bear.offsetWidth;
-
     bear.classList.add("coin-flash");
   }
-
-  // Звук кліку
   if (typeof playCoinSound === "function") {
-    playCoinSound();
+    try { playCoinSound(); } catch (error) { console.warn("Coin sound skipped", error); }
   }
-
 }
 
 
