@@ -16493,5 +16493,65 @@ function renderSelectedInventoryItem() {
 
 </div>
 
+<script>
+/* Standalone charge UI ticker: updates even when the player does not tap. */
+(function () {
+  const CHARGE_KEY = "nlkaman_charge";
+  const LEVEL_KEY = "nlkaman_charge_level";
+  const LAST_KEY = "nlkaman_charge_last_at";
+  function updateChargeDisplay() {
+    try {
+      const levelRaw = Number(localStorage.getItem(LEVEL_KEY));
+      const level = Math.max(1, Math.min(30, Number.isFinite(levelRaw) && levelRaw > 0 ? levelRaw : 1));
+      const max = 1000 + (level - 1) * 50;
+      const storedCharge = localStorage.getItem(CHARGE_KEY);
+      let charge = storedCharge === null ? max : Number(storedCharge);
+      if (!Number.isFinite(charge)) charge = max;
+      charge = Math.max(0, Math.min(max, charge));
+      const now = Date.now();
+      const storedLast = Number(localStorage.getItem(LAST_KEY));
+      let last = Number.isFinite(storedLast) && storedLast > 0 ? storedLast : now;
+      if (charge < max) {
+        const units = Math.floor(Math.max(0, now - last) / 3000);
+        if (units > 0) {
+          const gained = Math.min(units, max - charge);
+          charge += gained;
+          last += gained * 3000;
+          if (charge >= max) last = now;
+        }
+      } else {
+        charge = max;
+        last = now;
+      }
+      localStorage.setItem(CHARGE_KEY, String(charge));
+      localStorage.setItem(LAST_KEY, String(last));
+      const fill = document.getElementById("clickerChargeFill");
+      const label = document.getElementById("clickerChargeText");
+      const time = document.getElementById("clickerChargeTime");
+      if (fill) fill.style.width = (charge / max * 100) + "%";
+      if (label) label.textContent = `Заряд: ${Math.floor(charge).toLocaleString("uk-UA")} / ${max.toLocaleString("uk-UA")}`;
+      if (time) {
+        const remaining = charge >= max ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, now - last) / 1000));
+        time.textContent = remaining === 0 ? "Повний заряд: 0 с" : `Наступний заряд: ${remaining} с`;
+      }
+    } catch (err) {
+      console.warn("Charge display refresh failed:", err);
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      updateChargeDisplay();
+      window.setInterval(updateChargeDisplay, 250);
+    }, { once: true });
+  } else {
+    updateChargeDisplay();
+    window.setInterval(updateChargeDisplay, 250);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) updateChargeDisplay();
+  });
+})();
+</script>
+
 </body>
 </html>
