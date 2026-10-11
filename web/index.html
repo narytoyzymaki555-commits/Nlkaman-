@@ -16553,5 +16553,91 @@ function renderSelectedInventoryItem() {
 })();
 </script>
 
+
+<script>
+/* Final clicker UI fix: show time until FULL charge and make upgrades toggle independent of earlier scripts. */
+(function () {
+  function formatRemaining(ms) {
+    const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+    if (totalSeconds <= 60) return `${totalSeconds} с`;
+    const totalMinutes = Math.ceil(totalSeconds / 60);
+    if (totalMinutes <= 60) return `${totalMinutes} хв`;
+    const totalHours = Math.ceil(totalMinutes / 60);
+    return `${totalHours} год`;
+  }
+
+  function updateFullChargeTime() {
+    try {
+      const timeEl = document.getElementById('clickerChargeTime');
+      if (!timeEl) return;
+      const num = (key, fallback) => {
+        const raw = localStorage.getItem(key);
+        const value = raw === null ? fallback : Number(raw);
+        return Number.isFinite(value) ? value : fallback;
+      };
+      const level = Math.max(1, Math.min(30, num('nlkaman_charge_level', 1)));
+      const max = 1000 + (level - 1) * 50;
+      let charge = Math.max(0, Math.min(max, num('nlkaman_charge', max)));
+      const now = Date.now();
+      let last = num('nlkaman_charge_last_at', now);
+      if (charge >= max) {
+        timeEl.textContent = 'До повного заряду: 0 с';
+        return;
+      }
+      if (!last || last > now) last = now;
+      const elapsed = Math.max(0, now - last);
+      const totalRemainingMs = Math.max(0, (max - charge) * 3000 - elapsed);
+      timeEl.textContent = `До повного заряду: ${formatRemaining(totalRemainingMs)}`;
+    } catch (e) {
+      console.warn('Full charge countdown update failed:', e);
+    }
+  }
+
+  function setupUpgradeToggle() {
+    const button = document.getElementById('clickerUpgradeToggle');
+    const panel = document.getElementById('clickerUpgradePanel');
+    if (!button || !panel) return;
+    // Remove old inline/assigned handler to avoid two toggles cancelling each other.
+    button.onclick = null;
+    button.removeAttribute('onclick');
+    button.type = 'button';
+    button.setAttribute('aria-controls', 'clickerUpgradePanel');
+    if (!button.dataset.fullChargeToggleBound) {
+      button.dataset.fullChargeToggleBound = '1';
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const isOpen = panel.dataset.open === 'true' || (panel.style.display !== 'none' && getComputedStyle(panel).display !== 'none');
+        const open = !isOpen;
+        panel.dataset.open = open ? 'true' : 'false';
+        panel.style.setProperty('display', open ? 'block' : 'none', 'important');
+        panel.style.setProperty('visibility', open ? 'visible' : 'hidden', 'important');
+        panel.style.setProperty('opacity', open ? '1' : '0', 'important');
+        panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+        button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          try {
+            if (typeof window.updateStars === 'function') window.updateStars();
+            if (typeof window.renderClickerUpgrades === 'function') window.renderClickerUpgrades();
+          } catch (_) {}
+          window.setTimeout(() => panel.scrollIntoView({behavior: 'smooth', block: 'nearest'}), 50);
+        }
+      }, true);
+    }
+  }
+
+  function start() {
+    setupUpgradeToggle();
+    updateFullChargeTime();
+    window.setInterval(updateFullChargeTime, 250);
+    // The app can rebuild/re-enter views; re-bind only if the button node changed.
+    window.setInterval(setupUpgradeToggle, 1000);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once: true});
+  else start();
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) updateFullChargeTime(); });
+})();
+</script>
+
 </body>
 </html>
