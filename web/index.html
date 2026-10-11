@@ -10939,8 +10939,18 @@ function clickBear() {
   const now = Date.now();
   const level = Math.max(1, Math.min(30, Number(localStorage.getItem("nlkaman_charge_level")) || 1));
   const maxCharge = 1000 + (level - 1) * 50;
-  let charge = Math.max(0, Math.min(maxCharge, Number(localStorage.getItem("nlkaman_charge")) || 0));
+  // Якщо основний клікер не ініціалізувався, HTML може показувати 1000/1000,
+  // хоча ключ заряду в localStorage ще відсутній. Ініціалізуємо його повним зарядом,
+  // а не перетворюємо відсутнє значення на 0.
+  const storedCharge = localStorage.getItem("nlkaman_charge");
+  const hasStoredCharge = storedCharge !== null && storedCharge.trim() !== "" && Number.isFinite(Number(storedCharge));
+  let charge = Math.max(0, Math.min(maxCharge, hasStoredCharge ? Number(storedCharge) : maxCharge));
   let lastAt = Number(localStorage.getItem("nlkaman_charge_last_at")) || now;
+  if (!hasStoredCharge) {
+    localStorage.setItem("nlkaman_charge", String(charge));
+    localStorage.setItem("nlkaman_charge_last_at", String(now));
+    lastAt = now;
+  }
 
   // Відновлюємо заряд, що встиг накопичитися з моменту попереднього оновлення.
   if (charge < maxCharge) {
