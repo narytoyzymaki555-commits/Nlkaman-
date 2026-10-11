@@ -7899,7 +7899,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
       <span id="clickerChargeText">Заряд: 1000 / 1000</span>
       <span id="clickerChargeTime">Повний заряд: 0 с</span>
     </div>
-    <div class="charge-help">1 заряд — 3 секунди до повного заряду</div>
+    <div class="charge-help">1 заряд — 3 секунди</div>
   </div>
 
   <div class="bear-clicker">
@@ -16064,7 +16064,9 @@ processWorkshopJobs();
     const time = document.getElementById("clickerChargeTime");
     if (time) {
       const remaining = state.charge >= max ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, Date.now() - state.lastChargeAt) / 1000));
-      time.textContent = remaining === 0 ? "Повний заряд: 0 с" : `Наступний заряд: ${remaining} с`;
+      time.textContent = charge >= max
+  ? "Повний заряд"
+  : `До повного заряду: ${formatTime(Math.ceil((max - charge) * 3))}`;
     }
   };
   const recharge = (now=Date.now()) => {
@@ -16532,7 +16534,9 @@ function renderSelectedInventoryItem() {
       if (label) label.textContent = `Заряд: ${Math.floor(charge).toLocaleString("uk-UA")} / ${max.toLocaleString("uk-UA")}`;
       if (time) {
         const remaining = charge >= max ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, now - last) / 1000));
-        time.textContent = remaining === 0 ? "Повний заряд: 0 с" : `Наступний заряд: ${remaining} с`;
+        time.textContent = charge >= max
+  ? "Повний заряд"
+  : `До повного заряду: ${formatTime(Math.ceil((max - charge) * 3))}`;
       }
     } catch (err) {
       console.warn("Charge display refresh failed:", err);
