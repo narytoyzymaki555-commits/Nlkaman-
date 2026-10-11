@@ -10930,6 +10930,11 @@ function updateStars() {
 
 function clickBear() {
 
+  // Не дозволяємо отримати монету, якщо заряд закінчився.
+  if (typeof window.tryConsumeClickerCharge === "function" && !window.tryConsumeClickerCharge()) {
+    return;
+  }
+
   stars = Math.max(0, Number(localStorage.getItem("nlkaman_stars")) || 0) + 1;
   localStorage.setItem("nlkaman_stars", String(stars));
   updateStars();
@@ -16034,6 +16039,27 @@ processWorkshopJobs();
     persistState();
     renderCharge();
   };
+
+  // Списуємо 1 заряд за кожен клік і одразу оновлюємо інтерфейс.
+  // Заряд відновлюється по 1 одиниці кожні 3 секунди.
+  window.tryConsumeClickerCharge = () => {
+    const now = Date.now();
+    recharge(now);
+    if (state.charge <= 0) {
+      renderCharge();
+      renderClickerUpgrades();
+      return false;
+    }
+
+    state.charge = Math.max(0, state.charge - 1);
+    // Після кліку починаємо відлік наступного відновлення з цього моменту.
+    state.lastChargeAt = now;
+    persistState();
+    renderCharge();
+    renderClickerUpgrades();
+    return true;
+  };
+
   const creditPassiveIncome = (now=Date.now()) => {
     const key="nlkaman_workers_last_credit";
     const last=getNum(key,now);
