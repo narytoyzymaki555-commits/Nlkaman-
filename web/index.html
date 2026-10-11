@@ -15990,19 +15990,37 @@ processWorkshopJobs();
     putNum("nlkaman_charge_last_at",state.lastChargeAt);
     state.workerLevels.forEach((level,index)=>putNum("nlkaman_worker_"+index,level));
   };
-  const recharge = (now=Date.now()) => {
-    const max=maxCharge();
-    const elapsed=Math.max(0,now-state.lastChargeAt);
-    const units=Math.floor(elapsed/3000);
-    if(units>0) {
-      state.charge=Math.min(max,state.charge+units);
-      state.lastChargeAt += units*3000;
+  const renderCharge = () => {
+    const max = maxCharge();
+    state.charge = Math.max(0, Math.min(max, Number(state.charge) || 0));
+    const fill = document.getElementById("clickerChargeFill");
+    if (fill) fill.style.width = (max ? (state.charge / max) * 100 : 0) + "%";
+    const label = document.getElementById("clickerChargeText");
+    if (label) label.textContent = `Заряд: ${format(state.charge)} / ${format(max)}`;
+    const time = document.getElementById("clickerChargeTime");
+    if (time) {
+      const remaining = state.charge >= max ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, Date.now() - state.lastChargeAt) / 1000));
+      time.textContent = remaining === 0 ? "Повний заряд: 0 с" : `Наступний заряд: ${remaining} с`;
     }
-    if(state.charge>=max) {
-      state.charge=max;
-      state.lastChargeAt=now;
+  };
+  const recharge = (now=Date.now()) => {
+    const max = maxCharge();
+    state.charge = Math.max(0, Math.min(max, Number(state.charge) || 0));
+    if (state.charge < max) {
+      const elapsed = Math.max(0, now - state.lastChargeAt);
+      const units = Math.floor(elapsed / 3000);
+      if (units > 0) {
+        const gained = Math.min(units, max - state.charge);
+        state.charge += gained;
+        state.lastChargeAt += units * 3000;
+        if (state.charge >= max) state.lastChargeAt = now;
+      }
+    } else {
+      state.charge = max;
+      state.lastChargeAt = now;
     }
     persistState();
+    renderCharge();
   };
   const creditPassiveIncome = (now=Date.now()) => {
     const key="nlkaman_workers_last_credit";
@@ -16195,14 +16213,17 @@ processWorkshopJobs();
       const reward=tapIncomeAtLevel(state.tapLevel);
       if (state.charge > 0) {
         state.charge = Math.max(0, state.charge - 1);
-        // Begin the next recharge interval from this tap, so the counter visibly drops.
-        state.lastChargeAt = Date.now();
+        // Each tap consumes one charge. The next charge regenerates every 3 seconds.
+        // Preserve elapsed recharge progress if charge was already below maximum.
+        if (state.charge === maxCharge() - 1) state.lastChargeAt = Date.now();
       }
       stars+=reward;
       putNum("nlkaman_stars",stars);
       persistState();
+      renderCharge();
       if(typeof updateStars==="function") updateStars();
       renderClickerUpgrades();
+      renderCharge();
       showReward(reward);
       const bear=document.querySelector(".bear");
       if(bear) {
@@ -16228,16 +16249,19 @@ processWorkshopJobs();
   recharge(Date.now());
   renderClickerUpgrades();
   window.setInterval(()=>{
-    recharge(Date.now());
-    creditPassiveIncome(Date.now());
+    const now = Date.now();
+    recharge(now); // Заряд відновлюється по 1 одиниці за кожні 3 секунди.
+    creditPassiveIncome(now);
     renderClickerUpgrades();
-  },3000);
+    renderCharge();
+  },1000);
   // Keep charge timestamps aligned when the page is backgrounded/restored.
   document.addEventListener("visibilitychange",()=>{
     if(!document.hidden) {
       creditPassiveIncome(Date.now());
       recharge(Date.now());
       renderClickerUpgrades();
+      renderCharge();
     }
   });
 })();
