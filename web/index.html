@@ -10930,11 +10930,6 @@ function updateStars() {
 
 function clickBear() {
 
-  // Не дозволяємо отримати монету, якщо заряд закінчився.
-  if (typeof window.tryConsumeClickerCharge === "function" && !window.tryConsumeClickerCharge()) {
-    return;
-  }
-
   stars = Math.max(0, Number(localStorage.getItem("nlkaman_stars")) || 0) + 1;
   localStorage.setItem("nlkaman_stars", String(stars));
   updateStars();
@@ -16039,27 +16034,6 @@ processWorkshopJobs();
     persistState();
     renderCharge();
   };
-
-  // Списуємо 1 заряд за кожен клік і одразу оновлюємо інтерфейс.
-  // Заряд відновлюється по 1 одиниці кожні 3 секунди.
-  window.tryConsumeClickerCharge = () => {
-    const now = Date.now();
-    recharge(now);
-    if (state.charge <= 0) {
-      renderCharge();
-      renderClickerUpgrades();
-      return false;
-    }
-
-    state.charge = Math.max(0, state.charge - 1);
-    // Після кліку починаємо відлік наступного відновлення з цього моменту.
-    state.lastChargeAt = now;
-    persistState();
-    renderCharge();
-    renderClickerUpgrades();
-    return true;
-  };
-
   const creditPassiveIncome = (now=Date.now()) => {
     const key="nlkaman_workers_last_credit";
     const last=getNum(key,now);
@@ -16245,23 +16219,26 @@ processWorkshopJobs();
     clickInProgress = true;
     try {
       recharge();
+      // Заряд перевіряємо й списуємо саме в активному обробнику кліку.
+      if (state.charge <= 0) {
+        renderCharge();
+        renderClickerUpgrades();
+        return;
+      }
       // Прочитати актуальний баланс перед кожною операцією, а не використовувати застаріле значення.
       stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
       const reward=tapIncomeAtLevel(state.tapLevel);
       const now = Date.now();
-      if (state.charge > 0) {
-        const wasFull = state.charge >= maxCharge();
-        state.charge = Math.max(0, state.charge - 1);
-        // Start the 3-second regeneration countdown when leaving a full charge.
-        // If already regenerating, preserve the existing countdown.
-        if (wasFull) state.lastChargeAt = now;
-        putNum("nlkaman_charge", state.charge);
-        putNum("nlkaman_charge_last_at", state.lastChargeAt);
-      }
+      const wasFull = state.charge >= maxCharge();
+      state.charge = Math.max(0, Number(state.charge) - 1);
+      // Коли заряд був повним, починаємо 3-секундний відлік із цього кліку.
+      if (wasFull) state.lastChargeAt = now;
+      putNum("nlkaman_charge", state.charge);
+      putNum("nlkaman_charge_last_at", state.lastChargeAt);
+      renderCharge();
       stars+=reward;
       putNum("nlkaman_stars",stars);
       persistState();
-      renderCharge();
       if(typeof updateStars==="function") updateStars();
       renderClickerUpgrades();
       renderCharge();
