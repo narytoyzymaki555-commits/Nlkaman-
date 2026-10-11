@@ -10971,8 +10971,12 @@ function clickBear() {
     if (fill) fill.style.width = (charge / maxCharge * 100) + "%";
     if (label) label.textContent = `Заряд: ${Math.floor(charge).toLocaleString("uk-UA")} / ${maxCharge.toLocaleString("uk-UA")}`;
     if (time) {
-      const seconds = charge >= maxCharge ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, Date.now() - lastAt) / 1000));
-      time.textContent = seconds === 0 ? "Повний заряд: 0 с" : `Наступний заряд: ${seconds} с`;
+      if (charge >= maxCharge) {
+        time.textContent = "Повний заряд";
+      } else {
+        const remainingMs = Math.max(0, (maxCharge - charge) * 3000 - Math.max(0, Date.now() - lastAt));
+        time.textContent = `До повного заряду: ${formatChargeRemainingMs(remainingMs)}`;
+      }
     }
   };
 
@@ -16063,10 +16067,12 @@ processWorkshopJobs();
     if (label) label.textContent = `Заряд: ${format(state.charge)} / ${format(max)}`;
     const time = document.getElementById("clickerChargeTime");
     if (time) {
-      const remaining = state.charge >= max ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, Date.now() - state.lastChargeAt) / 1000));
-      time.textContent = charge >= max
-  ? "Повний заряд"
-  : `До повного заряду: ${formatTime(Math.ceil((max - charge) * 3))}`;
+      if (state.charge >= max) {
+        time.textContent = "Повний заряд";
+      } else {
+        const remainingMs = Math.max(0, (max - state.charge) * 3000 - Math.max(0, Date.now() - state.lastChargeAt));
+        time.textContent = `До повного заряду: ${formatChargeRemainingMs(remainingMs)}`;
+      }
     }
   };
   const recharge = (now=Date.now()) => {
@@ -16165,8 +16171,12 @@ processWorkshopJobs();
     if(chargeText) chargeText.textContent=`Заряд: ${format(state.charge)} / ${format(charge)}`;
     const time=document.getElementById("clickerChargeTime");
     if(time) {
-      const secondsToNext = state.charge >= charge ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, Date.now() - state.lastChargeAt) / 1000));
-      time.textContent = secondsToNext === 0 ? "Повний заряд: 0 с" : `Наступний заряд: ${secondsToNext} с`;
+      if (state.charge >= charge) {
+        time.textContent = "Повний заряд";
+      } else {
+        const remainingMs = Math.max(0, (charge - state.charge) * 3000 - Math.max(0, Date.now() - state.lastChargeAt));
+        time.textContent = `До повного заряду: ${formatChargeRemainingMs(remainingMs)}`;
+      }
     }
     const tapNext=state.tapLevel<100?state.tapLevel+1:null;
     const tapLevels=document.getElementById("clickerTapLevels");
@@ -16559,6 +16569,13 @@ function renderSelectedInventoryItem() {
 
 
 <script>
+function formatChargeRemainingMs(ms) {
+  const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+  if (totalSeconds <= 60) return `${totalSeconds} с`;
+  const totalMinutes = Math.ceil(totalSeconds / 60);
+  if (totalMinutes <= 60) return `${totalMinutes} хв`;
+  return `${Math.ceil(totalMinutes / 60)} год`;
+}
 /* Final clicker UI fix: show time until FULL charge and make upgrades toggle independent of earlier scripts. */
 (function () {
   function formatRemaining(ms) {
@@ -16585,13 +16602,13 @@ function renderSelectedInventoryItem() {
       const now = Date.now();
       let last = num('nlkaman_charge_last_at', now);
       if (charge >= max) {
-        timeEl.textContent = 'До повного заряду: 0 с';
+        timeEl.textContent = 'Повний заряд';
         return;
       }
       if (!last || last > now) last = now;
       const elapsed = Math.max(0, now - last);
       const totalRemainingMs = Math.max(0, (max - charge) * 3000 - elapsed);
-      timeEl.textContent = `До повного заряду: ${formatRemaining(totalRemainingMs)}`;
+      timeEl.textContent = `До повного заряду: ${formatChargeRemainingMs(totalRemainingMs)}`;
     } catch (e) {
       console.warn('Full charge countdown update failed:', e);
     }
