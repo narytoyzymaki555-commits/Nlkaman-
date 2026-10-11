@@ -16319,13 +16319,16 @@ processWorkshopJobs();
   creditPassiveIncome(Date.now());
   recharge(Date.now());
   renderClickerUpgrades();
+  // Оновлюємо відлік часто, щоб цифра секунд не чекала наступного кліку.
+  // recharge() додає заряд лише за повні 3000 мс, тому частіший інтервал
+  // не прискорює відновлення — він тільки робить індикатор плавнішим.
   window.setInterval(()=>{
     const now = Date.now();
-    recharge(now); // Заряд відновлюється по 1 одиниці за кожні 3 секунди.
+    recharge(now); // +1 заряд за кожні повні 3 секунди.
     creditPassiveIncome(now);
     renderClickerUpgrades();
     renderCharge();
-  },1000);
+  },250);
   // Keep charge timestamps aligned when the page is backgrounded/restored.
   document.addEventListener("visibilitychange",()=>{
     if(!document.hidden) {
