@@ -7526,6 +7526,18 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 #clicker #clickerUpgradePanel { position: relative !important; z-index: 10025 !important; }
 #clicker #clickerUpgradePanel button { pointer-events: auto !important; touch-action: manipulation !important; }
 </style>
+<style>
+
+/* Five-finger multi-touch */
+#clicker #bear {
+  pointer-events: auto !important;
+  touch-action: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+#clicker #bear .click-coin { pointer-events: none !important; }
+
+</style>
 </head>
 
 <body>
@@ -16305,15 +16317,17 @@ processWorkshopJobs();
   // Обробник монетки: нараховуємо монету одразу на pointerdown,
   // бо в деяких Telegram WebView pointerup/click може не доходити стабільно.
   // Capture-режим дозволяє перехопити натискання до інших обробників сторінки.
+  // Мультидотикова монетка: кожен палець дає окремий клік,
+  // підтримує до 5 одночасних натискань без глобального debounce.
   const coinTarget = document.getElementById("bear");
-  if (coinTarget && !coinTarget.dataset.coinTapCaptureBound) {
-    coinTarget.dataset.coinTapCaptureBound = "1";
+  if (coinTarget && !coinTarget.dataset.multiTouchCoinBound) {
+    coinTarget.dataset.multiTouchCoinBound = "1";
     coinTarget.removeAttribute("onclick");
     coinTarget.removeAttribute("onkeydown");
     coinTarget.style.setProperty("pointer-events", "auto", "important");
-    coinTarget.style.setProperty("touch-action", "manipulation", "important");
-    coinTarget.style.setProperty("position", "relative", "important");
-    coinTarget.style.setProperty("z-index", "10020", "important");
+    coinTarget.style.setProperty("touch-action", "none", "important");
+    coinTarget.style.setProperty("user-select", "none", "important");
+    coinTarget.style.setProperty("-webkit-user-select", "none", "important");
     coinTarget.setAttribute("role", "button");
     coinTarget.setAttribute("tabindex", "0");
 
@@ -16325,42 +16339,53 @@ processWorkshopJobs();
       coinImage.draggable = false;
     }
 
-    let lastTapAt = 0;
-    const fireCoinTap = event => {
-      if (event) {
-        if (event.cancelable) event.preventDefault();
-        event.stopPropagation();
-      }
-      const now = Date.now();
-      // Ignore synthetic click/touch duplicates generated after pointerdown.
-      if (now - lastTapAt < 80) return;
-      lastTapAt = now;
-      if (typeof window.clickBear === "function") {
-        window.clickBear();
-      } else if (typeof clickBear === "function") {
-        clickBear();
-      }
+    const activePointers = new Set();
+    let lastTouchHandledAt = 0;
+    const awardOneTap = event => {
+      if (event && event.cancelable) event.preventDefault();
+      if (event) event.stopPropagation();
+      if (typeof window.clickBear === "function") window.clickBear();
     };
 
-    coinTarget.addEventListener("pointerdown", fireCoinTap, { capture: true, passive: false });
-    // Fallback for older Telegram WebViews that do not dispatch PointerEvents.
+    // Кожен палець має окремий pointerId; не відкидаємо натискання за часом.
+    coinTarget.addEventListener("pointerdown", event => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      if (activePointers.has(event.pointerId)) return;
+      activePointers.add(event.pointerId);
+      lastTouchHandledAt = Date.now();
+      awardOneTap(event);
+    }, { capture: true, passive: false });
+
+    const releasePointer = event => activePointers.delete(event.pointerId);
+    window.addEventListener("pointerup", releasePointer, true);
+    window.addEventListener("pointercancel", releasePointer, true);
+
+    // Резерв для WebView без Pointer Events: обробляємо кожен дотик окремо.
     coinTarget.addEventListener("touchstart", event => {
       if (window.PointerEvent) return;
-      fireCoinTap(event);
+      lastTouchHandledAt = Date.now();
+      const touches = Array.from(event.changedTouches || []).slice(0, 5);
+      if (event.cancelable) event.preventDefault();
+      event.stopPropagation();
+      touches.forEach(() => {
+        if (typeof window.clickBear === "function") window.clickBear();
+      });
     }, { capture: true, passive: false });
+
+    // Click лишається запасним способом для мишки/клавіатури, без подвійного тапа.
     coinTarget.addEventListener("click", event => {
-      // Click fallback for accessibility and WebViews that only dispatch click.
-      if (Date.now() - lastTapAt < 500) {
+      if (Date.now() - lastTouchHandledAt < 600) {
         if (event.cancelable) event.preventDefault();
         event.stopPropagation();
         return;
       }
-      fireCoinTap(event);
+      awardOneTap(event);
     }, true);
+
     coinTarget.addEventListener("keydown", event => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        fireCoinTap(event);
+        awardOneTap(event);
       }
     }, true);
   }
@@ -16864,28 +16889,6 @@ function formatChargeRemainingMs(ms) {
     event.stopPropagation();
     window.clickBear();
   }
-
-  // Use document-level capture and geometry fallback, in case another element
-  // is accidentally sitting above the coin or an inner image consumes the tap.
-  document.addEventListener("pointerdown", function (event) {
-    const coin = document.getElementById("bear");
-    if (inside(coin, event.clientX, event.clientY)) {
-      if (event.target !== coin && !coin.contains(event.target)) {
-        activateCoin(event);
-      }
-    }
-  }, true);
-
-  // Explicit click fallback for coin. The short guard avoids duplicate awards
-  // when pointerdown already handled the same physical tap.
-  let lastCoinActivation = 0;
-  document.addEventListener("click", function (event) {
-    const coin = document.getElementById("bear");
-    if (!inside(coin, event.clientX, event.clientY)) return;
-    if (Date.now() - lastCoinActivation < 120) return;
-    lastCoinActivation = Date.now();
-    activateCoin(event);
-  }, true);
 
   // Buttons in upgrades use delegated click handlers, so rerendering their
   // contents cannot remove the handlers.
