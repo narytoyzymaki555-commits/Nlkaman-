@@ -7492,6 +7492,26 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 }
 .clicker-worker-buy { min-width: 100px; max-width: 125px; }
 
+
+/* FINAL COIN TAP FIX: keep the coin above nearby clicker layers and touchable. */
+#clicker #bear {
+  position: relative !important;
+  z-index: 10020 !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+#clicker #bear .click-coin {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+}
+#clicker .bear-clicker,
+#clicker .bear-clicker * {
+  -webkit-tap-highlight-color: transparent;
+}
+
 </style>
 </head>
 
@@ -16269,51 +16289,67 @@ processWorkshopJobs();
       panel.scrollTop = 0;
     }
   };
-  // Надійний обробник монетки для браузера й Telegram WebView.
-  // Обробляємо pointerup один раз на кожен палець і прибираємо конфліктний inline onclick.
+  // Обробник монетки: нараховуємо монету одразу на pointerdown,
+  // бо в деяких Telegram WebView pointerup/click може не доходити стабільно.
+  // Capture-режим дозволяє перехопити натискання до інших обробників сторінки.
   const coinTarget = document.getElementById("bear");
-  if (coinTarget && !coinTarget.dataset.multiTouchClickerBound) {
-    coinTarget.dataset.multiTouchClickerBound = "1";
+  if (coinTarget && !coinTarget.dataset.coinTapCaptureBound) {
+    coinTarget.dataset.coinTapCaptureBound = "1";
     coinTarget.removeAttribute("onclick");
     coinTarget.removeAttribute("onkeydown");
-    coinTarget.style.pointerEvents = "auto";
-    coinTarget.style.touchAction = "none";
-    coinTarget.style.cursor = "pointer";
+    coinTarget.style.setProperty("pointer-events", "auto", "important");
+    coinTarget.style.setProperty("touch-action", "manipulation", "important");
+    coinTarget.style.setProperty("position", "relative", "important");
+    coinTarget.style.setProperty("z-index", "10020", "important");
     coinTarget.setAttribute("role", "button");
     coinTarget.setAttribute("tabindex", "0");
 
     const coinImage = coinTarget.querySelector(".click-coin");
     if (coinImage) {
-      coinImage.style.pointerEvents = "none";
+      coinImage.style.setProperty("pointer-events", "none", "important");
+      coinImage.style.setProperty("user-select", "none", "important");
+      coinImage.style.setProperty("-webkit-user-drag", "none", "important");
       coinImage.draggable = false;
     }
 
-    const activePointers = new Set();
-    coinTarget.addEventListener("pointerdown", event => {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      event.preventDefault();
-      activePointers.add(event.pointerId);
-      try { coinTarget.setPointerCapture(event.pointerId); } catch (_) {}
-    }, { passive: false });
+    let lastTapAt = 0;
+    const fireCoinTap = event => {
+      if (event) {
+        if (event.cancelable) event.preventDefault();
+        event.stopPropagation();
+      }
+      const now = Date.now();
+      // Ignore synthetic click/touch duplicates generated after pointerdown.
+      if (now - lastTapAt < 80) return;
+      lastTapAt = now;
+      if (typeof window.clickBear === "function") {
+        window.clickBear();
+      } else if (typeof clickBear === "function") {
+        clickBear();
+      }
+    };
 
-    coinTarget.addEventListener("pointerup", event => {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      event.preventDefault();
-      if (!activePointers.has(event.pointerId)) return;
-      activePointers.delete(event.pointerId);
-      if (typeof window.clickBear === "function") window.clickBear();
-    }, { passive: false });
-
-    coinTarget.addEventListener("pointercancel", event => {
-      activePointers.delete(event.pointerId);
-    });
-
+    coinTarget.addEventListener("pointerdown", fireCoinTap, { capture: true, passive: false });
+    // Fallback for older Telegram WebViews that do not dispatch PointerEvents.
+    coinTarget.addEventListener("touchstart", event => {
+      if (window.PointerEvent) return;
+      fireCoinTap(event);
+    }, { capture: true, passive: false });
+    coinTarget.addEventListener("click", event => {
+      // Click fallback for accessibility and WebViews that only dispatch click.
+      if (Date.now() - lastTapAt < 500) {
+        if (event.cancelable) event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      fireCoinTap(event);
+    }, true);
     coinTarget.addEventListener("keydown", event => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        if (typeof window.clickBear === "function") window.clickBear();
+        fireCoinTap(event);
       }
-    });
+    }, true);
   }
   const upgradePanel=document.getElementById("clickerUpgradePanel");
   if(upgradePanel) {
