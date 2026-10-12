@@ -8025,7 +8025,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   </button>
 
   <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;">
-    <button id="clickerUpgradeBack" type="button" class="button secondary clicker-upgrade-back" style="margin-bottom:12px;">← НАЗАД</button>
+    <button id="clickerUpgradeBack" type="button" class="button secondary clicker-upgrade-back" onclick="var p=document.getElementById('clickerUpgradePanel'); if(p){p.style.display='none';p.style.visibility='hidden';p.style.opacity='0';p.dataset.open='false';}" style="margin-bottom:12px;">← НАЗАД</button>
     <div class="clicker-upgrade-heading">🚀 Покращуй та заробляй більше!</div>
     <div class="clicker-upgrade-section-title">Активний дохід</div>
     <div id="clickerTapUpgrade" class="clicker-upgrade-row">
@@ -8033,14 +8033,14 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
         <div class="clicker-upgrade-name">Збільшити кількість монет за клік</div>
         <div id="clickerTapLevels" class="clicker-upgrade-levels">Рівень 1 · 1 🪙 → Рівень 2 · 2 🪙</div>
       </div>
-      <button id="clickerTapBuy" type="button" class="clicker-cost-button">300 🪙</button>
+      <button id="clickerTapBuy" type="button" class="clicker-cost-button" onclick="if(typeof window.buyClickerTapUpgrade==='function'){window.buyClickerTapUpgrade()}else{console.error('buyClickerTapUpgrade is not defined')}">300 🪙</button>
     </div>
     <div id="clickerChargeUpgrade" class="clicker-upgrade-row">
       <div class="clicker-upgrade-info">
         <div class="clicker-upgrade-name">Збільшити запас зарядності</div>
         <div id="clickerChargeLevels" class="clicker-upgrade-levels">Рівень 1 · 1000 ⚡ → Рівень 2 · 1050 ⚡</div>
       </div>
-      <button id="clickerChargeBuy" type="button" class="clicker-cost-button">1 000 🪙</button>
+      <button id="clickerChargeBuy" type="button" class="clicker-cost-button" onclick="if(typeof window.buyClickerChargeUpgrade==='function'){window.buyClickerChargeUpgrade()}else{console.error('buyClickerChargeUpgrade is not defined')}">1 000 🪙</button>
     </div>
     <div class="clicker-upgrade-section-title passive-income-title">Пасивний дохід</div>
     <div class="clicker-passive-heading">Найняти робітника</div>
@@ -16914,71 +16914,4 @@ function formatChargeRemainingMs(ms) {
 </body>
 </html>
 
-<script id="clicker-upgrade-final-event-fix">
-(function () {
-  if (window.__clickerUpgradeFinalFixBound) return;
-  window.__clickerUpgradeFinalFixBound = true;
-
-  function closeUpgradePanel() {
-    const panel = document.getElementById("clickerUpgradePanel");
-    const toggle = document.getElementById("clickerUpgradeToggle");
-    if (!panel) return;
-    panel.dataset.open = "false";
-    panel.style.setProperty("display", "none", "important");
-    panel.style.setProperty("visibility", "hidden", "important");
-    panel.style.setProperty("opacity", "0", "important");
-    panel.setAttribute("aria-hidden", "true");
-    if (toggle) toggle.setAttribute("aria-expanded", "false");
-  }
-
-  function handle(event) {
-    if (event.type !== "click") return;
-    const target = event.target;
-    if (!target || typeof target.closest !== "function") return;
-
-    const back = target.closest("#clickerUpgradeBack, .clicker-upgrade-back, .clicker-upgrade-close");
-    const tap = target.closest("#clickerTapBuy");
-    const charge = target.closest("#clickerChargeBuy");
-    if (!back && !tap && !charge) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-    if (typeof event.stopImmediatePropagation === "function") event.stopImmediatePropagation();
-
-    if (back) {
-      closeUpgradePanel();
-      return;
-    }
-
-    const fnName = tap ? "buyClickerTapUpgrade" : "buyClickerChargeUpgrade";
-    const fn = window[fnName];
-    if (typeof fn === "function") {
-      fn();
-    } else {
-      console.error("[clicker] purchase function missing:", fnName);
-      alert("Не вдалося завантажити покупку. Спробуй ще раз відкрити «Покращення».");
-    }
-  }
-
-  // Window capture runs before target/parent handlers that may swallow the event.
-  window.addEventListener("click", handle, true);
-
-  function enforceButtons() {
-    ["clickerUpgradeBack", "clickerTapBuy", "clickerChargeBuy"].forEach(id => {
-      const button = document.getElementById(id);
-      if (!button) return;
-      button.style.setProperty("pointer-events", "auto", "important");
-      button.style.setProperty("touch-action", "manipulation", "important");
-      button.style.setProperty("position", "relative", "important");
-      button.style.setProperty("z-index", "2147483003", "important");
-    });
-  }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", enforceButtons, { once: true });
-  } else {
-    enforceButtons();
-  }
-  window.addEventListener("pageshow", enforceButtons);
-})();
-</script>
 
