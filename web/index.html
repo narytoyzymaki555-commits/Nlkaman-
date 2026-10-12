@@ -17177,7 +17177,7 @@ function formatChargeRemainingMs(ms) {
     if(!unlocked(index)){showToast('Потрібно покращити '+defs[index-1].name.toLowerCase()+' до 6 рівня');return;}
     const level=levelAt(index); if(level>=10){showToast('Досягнуто максимального рівня');return;}
     const cost=costAt(index,level);let balance=Math.max(0,num('nlkaman_stars',0));
-    if(balance<cost){showToast('Недостатньо коштів');return;}
+    if(balance<cost){showToast('Недостатньо монет');return;}
     balance-=cost;localStorage.setItem('nlkaman_stars',String(Math.floor(balance)));
     localStorage.setItem('nlkaman_worker_'+index,String(level+1));
     try{if(typeof window.updateStars==='function')window.updateStars();}catch(e){}
@@ -17185,7 +17185,7 @@ function formatChargeRemainingMs(ms) {
     refresh();
   };
   const originalAlert=window.alert.bind(window);
-  window.alert=function(message){if(/недостатньо (монет|коштів)/i.test(String(message||''))){showToast('Недостатньо коштів');return;}return originalAlert(message);};
+  window.alert=function(message){if(/недостатньо (монет|коштів)/i.test(String(message||''))){showToast('Недостатньо монет');return;}return originalAlert(message);};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh,{once:true});else refresh();
   window.addEventListener('pageshow',refresh);
   window.addEventListener('storage',refresh);
@@ -17284,3 +17284,33 @@ function formatChargeRemainingMs(ms) {
   transform: scale(.97) !important;
 }
 </style>
+
+<style id="settings-button-clickability-position-fix">
+.settings-button {
+  bottom: calc(85px + 5vh) !important;
+  z-index: 2147483005 !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  cursor: pointer !important;
+}
+.settings-button * { pointer-events: none !important; }
+</style>
+<script id="settings-button-clickability-fix">
+(function(){
+  function fixSettingsButton(){
+    const b=document.querySelector('.settings-button');
+    if(!b) return;
+    b.style.setProperty('z-index','2147483005','important');
+    b.style.setProperty('pointer-events','auto','important');
+    b.style.setProperty('bottom','calc(85px + 5vh)','important');
+    b.setAttribute('role','button');
+    b.setAttribute('tabindex','0');
+    if(!b.dataset.settingsKeyboardBound){
+      b.dataset.settingsKeyboardBound='1';
+      b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();if(typeof window.openPage==='function')window.openPage('settings');}});
+      b.addEventListener('click',function(e){e.stopPropagation();if(typeof window.openPage==='function')window.openPage('settings');});
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fixSettingsButton,{once:true});else fixSettingsButton();
+})();
+</script>
