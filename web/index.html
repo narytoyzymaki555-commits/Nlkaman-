@@ -16425,24 +16425,6 @@ processWorkshopJobs();
       window.toggleClickerUpgrades();
     };
   }
-  const clickerUpgradeBack = document.getElementById("clickerUpgradeBack");
-  if (clickerUpgradeBack && !clickerUpgradeBack.dataset.bound) {
-    clickerUpgradeBack.dataset.bound = "1";
-    clickerUpgradeBack.addEventListener("click", event => {
-      event.preventDefault();
-      event.stopPropagation();
-      const panel = document.getElementById("clickerUpgradePanel");
-      const toggle = document.getElementById("clickerUpgradeToggle");
-      if (!panel) return;
-      panel.dataset.open = "false";
-      panel.style.setProperty("display", "none", "important");
-      panel.style.setProperty("visibility", "hidden", "important");
-      panel.style.setProperty("opacity", "0", "important");
-      panel.setAttribute("aria-hidden", "true");
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
-    });
-  }
-
   window.buyClickerTapUpgrade = function() {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(state.tapLevel>=100) return;
@@ -16464,34 +16446,6 @@ processWorkshopJobs();
     if(typeof updateStars==="function") updateStars();
     renderClickerUpgrades();
   };
-  // Явні обробники для кнопок покупок — не покладаємося лише на inline onclick.
-  const bindPurchaseButton = (id, actionName) => {
-    const button=document.getElementById(id);
-    if(!button || button.dataset.purchaseBound === "1") return;
-    button.dataset.purchaseBound="1";
-    button.onclick=null;
-    button.removeAttribute("onclick");
-    button.addEventListener("click", event => {
-      event.preventDefault();
-      event.stopPropagation();
-      // Resolve the function when clicked, not when the listener is registered.
-      const action = window[actionName];
-      if (typeof action === "function") {
-        action();
-      } else {
-        console.error("Clicker upgrade function is not ready:", actionName);
-        alert("Покращення ще завантажується. Закрий і знову відкрий вікно покращень.");
-      }
-    });
-  };
-  bindPurchaseButton("clickerTapBuy", "buyClickerTapUpgrade");
-  bindPurchaseButton("clickerChargeBuy", "buyClickerChargeUpgrade");
-  // Re-bind buttons after the clicker section is rebuilt.
-  const bindUpgradePurchaseButtons = () => {
-    bindPurchaseButton("clickerTapBuy", "buyClickerTapUpgrade");
-    bindPurchaseButton("clickerChargeBuy", "buyClickerChargeUpgrade");
-  };
-  window.addEventListener("pageshow", bindUpgradePurchaseButtons);
   window.buyWorker = function(index) {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(!Number.isInteger(index)||!workerDefs[index]) return;
@@ -16959,3 +16913,72 @@ function formatChargeRemainingMs(ms) {
 
 </body>
 </html>
+
+<script id="clicker-upgrade-final-event-fix">
+(function () {
+  if (window.__clickerUpgradeFinalFixBound) return;
+  window.__clickerUpgradeFinalFixBound = true;
+
+  function closeUpgradePanel() {
+    const panel = document.getElementById("clickerUpgradePanel");
+    const toggle = document.getElementById("clickerUpgradeToggle");
+    if (!panel) return;
+    panel.dataset.open = "false";
+    panel.style.setProperty("display", "none", "important");
+    panel.style.setProperty("visibility", "hidden", "important");
+    panel.style.setProperty("opacity", "0", "important");
+    panel.setAttribute("aria-hidden", "true");
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  }
+
+  function handle(event) {
+    if (event.type !== "click") return;
+    const target = event.target;
+    if (!target || typeof target.closest !== "function") return;
+
+    const back = target.closest("#clickerUpgradeBack, .clicker-upgrade-back, .clicker-upgrade-close");
+    const tap = target.closest("#clickerTapBuy");
+    const charge = target.closest("#clickerChargeBuy");
+    if (!back && !tap && !charge) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    if (typeof event.stopImmediatePropagation === "function") event.stopImmediatePropagation();
+
+    if (back) {
+      closeUpgradePanel();
+      return;
+    }
+
+    const fnName = tap ? "buyClickerTapUpgrade" : "buyClickerChargeUpgrade";
+    const fn = window[fnName];
+    if (typeof fn === "function") {
+      fn();
+    } else {
+      console.error("[clicker] purchase function missing:", fnName);
+      alert("Не вдалося завантажити покупку. Спробуй ще раз відкрити «Покращення».");
+    }
+  }
+
+  // Window capture runs before target/parent handlers that may swallow the event.
+  window.addEventListener("click", handle, true);
+
+  function enforceButtons() {
+    ["clickerUpgradeBack", "clickerTapBuy", "clickerChargeBuy"].forEach(id => {
+      const button = document.getElementById(id);
+      if (!button) return;
+      button.style.setProperty("pointer-events", "auto", "important");
+      button.style.setProperty("touch-action", "manipulation", "important");
+      button.style.setProperty("position", "relative", "important");
+      button.style.setProperty("z-index", "2147483003", "important");
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", enforceButtons, { once: true });
+  } else {
+    enforceButtons();
+  }
+  window.addEventListener("pageshow", enforceButtons);
+})();
+</script>
+
