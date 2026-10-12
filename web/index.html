@@ -7541,6 +7541,21 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   pointer-events: auto !important;
 }
 </style>
+<style id="upgrade-button-final-fix">
+#clickerUpgradePanel #clickerTapBuy,
+#clickerUpgradePanel #clickerChargeBuy,
+#clickerUpgradePanel .clicker-worker-buy {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 2147483002 !important;
+}
+#clickerUpgradePanel #clickerTapBuy:disabled,
+#clickerUpgradePanel #clickerChargeBuy:disabled {
+  opacity: .55;
+}
+</style>
 </head>
 
 <body>
@@ -16282,12 +16297,12 @@ processWorkshopJobs();
     const tapLevels=document.getElementById("clickerTapLevels");
     if(tapLevels) tapLevels.textContent=tapNext===null?`Рівень 100 · ${format(tapIncomeAtLevel(100))} 🪙 · МАКС`:`Рівень ${state.tapLevel} · ${format(tapIncomeAtLevel(state.tapLevel))} 🪙 → Рівень ${tapNext} · ${format(tapIncomeAtLevel(tapNext))} 🪙`;
     const tapBuy=document.getElementById("clickerTapBuy");
-    if(tapBuy) { tapBuy.textContent=tapNext===null?"МАКС":`${format(tapUpgradeCost(state.tapLevel))} 🪙`; tapBuy.disabled=tapNext===null; }
+    if(tapBuy) { tapBuy.textContent=tapNext===null?"МАКС":`${format(tapUpgradeCost(state.tapLevel))} 🪙`; tapBuy.disabled=false; }
     const chargeNext=state.chargeLevel<30?state.chargeLevel+1:null;
     const chargeLevels=document.getElementById("clickerChargeLevels");
     if(chargeLevels) chargeLevels.textContent=chargeNext===null?`Рівень 30 · ${format(maxCharge())} ⚡ · МАКС`:`Рівень ${state.chargeLevel} · ${format(maxCharge())} ⚡ → Рівень ${chargeNext} · ${format(maxCharge()+50)} ⚡`;
     const chargeBuy=document.getElementById("clickerChargeBuy");
-    if(chargeBuy) { chargeBuy.textContent=chargeNext===null?"МАКС":`${format(chargeUpgradeCost(state.chargeLevel))} 🪙`; chargeBuy.disabled=chargeNext===null; }
+    if(chargeBuy) { chargeBuy.textContent=chargeNext===null?"МАКС":`${format(chargeUpgradeCost(state.chargeLevel))} 🪙`; chargeBuy.disabled=false; }
     renderWorkers();
   };
   const showReward = amount => {
@@ -16928,104 +16943,71 @@ function formatChargeRemainingMs(ms) {
 
 
 <script>
-/* Stable delegated controls for the clicker upgrade screen. */
+/* Direct upgrade-button handlers: bind once and invoke the real purchase functions. */
 (function () {
-  function closeUpgradePanel() {
-    const panel = document.getElementById("clickerUpgradePanel");
-    const toggle = document.getElementById("clickerUpgradeToggle");
-    if (!panel) return;
-    panel.dataset.open = "false";
-    panel.style.setProperty("display", "none", "important");
-    panel.style.setProperty("visibility", "hidden", "important");
-    panel.style.setProperty("opacity", "0", "important");
-    panel.setAttribute("aria-hidden", "true");
-    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  function bindDirect(id, actionName) {
+    const button = document.getElementById(id);
+    if (!button || button.dataset.directPurchaseBound === "1") return;
+    button.dataset.directPurchaseBound = "1";
+
+    // Clear handlers added by older setup code. The delegated handler below is
+    // not needed for these purchase buttons anymore.
+    button.onclick = null;
+    button.removeAttribute("onclick");
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const action = window[actionName];
+      if (typeof action !== "function") {
+        console.error("Upgrade action is unavailable:", actionName);
+        alert("Помилка завантаження покращення. Перезавантаж Mini App.");
+        return;
+      }
+      action();
+    }, false);
+    button.addEventListener("touchend", function (event) {
+      // Do not call the purchase twice; let the browser emit its normal click.
+      // This listener only prevents another overlay from swallowing the event.
+      event.stopPropagation();
+    }, {passive: true});
+    button.style.setProperty("pointer-events", "auto", "important");
+    button.style.setProperty("touch-action", "manipulation", "important");
+    button.disabled = false;
   }
 
-  function wireUpgradeControls() {
-    const panel = document.getElementById("clickerUpgradePanel");
-    const toggle = document.getElementById("clickerUpgradeToggle");
-    if (panel) {
-      panel.style.setProperty("pointer-events", "auto", "important");
-      panel.querySelectorAll("button").forEach(button => {
-        button.style.setProperty("pointer-events", "auto", "important");
-        button.style.setProperty("touch-action", "manipulation", "important");
-      });
-    }
-    if (toggle) {
-      toggle.style.setProperty("pointer-events", "auto", "important");
-      toggle.style.setProperty("touch-action", "manipulation", "important");
-    }
+  function bindBack() {
+    const button = document.getElementById("clickerUpgradeBack");
+    if (!button || button.dataset.directBackBound === "1") return;
+    button.dataset.directBackBound = "1";
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const panel = document.getElementById("clickerUpgradePanel");
+      const toggle = document.getElementById("clickerUpgradeToggle");
+      if (panel) {
+        panel.dataset.open = "false";
+        panel.style.setProperty("display", "none", "important");
+        panel.style.setProperty("visibility", "hidden", "important");
+        panel.style.setProperty("opacity", "0", "important");
+        panel.setAttribute("aria-hidden", "true");
+      }
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    }, false);
   }
 
-  // One delegated handler survives rerenders of the worker cards.
-  if (!document.documentElement.dataset.upgradeDelegationBound) {
-    document.documentElement.dataset.upgradeDelegationBound = "1";
-    document.addEventListener("click", function (event) {
-      const target = event.target && event.target.closest ? event.target.closest(
-        "#clickerUpgradeBack, .clicker-upgrade-back, .clicker-upgrade-close, #clickerTapBuy, #clickerChargeBuy, #clickerUpgradeToggle, .clicker-worker-buy"
-      ) : null;
-      if (!target) return;
-
-      if (target.matches("#clickerUpgradeBack, .clicker-upgrade-back, .clicker-upgrade-close")) {
-        event.preventDefault();
-        event.stopPropagation();
-        closeUpgradePanel();
-        return;
-      }
-
-      if (target.matches("#clickerTapBuy")) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (typeof window.buyClickerTapUpgrade === "function") window.buyClickerTapUpgrade();
-        return;
-      }
-
-      if (target.matches("#clickerChargeBuy")) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (typeof window.buyClickerChargeUpgrade === "function") window.buyClickerChargeUpgrade();
-        return;
-      }
-
-      if (target.matches(".clicker-worker-buy")) {
-        // Worker buttons already have their own click handler.
-        return;
-      }
-
-      if (target.matches("#clickerUpgradeToggle")) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (typeof window.toggleClickerUpgrades === "function") {
-          window.toggleClickerUpgrades();
-        } else {
-          const panel = document.getElementById("clickerUpgradePanel");
-          if (!panel) return;
-          const open = panel.dataset.open !== "true";
-          panel.dataset.open = open ? "true" : "false";
-          panel.style.setProperty("display", open ? "block" : "none", "important");
-          panel.style.setProperty("visibility", open ? "visible" : "hidden", "important");
-          panel.style.setProperty("opacity", open ? "1" : "0", "important");
-          panel.setAttribute("aria-hidden", open ? "false" : "true");
-        }
-      }
-    }, true);
-
-    // Touch fallback for embedded WebViews that don't synthesize click reliably.
-    document.addEventListener("touchend", function (event) {
-      const target = event.target && event.target.closest ? event.target.closest(
-        "#clickerUpgradeBack, .clicker-upgrade-back, .clicker-upgrade-close, #clickerTapBuy, #clickerChargeBuy, #clickerUpgradeToggle"
-      ) : null;
-      if (!target) return;
-      // Let the browser's normal click handler run; no duplicate purchase here.
-    }, {capture: true, passive: true});
+  function bindAll() {
+    bindDirect("clickerTapBuy", "buyClickerTapUpgrade");
+    bindDirect("clickerChargeBuy", "buyClickerChargeUpgrade");
+    bindBack();
   }
 
-  wireUpgradeControls();
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", wireUpgradeControls, {once:true});
+    document.addEventListener("DOMContentLoaded", bindAll, {once: true});
+  } else {
+    bindAll();
   }
-  window.setInterval(wireUpgradeControls, 1000);
+  // The app re-enters/rebuilds sections; ensure newly created buttons are bound.
+  window.addEventListener("pageshow", bindAll);
 })();
 </script>
 
