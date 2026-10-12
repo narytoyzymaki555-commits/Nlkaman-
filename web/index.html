@@ -7513,31 +7513,6 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 }
 
 </style>
-<style>
-/* Last-resort touch target fixes */
-#clicker #bear, #clicker #clickerUpgradeToggle, #clicker #clickerUpgradePanel,
-#clicker #clickerUpgradeBack, #clicker #clickerTapBuy, #clicker #clickerChargeBuy {
-  pointer-events: auto !important;
-  touch-action: manipulation !important;
-}
-#clicker #bear { position: relative !important; z-index: 10030 !important; }
-#clicker #bear .click-coin { pointer-events: none !important; }
-#clicker #clickerUpgradeToggle { position: relative !important; z-index: 10030 !important; }
-#clicker #clickerUpgradePanel { position: relative !important; z-index: 10025 !important; }
-#clicker #clickerUpgradePanel button { pointer-events: auto !important; touch-action: manipulation !important; }
-</style>
-<style>
-
-/* Five-finger multi-touch */
-#clicker #bear {
-  pointer-events: auto !important;
-  touch-action: none !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-}
-#clicker #bear .click-coin { pointer-events: none !important; }
-
-</style>
 </head>
 
 <body>
@@ -16317,17 +16292,15 @@ processWorkshopJobs();
   // Обробник монетки: нараховуємо монету одразу на pointerdown,
   // бо в деяких Telegram WebView pointerup/click може не доходити стабільно.
   // Capture-режим дозволяє перехопити натискання до інших обробників сторінки.
-  // Мультидотикова монетка: кожен палець дає окремий клік,
-  // підтримує до 5 одночасних натискань без глобального debounce.
   const coinTarget = document.getElementById("bear");
-  if (coinTarget && !coinTarget.dataset.multiTouchCoinBound) {
-    coinTarget.dataset.multiTouchCoinBound = "1";
+  if (coinTarget && !coinTarget.dataset.coinTapCaptureBound) {
+    coinTarget.dataset.coinTapCaptureBound = "1";
     coinTarget.removeAttribute("onclick");
     coinTarget.removeAttribute("onkeydown");
     coinTarget.style.setProperty("pointer-events", "auto", "important");
-    coinTarget.style.setProperty("touch-action", "none", "important");
-    coinTarget.style.setProperty("user-select", "none", "important");
-    coinTarget.style.setProperty("-webkit-user-select", "none", "important");
+    coinTarget.style.setProperty("touch-action", "manipulation", "important");
+    coinTarget.style.setProperty("position", "relative", "important");
+    coinTarget.style.setProperty("z-index", "10020", "important");
     coinTarget.setAttribute("role", "button");
     coinTarget.setAttribute("tabindex", "0");
 
@@ -16339,53 +16312,42 @@ processWorkshopJobs();
       coinImage.draggable = false;
     }
 
-    const activePointers = new Set();
-    let lastTouchHandledAt = 0;
-    const awardOneTap = event => {
-      if (event && event.cancelable) event.preventDefault();
-      if (event) event.stopPropagation();
-      if (typeof window.clickBear === "function") window.clickBear();
+    let lastTapAt = 0;
+    const fireCoinTap = event => {
+      if (event) {
+        if (event.cancelable) event.preventDefault();
+        event.stopPropagation();
+      }
+      const now = Date.now();
+      // Ignore synthetic click/touch duplicates generated after pointerdown.
+      if (now - lastTapAt < 80) return;
+      lastTapAt = now;
+      if (typeof window.clickBear === "function") {
+        window.clickBear();
+      } else if (typeof clickBear === "function") {
+        clickBear();
+      }
     };
 
-    // Кожен палець має окремий pointerId; не відкидаємо натискання за часом.
-    coinTarget.addEventListener("pointerdown", event => {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      if (activePointers.has(event.pointerId)) return;
-      activePointers.add(event.pointerId);
-      lastTouchHandledAt = Date.now();
-      awardOneTap(event);
-    }, { capture: true, passive: false });
-
-    const releasePointer = event => activePointers.delete(event.pointerId);
-    window.addEventListener("pointerup", releasePointer, true);
-    window.addEventListener("pointercancel", releasePointer, true);
-
-    // Резерв для WebView без Pointer Events: обробляємо кожен дотик окремо.
+    coinTarget.addEventListener("pointerdown", fireCoinTap, { capture: true, passive: false });
+    // Fallback for older Telegram WebViews that do not dispatch PointerEvents.
     coinTarget.addEventListener("touchstart", event => {
       if (window.PointerEvent) return;
-      lastTouchHandledAt = Date.now();
-      const touches = Array.from(event.changedTouches || []).slice(0, 5);
-      if (event.cancelable) event.preventDefault();
-      event.stopPropagation();
-      touches.forEach(() => {
-        if (typeof window.clickBear === "function") window.clickBear();
-      });
+      fireCoinTap(event);
     }, { capture: true, passive: false });
-
-    // Click лишається запасним способом для мишки/клавіатури, без подвійного тапа.
     coinTarget.addEventListener("click", event => {
-      if (Date.now() - lastTouchHandledAt < 600) {
+      // Click fallback for accessibility and WebViews that only dispatch click.
+      if (Date.now() - lastTapAt < 500) {
         if (event.cancelable) event.preventDefault();
         event.stopPropagation();
         return;
       }
-      awardOneTap(event);
+      fireCoinTap(event);
     }, true);
-
     coinTarget.addEventListener("keydown", event => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        awardOneTap(event);
+        fireCoinTap(event);
       }
     }, true);
   }
@@ -16872,86 +16834,67 @@ function formatChargeRemainingMs(ms) {
 
 
 <script>
-/* Delegated interaction repair for Telegram WebView */
+/* Simple, reliable coin input: touchstart for up to five fingers, click for mouse. */
 (function () {
-  if (window.__nlkamanDelegatedFixInstalled) return;
-  window.__nlkamanDelegatedFixInstalled = true;
+  function bindCoin() {
+    const coin = document.getElementById("bear");
+    if (!coin || coin.dataset.simpleCoinInputBound === "1") return;
+    coin.dataset.simpleCoinInputBound = "1";
 
-  function inside(el, x, y) {
-    if (!el || !el.getBoundingClientRect) return false;
-    const r = el.getBoundingClientRect();
-    return r.width > 0 && r.height > 0 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
-  }
+    coin.style.setProperty("pointer-events", "auto", "important");
+    coin.style.setProperty("touch-action", "none", "important");
+    coin.style.setProperty("user-select", "none", "important");
+    coin.style.setProperty("-webkit-user-select", "none", "important");
 
-  function activateCoin(event) {
-    if (typeof window.clickBear !== "function") return;
-    event.preventDefault();
-    event.stopPropagation();
-    window.clickBear();
-  }
+    const img = coin.querySelector(".click-coin");
+    if (img) {
+      img.style.setProperty("pointer-events", "none", "important");
+      img.draggable = false;
+    }
 
-  // Buttons in upgrades use delegated click handlers, so rerendering their
-  // contents cannot remove the handlers.
-  document.addEventListener("click", function (event) {
-    const back = event.target.closest && event.target.closest("#clickerUpgradeBack, .clicker-upgrade-back");
-    if (back) {
-      event.preventDefault();
+    // Mobile: each newly added finger appears in changedTouches.
+    coin.addEventListener("touchstart", function (event) {
+      if (event.cancelable) event.preventDefault();
       event.stopPropagation();
-      const panel = document.getElementById("clickerUpgradePanel");
-      const toggle = document.getElementById("clickerUpgradeToggle");
-      if (panel) {
-        panel.dataset.open = "false";
-        panel.style.setProperty("display", "none", "important");
-        panel.style.setProperty("visibility", "hidden", "important");
-        panel.style.setProperty("opacity", "0", "important");
-        panel.setAttribute("aria-hidden", "true");
+      const touches = Array.from(event.changedTouches || []).slice(0, 5);
+      const tap = window.clickBear;
+      if (typeof tap !== "function") {
+        console.error("Coin click handler is not ready");
+        return;
       }
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
-      return;
-    }
+      // Each changed touch represents one new finger-down.
+      for (let i = 0; i < touches.length; i++) tap();
+    }, { passive: false, capture: true });
 
-    const tapBuy = event.target.closest && event.target.closest("#clickerTapBuy");
-    const chargeBuy = event.target.closest && event.target.closest("#clickerChargeBuy");
-    const workerBuy = event.target.closest && event.target.closest("[data-worker-index]");
-    if (tapBuy && typeof window.buyClickerTapUpgrade === "function") {
+    // Desktop/mouse fallback. Ignore synthetic click immediately after touch.
+    let lastTouchAt = 0;
+    coin.addEventListener("touchstart", function () {
+      lastTouchAt = Date.now();
+    }, { passive: true });
+    coin.addEventListener("click", function (event) {
+      if (Date.now() - lastTouchAt < 700) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
       event.preventDefault();
       event.stopPropagation();
-      window.buyClickerTapUpgrade();
-    } else if (chargeBuy && typeof window.buyClickerChargeUpgrade === "function") {
-      event.preventDefault();
-      event.stopPropagation();
-      window.buyClickerChargeUpgrade();
-    } else if (workerBuy && typeof window.buyWorker === "function") {
-      event.preventDefault();
-      event.stopPropagation();
-      window.buyWorker(Number(workerBuy.dataset.workerIndex));
-    }
-  }, true);
+      if (typeof window.clickBear === "function") window.clickBear();
+    }, true);
 
-  // Make all controls in the upgrade panel actually receive touch/click events.
-  function repairControls() {
-    const ids = ["bear", "clickerUpgradeToggle", "clickerUpgradeBack", "clickerTapBuy", "clickerChargeBuy"];
-    ids.forEach(function (id) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.style.setProperty("pointer-events", "auto", "important");
-      el.style.setProperty("touch-action", "manipulation", "important");
-      el.style.setProperty("position", "relative", "important");
-      el.style.setProperty("z-index", "10030", "important");
+    coin.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        if (typeof window.clickBear === "function") window.clickBear();
+      }
     });
-    const panel = document.getElementById("clickerUpgradePanel");
-    if (panel) {
-      panel.style.setProperty("pointer-events", "auto", "important");
-      panel.style.setProperty("position", "relative", "important");
-      panel.style.setProperty("z-index", "10025", "important");
-    }
-    const img = document.querySelector("#bear .click-coin");
-    if (img) img.style.setProperty("pointer-events", "none", "important");
   }
 
-  repairControls();
-  document.addEventListener("DOMContentLoaded", repairControls);
-  document.addEventListener("clicker:opened", repairControls);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bindCoin, { once: true });
+  } else {
+    bindCoin();
+  }
 })();
 </script>
 
