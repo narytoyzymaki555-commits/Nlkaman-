@@ -7513,6 +7513,34 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 }
 
 </style>
+
+<style id="clicker-upgrades-interaction-fix">
+/* Ensure the upgrade screen and every control inside it can receive taps. */
+#clickerUpgradePanel {
+  pointer-events: auto !important;
+  z-index: 2147483000 !important;
+  isolation: isolate !important;
+  -webkit-overflow-scrolling: touch;
+}
+#clickerUpgradePanel * {
+  pointer-events: auto;
+}
+#clickerUpgradePanel button,
+#clickerUpgradeToggle {
+  position: relative !important;
+  z-index: 2147483001 !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  cursor: pointer !important;
+}
+#clickerUpgradePanel button:disabled {
+  pointer-events: auto !important;
+}
+#clickerUpgradePanel .clicker-upgrade-info,
+#clickerUpgradePanel .clicker-upgrade-row {
+  pointer-events: auto !important;
+}
+</style>
 </head>
 
 <body>
@@ -16895,6 +16923,109 @@ function formatChargeRemainingMs(ms) {
   } else {
     bindCoin();
   }
+})();
+</script>
+
+
+<script>
+/* Stable delegated controls for the clicker upgrade screen. */
+(function () {
+  function closeUpgradePanel() {
+    const panel = document.getElementById("clickerUpgradePanel");
+    const toggle = document.getElementById("clickerUpgradeToggle");
+    if (!panel) return;
+    panel.dataset.open = "false";
+    panel.style.setProperty("display", "none", "important");
+    panel.style.setProperty("visibility", "hidden", "important");
+    panel.style.setProperty("opacity", "0", "important");
+    panel.setAttribute("aria-hidden", "true");
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  }
+
+  function wireUpgradeControls() {
+    const panel = document.getElementById("clickerUpgradePanel");
+    const toggle = document.getElementById("clickerUpgradeToggle");
+    if (panel) {
+      panel.style.setProperty("pointer-events", "auto", "important");
+      panel.querySelectorAll("button").forEach(button => {
+        button.style.setProperty("pointer-events", "auto", "important");
+        button.style.setProperty("touch-action", "manipulation", "important");
+      });
+    }
+    if (toggle) {
+      toggle.style.setProperty("pointer-events", "auto", "important");
+      toggle.style.setProperty("touch-action", "manipulation", "important");
+    }
+  }
+
+  // One delegated handler survives rerenders of the worker cards.
+  if (!document.documentElement.dataset.upgradeDelegationBound) {
+    document.documentElement.dataset.upgradeDelegationBound = "1";
+    document.addEventListener("click", function (event) {
+      const target = event.target && event.target.closest ? event.target.closest(
+        "#clickerUpgradeBack, .clicker-upgrade-back, .clicker-upgrade-close, #clickerTapBuy, #clickerChargeBuy, #clickerUpgradeToggle, .clicker-worker-buy"
+      ) : null;
+      if (!target) return;
+
+      if (target.matches("#clickerUpgradeBack, .clicker-upgrade-back, .clicker-upgrade-close")) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeUpgradePanel();
+        return;
+      }
+
+      if (target.matches("#clickerTapBuy")) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (typeof window.buyClickerTapUpgrade === "function") window.buyClickerTapUpgrade();
+        return;
+      }
+
+      if (target.matches("#clickerChargeBuy")) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (typeof window.buyClickerChargeUpgrade === "function") window.buyClickerChargeUpgrade();
+        return;
+      }
+
+      if (target.matches(".clicker-worker-buy")) {
+        // Worker buttons already have their own click handler.
+        return;
+      }
+
+      if (target.matches("#clickerUpgradeToggle")) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (typeof window.toggleClickerUpgrades === "function") {
+          window.toggleClickerUpgrades();
+        } else {
+          const panel = document.getElementById("clickerUpgradePanel");
+          if (!panel) return;
+          const open = panel.dataset.open !== "true";
+          panel.dataset.open = open ? "true" : "false";
+          panel.style.setProperty("display", open ? "block" : "none", "important");
+          panel.style.setProperty("visibility", open ? "visible" : "hidden", "important");
+          panel.style.setProperty("opacity", open ? "1" : "0", "important");
+          panel.setAttribute("aria-hidden", open ? "false" : "true");
+        }
+      }
+    }, true);
+
+    // Touch fallback for embedded WebViews that don't synthesize click reliably.
+    document.addEventListener("touchend", function (event) {
+      const target = event.target && event.target.closest ? event.target.closest(
+        "#clickerUpgradeBack, .clicker-upgrade-back, .clicker-upgrade-close, #clickerTapBuy, #clickerChargeBuy, #clickerUpgradeToggle"
+      ) : null;
+      if (!target) return;
+      // Let the browser's normal click handler run; no duplicate purchase here.
+    }, {capture: true, passive: true});
+  }
+
+  wireUpgradeControls();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", wireUpgradeControls, {once:true});
+  }
+  window.setInterval(wireUpgradeControls, 1000);
 })();
 </script>
 
