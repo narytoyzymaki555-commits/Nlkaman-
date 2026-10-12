@@ -16465,20 +16465,33 @@ processWorkshopJobs();
     renderClickerUpgrades();
   };
   // Явні обробники для кнопок покупок — не покладаємося лише на inline onclick.
-  const bindPurchaseButton = (id, action) => {
+  const bindPurchaseButton = (id, actionName) => {
     const button=document.getElementById(id);
-    if(!button || button.dataset.purchaseBound) return;
+    if(!button || button.dataset.purchaseBound === "1") return;
     button.dataset.purchaseBound="1";
     button.onclick=null;
     button.removeAttribute("onclick");
     button.addEventListener("click", event => {
       event.preventDefault();
       event.stopPropagation();
-      action();
+      // Resolve the function when clicked, not when the listener is registered.
+      const action = window[actionName];
+      if (typeof action === "function") {
+        action();
+      } else {
+        console.error("Clicker upgrade function is not ready:", actionName);
+        alert("Покращення ще завантажується. Закрий і знову відкрий вікно покращень.");
+      }
     });
   };
-  bindPurchaseButton("clickerTapBuy", window.buyClickerTapUpgrade);
-  bindPurchaseButton("clickerChargeBuy", window.buyClickerChargeUpgrade);
+  bindPurchaseButton("clickerTapBuy", "buyClickerTapUpgrade");
+  bindPurchaseButton("clickerChargeBuy", "buyClickerChargeUpgrade");
+  // Re-bind buttons after the clicker section is rebuilt.
+  const bindUpgradePurchaseButtons = () => {
+    bindPurchaseButton("clickerTapBuy", "buyClickerTapUpgrade");
+    bindPurchaseButton("clickerChargeBuy", "buyClickerChargeUpgrade");
+  };
+  window.addEventListener("pageshow", bindUpgradePurchaseButtons);
   window.buyWorker = function(index) {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(!Number.isInteger(index)||!workerDefs[index]) return;
@@ -16942,74 +16955,7 @@ function formatChargeRemainingMs(ms) {
 </script>
 
 
-<script>
-/* Direct upgrade-button handlers: bind once and invoke the real purchase functions. */
-(function () {
-  function bindDirect(id, actionName) {
-    const button = document.getElementById(id);
-    if (!button || button.dataset.directPurchaseBound === "1") return;
-    button.dataset.directPurchaseBound = "1";
 
-    // Clear handlers added by older setup code. The delegated handler below is
-    // not needed for these purchase buttons anymore.
-    button.onclick = null;
-    button.removeAttribute("onclick");
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      const action = window[actionName];
-      if (typeof action !== "function") {
-        console.error("Upgrade action is unavailable:", actionName);
-        alert("Помилка завантаження покращення. Перезавантаж Mini App.");
-        return;
-      }
-      action();
-    }, false);
-    button.addEventListener("touchend", function (event) {
-      // Do not call the purchase twice; let the browser emit its normal click.
-      // This listener only prevents another overlay from swallowing the event.
-      event.stopPropagation();
-    }, {passive: true});
-    button.style.setProperty("pointer-events", "auto", "important");
-    button.style.setProperty("touch-action", "manipulation", "important");
-    button.disabled = false;
-  }
-
-  function bindBack() {
-    const button = document.getElementById("clickerUpgradeBack");
-    if (!button || button.dataset.directBackBound === "1") return;
-    button.dataset.directBackBound = "1";
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      const panel = document.getElementById("clickerUpgradePanel");
-      const toggle = document.getElementById("clickerUpgradeToggle");
-      if (panel) {
-        panel.dataset.open = "false";
-        panel.style.setProperty("display", "none", "important");
-        panel.style.setProperty("visibility", "hidden", "important");
-        panel.style.setProperty("opacity", "0", "important");
-        panel.setAttribute("aria-hidden", "true");
-      }
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
-    }, false);
-  }
-
-  function bindAll() {
-    bindDirect("clickerTapBuy", "buyClickerTapUpgrade");
-    bindDirect("clickerChargeBuy", "buyClickerChargeUpgrade");
-    bindBack();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", bindAll, {once: true});
-  } else {
-    bindAll();
-  }
-  // The app re-enters/rebuilds sections; ensure newly created buttons are bound.
-  window.addEventListener("pageshow", bindAll);
-})();
-</script>
 
 </body>
 </html>
