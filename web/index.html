@@ -17141,8 +17141,9 @@ function formatChargeRemainingMs(ms) {
       const level=Math.max(0,Math.min(10,Math.floor(num('nlkaman_worker_'+i,0))));
       const info=card.querySelector('.clicker-worker-info');
       const button=card.querySelector('.clicker-worker-buy');
-      if(info) info.innerHTML='<strong>'+defs[i].name+'</strong><br>Рівень '+level+' · '+fmt(incomeAt(i,level))+' 🪙/год'+(level<10?' → Рівень '+(level+1)+' · '+fmt(incomeAt(i,level+1))+' 🪙/год':' · МАКСИМУМ');
-      if(button) { button.textContent=level>=10?'МАКС.':fmt(costAt(i,level))+' 🪙'; button.disabled=level>=10; button.onclick=function(e){e.preventDefault();e.stopPropagation();window.buyWorker(i);}; }
+      const coinIcon='<img class="clicker-premium-coin" src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG" alt="преміум-монета">';
+      if(info) info.innerHTML='<strong>'+defs[i].name+'</strong><br>Рівень '+level+' · '+fmt(incomeAt(i,level))+' '+coinIcon+'/год'+(level<10?' → Рівень '+(level+1)+' · '+fmt(incomeAt(i,level+1))+' '+coinIcon+'/год':' · МАКСИМУМ');
+      if(button) { button.innerHTML=level>=10?'МАКС.':fmt(costAt(i,level))+' '+coinIcon; button.disabled=level>=10; button.onclick=function(e){e.preventDefault();e.stopPropagation();window.buyWorker(i);}; }
     });
   }
   window.buyWorker=function(index) {
