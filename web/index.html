@@ -7325,7 +7325,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 .nav-btn .nav-image-wrap img { display:block; width:25px; height:25px; object-fit:contain; }
 .nav-btn span { margin-bottom:3px; }
 
-#inventory .tab-header-image { content:url("https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/inventory-header-new.png.PNG?v=20261010") !important; }
+#inventory .tab-header-image { content:url("https://summer-water-4fb5.narytoyzymaki555.workers.dev/inventory-header-v2.png.PNG") !important; }
 #wheel > .tab-header-image { content:url("https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/wheel-header-new.png.PNG?v=20261010") !important; }
 #inventorySelected { min-height:76px !important; padding:12px !important; }
 #inventorySelectedImage.inventory-selected-placeholder {
@@ -7456,6 +7456,42 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 #clicker .clicker-upgrade-toggle { position:relative; z-index:20; cursor:pointer; touch-action:manipulation; }
 #clicker .clicker-upgrade-panel { position:relative; z-index:20; } 
     
+
+/* Покращення клікеру відкриваються як окреме повноекранне вікно. */
+#clickerUpgradePanel {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10050 !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  margin: 0 !important;
+  padding: max(16px, env(safe-area-inset-top)) 14px max(24px, env(safe-area-inset-bottom)) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: linear-gradient(180deg, #4b2d19, #211309 88%) !important;
+  box-shadow: none !important;
+}
+#clickerUpgradePanel .clicker-upgrade-heading { padding: 10px 42px 12px; }
+.clicker-upgrade-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  margin: 0 0 -42px auto;
+  border: 1px solid rgba(255,225,185,.35);
+  border-radius: 12px;
+  background: #6c4225;
+  color: #fff0dc;
+  font-size: 23px;
+  font-weight: 900;
+}
+.clicker-worker-buy { min-width: 100px; max-width: 125px; }
+
 </style>
 </head>
 
@@ -7614,7 +7650,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 >
 
   <img
-    src="https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/inventory-header-new.png.PNG?v=20261010"
+    src="https://summer-water-4fb5.narytoyzymaki555.workers.dev/inventory-header-v2.png.PNG"
     class="tab-header-image"
     alt=""
   >
@@ -7909,8 +7945,6 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
       id="bear"
       role="button"
       tabindex="0"
-      onclick="if (typeof window.clickBear === 'function') window.clickBear();"
-      onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); if (typeof window.clickBear === 'function') window.clickBear(); }"
     >
       <img
         src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG"
@@ -10024,7 +10058,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
     id="nav-leaderboard"
     onclick="openPage('leaderboard')"
   >
-    <span class="nav-image-wrap"><img src="https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/nav-leaderboard-new.png.PNG?v=20261010" alt=""></span>
+    <span class="nav-image-wrap"><img src="https://summer-water-4fb5.narytoyzymaki555.workers.dev/leaderboard-v2.png.PNG" alt=""></span>
     Лідербол
   </button>
 
@@ -10843,11 +10877,21 @@ const TEST_RESOURCE_BALANCE = 10000000;
 
 let stars = Number(localStorage.getItem("nlkaman_stars") ?? TEST_RESOURCE_BALANCE);
 
+  // Єдиний формат балансу для всіх ресурсів у всіх вкладках.
+  // Формат змінює лише відображення, збережені значення залишаються точними.
   function formatResourceNumber(value) {
-  value = Number(value) || 0;
+    value = Math.max(0, Math.floor(Number(value) || 0));
+    if (value >= 1_000_000_000) return compact(value / 1_000_000_000) + "B";
+    if (value >= 1_000_000) return compact(value / 1_000_000) + "M";
+    if (value >= 100_000) return compact(value / 1_000) + "k";
+    if (value >= 10_000) return compact(value / 1_000) + "к";
+    return value.toLocaleString("uk-UA");
 
-  return Math.floor(value).toLocaleString("uk-UA");
-}
+    function compact(n) {
+      const rounded = Math.round(n * 10) / 10;
+      return String(rounded);
+    }
+  }
   
 function updateStars() {
   // Єдине джерело балансу: одразу оновлюємо повний баланс у клікері.
@@ -10858,7 +10902,7 @@ function updateStars() {
     ? Math.max(0, Math.floor(storedStars))
     : TEST_RESOURCE_BALANCE;
 
-  if (exactClickerBalance) exactClickerBalance.textContent = Math.floor(stars).toLocaleString("uk-UA");
+  if (exactClickerBalance) exactClickerBalance.textContent = formatResourceNumber(stars);
 
   const clickerCoinCount =
     document.getElementById("clickerCoinCount");
@@ -15834,9 +15878,9 @@ function renderForgeSelected(){
   document.getElementById("workshopBlood").textContent=s.blood;
   document.getElementById("workshopHarvest").textContent=s.harvest?`+${s.harvest} ${meta.harvestType==="wood"?"дерева":meta.harvestType==="metal"?"металу":""}`:"+0";
   document.getElementById("workshopElements").textContent=elementsText(s.elements);
-  document.getElementById("forgeWoodCost").textContent=c.wood.toLocaleString("uk-UA");
-  document.getElementById("forgeMetalCost").textContent=c.metal.toLocaleString("uk-UA");
-  document.getElementById("forgeCoinCost").textContent=c.coins.toLocaleString("uk-UA");
+  document.getElementById("forgeWoodCost").textContent=formatResourceNumber(c.wood);
+  document.getElementById("forgeMetalCost").textContent=formatResourceNumber(c.metal);
+  document.getElementById("forgeCoinCost").textContent=formatResourceNumber(c.coins);
   document.getElementById("forgeRuneCost").textContent=c.runes||0;
   document.getElementById("forgeArtifactCost").textContent=c.artifacts||0;
   document.getElementById("forgeTimeCost").textContent=formatDuration(c.forgeSeconds);
@@ -15998,7 +16042,14 @@ processWorkshopJobs();
     return Number(raw);
   };
   const putNum = (key, value) => LS.setItem(key, String(Math.max(0, Math.floor(Number(value) || 0))));
-  const format = value => Math.floor(Number(value) || 0).toLocaleString("uk-UA");
+  const format = value => {
+    const n = Math.max(0, Math.floor(Number(value) || 0));
+    if (n >= 1_000_000_000) return (Math.round(n / 100_000_000) / 10).toString().replace(/\\.0$/, "") + "B";
+    if (n >= 1_000_000) return (Math.round(n / 100_000) / 10).toString().replace(/\\.0$/, "") + "M";
+    if (n >= 100_000) return (Math.round(n / 100) / 10).toString().replace(/\\.0$/, "") + "k";
+    if (n >= 10_000) return (Math.round(n / 100) / 10).toString().replace(/\\.0$/, "") + "к";
+    return n.toLocaleString("uk-UA");
+  };
   const tapIncomeAtLevel = level => {
     const lvl = Math.max(1, Math.min(100, Math.floor(Number(level) || 1)));
     const fixed = {1:1,2:2,3:4,4:6,5:9,6:13};
@@ -16162,7 +16213,7 @@ processWorkshopJobs();
     // The exact balance and every resource counter must use the same persisted balance.
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     const exact=document.getElementById("clickerExactBalance");
-    if(exact) exact.textContent=Math.floor(stars).toLocaleString("uk-UA");
+    if(exact) exact.textContent=typeof formatResourceNumber==="function" ? formatResourceNumber(stars) : Math.floor(stars).toLocaleString("uk-UA");
     const charge=maxCharge();
     state.charge=Math.min(charge,state.charge);
     const fill=document.getElementById("clickerChargeFill");
@@ -16214,7 +16265,7 @@ processWorkshopJobs();
       stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
       if (typeof updateStars === "function") updateStars();
       renderClickerUpgrades();
-      window.setTimeout(() => panel.scrollIntoView({behavior:"smooth",block:"nearest"}), 30);
+      panel.scrollTop = 0;
     }
   };
   // Клік монетки обробляється також inline onclick на #bear.
@@ -16222,16 +16273,58 @@ processWorkshopJobs();
   const coinTarget=document.getElementById("bear");
   if(coinTarget) {
     coinTarget.style.pointerEvents="auto";
-    coinTarget.style.touchAction="manipulation";
+    coinTarget.style.touchAction="none";
     coinTarget.style.cursor="pointer";
+    coinTarget.setAttribute("role","button");
+    coinTarget.setAttribute("tabindex","0");
     const coinImage=coinTarget.querySelector(".click-coin");
     if(coinImage) {
-      coinImage.style.pointerEvents="auto";
+      coinImage.style.pointerEvents="none";
       coinImage.draggable=false;
+    }
+    if(!coinTarget.dataset.multiTouchClickerBound) {
+      coinTarget.dataset.multiTouchClickerBound="1";
+      // Кожен палець у changedTouches дає окремий клік/нагороду.
+      let lastTouchAt = 0;
+      coinTarget.addEventListener("touchstart", event => {
+        event.preventDefault();
+        lastTouchAt = Date.now();
+        const count = Math.max(1, event.changedTouches ? event.changedTouches.length : 1);
+        for(let i=0;i<count;i++) window.clickBear();
+      }, {passive:false});
+      // Не додаємо зайвий клік після touchstart у браузерах, що все ж генерують click.
+      coinTarget.addEventListener("click", event => {
+        if(Date.now() - lastTouchAt < 700) return;
+        window.clickBear();
+      });
+      coinTarget.addEventListener("keydown", event => {
+        if(event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          window.clickBear();
+        }
+      });
     }
   }
   const upgradePanel=document.getElementById("clickerUpgradePanel");
-  if(upgradePanel && !upgradePanel.dataset.open) { upgradePanel.dataset.open="false"; upgradePanel.style.setProperty("display","none","important"); upgradePanel.style.setProperty("visibility","hidden","important"); }
+  if(upgradePanel) {
+    if(!upgradePanel.querySelector(".clicker-upgrade-close")) {
+      const close=document.createElement("button");
+      close.type="button";
+      close.className="clicker-upgrade-close";
+      close.setAttribute("aria-label","Закрити покращення");
+      close.textContent="×";
+      close.addEventListener("click",()=>{
+        upgradePanel.dataset.open="false";
+        upgradePanel.style.setProperty("display","none","important");
+        upgradePanel.style.setProperty("visibility","hidden","important");
+        upgradePanel.style.setProperty("opacity","0","important");
+        const toggle=document.getElementById("clickerUpgradeToggle");
+        if(toggle) toggle.setAttribute("aria-expanded","false");
+      });
+      upgradePanel.insertBefore(close,upgradePanel.firstChild);
+    }
+    if(!upgradePanel.dataset.open) { upgradePanel.dataset.open="false"; upgradePanel.style.setProperty("display","none","important"); upgradePanel.style.setProperty("visibility","hidden","important"); }
+  }
   const upgradeToggle=document.getElementById("clickerUpgradeToggle");
   if(upgradeToggle) {
     upgradeToggle.type = "button";
@@ -16264,6 +16357,21 @@ processWorkshopJobs();
     if(typeof updateStars==="function") updateStars();
     renderClickerUpgrades();
   };
+  // Явні обробники для кнопок покупок — не покладаємося лише на inline onclick.
+  const bindPurchaseButton = (id, action) => {
+    const button=document.getElementById(id);
+    if(!button || button.dataset.purchaseBound) return;
+    button.dataset.purchaseBound="1";
+    button.onclick=null;
+    button.removeAttribute("onclick");
+    button.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      action();
+    });
+  };
+  bindPurchaseButton("clickerTapBuy", window.buyClickerTapUpgrade);
+  bindPurchaseButton("clickerChargeBuy", window.buyClickerChargeUpgrade);
   window.buyWorker = function(index) {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(!Number.isInteger(index)||!workerDefs[index]) return;
@@ -16641,7 +16749,7 @@ function formatChargeRemainingMs(ms) {
             if (typeof window.updateStars === 'function') window.updateStars();
             if (typeof window.renderClickerUpgrades === 'function') window.renderClickerUpgrades();
           } catch (_) {}
-          window.setTimeout(() => panel.scrollIntoView({behavior: 'smooth', block: 'nearest'}), 50);
+          panel.scrollTop = 0;
         }
       }, true);
     }
