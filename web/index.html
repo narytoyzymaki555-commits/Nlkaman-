@@ -17257,6 +17257,9 @@ function formatChargeRemainingMs(ms) {
 
 <style id="clicker-bottom-button-and-center-coin-fix">
 #clickerUpgradeToggle{position:fixed!important;left:50%!important;bottom:calc(72px + env(safe-area-inset-bottom, 0px))!important;top:auto!important;transform:translateX(-50%)!important;z-index:2147483001!important;max-width:calc(100vw - 28px)!important}
-#clicker #bear,.bear{display:flex!important;align-items:center!important;justify-content:center!important}
-#clicker #bear .click-coin,.bear .click-coin{position:relative!important;left:auto!important;top:auto!important;margin:auto!important;object-position:center center!important;transform:translateY(210px)!important}
+/* Keep the visible premium coin aligned with its actual tap target. */
+#clicker .bear-clicker{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;margin-top:0!important;padding:0!important}
+#clicker #bear,.bear{display:flex!important;align-items:center!important;justify-content:center!important;transform:none!important}
+#clicker #bear .click-coin,.bear .click-coin{position:relative!important;left:auto!important;top:auto!important;margin:auto!important;object-position:center center!important;transform:translateY(0)!important}
+#clicker #bear:active .click-coin,.bear:active .click-coin{transform:scale(.97)!important}
 </style>
