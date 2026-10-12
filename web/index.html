@@ -7513,6 +7513,19 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 }
 
 </style>
+<style>
+/* Last-resort touch target fixes */
+#clicker #bear, #clicker #clickerUpgradeToggle, #clicker #clickerUpgradePanel,
+#clicker #clickerUpgradeBack, #clicker #clickerTapBuy, #clicker #clickerChargeBuy {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+#clicker #bear { position: relative !important; z-index: 10030 !important; }
+#clicker #bear .click-coin { pointer-events: none !important; }
+#clicker #clickerUpgradeToggle { position: relative !important; z-index: 10030 !important; }
+#clicker #clickerUpgradePanel { position: relative !important; z-index: 10025 !important; }
+#clicker #clickerUpgradePanel button { pointer-events: auto !important; touch-action: manipulation !important; }
+</style>
 </head>
 
 <body>
@@ -16829,6 +16842,113 @@ function formatChargeRemainingMs(ms) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once: true});
   else start();
   document.addEventListener('visibilitychange', () => { if (!document.hidden) updateFullChargeTime(); });
+})();
+</script>
+
+
+<script>
+/* Delegated interaction repair for Telegram WebView */
+(function () {
+  if (window.__nlkamanDelegatedFixInstalled) return;
+  window.__nlkamanDelegatedFixInstalled = true;
+
+  function inside(el, x, y) {
+    if (!el || !el.getBoundingClientRect) return false;
+    const r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+  }
+
+  function activateCoin(event) {
+    if (typeof window.clickBear !== "function") return;
+    event.preventDefault();
+    event.stopPropagation();
+    window.clickBear();
+  }
+
+  // Use document-level capture and geometry fallback, in case another element
+  // is accidentally sitting above the coin or an inner image consumes the tap.
+  document.addEventListener("pointerdown", function (event) {
+    const coin = document.getElementById("bear");
+    if (inside(coin, event.clientX, event.clientY)) {
+      if (event.target !== coin && !coin.contains(event.target)) {
+        activateCoin(event);
+      }
+    }
+  }, true);
+
+  // Explicit click fallback for coin. The short guard avoids duplicate awards
+  // when pointerdown already handled the same physical tap.
+  let lastCoinActivation = 0;
+  document.addEventListener("click", function (event) {
+    const coin = document.getElementById("bear");
+    if (!inside(coin, event.clientX, event.clientY)) return;
+    if (Date.now() - lastCoinActivation < 120) return;
+    lastCoinActivation = Date.now();
+    activateCoin(event);
+  }, true);
+
+  // Buttons in upgrades use delegated click handlers, so rerendering their
+  // contents cannot remove the handlers.
+  document.addEventListener("click", function (event) {
+    const back = event.target.closest && event.target.closest("#clickerUpgradeBack, .clicker-upgrade-back");
+    if (back) {
+      event.preventDefault();
+      event.stopPropagation();
+      const panel = document.getElementById("clickerUpgradePanel");
+      const toggle = document.getElementById("clickerUpgradeToggle");
+      if (panel) {
+        panel.dataset.open = "false";
+        panel.style.setProperty("display", "none", "important");
+        panel.style.setProperty("visibility", "hidden", "important");
+        panel.style.setProperty("opacity", "0", "important");
+        panel.setAttribute("aria-hidden", "true");
+      }
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+      return;
+    }
+
+    const tapBuy = event.target.closest && event.target.closest("#clickerTapBuy");
+    const chargeBuy = event.target.closest && event.target.closest("#clickerChargeBuy");
+    const workerBuy = event.target.closest && event.target.closest("[data-worker-index]");
+    if (tapBuy && typeof window.buyClickerTapUpgrade === "function") {
+      event.preventDefault();
+      event.stopPropagation();
+      window.buyClickerTapUpgrade();
+    } else if (chargeBuy && typeof window.buyClickerChargeUpgrade === "function") {
+      event.preventDefault();
+      event.stopPropagation();
+      window.buyClickerChargeUpgrade();
+    } else if (workerBuy && typeof window.buyWorker === "function") {
+      event.preventDefault();
+      event.stopPropagation();
+      window.buyWorker(Number(workerBuy.dataset.workerIndex));
+    }
+  }, true);
+
+  // Make all controls in the upgrade panel actually receive touch/click events.
+  function repairControls() {
+    const ids = ["bear", "clickerUpgradeToggle", "clickerUpgradeBack", "clickerTapBuy", "clickerChargeBuy"];
+    ids.forEach(function (id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.setProperty("pointer-events", "auto", "important");
+      el.style.setProperty("touch-action", "manipulation", "important");
+      el.style.setProperty("position", "relative", "important");
+      el.style.setProperty("z-index", "10030", "important");
+    });
+    const panel = document.getElementById("clickerUpgradePanel");
+    if (panel) {
+      panel.style.setProperty("pointer-events", "auto", "important");
+      panel.style.setProperty("position", "relative", "important");
+      panel.style.setProperty("z-index", "10025", "important");
+    }
+    const img = document.querySelector("#bear .click-coin");
+    if (img) img.style.setProperty("pointer-events", "none", "important");
+  }
+
+  repairControls();
+  document.addEventListener("DOMContentLoaded", repairControls);
+  document.addEventListener("clicker:opened", repairControls);
 })();
 </script>
 
