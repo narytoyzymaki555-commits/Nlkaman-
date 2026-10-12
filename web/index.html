@@ -16915,36 +16915,110 @@ function formatChargeRemainingMs(ms) {
 
 
 
-<script id="clicker-upgrade-purchase-handler-v5">
+<script id="clicker-upgrade-purchase-handler-v6">
 (function () {
-  if (window.__upgradePurchaseHandlerV5) return;
-  window.__upgradePurchaseHandlerV5 = true;
+  if (window.__upgradePurchaseHandlerV6) return;
+  window.__upgradePurchaseHandlerV6 = true;
   let lastTouch = 0;
 
-  function findButton(target) {
-    if (!target || !target.closest) return null;
-    return target.closest("#clickerTapBuy, #clickerChargeBuy");
+  const num = (key, fallback) => {
+    const raw = localStorage.getItem(key);
+    const n = raw === null || raw === "" ? fallback : Number(raw);
+    return Number.isFinite(n) ? n : fallback;
+  };
+  const saveNum = (key, value) => localStorage.setItem(key, String(Math.max(0, Math.floor(Number(value) || 0))));
+  const fmt = value => Math.max(0, Math.floor(Number(value) || 0)).toLocaleString("uk-UA");
+
+  function fallbackPurchase(button) {
+    let coins = Math.max(0, num("nlkaman_stars", 0));
+    if (button.id === "clickerTapBuy") {
+      let level = Math.max(1, Math.min(100, Math.floor(num("nlkaman_clicker_level", 1))));
+      if (level >= 100) { alert("Максимальний рівень натискання вже досягнуто."); return; }
+      let cost = 300;
+      for (let i = 2; i <= level; i++) cost = Math.ceil(cost * 1.15);
+      if (coins < cost) { alert("Недостатньо монет."); return; }
+      coins -= cost;
+      level++;
+      saveNum("nlkaman_stars", coins);
+      saveNum("nlkaman_clicker_level", level);
+      const incomeAt = lvl => {
+        const fixed = {1:1,2:2,3:4,4:6,5:9,6:13};
+        if (fixed[lvl]) return fixed[lvl];
+        let income = 13;
+        for (let i = 7; i <= lvl; i++) income = Math.ceil(income * (i >= 57 ? 1.08 : 1.10));
+        return income;
+      };
+      const levels = document.getElementById("clickerTapLevels");
+      if (levels) levels.textContent = level >= 100
+        ? `Рівень 100 · ${fmt(incomeAt(100))} 🪙 · МАКС`
+        : `Рівень ${level} · ${fmt(incomeAt(level))} 🪙 → Рівень ${level + 1} · ${fmt(incomeAt(level + 1))} 🪙`;
+      const buy = document.getElementById("clickerTapBuy");
+      if (buy) buy.textContent = level >= 100 ? "МАКС" : `${fmt(tapCost(level))} 🪙`;
+    } else {
+      let level = Math.max(1, Math.min(30, Math.floor(num("nlkaman_charge_level", 1))));
+      if (level >= 30) { alert("Максимальний рівень заряду вже досягнуто."); return; }
+      const cost = chargeCost(level);
+      if (coins < cost) { alert("Недостатньо монет."); return; }
+      coins -= cost;
+      level++;
+      const maxCharge = 1000 + (level - 1) * 50;
+      const charge = Math.min(maxCharge, num("nlkaman_charge", 1000) + 50);
+      saveNum("nlkaman_stars", coins);
+      saveNum("nlkaman_charge_level", level);
+      saveNum("nlkaman_charge", charge);
+      const levels = document.getElementById("clickerChargeLevels");
+      if (levels) levels.textContent = level >= 30
+        ? `Рівень 30 · ${fmt(maxCharge)} ⚡ · МАКС`
+        : `Рівень ${level} · ${fmt(maxCharge)} ⚡ → Рівень ${level + 1} · ${fmt(maxCharge + 50)} ⚡`;
+      const buy = document.getElementById("clickerChargeBuy");
+      if (buy) buy.textContent = level >= 30 ? "МАКС" : `${fmt(chargeCost(level))} 🪙`;
+      const fill = document.getElementById("clickerChargeFill");
+      if (fill) fill.style.width = (charge / maxCharge * 100) + "%";
+      const label = document.getElementById("clickerChargeText");
+      if (label) label.textContent = `Заряд: ${fmt(charge)} / ${fmt(maxCharge)}`;
+    }
+    if (typeof window.updateStars === "function") {
+      try { window.updateStars(); } catch (e) { console.warn("[upgrade v6] updateStars failed", e); }
+    }
+    // Keep visible counters synchronized even if the main clicker script failed.
+    document.querySelectorAll('[id*="CoinCount"], #stars, #userStars, #topStars, #workshopCoinCount').forEach(el => {
+      if (el && /coin|stars/i.test(el.id)) el.textContent = fmt(coins);
+    });
   }
 
+  function tapCost(level) {
+    let cost = 300;
+    for (let i = 2; i <= level; i++) cost = Math.ceil(cost * 1.15);
+    return cost;
+  }
+  function chargeCost(level) {
+    if (level <= 1) return 1000;
+    let cost = 2000;
+    for (let i = 3; i <= level; i++) cost = Math.ceil(cost * 2.5);
+    return cost;
+  }
+  function findButton(target) {
+    return target && target.closest ? target.closest("#clickerTapBuy, #clickerChargeBuy") : null;
+  }
   function activate(button) {
-    const fnName = button.id === "clickerTapBuy"
-      ? "buyClickerTapUpgrade"
-      : "buyClickerChargeUpgrade";
+    const fnName = button.id === "clickerTapBuy" ? "buyClickerTapUpgrade" : "buyClickerChargeUpgrade";
     const fn = window[fnName];
-    if (typeof fn !== "function") {
-      console.error("[upgrade v5] Missing function", fnName, typeof fn);
-      alert("Помилка: функція покращення не завантажилася. Спробуй оновити Mini App.");
-      return;
+    if (typeof fn === "function") {
+      try { fn(); return; }
+      catch (error) {
+        console.error("[upgrade v6] Main purchase function failed", error);
+        alert("Покупка зупинилася через помилку. Перевір Console (F12), щоб побачити причину.");
+        return;
+      }
+    } else {
+      console.warn("[upgrade v6] Main purchase function unavailable; using standalone fallback", fnName);
     }
-    try {
-      fn();
-    } catch (error) {
-      console.error("[upgrade v5] Purchase failed:", error);
+    try { fallbackPurchase(button); }
+    catch (error) {
+      console.error("[upgrade v6] Fallback purchase failed", error);
       alert("Помилка покупки: " + (error && error.message ? error.message : String(error)));
     }
   }
-
-  // Capture phase makes the buttons work even if an older parent handler stops bubbling.
   document.addEventListener("touchend", function (event) {
     const button = findButton(event.target);
     if (!button) return;
@@ -16953,23 +17027,19 @@ function formatChargeRemainingMs(ms) {
     event.stopPropagation();
     if (event.stopImmediatePropagation) event.stopImmediatePropagation();
     activate(button);
-  }, {capture: true, passive: false});
-
+  }, {capture:true, passive:false});
   document.addEventListener("click", function (event) {
     const button = findButton(event.target);
     if (!button) return;
     if (Date.now() - lastTouch < 800) {
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault(); event.stopPropagation();
       if (event.stopImmediatePropagation) event.stopImmediatePropagation();
       return;
     }
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault(); event.stopPropagation();
     if (event.stopImmediatePropagation) event.stopImmediatePropagation();
     activate(button);
   }, true);
-
   function styleButtons() {
     ["clickerTapBuy", "clickerChargeBuy"].forEach(id => {
       const button = document.getElementById(id);
@@ -16982,15 +17052,11 @@ function formatChargeRemainingMs(ms) {
       button.style.setProperty("z-index", "2147483003", "important");
     });
   }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", styleButtons, {once:true});
-  } else {
-    styleButtons();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", styleButtons, {once:true});
+  else styleButtons();
 })();
 </script>
 
 </body>
 </html>
-
 
