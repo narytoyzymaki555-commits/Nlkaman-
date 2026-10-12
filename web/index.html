@@ -17119,49 +17119,74 @@ function formatChargeRemainingMs(ms) {
 
 
 <script>
-/* Надійний окремий обробник найму робітників — працює навіть якщо інший скрипт клікеру не завантажився. */
+/* Обробник робітників: прогресія рівнів, розблокування, баланс і сповіщення. */
 (function () {
   const defs = [
-    {name:'Робітник 1', cost:15000, income:5000, incomeMult:2, costMult:3, firstUpgradeCost:null},
-    {name:'Робітник 2', cost:20000, income:10000, incomeMult:1.5, costMult:2, firstUpgradeCost:null},
-    {name:'Робітник 3', cost:100000, income:30000, incomeMult:1.5, costMult:2, firstUpgradeCost:200000},
-    {name:'Робітник 4', cost:1000000, income:100000, incomeMult:1.5, costMult:2, firstUpgradeCost:2000000},
-    {name:'Робітник 5', cost:10000000, income:1000000, incomeMult:1.5, costMult:2, firstUpgradeCost:25000000},
-    {name:'Робітник 6', cost:2000000000, income:10000000, incomeMult:1.5, costMult:2, firstUpgradeCost:5000000000}
+    {name:'Робітник 1', cost:15000, income:5000, incomeMult:2, costMult:3, firstUpgradeCost:25000},
+    {name:'Робітник 2', cost:20000, income:10000, incomeMult:1.5, costMult:3, firstUpgradeCost:null},
+    {name:'Робітник 3', cost:100000, income:30000, incomeMult:1.5, costMult:3, firstUpgradeCost:200000},
+    {name:'Робітник 4', cost:1000000, income:100000, incomeMult:1.5, costMult:3, firstUpgradeCost:2000000},
+    {name:'Робітник 5', cost:10000000, income:1000000, incomeMult:1.5, costMult:3, firstUpgradeCost:25000000},
+    {name:'Робітник 6', cost:2000000000, income:10000000, incomeMult:1.5, costMult:3, firstUpgradeCost:5000000000}
   ];
+  const COIN='https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG';
   const num = (key, fallback=0) => { const v=localStorage.getItem(key); return v===null || !Number.isFinite(Number(v)) ? fallback : Number(v); };
   const fmt = n => Math.floor(n).toLocaleString('uk-UA');
+  const icon = '<img class="clicker-premium-coin" src="'+COIN+'" alt="преміум-монета">';
+  function levelAt(i){return Math.max(0,Math.min(10,Math.floor(num('nlkaman_worker_'+i,0))));}
   function incomeAt(i, level) { let n=level>0?defs[i].income:0; for(let k=2;k<=level;k++) n=Math.ceil(n*defs[i].incomeMult); return n; }
   function costAt(i, level) { const d=defs[i]; if(level<=0) return d.cost; let c=d.firstUpgradeCost || Math.ceil(d.cost*2); for(let k=1;k<level;k++) c=Math.ceil(c*3); return c; }
+  function unlocked(i){return i===0 || levelAt(i-1)>=6;}
+  function showToast(message){
+    let el=document.getElementById('premiumCoinToast');
+    if(!el){el=document.createElement('div');el.id='premiumCoinToast';el.className='premium-coin-toast';el.setAttribute('role','status');document.body.appendChild(el);}
+    el.innerHTML='<span class="toast-x">✕</span><span></span>';
+    el.querySelector('span:last-child').textContent=message;
+    el.classList.add('show'); clearTimeout(window.__premiumCoinToastTimer);
+    window.__premiumCoinToastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+  }
   function refresh() {
-    const host=document.getElementById('clickerWorkers'); if(!host) return;
-    const cards=host.querySelectorAll('.clicker-worker-card');
-    cards.forEach((card,i)=>{
-      if(!defs[i]) return;
-      const level=Math.max(0,Math.min(10,Math.floor(num('nlkaman_worker_'+i,0))));
-      const info=card.querySelector('.clicker-worker-info');
-      const button=card.querySelector('.clicker-worker-buy');
-      const coinIcon='<img class="clicker-premium-coin" src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG" alt="преміум-монета">';
-      if(info) info.innerHTML='<strong>'+defs[i].name+'</strong><br>Рівень '+level+' · '+fmt(incomeAt(i,level))+' '+coinIcon+'/год'+(level<10?' → Рівень '+(level+1)+' · '+fmt(incomeAt(i,level+1))+' '+coinIcon+'/год':' · МАКСИМУМ');
-      if(button) { button.innerHTML=level>=10?'МАКС.':fmt(costAt(i,level))+' '+coinIcon; button.disabled=level>=10; button.onclick=function(e){e.preventDefault();e.stopPropagation();window.buyWorker(i);}; }
+    const host=document.getElementById('clickerWorkers'); if(!host)return;
+    const levels=defs.map((_,i)=>levelAt(i));
+    let total=levels.reduce((sum,l,i)=>sum+incomeAt(i,l),0);
+    let totalEl=document.getElementById('clickerWorkersTotalIncome');
+    if(!totalEl){totalEl=document.createElement('div');totalEl.id='clickerWorkersTotalIncome';totalEl.className='clicker-workers-total-income';host.parentNode.insertBefore(totalEl,host);}
+    totalEl.innerHTML='Загальний дохід: <strong>'+fmt(total)+' '+icon+'/год</strong>';
+    host.innerHTML='';
+    defs.forEach((d,i)=>{
+      const level=levels[i], open=unlocked(i), card=document.createElement('div');
+      card.className='clicker-worker-card'+(open?'':' clicker-worker-locked');
+      const info=document.createElement('div'); info.className='clicker-worker-info';
+      const button=document.createElement('button');button.className='clicker-worker-buy';button.type='button';
+      if(!open){
+        info.innerHTML='<strong>🔒 '+d.name+'</strong><br>Потрібно покращити '+defs[i-1].name.toLowerCase()+' до 6 рівня';
+        button.textContent='ЗАБЛОКОВАНО';button.disabled=true;
+      }else{
+        const cost=level>=10?null:costAt(i,level);
+        info.innerHTML='<strong>'+d.name+'</strong><br>Рівень '+level+' · '+fmt(incomeAt(i,level))+' '+icon+'/год'+(level<10?' → Рівень '+(level+1)+' · '+fmt(incomeAt(i,level+1))+' '+icon+'/год':' · МАКСИМУМ');
+        button.innerHTML=cost===null?'МАКС':fmt(cost)+' '+icon;button.disabled=cost===null;
+        button.addEventListener('click',()=>window.buyWorker(i));
+      }
+      card.append(info,button);host.appendChild(card);
     });
   }
-  window.buyWorker=function(index) {
-    if(!Number.isInteger(index)||!defs[index]) return;
-    const level=Math.max(0,Math.min(10,Math.floor(num('nlkaman_worker_'+index,0))));
-    if(level>=10){alert('Цей робітник уже максимального рівня.');return;}
-    const cost=costAt(index,level);
-    let balance=Math.max(0,num('nlkaman_stars',0));
-    if(balance<cost){alert('Недостатньо монет. Потрібно '+fmt(cost)+' 🪙.');return;}
-    balance-=cost;
-    localStorage.setItem('nlkaman_stars',String(Math.floor(balance)));
+  window.buyWorker=function(index){
+    if(!Number.isInteger(index)||!defs[index])return;
+    if(!unlocked(index)){showToast('Потрібно покращити '+defs[index-1].name.toLowerCase()+' до 6 рівня');return;}
+    const level=levelAt(index); if(level>=10){showToast('Досягнуто максимального рівня');return;}
+    const cost=costAt(index,level);let balance=Math.max(0,num('nlkaman_stars',0));
+    if(balance<cost){showToast('Недостатньо коштів');return;}
+    balance-=cost;localStorage.setItem('nlkaman_stars',String(Math.floor(balance)));
     localStorage.setItem('nlkaman_worker_'+index,String(level+1));
-    try { if(typeof window.updateStars==='function') window.updateStars(); } catch(e) {}
-    try { if(typeof window.renderClickerUpgrades==='function') window.renderClickerUpgrades(); } catch(e) {}
+    try{if(typeof window.updateStars==='function')window.updateStars();}catch(e){}
+    try{if(typeof window.renderClickerUpgrades==='function')window.renderClickerUpgrades();}catch(e){}
     refresh();
   };
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',refresh,{once:true}); else refresh();
+  const originalAlert=window.alert.bind(window);
+  window.alert=function(message){if(/недостатньо (монет|коштів)/i.test(String(message||''))){showToast('Недостатньо коштів');return;}return originalAlert(message);};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh,{once:true});else refresh();
   window.addEventListener('pageshow',refresh);
+  window.addEventListener('storage',refresh);
 })();
 </script>
 
@@ -17218,5 +17243,12 @@ function formatChargeRemainingMs(ms) {
 })();
 </script>
 
+<style id="worker-progression-style">
+.clicker-workers-total-income{margin:8px 0 12px;padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.06);font-size:14px;color:#fff}
+.clicker-workers-total-income strong{display:block;margin-top:5px;font-size:17px}
+.clicker-worker-locked{position:relative;opacity:.7;border:1px solid rgba(255,255,255,.12)}
+.clicker-worker-locked .clicker-worker-info{filter:blur(1.2px)}
+.clicker-worker-locked .clicker-worker-buy{opacity:.8;cursor:not-allowed;font-size:10px}
+</style>
 </body>
 </html>
