@@ -16911,6 +16911,82 @@ function formatChargeRemainingMs(ms) {
 
 
 
+
+<script id="clicker-upgrade-purchase-handler-v5">
+(function () {
+  if (window.__upgradePurchaseHandlerV5) return;
+  window.__upgradePurchaseHandlerV5 = true;
+  let lastTouch = 0;
+
+  function findButton(target) {
+    if (!target || !target.closest) return null;
+    return target.closest("#clickerTapBuy, #clickerChargeBuy");
+  }
+
+  function activate(button) {
+    const fnName = button.id === "clickerTapBuy"
+      ? "buyClickerTapUpgrade"
+      : "buyClickerChargeUpgrade";
+    const fn = window[fnName];
+    if (typeof fn !== "function") {
+      console.error("[upgrade v5] Missing function", fnName, typeof fn);
+      alert("Помилка: функція покращення не завантажилася. Спробуй оновити Mini App.");
+      return;
+    }
+    try {
+      fn();
+    } catch (error) {
+      console.error("[upgrade v5] Purchase failed:", error);
+      alert("Помилка покупки: " + (error && error.message ? error.message : String(error)));
+    }
+  }
+
+  // Capture phase makes the buttons work even if an older parent handler stops bubbling.
+  document.addEventListener("touchend", function (event) {
+    const button = findButton(event.target);
+    if (!button) return;
+    lastTouch = Date.now();
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+    activate(button);
+  }, {capture: true, passive: false});
+
+  document.addEventListener("click", function (event) {
+    const button = findButton(event.target);
+    if (!button) return;
+    if (Date.now() - lastTouch < 800) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+    activate(button);
+  }, true);
+
+  function styleButtons() {
+    ["clickerTapBuy", "clickerChargeBuy"].forEach(id => {
+      const button = document.getElementById(id);
+      if (!button) return;
+      button.type = "button";
+      button.disabled = false;
+      button.style.setProperty("pointer-events", "auto", "important");
+      button.style.setProperty("touch-action", "manipulation", "important");
+      button.style.setProperty("position", "relative", "important");
+      button.style.setProperty("z-index", "2147483003", "important");
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", styleButtons, {once:true});
+  } else {
+    styleButtons();
+  }
+})();
+</script>
+
 </body>
 </html>
 
