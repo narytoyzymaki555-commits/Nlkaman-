@@ -7982,6 +7982,24 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   
   
   
+  <!-- СТОРІНКА НАЛАШТУВАНЬ -->
+<section id="settings" class="page" style="padding:24px 16px 120px;">
+  <h2 class="settings-title">⚙️ НАЛАШТУВАННЯ</h2>
+  <div class="settings-card" style="margin-bottom:14px;">
+    <div class="settings-row">
+      <div class="settings-name">🔊 Гучність гри: <span id="volumeValue">100%</span></div>
+      <input id="volumeSlider" type="range" min="0" max="100" value="100" aria-label="Гучність гри">
+    </div>
+  </div>
+  <div class="settings-card" style="margin-bottom:14px;">
+    <div class="settings-row">
+      <div class="settings-name">Звук гри</div>
+      <button id="soundButton" class="button" type="button" onclick="toggleSound()">🔊 Увімкнути / вимкнути звук</button>
+    </div>
+  </div>
+  <button class="button secondary" type="button" onclick="openPage('home')" style="width:100%;margin-top:12px;">← НАЗАД ДО ІГОР</button>
+</section>
+
   <!-- ⚙️ НАЛАШТУВАННЯ -->
 <div
   class="settings-button"
@@ -10910,7 +10928,7 @@ function toggleSound() {
   if (soundEnabled) {
 
     button.textContent =
-      "🔊";
+      "🔊 Звук увімкнено";
 
     initAudio();
 
@@ -10921,7 +10939,7 @@ function toggleSound() {
   } else {
 
     button.textContent =
-      "🔇";
+      "🔇 Звук вимкнено";
 
     if (musicTimer) {
 
