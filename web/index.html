@@ -17263,3 +17263,24 @@ function formatChargeRemainingMs(ms) {
 #clicker #bear .click-coin,.bear .click-coin{position:relative!important;left:auto!important;top:auto!important;margin:auto!important;object-position:center center!important;transform:translateY(0)!important}
 #clicker #bear:active .click-coin,.bear:active .click-coin{transform:scale(.97)!important}
 </style>
+
+<style id="clicker-coin-position-final">
+/* Move the coin and its real tap target together by 15% of screen height. */
+#clicker .bear-clicker {
+  position: relative !important;
+  top: 15vh !important;
+  transform: none !important;
+}
+#clicker #bear {
+  position: relative !important;
+  top: 0 !important;
+  transform: none !important;
+}
+#clicker #bear .click-coin {
+  top: 0 !important;
+  transform: none !important;
+}
+#clicker #bear:active .click-coin {
+  transform: scale(.97) !important;
+}
+</style>
