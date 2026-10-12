@@ -7962,6 +7962,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   </button>
 
   <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;">
+    <button id="clickerUpgradeBack" type="button" class="button secondary clicker-upgrade-back" style="margin-bottom:12px;">← НАЗАД</button>
     <div class="clicker-upgrade-heading">🚀 Покращуй та заробляй більше!</div>
     <div class="clicker-upgrade-section-title">Активний дохід</div>
     <div id="clickerTapUpgrade" class="clicker-upgrade-row">
@@ -7969,14 +7970,14 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
         <div class="clicker-upgrade-name">Збільшити кількість монет за клік</div>
         <div id="clickerTapLevels" class="clicker-upgrade-levels">Рівень 1 · 1 🪙 → Рівень 2 · 2 🪙</div>
       </div>
-      <button id="clickerTapBuy" class="clicker-cost-button" onclick="buyClickerTapUpgrade()">300 🪙</button>
+      <button id="clickerTapBuy" type="button" class="clicker-cost-button">300 🪙</button>
     </div>
     <div id="clickerChargeUpgrade" class="clicker-upgrade-row">
       <div class="clicker-upgrade-info">
         <div class="clicker-upgrade-name">Збільшити запас зарядності</div>
         <div id="clickerChargeLevels" class="clicker-upgrade-levels">Рівень 1 · 1000 ⚡ → Рівень 2 · 1050 ⚡</div>
       </div>
-      <button id="clickerChargeBuy" class="clicker-cost-button" onclick="buyClickerChargeUpgrade()">1 000 🪙</button>
+      <button id="clickerChargeBuy" type="button" class="clicker-cost-button">1 000 🪙</button>
     </div>
     <div class="clicker-upgrade-section-title passive-income-title">Пасивний дохід</div>
     <div class="clicker-passive-heading">Найняти робітника</div>
@@ -16191,7 +16192,7 @@ processWorkshopJobs();
         button.className="clicker-worker-buy";
         button.type="button";
         button.textContent=cost===null?"МАКС":`${format(cost)} 🪙`;
-        button.disabled=cost===null || stars<cost;
+        button.disabled=cost===null;
         button.addEventListener("click",()=>buyWorker(index));
         card.append(info,button);
         host.appendChild(card);
@@ -16204,7 +16205,7 @@ processWorkshopJobs();
         const cost=level>=10?null:workerUpgradeCost(index,level);
         if(button) {
           button.textContent=cost===null?"МАКС":`${format(cost)} 🪙`;
-          button.disabled=cost===null || stars<cost;
+          button.disabled=cost===null;
         }
       });
     }
@@ -16233,12 +16234,12 @@ processWorkshopJobs();
     const tapLevels=document.getElementById("clickerTapLevels");
     if(tapLevels) tapLevels.textContent=tapNext===null?`Рівень 100 · ${format(tapIncomeAtLevel(100))} 🪙 · МАКС`:`Рівень ${state.tapLevel} · ${format(tapIncomeAtLevel(state.tapLevel))} 🪙 → Рівень ${tapNext} · ${format(tapIncomeAtLevel(tapNext))} 🪙`;
     const tapBuy=document.getElementById("clickerTapBuy");
-    if(tapBuy) { tapBuy.textContent=tapNext===null?"МАКС":`${format(tapUpgradeCost(state.tapLevel))} 🪙`; tapBuy.disabled=tapNext===null||stars<tapUpgradeCost(state.tapLevel); }
+    if(tapBuy) { tapBuy.textContent=tapNext===null?"МАКС":`${format(tapUpgradeCost(state.tapLevel))} 🪙`; tapBuy.disabled=tapNext===null; }
     const chargeNext=state.chargeLevel<30?state.chargeLevel+1:null;
     const chargeLevels=document.getElementById("clickerChargeLevels");
     if(chargeLevels) chargeLevels.textContent=chargeNext===null?`Рівень 30 · ${format(maxCharge())} ⚡ · МАКС`:`Рівень ${state.chargeLevel} · ${format(maxCharge())} ⚡ → Рівень ${chargeNext} · ${format(maxCharge()+50)} ⚡`;
     const chargeBuy=document.getElementById("clickerChargeBuy");
-    if(chargeBuy) { chargeBuy.textContent=chargeNext===null?"МАКС":`${format(chargeUpgradeCost(state.chargeLevel))} 🪙`; chargeBuy.disabled=chargeNext===null||stars<chargeUpgradeCost(state.chargeLevel); }
+    if(chargeBuy) { chargeBuy.textContent=chargeNext===null?"МАКС":`${format(chargeUpgradeCost(state.chargeLevel))} 🪙`; chargeBuy.disabled=chargeNext===null; }
     renderWorkers();
   };
   const showReward = amount => {
@@ -16268,42 +16269,51 @@ processWorkshopJobs();
       panel.scrollTop = 0;
     }
   };
-  // Клік монетки обробляється також inline onclick на #bear.
-  // Це гарантує роботу навіть якщо WebView пропускає pointerup або пізній listener.
-  const coinTarget=document.getElementById("bear");
-  if(coinTarget) {
-    coinTarget.style.pointerEvents="auto";
-    coinTarget.style.touchAction="none";
-    coinTarget.style.cursor="pointer";
-    coinTarget.setAttribute("role","button");
-    coinTarget.setAttribute("tabindex","0");
-    const coinImage=coinTarget.querySelector(".click-coin");
-    if(coinImage) {
-      coinImage.style.pointerEvents="none";
-      coinImage.draggable=false;
+  // Надійний обробник монетки для браузера й Telegram WebView.
+  // Обробляємо pointerup один раз на кожен палець і прибираємо конфліктний inline onclick.
+  const coinTarget = document.getElementById("bear");
+  if (coinTarget && !coinTarget.dataset.multiTouchClickerBound) {
+    coinTarget.dataset.multiTouchClickerBound = "1";
+    coinTarget.removeAttribute("onclick");
+    coinTarget.removeAttribute("onkeydown");
+    coinTarget.style.pointerEvents = "auto";
+    coinTarget.style.touchAction = "none";
+    coinTarget.style.cursor = "pointer";
+    coinTarget.setAttribute("role", "button");
+    coinTarget.setAttribute("tabindex", "0");
+
+    const coinImage = coinTarget.querySelector(".click-coin");
+    if (coinImage) {
+      coinImage.style.pointerEvents = "none";
+      coinImage.draggable = false;
     }
-    if(!coinTarget.dataset.multiTouchClickerBound) {
-      coinTarget.dataset.multiTouchClickerBound="1";
-      // Кожен палець у changedTouches дає окремий клік/нагороду.
-      let lastTouchAt = 0;
-      coinTarget.addEventListener("touchstart", event => {
+
+    const activePointers = new Set();
+    coinTarget.addEventListener("pointerdown", event => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      event.preventDefault();
+      activePointers.add(event.pointerId);
+      try { coinTarget.setPointerCapture(event.pointerId); } catch (_) {}
+    }, { passive: false });
+
+    coinTarget.addEventListener("pointerup", event => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      event.preventDefault();
+      if (!activePointers.has(event.pointerId)) return;
+      activePointers.delete(event.pointerId);
+      if (typeof window.clickBear === "function") window.clickBear();
+    }, { passive: false });
+
+    coinTarget.addEventListener("pointercancel", event => {
+      activePointers.delete(event.pointerId);
+    });
+
+    coinTarget.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        lastTouchAt = Date.now();
-        const count = Math.max(1, event.changedTouches ? event.changedTouches.length : 1);
-        for(let i=0;i<count;i++) window.clickBear();
-      }, {passive:false});
-      // Не додаємо зайвий клік після touchstart у браузерах, що все ж генерують click.
-      coinTarget.addEventListener("click", event => {
-        if(Date.now() - lastTouchAt < 700) return;
-        window.clickBear();
-      });
-      coinTarget.addEventListener("keydown", event => {
-        if(event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          window.clickBear();
-        }
-      });
-    }
+        if (typeof window.clickBear === "function") window.clickBear();
+      }
+    });
   }
   const upgradePanel=document.getElementById("clickerUpgradePanel");
   if(upgradePanel) {
@@ -16336,6 +16346,24 @@ processWorkshopJobs();
       window.toggleClickerUpgrades();
     };
   }
+  const clickerUpgradeBack = document.getElementById("clickerUpgradeBack");
+  if (clickerUpgradeBack && !clickerUpgradeBack.dataset.bound) {
+    clickerUpgradeBack.dataset.bound = "1";
+    clickerUpgradeBack.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const panel = document.getElementById("clickerUpgradePanel");
+      const toggle = document.getElementById("clickerUpgradeToggle");
+      if (!panel) return;
+      panel.dataset.open = "false";
+      panel.style.setProperty("display", "none", "important");
+      panel.style.setProperty("visibility", "hidden", "important");
+      panel.style.setProperty("opacity", "0", "important");
+      panel.setAttribute("aria-hidden", "true");
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    });
+  }
+
   window.buyClickerTapUpgrade = function() {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(state.tapLevel>=100) return;
