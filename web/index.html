@@ -17112,5 +17112,52 @@ function formatChargeRemainingMs(ms) {
 })();
 </script>
 
+
+<script>
+/* Надійний окремий обробник найму робітників — працює навіть якщо інший скрипт клікеру не завантажився. */
+(function () {
+  const defs = [
+    {name:'Робітник 1', cost:15000, income:5000, incomeMult:2, costMult:3, firstUpgradeCost:null},
+    {name:'Робітник 2', cost:20000, income:10000, incomeMult:1.5, costMult:2, firstUpgradeCost:null},
+    {name:'Робітник 3', cost:100000, income:30000, incomeMult:1.5, costMult:2, firstUpgradeCost:200000},
+    {name:'Робітник 4', cost:1000000, income:100000, incomeMult:1.5, costMult:2, firstUpgradeCost:2000000},
+    {name:'Робітник 5', cost:10000000, income:1000000, incomeMult:1.5, costMult:2, firstUpgradeCost:25000000},
+    {name:'Робітник 6', cost:2000000000, income:10000000, incomeMult:1.5, costMult:2, firstUpgradeCost:5000000000}
+  ];
+  const num = (key, fallback=0) => { const v=localStorage.getItem(key); return v===null || !Number.isFinite(Number(v)) ? fallback : Number(v); };
+  const fmt = n => Math.floor(n).toLocaleString('uk-UA');
+  function incomeAt(i, level) { let n=level>0?defs[i].income:0; for(let k=2;k<=level;k++) n=Math.ceil(n*defs[i].incomeMult); return n; }
+  function costAt(i, level) { const d=defs[i]; if(level<=0) return d.cost; let c=d.firstUpgradeCost || Math.ceil(d.cost*d.costMult); for(let k=1;k<level;k++) c=Math.ceil(c*d.costMult); return c; }
+  function refresh() {
+    const host=document.getElementById('clickerWorkers'); if(!host) return;
+    const cards=host.querySelectorAll('.clicker-worker-card');
+    cards.forEach((card,i)=>{
+      if(!defs[i]) return;
+      const level=Math.max(0,Math.min(10,Math.floor(num('nlkaman_worker_'+i,0))));
+      const info=card.querySelector('.clicker-worker-info');
+      const button=card.querySelector('.clicker-worker-buy');
+      if(info) info.innerHTML='<strong>'+defs[i].name+'</strong><br>Рівень '+level+' · '+fmt(incomeAt(i,level))+' 🪙/год'+(level<10?' → Рівень '+(level+1)+' · '+fmt(incomeAt(i,level+1))+' 🪙/год':' · МАКСИМУМ');
+      if(button) { button.textContent=level>=10?'МАКС.':fmt(costAt(i,level))+' 🪙'; button.disabled=level>=10; button.onclick=function(e){e.preventDefault();e.stopPropagation();window.buyWorker(i);}; }
+    });
+  }
+  window.buyWorker=function(index) {
+    if(!Number.isInteger(index)||!defs[index]) return;
+    const level=Math.max(0,Math.min(10,Math.floor(num('nlkaman_worker_'+index,0))));
+    if(level>=10){alert('Цей робітник уже максимального рівня.');return;}
+    const cost=costAt(index,level);
+    let balance=Math.max(0,num('nlkaman_stars',0));
+    if(balance<cost){alert('Недостатньо монет. Потрібно '+fmt(cost)+' 🪙.');return;}
+    balance-=cost;
+    localStorage.setItem('nlkaman_stars',String(Math.floor(balance)));
+    localStorage.setItem('nlkaman_worker_'+index,String(level+1));
+    try { if(typeof window.updateStars==='function') window.updateStars(); } catch(e) {}
+    try { if(typeof window.renderClickerUpgrades==='function') window.renderClickerUpgrades(); } catch(e) {}
+    refresh();
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',refresh,{once:true}); else refresh();
+  window.addEventListener('pageshow',refresh);
+})();
+</script>
+
 </body>
 </html>
