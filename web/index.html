@@ -16477,6 +16477,10 @@ processWorkshopJobs();
       }
       // Прочитати актуальний баланс перед кожною операцією, а не використовувати застаріле значення.
       stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
+      // Read the purchased tap level from storage on every tap. The standalone
+      // upgrade fallback can update localStorage even if this IIFE's state was
+      // initialized earlier, so keep the in-memory level synchronized.
+      state.tapLevel = Math.max(1, Math.min(100, Math.floor(getNum("nlkaman_clicker_level", state.tapLevel))));
       const reward=tapIncomeAtLevel(state.tapLevel);
       const now = Date.now();
       const wasFull = state.charge >= maxCharge();
