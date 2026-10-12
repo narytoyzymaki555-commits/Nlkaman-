@@ -11101,9 +11101,22 @@ function clickBear() {
   localStorage.setItem("nlkaman_charge_last_at", String(lastAt));
   drawCharge();
 
-  stars = Math.max(0, Number(localStorage.getItem("nlkaman_stars")) || 0) + 1;
+  // Use the saved tap-upgrade level even if the main clicker IIFE did not load.
+  // This fallback previously always awarded +1, ignoring levels such as level 59.
+  const tapLevel = Math.max(1, Math.min(100, Math.floor(Number(localStorage.getItem("nlkaman_clicker_level")) || 1)));
+  const fixedTapIncome = {1:1, 2:2, 3:4, 4:6, 5:9, 6:13};
+  let tapReward = fixedTapIncome[tapLevel];
+  if (!tapReward) {
+    tapReward = 13;
+    for (let currentLevel = 7; currentLevel <= tapLevel; currentLevel++) {
+      tapReward = Math.ceil(tapReward * (currentLevel >= 57 ? 1.08 : 1.10));
+    }
+  }
+  stars = Math.max(0, Number(localStorage.getItem("nlkaman_stars")) || 0) + tapReward;
   localStorage.setItem("nlkaman_stars", String(stars));
   if (typeof updateStars === "function") updateStars();
+  const rewardLabel = document.getElementById("clickerRewardText");
+  if (rewardLabel) rewardLabel.textContent = `+${tapReward.toLocaleString("uk-UA")} 🪙`;
 
   const bear = document.querySelector(".bear");
   if (bear) {
@@ -17001,6 +17014,33 @@ function formatChargeRemainingMs(ms) {
     for (let i = 3; i <= level; i++) cost = Math.ceil(cost * 2.5);
     return cost;
   }
+  // Always render upgrade labels from saved progress, even if the main IIFE
+  // failed before its normal renderClickerUpgrades() call.
+  function refreshUpgradeLabelsFromStorage() {
+    const tapLevel = Math.max(1, Math.min(100, Math.floor(num("nlkaman_clicker_level", 1))));
+    const tapIncomeAt = lvl => {
+      const fixed = {1:1,2:2,3:4,4:6,5:9,6:13};
+      if (fixed[lvl]) return fixed[lvl];
+      let income = 13;
+      for (let i = 7; i <= lvl; i++) income = Math.ceil(income * (i >= 57 ? 1.08 : 1.10));
+      return income;
+    };
+    const tapLevels = document.getElementById("clickerTapLevels");
+    if (tapLevels) tapLevels.textContent = tapLevel >= 100
+      ? `Рівень 100 · ${fmt(tapIncomeAt(100))} 🪙 · МАКС`
+      : `Рівень ${tapLevel} · ${fmt(tapIncomeAt(tapLevel))} 🪙 → Рівень ${tapLevel + 1} · ${fmt(tapIncomeAt(tapLevel + 1))} 🪙`;
+    const tapBuy = document.getElementById("clickerTapBuy");
+    if (tapBuy) tapBuy.textContent = tapLevel >= 100 ? "МАКС" : `${fmt(tapCost(tapLevel))} 🪙`;
+
+    const chargeLevel = Math.max(1, Math.min(30, Math.floor(num("nlkaman_charge_level", 1))));
+    const maxCharge = 1000 + (chargeLevel - 1) * 50;
+    const chargeLevels = document.getElementById("clickerChargeLevels");
+    if (chargeLevels) chargeLevels.textContent = chargeLevel >= 30
+      ? `Рівень 30 · ${fmt(maxCharge)} ⚡ · МАКС`
+      : `Рівень ${chargeLevel} · ${fmt(maxCharge)} ⚡ → Рівень ${chargeLevel + 1} · ${fmt(maxCharge + 50)} ⚡`;
+    const chargeBuy = document.getElementById("clickerChargeBuy");
+    if (chargeBuy) chargeBuy.textContent = chargeLevel >= 30 ? "МАКС" : `${fmt(chargeCost(chargeLevel))} 🪙`;
+  }
   function findButton(target) {
     return target && target.closest ? target.closest("#clickerTapBuy, #clickerChargeBuy") : null;
   }
@@ -17056,8 +17096,13 @@ function formatChargeRemainingMs(ms) {
       button.style.setProperty("z-index", "2147483003", "important");
     });
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", styleButtons, {once:true});
-  else styleButtons();
+  function initializeUpgradeUI() {
+    styleButtons();
+    refreshUpgradeLabelsFromStorage();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initializeUpgradeUI, {once:true});
+  else initializeUpgradeUI();
+  window.addEventListener("pageshow", refreshUpgradeLabelsFromStorage);
 })();
 </script>
 
