@@ -8032,7 +8032,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;">
     <button id="clickerUpgradeBack" type="button" class="button secondary clicker-upgrade-back" onclick="var p=document.getElementById('clickerUpgradePanel'); var b=document.getElementById('clickerUpgradeToggle'); if(p){p.style.display='none';p.style.visibility='hidden';p.style.opacity='0';p.dataset.open='false';p.setAttribute('aria-hidden','true');} if(b){b.style.display='';b.style.visibility='visible';b.style.opacity='1';b.setAttribute('aria-expanded','false');}" style="margin-bottom:12px;">← НАЗАД</button>
     <div class="clicker-upgrade-heading">🚀 Покращуй та заробляй більше!</div>
-    <div class="clicker-upgrade-section-title">Активний дохід <span id="clickerTapIncomeNow" class="clicker-tap-income-now">1 <img class="clicker-premium-coin" src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG" alt="монета"> /клік</span></div>
+    <div class="clicker-upgrade-section-title">Активний дохід</div>
     <div id="clickerTapUpgrade" class="clicker-upgrade-row">
       <div class="clicker-upgrade-info">
         <div class="clicker-upgrade-name">Збільшити кількість монет за клік</div>
@@ -17256,18 +17256,7 @@ function formatChargeRemainingMs(ms) {
 </html>
 
 <style id="clicker-bottom-button-and-center-coin-fix">
-#clickerUpgradeToggle{position:fixed!important;left:50%!important;bottom:calc(12px + env(safe-area-inset-bottom, 0px))!important;top:auto!important;transform:translateX(-50%)!important;z-index:2147483001!important;max-width:calc(100vw - 28px)!important}
+#clickerUpgradeToggle{position:fixed!important;left:50%!important;bottom:calc(72px + env(safe-area-inset-bottom, 0px))!important;top:auto!important;transform:translateX(-50%)!important;z-index:2147483001!important;max-width:calc(100vw - 28px)!important}
 #clicker #bear,.bear{display:flex!important;align-items:center!important;justify-content:center!important}
-#clicker #bear .click-coin,.bear .click-coin{position:relative!important;left:auto!important;top:auto!important;margin:auto!important;object-position:center center!important}
-.clicker-tap-income-now{display:inline-flex;align-items:center;gap:4px;margin-left:7px;font-size:12px;font-weight:800;white-space:nowrap;color:#f4d77b}
-.clicker-tap-income-now .clicker-premium-coin{width:16px;height:16px;object-fit:contain;vertical-align:middle}
+#clicker #bear .click-coin,.bear .click-coin{position:relative!important;left:auto!important;top:auto!important;margin:auto!important;object-position:center center!important;transform:translateY(210px)!important}
 </style>
-<script id="clicker-active-income-label-fix">
-(function(){
- const COIN='https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG';
- function tapIncome(level){level=Math.max(1,Math.min(100,Math.floor(Number(level)||1)));const fixed={1:1,2:2,3:4,4:6,5:9,6:13};if(fixed[level])return fixed[level];let income=13;for(let i=7;i<=level;i++)income=Math.ceil(income*(i>=57?1.08:1.10));return income;}
- function update(){const el=document.getElementById('clickerTapIncomeNow');if(!el)return;let level=1;try{level=Number(localStorage.getItem('nlkaman_clicker_level'))||1;}catch(e){}el.innerHTML=String(tapIncome(level))+' <img class="clicker-premium-coin" src="'+COIN+'" alt="монета"> /клік';}
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update);else update();
- setInterval(update,500);
-})();
-</script>
