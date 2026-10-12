@@ -8025,7 +8025,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   </button>
 
   <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;">
-    <button id="clickerUpgradeBack" type="button" class="button secondary clicker-upgrade-back" onclick="var p=document.getElementById('clickerUpgradePanel'); if(p){p.style.display='none';p.style.visibility='hidden';p.style.opacity='0';p.dataset.open='false';}" style="margin-bottom:12px;">← НАЗАД</button>
+    <button id="clickerUpgradeBack" type="button" class="button secondary clicker-upgrade-back" onclick="var p=document.getElementById('clickerUpgradePanel'); var b=document.getElementById('clickerUpgradeToggle'); if(p){p.style.display='none';p.style.visibility='hidden';p.style.opacity='0';p.dataset.open='false';p.setAttribute('aria-hidden','true');} if(b){b.style.display='';b.style.visibility='visible';b.style.opacity='1';b.setAttribute('aria-expanded','false');}" style="margin-bottom:12px;">← НАЗАД</button>
     <div class="clicker-upgrade-heading">🚀 Покращуй та заробляй більше!</div>
     <div class="clicker-upgrade-section-title">Активний дохід</div>
     <div id="clickerTapUpgrade" class="clicker-upgrade-row">
@@ -16361,7 +16361,10 @@ processWorkshopJobs();
     panel.style.setProperty("visibility", opening ? "visible" : "hidden", "important");
     panel.style.setProperty("opacity", opening ? "1" : "0", "important");
     panel.setAttribute("aria-hidden", opening ? "false" : "true");
-    if (button) button.setAttribute("aria-expanded", opening ? "true" : "false");
+    if (button) {
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+      button.style.display = opening ? "none" : "";
+    }
     if (opening) {
       stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
       if (typeof updateStars === "function") updateStars();
@@ -16433,23 +16436,16 @@ processWorkshopJobs();
   }
   const upgradePanel=document.getElementById("clickerUpgradePanel");
   if(upgradePanel) {
-    if(!upgradePanel.querySelector(".clicker-upgrade-close")) {
-      const close=document.createElement("button");
-      close.type="button";
-      close.className="clicker-upgrade-close";
-      close.setAttribute("aria-label","Закрити покращення");
-      close.textContent="×";
-      close.addEventListener("click",()=>{
-        upgradePanel.dataset.open="false";
-        upgradePanel.style.setProperty("display","none","important");
-        upgradePanel.style.setProperty("visibility","hidden","important");
-        upgradePanel.style.setProperty("opacity","0","important");
-        const toggle=document.getElementById("clickerUpgradeToggle");
-        if(toggle) toggle.setAttribute("aria-expanded","false");
-      });
-      upgradePanel.insertBefore(close,upgradePanel.firstChild);
+    // The panel uses only the explicit BACK button; no extra close (×) button.
+    const extraClose=upgradePanel.querySelector(".clicker-upgrade-close");
+    if(extraClose) extraClose.remove();
+    if(!upgradePanel.dataset.open) {
+      upgradePanel.dataset.open="false";
+      upgradePanel.style.setProperty("display","none","important");
+      upgradePanel.style.setProperty("visibility","hidden","important");
+      const toggle=document.getElementById("clickerUpgradeToggle");
+      if(toggle) toggle.style.display="";
     }
-    if(!upgradePanel.dataset.open) { upgradePanel.dataset.open="false"; upgradePanel.style.setProperty("display","none","important"); upgradePanel.style.setProperty("visibility","hidden","important"); }
   }
   const upgradeToggle=document.getElementById("clickerUpgradeToggle");
   if(upgradeToggle) {
@@ -16825,6 +16821,8 @@ function formatChargeRemainingMs(ms) {
     button.removeAttribute('onclick');
     button.type = 'button';
     button.setAttribute('aria-controls', 'clickerUpgradePanel');
+    const currentlyOpen = panel.dataset.open === 'true' || (panel.style.display !== 'none' && getComputedStyle(panel).display !== 'none');
+    button.style.display = currentlyOpen ? 'none' : '';
     if (!button.dataset.fullChargeToggleBound) {
       button.dataset.fullChargeToggleBound = '1';
       button.addEventListener('click', function (event) {
@@ -16838,6 +16836,7 @@ function formatChargeRemainingMs(ms) {
         panel.style.setProperty('opacity', open ? '1' : '0', 'important');
         panel.setAttribute('aria-hidden', open ? 'false' : 'true');
         button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        button.style.display = open ? 'none' : '';
         if (open) {
           try {
             if (typeof window.updateStars === 'function') window.updateStars();
@@ -17108,4 +17107,3 @@ function formatChargeRemainingMs(ms) {
 
 </body>
 </html>
-
