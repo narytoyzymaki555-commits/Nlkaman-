@@ -16305,6 +16305,30 @@ processWorkshopJobs();
     if(chargeBuy) { chargeBuy.textContent=chargeNext===null?"МАКС":`${format(chargeUpgradeCost(state.chargeLevel))} 🪙`; chargeBuy.disabled=false; }
     renderWorkers();
   };
+
+  // Register purchase functions before optional DOM/event setup below.
+  // This prevents a later UI setup error from leaving the upgrade buttons without handlers.
+  window.buyClickerTapUpgrade = function() {
+    stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
+    if(state.tapLevel>=100) return;
+    const cost=tapUpgradeCost(state.tapLevel);
+    if(stars<cost) { alert("Недостатньо монет."); return; }
+    stars-=cost; state.tapLevel++;
+    putNum("nlkaman_stars",stars); persistState();
+    if(typeof updateStars==="function") updateStars();
+    renderClickerUpgrades();
+  };
+  window.buyClickerChargeUpgrade = function() {
+    stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
+    if(state.chargeLevel>=30) return;
+    const cost=chargeUpgradeCost(state.chargeLevel);
+    if(stars<cost) { alert("Недостатньо монет."); return; }
+    stars-=cost; state.chargeLevel++;
+    state.charge=Math.min(maxCharge(),state.charge+50);
+    putNum("nlkaman_stars",stars); persistState();
+    if(typeof updateStars==="function") updateStars();
+    renderClickerUpgrades();
+  };
   const showReward = amount => {
     const host=document.getElementById("clickerFloatingRewards");
     if(!host) return;
@@ -16425,27 +16449,6 @@ processWorkshopJobs();
       window.toggleClickerUpgrades();
     };
   }
-  window.buyClickerTapUpgrade = function() {
-    stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
-    if(state.tapLevel>=100) return;
-    const cost=tapUpgradeCost(state.tapLevel);
-    if(stars<cost) { alert("Недостатньо монет."); return; }
-    stars-=cost; state.tapLevel++;
-    putNum("nlkaman_stars",stars); persistState();
-    if(typeof updateStars==="function") updateStars();
-    renderClickerUpgrades();
-  };
-  window.buyClickerChargeUpgrade = function() {
-    stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
-    if(state.chargeLevel>=30) return;
-    const cost=chargeUpgradeCost(state.chargeLevel);
-    if(stars<cost) { alert("Недостатньо монет."); return; }
-    stars-=cost; state.chargeLevel++;
-    state.charge=Math.min(maxCharge(),state.charge+50);
-    putNum("nlkaman_stars",stars); persistState();
-    if(typeof updateStars==="function") updateStars();
-    renderClickerUpgrades();
-  };
   window.buyWorker = function(index) {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(!Number.isInteger(index)||!workerDefs[index]) return;
