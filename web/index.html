@@ -17136,18 +17136,27 @@ function formatChargeRemainingMs(ms) {
   const saveNum = (key, value) => localStorage.setItem(key, String(Math.max(0, Math.floor(Number(value) || 0))));
   const fmt = value => Math.max(0, Math.floor(Number(value) || 0)).toLocaleString("uk-UA");
 
+  function toast(message) {
+    if (typeof window.showClickerToast === "function") {
+      try { window.showClickerToast(message); return; } catch (_) {}
+    }
+    alert(message);
+  }
+
   function fallbackPurchase(button) {
     let coins = Math.max(0, num("nlkaman_stars", 0));
+    const COIN = "https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG";
+
     if (button.id === "clickerTapBuy") {
       let level = Math.max(1, Math.min(100, Math.floor(num("nlkaman_clicker_level", 1))));
       if (level >= 100) { alert("Максимальний рівень натискання вже досягнуто."); return; }
-      let cost = 300;
-      for (let i = 2; i <= level; i++) cost = Math.ceil(cost * 1.15);
-      if (coins < cost) { showClickerToast("❌ Недостатньо монет"); return; }
+      const cost = tapCost(level);
+      if (coins < cost) { toast("❌ Недостатньо монет"); return; }
       coins -= cost;
       level++;
       saveNum("nlkaman_stars", coins);
       saveNum("nlkaman_clicker_level", level);
+
       const incomeAt = lvl => {
         const fixed = {1:1,2:2,3:4,4:6,5:9,6:13};
         if (fixed[lvl]) return fixed[lvl];
@@ -17157,15 +17166,16 @@ function formatChargeRemainingMs(ms) {
       };
       const levels = document.getElementById("clickerTapLevels");
       if (levels) levels.textContent = level >= 100
-        ? `Рівень 100 · ${fmt(incomeAt(100))} 🪙 · МАКС`
-        : `Рівень ${level} · ${fmt(incomeAt(level))} 🪙 → Рівень ${level + 1} · ${fmt(incomeAt(level + 1))} 🪙`;
+        ? `Рівень 100 · ${fmt(incomeAt(100))} монет · МАКС`
+        : `Рівень ${level} · ${fmt(incomeAt(level))} монет → Рівень ${level + 1} · ${fmt(incomeAt(level + 1))} монет`;
       const buy = document.getElementById("clickerTapBuy");
-      if (buy) buy.textContent = level >= 100 ? "МАКС" : `${fmt(tapCost(level))} 🪙`;
-    } else {
+      if (buy) buy.innerHTML = level >= 100 ? "МАКС" : `${fmt(tapCost(level))} <img class="clicker-premium-coin" src="${COIN}" alt="монета">`;
+
+    } else if (button.id === "clickerChargeBuy") {
       let level = Math.max(1, Math.min(30, Math.floor(num("nlkaman_charge_level", 1))));
       if (level >= 30) { alert("Максимальний рівень заряду вже досягнуто."); return; }
       const cost = chargeCost(level);
-      if (coins < cost) { showClickerToast("❌ Недостатньо монет"); return; }
+      if (coins < cost) { toast("❌ Недостатньо монет"); return; }
       coins -= cost;
       level++;
       const maxCharge = 1000 + (level - 1) * 50;
@@ -17175,22 +17185,43 @@ function formatChargeRemainingMs(ms) {
       saveNum("nlkaman_charge", charge);
       const levels = document.getElementById("clickerChargeLevels");
       if (levels) levels.textContent = level >= 30
-        ? `Рівень 30 · ${fmt(maxCharge)} ⚡ · МАКС`
-        : `Рівень ${level} · ${fmt(maxCharge)} ⚡ → Рівень ${level + 1} · ${fmt(maxCharge + 50)} ⚡`;
+        ? `Рівень 30 · ${fmt(maxCharge)} зарядів · МАКС`
+        : `Рівень ${level} · ${fmt(maxCharge)} зарядів → Рівень ${level + 1} · ${fmt(maxCharge + 50)} зарядів`;
       const buy = document.getElementById("clickerChargeBuy");
-      if (buy) buy.textContent = level >= 30 ? "МАКС" : `${fmt(chargeCost(level))} 🪙`;
+      if (buy) buy.innerHTML = level >= 30 ? "МАКС" : `${fmt(chargeCost(level))} <img class="clicker-premium-coin" src="${COIN}" alt="монета">`;
       const fill = document.getElementById("clickerChargeFill");
       if (fill) fill.style.width = (charge / maxCharge * 100) + "%";
       const label = document.getElementById("clickerChargeText");
       if (label) label.textContent = `Заряд: ${fmt(charge)} / ${fmt(maxCharge)}`;
+
+    } else if (button.id === "clickerChargeSpeedBuy") {
+      let level = Math.max(0, Math.min(10, Math.floor(num("nlkaman_charge_speed_level", 0))));
+      if (level >= 10) { alert("Максимальний рівень швидкості заряджання вже досягнуто."); return; }
+      const cost = 5000000 * Math.pow(2, level);
+      if (coins < cost) { toast("❌ Недостатньо монет"); return; }
+      coins -= cost;
+      level++;
+      saveNum("nlkaman_stars", coins);
+      saveNum("nlkaman_charge_speed_level", level);
+      // Reset the timestamp so the next charge uses the new interval cleanly.
+      saveNum("nlkaman_charge_last_at", Date.now());
+
+      const secondsAt = lvl => Math.max(1, 3 - Math.max(0, Math.min(10, lvl)) * 0.2);
+      const sec = n => `${Number(n).toLocaleString("uk-UA", {maximumFractionDigits:1})} ${n === 1 ? "секунда" : "секунди"}`;
+      const levels = document.getElementById("clickerChargeSpeedLevels");
+      if (levels) levels.textContent = level >= 10
+        ? `Рівень 10 · ${sec(secondsAt(10))} · МАКС`
+        : `Рівень ${level} · ${sec(secondsAt(level))} → Рівень ${level + 1} · ${sec(secondsAt(level + 1))}`;
+      const buy = document.getElementById("clickerChargeSpeedBuy");
+      if (buy) buy.innerHTML = level >= 10 ? "МАКС" : `${fmt(5000000 * Math.pow(2, level))} <img class="clicker-premium-coin" src="${COIN}" alt="монета">`;
+      const help = document.getElementById("clickerChargeHelp");
+      if (help) help.textContent = `1 заряд — ${sec(secondsAt(level))}`;
     }
+
     if (typeof window.updateStars === "function") {
-      try { window.updateStars(); } catch (e) { console.warn("[upgrade v6] updateStars failed", e); }
+      try { window.updateStars(); } catch (e) { console.warn("[upgrade fallback] updateStars failed", e); }
     }
-    // Keep visible counters synchronized even if the main clicker script failed.
-    document.querySelectorAll('[id*="CoinCount"], #stars, #userStars, #topStars, #workshopCoinCount').forEach(el => {
-      if (el && /coin|stars/i.test(el.id)) el.textContent = fmt(coins);
-    });
+    document.querySelectorAll("#clickerExactBalance").forEach(el => { el.textContent = fmt(coins); });
   }
 
   function tapCost(level) {
