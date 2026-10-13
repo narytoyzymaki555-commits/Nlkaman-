@@ -17825,5 +17825,31 @@ function formatChargeRemainingMs(ms) {
 })();
 </script>
 
+
+<style id="premium-toast-single-cross-final-fix">
+/* Keep exactly one X: inside the red circle. Suppress any inherited/global extra X. */
+#premiumCoinToast::before,
+#premiumCoinToast::after,
+#premiumCoinToast > span:last-child::before,
+#premiumCoinToast > span:last-child::after,
+#premiumCoinToast > .toast-x::after {
+  content: none !important;
+  display: none !important;
+}
+#premiumCoinToast > .toast-x {
+  position: relative !important;
+  width: 20px !important; height: 20px !important;
+  min-width: 20px !important; flex: 0 0 20px !important;
+  border-radius: 50% !important; background: #e34848 !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  font-size: 0 !important; line-height: 1 !important;
+}
+#premiumCoinToast > .toast-x::before {
+  content: "×" !important; display: block !important;
+  color: #fff !important; font-size: 18px !important; line-height: 1 !important;
+  position: static !important; transform: none !important;
+}
+</style>
+
 </body>
 </html>
