@@ -16265,11 +16265,22 @@ processWorkshopJobs();
     return cost;
   };
 function showClickerToast(message){
-  let el=document.getElementById("clickerToast");
-  if(!el){el=document.createElement("div");el.id="clickerToast";el.className="clicker-toast";document.body.appendChild(el);}
-  el.textContent=message;el.classList.add("show");
-  clearTimeout(window.__clickerToastTimer);
-  window.__clickerToastTimer=setTimeout(()=>el.classList.remove("show"),1800);
+  // Use the same premium-coin toast style as the existing passive-income/workers UI.
+  let el=document.getElementById("premiumCoinToast");
+  if(!el){
+    el=document.createElement("div");
+    el.id="premiumCoinToast";
+    el.className="premium-coin-toast";
+    el.setAttribute("role","status");
+    document.body.appendChild(el);
+  }
+  const raw=String(message==null?"":message);
+  const clean=/недостатньо (монет|коштів)/i.test(raw) ? "Недостатньо монет" : raw.replace(/^❌\s*/,"");
+  el.innerHTML='<span class="toast-x">✕</span><span></span>';
+  el.querySelector("span:last-child").textContent=clean;
+  el.classList.add("show");
+  clearTimeout(window.__premiumCoinToastTimer);
+  window.__premiumCoinToastTimer=setTimeout(()=>el.classList.remove("show"),2600);
 }
   // Expose the toast to the separate purchase-handler script below.
   window.showClickerToast = showClickerToast;
@@ -16486,7 +16497,7 @@ function showClickerToast(message){
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(state.tapLevel>=100) return;
     const cost=tapUpgradeCost(state.tapLevel);
-    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    if(stars<cost) { showClickerToast("Недостатньо монет"); return; }
     stars-=cost; state.tapLevel++;
     putNum("nlkaman_stars",stars); persistState();
     if(typeof updateStars==="function") updateStars();
@@ -16496,7 +16507,7 @@ function showClickerToast(message){
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(state.chargeLevel>=30) return;
     const cost=chargeUpgradeCost(state.chargeLevel);
-    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    if(stars<cost) { showClickerToast("Недостатньо монет"); return; }
     stars-=cost; state.chargeLevel++;
     state.charge=Math.min(maxCharge(),state.charge+50);
     putNum("nlkaman_stars",stars); persistState();
@@ -16507,11 +16518,11 @@ function showClickerToast(message){
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     if(state.chargeSpeedLevel>=10) return;
     const cost=chargeSpeedUpgradeCost(state.chargeSpeedLevel);
-    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    if(stars<cost) { showClickerToast("Недостатньо монет"); return; }
     // Credit workers with their old rate before any balance mutation.
     creditPassiveIncome(Date.now());
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
-    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    if(stars<cost) { showClickerToast("Недостатньо монет"); return; }
     stars-=cost;
     state.chargeSpeedLevel++;
     state.lastChargeAt=Date.now();
@@ -16644,10 +16655,10 @@ function showClickerToast(message){
     const level=state.workerLevels[index];
     if(level>=10) return;
     const cost=workerUpgradeCost(index,level);
-    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    if(stars<cost) { showClickerToast("Недостатньо монет"); return; }
     creditPassiveIncome(Date.now());
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
-    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    if(stars<cost) { showClickerToast("Недостатньо монет"); return; }
     stars-=cost;
     state.workerLevels[index]++;
     putNum("nlkaman_stars",stars);
