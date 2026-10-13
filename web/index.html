@@ -17362,7 +17362,7 @@ function formatChargeRemainingMs(ms) {
 .clicker-worker-locked .clicker-worker-info{filter:blur(1.2px)}
 .clicker-worker-locked .clicker-worker-buy{opacity:.8;cursor:not-allowed;font-size:10px}
 </style>
-  <style id="clicker-bottom-button-and-center-coin-fix">
+<style id="clicker-bottom-button-and-center-coin-fix">
 #clickerUpgradeToggle{position:fixed!important;left:50%!important;bottom:calc(72px + env(safe-area-inset-bottom, 0px))!important;top:auto!important;transform:translateX(-50%)!important;z-index:2147483001!important;max-width:calc(100vw - 28px)!important}
 /* Keep the visible premium coin aligned with its actual tap target. */
 #clicker .bear-clicker{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;margin-top:0!important;padding:0!important}
@@ -17421,7 +17421,115 @@ function formatChargeRemainingMs(ms) {
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fixSettingsButton,{once:true});else fixSettingsButton();
 })();
 </script>
-  
+
+<style id="workshop-rarity-and-stat-preview-fix">
+/* Rarity colors shared by the forge and the upgrade screen. */
+#workshopRarity { font-weight: 900 !important; }
+#workshopRarity.rarity-common { color:#b9b9b9 !important; }
+#workshopRarity.rarity-rare { color:#42a5ff !important; }
+#workshopRarity.rarity-epic { color:#c084fc !important; }
+#workshopRarity.rarity-mythic { color:#ff4545 !important; }
+#workshopRarity.rarity-legendary { color:#ffd54a !important; text-shadow:0 0 7px rgba(255,213,74,.22); }
+/* Characteristics should be compact and always stacked one per line. */
+#workshop .workshop-characteristics {
+  display:flex !important; flex-direction:column !important; gap:4px !important;
+}
+#workshop .workshop-characteristics > div {
+  display:flex !important; flex-direction:row !important; align-items:flex-start !important;
+  justify-content:space-between !important; gap:6px !important;
+  width:100% !important; padding:5px 7px !important; min-width:0 !important;
+  font-size:10px !important; line-height:1.25 !important;
+}
+#workshop .workshop-characteristics > div > span {
+  flex:0 0 auto !important; white-space:normal !important; overflow:visible !important;
+  text-overflow:clip !important; font-size:10px !important;
+}
+#workshop .workshop-characteristics > div > strong {
+  min-width:0 !important; text-align:right !important; overflow-wrap:anywhere !important;
+  font-size:9px !important; line-height:1.3 !important; font-weight:800 !important;
+}
+#workshop .workshop-characteristics-title { font-size:9px !important; margin-bottom:5px !important; }
+#workshop .workshop-rarity { font-size:11px !important; }
+</style>
+<script id="workshop-rarity-and-upgrade-preview-fix">
+(function(){
+  const rarityByLevel = level => {
+    const n=Number(level)||1;
+    if(n<=2) return {label:'ЗВИЧАЙНИЙ',cls:'rarity-common'};
+    if(n<=5) return {label:'РІДКІСНИЙ',cls:'rarity-rare'};
+    if(n<=7) return {label:'ЕПІЧНИЙ',cls:'rarity-epic'};
+    if(n<=9) return {label:'МІФІЧНИЙ',cls:'rarity-mythic'};
+    return {label:'ЛЕГЕНДАРНИЙ',cls:'rarity-legendary'};
+  };
+  function paintRarity(level, fallbackName){
+    const el=document.getElementById('workshopRarity'); if(!el)return;
+    const r=rarityByLevel(level);
+    el.textContent=r.label;
+    el.classList.remove('rarity-common','rarity-rare','rarity-epic','rarity-mythic','rarity-legendary');
+    el.classList.add(r.cls);
+    el.dataset.rarity=r.label;
+  }
+  function statValue(v){
+    if(v===undefined||v===null||v==='')return '0';
+    return typeof v==='number'?String(Math.ceil(v-1e-9)):String(v);
+  }
+  function previewRow(id, label, current, next, fromLevel, toLevel, suffix=''){
+    const value=document.getElementById(id); if(!value)return;
+    if(next===null || next===undefined){value.textContent=statValue(current)+suffix;return;}
+    value.textContent=`Рівень ${fromLevel}: ${statValue(current)}${suffix} → Рівень ${toLevel}: ${statValue(next)}${suffix}`;
+  }
+  function wrapRenderer(name, mode){
+    const original=window[name];
+    if(typeof original!=='function'||original.__rarityPreviewWrapped)return;
+    const wrapped=function(...args){
+      const result=original.apply(this,args);
+      try {
+        if(mode==='forge'){
+          const level=Number(typeof forgeSelectedLevel!=='undefined'?forgeSelectedLevel:1)||1;
+          paintRarity(level);
+        } else {
+          const inv=typeof inventory!=='undefined' && Array.isArray(inventory)?inventory:[];
+          const selected=inv.find(x=>String(x.id)===String(typeof workshopSelectedId!=='undefined'?workshopSelectedId:null));
+          if(selected){
+            const meta=typeof getItemMeta==='function'?getItemMeta(selected):null;
+            const weaponLevel=Number(meta&&meta.level)||Number(selected.weaponLevel)||1;
+            paintRarity(weaponLevel,selected.name);
+            const lvl=typeof getItemLevel==='function'?getItemLevel(selected):Math.max(0,Math.min(6,Number(selected.workshopLevel)||0));
+            if(lvl<6 && meta && typeof getWeaponStats==='function'){
+              const current=selected.type==='armor'?getArmorStats(meta.level,lvl):getWeaponStats(meta.level,lvl);
+              const next=selected.type==='armor'?getArmorStats(meta.level,lvl+1):getWeaponStats(meta.level,lvl+1);
+              const from=lvl+1,to=lvl+2;
+              previewRow('workshopStrength','Сила',current.strength,next.strength,from,to);
+              previewRow('workshopAttack','Атака',current.attack,next.attack,from,to);
+              previewRow('workshopDefense','Захист',current.defense,next.defense,from,to);
+              previewRow('workshopAgility','Ловкість',current.agility,next.agility,from,to);
+              previewRow('workshopBlood','Кровопролиття',current.blood,next.blood,from,to);
+              const harvestSuffix=meta.harvestType==='wood'?' дерева':meta.harvestType==='metal'?' металу':'';
+              previewRow('workshopHarvest','Добування',current.harvest?`+${current.harvest}`:0,next.harvest?`+${next.harvest}`:0,from,to,harvestSuffix);
+              const els=document.getElementById('workshopElements');
+              if(els){
+                const a=typeof elementsText==='function'?elementsText(current.elements):'Немає';
+                const b=typeof elementsText==='function'?elementsText(next.elements):'Немає';
+                els.textContent=`Рівень ${from}: ${a} → Рівень ${to}: ${b}`;
+              }
+            }
+          }
+        }
+      } catch(e){console.warn('Workshop rarity/preview update skipped',e);}
+      return result;
+    };
+    wrapped.__rarityPreviewWrapped=true;
+    window[name]=wrapped;
+  }
+  function install(){
+    wrapRenderer('renderForgeSelected','forge');
+    wrapRenderer('renderWorkshopSelected','upgrade');
+    // The current page may already be open when this patch runs.
+    if(typeof window.renderForgeSelected==='function' && typeof workshopMode!=='undefined' && workshopMode==='forge')window.renderForgeSelected();
+    if(typeof window.renderWorkshopSelected==='function' && typeof workshopMode!=='undefined' && workshopMode==='upgrade')window.renderWorkshopSelected();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
+})();
+</script>
 </body>
 </html>
-
