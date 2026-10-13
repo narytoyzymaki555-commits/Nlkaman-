@@ -16264,24 +16264,38 @@ processWorkshopJobs();
     for (let current = 3; current <= level; current++) cost = Math.ceil(cost * 2.5);
     return cost;
   };
-function showClickerToast(message){
-  // Use the same premium-coin toast style as the existing passive-income/workers UI.
-  let el=document.getElementById("premiumCoinToast");
-  if(!el){
-    el=document.createElement("div");
-    el.id="premiumCoinToast";
-    el.className="premium-coin-toast";
-    el.setAttribute("role","status");
-    document.body.appendChild(el);
+
+function showClickerToast(message) {
+  const el = document.getElementById("premiumCoinToast");
+
+  if (el && typeof window.showPremiumCoinToast === "function") {
+    window.showPremiumCoinToast(message);
+    return;
   }
-  const raw=String(message==null?"":message);
-  const clean=/недостатньо (монет|коштів)/i.test(raw) ? "Недостатньо монет" : raw.replace(/^❌\s*/,"");
-  el.innerHTML='<span class="toast-x">✕</span><span></span>';
-  el.querySelector("span:last-child").textContent=clean;
-  el.classList.add("show");
+
+  if (!el) {
+    const toast = document.createElement("div");
+    toast.id = "premiumCoinToast";
+    toast.className = "premium-coin-toast";
+    toast.setAttribute("role", "status");
+    document.body.appendChild(toast);
+  }
+
+  const toast = document.getElementById("premiumCoinToast");
+  const text = /недостатньо (монет|коштів)/i.test(String(message))
+    ? "Недостатньо монет"
+    : String(message).replace(/^❌\s*/, "");
+
+  toast.innerHTML = '<span class="toast-x">✕</span><span class="toast-message"></span>';
+  toast.querySelector(".toast-message").textContent = text;
+  toast.classList.add("show");
+
   clearTimeout(window.__premiumCoinToastTimer);
-  window.__premiumCoinToastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+  window.__premiumCoinToastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2600);
 }
+
   // Expose the toast to the separate purchase-handler script below.
   window.showClickerToast = showClickerToast;
   const workerDefs = [
