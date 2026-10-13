@@ -16284,7 +16284,7 @@ function showClickerToast(message) {
   const toast = document.getElementById("premiumCoinToast");
   const text = /недостатньо (монет|коштів)/i.test(String(message))
     ? "Недостатньо монет"
-    : String(message).replace(/^❌\s*/, "");
+    : String(message).replace(/^\s*/, "");
 
   toast.innerHTML = '<span class="toast-x"></span><span class="toast-message"></span>';
   toast.querySelector(".toast-message").textContent = text;
