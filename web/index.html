@@ -17854,5 +17854,22 @@ function formatChargeRemainingMs(ms) {
 }
 </style>
 
+
+<style id="clicker-upgrade-settings-layout-fix">
+/* Піднімаємо кнопку «Покращення» під головною монеткою на 5% висоти екрана. */
+#clicker #clickerUpgradeToggle {
+  position: fixed !important;
+  left: 10% !important;
+  bottom: calc(72px + 5vh) !important;
+  width: 80% !important;
+  margin: 0 !important;
+  z-index: 2147483001 !important;
+}
+/* Кнопка налаштувань трохи вище за «Покращення», щоб вони не перетиналися. */
+.settings-button {
+  bottom: calc(85px + 8vh) !important;
+  z-index: 2147483005 !important;
+}
+</style>
 </body>
 </html>
