@@ -17531,5 +17531,140 @@ function formatChargeRemainingMs(ms) {
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
 })();
 </script>
+
+<style id="workshop-forge-first-open-layout">
+/* Match the workshop forge chooser to the upgrade panel's card treatment. */
+#forgeCategoryBlock.workshop-forge-block{box-sizing:border-box;width:100%;margin:14px 0 18px;padding:16px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:linear-gradient(155deg,rgba(24,31,43,.96),rgba(12,16,25,.98));box-shadow:0 8px 24px rgba(0,0,0,.22)}
+#forgeCategoryBlock .workshop-equipment-title{margin:0 0 12px;text-align:center;font-size:14px;font-weight:800;letter-spacing:.3px}
+#forgeFirstOpenPrompt{display:none;text-align:center;font-size:15px;font-weight:700;line-height:1.4;color:#f1f4f8;margin:0 0 16px;padding:4px 6px}
+#forgeCategoryBlock.first-open #forgeFirstOpenPrompt{display:block}
+#forgeCategoryBlock.first-open .workshop-equipment-title{display:none}
+#forgeCategoryBlock .workshop-equipment-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+#forgeCategoryBlock .workshop-equipment-tab{min-height:44px;border-radius:12px;font-size:13px;font-weight:800}
+#forgeEquipment{margin-top:10px}
+#workshop .workshop-selected.forge-hidden,#workshopForgePanel.forge-hidden{display:none!important}
+#forgeEquipment.forge-hidden{display:none!important}
+</style>
+<script id="workshop-forge-first-open-behavior">
+(function(){
+  // This state intentionally lives only in memory: it survives SPA navigation,
+  // but resets when the whole page is reloaded.
+  let forgeHasChosenCategory=false;
+  let forgeHasChosenRecipe=false;
+  let forgeFirstOpenInitialized=false;
+
+  function forgeNodes(){
+    return {
+      category:document.getElementById('forgeCategoryBlock'),
+      selected:document.querySelector('#workshop .workshop-selected'),
+      costs:document.getElementById('workshopForgePanel'),
+      equipment:document.getElementById('forgeEquipment'),
+      title:document.querySelector('#forgeCategoryBlock .workshop-equipment-title')
+    };
+  }
+  function ensurePrompt(){
+    const n=forgeNodes(); if(!n.category)return;
+    let prompt=document.getElementById('forgeFirstOpenPrompt');
+    if(!prompt){prompt=document.createElement('div');prompt.id='forgeFirstOpenPrompt';prompt.textContent='Оберіть предмет, який ви хочете закувати';n.category.insertBefore(prompt,n.category.firstChild);}
+  }
+  function paintForgeState(){
+    const n=forgeNodes(); if(!n.category)return;
+    ensurePrompt();
+    n.category.classList.toggle('first-open',!forgeHasChosenCategory);
+    if(n.title)n.title.textContent=forgeHasChosenCategory?'ОБЕРІТЬ ПРЕДМЕТ ДЛЯ КУВАННЯ':'Оберіть предмет який ви хочете закувати';
+    if(n.equipment)n.equipment.classList.toggle('forge-hidden',!forgeHasChosenCategory);
+    if(n.selected)n.selected.classList.toggle('forge-hidden',!forgeHasChosenRecipe);
+    if(n.costs)n.costs.classList.toggle('forge-hidden',!forgeHasChosenRecipe);
+    const weapons=document.getElementById('forgeWeaponsTab');
+    const armor=document.getElementById('forgeArmorTab');
+    if(weapons)weapons.classList.toggle('active',forgeCategory==='weapon');
+    if(armor)armor.classList.toggle('active',forgeCategory==='armor');
+  }
+  const oldSwitchMode=window.switchWorkshopMode;
+  window.switchWorkshopMode=function(mode){
+    workshopMode=mode==='upgrade'?'upgrade':'forge';
+    document.getElementById('workshopForgeModeTab')?.classList.toggle('active',workshopMode==='forge');
+    document.getElementById('workshopUpgradeModeTab')?.classList.toggle('active',workshopMode==='upgrade');
+    document.getElementById('workshopForgePanel')?.style.setProperty('display',workshopMode==='forge'?'block':'none');
+    document.getElementById('forgeCategoryBlock')?.style.setProperty('display',workshopMode==='forge'?'block':'none');
+    document.getElementById('workshopUpgradePanel')?.style.setProperty('display',workshopMode==='upgrade'?'block':'none');
+    document.getElementById('workshopUpgradeEquipmentBlock')?.style.setProperty('display',workshopMode==='upgrade'?'block':'none');
+    if(workshopMode==='forge'){
+      if(forgeHasChosenCategory)window.renderForgeEquipment();
+      if(forgeHasChosenRecipe)window.renderForgeSelected();
+      paintForgeState();
+    }else{renderWorkshop();}
+    renderWorkshopJobs();
+  };
+  window.switchForgeCategory=function(category){
+    forgeCategory=category==='armor'?'armor':'weapon';
+    forgeHasChosenCategory=true;
+    forgeHasChosenRecipe=false;
+    forgeSelectedLevel=0;
+    document.getElementById('forgeWeaponsTab')?.classList.toggle('active',forgeCategory==='weapon');
+    document.getElementById('forgeArmorTab')?.classList.toggle('active',forgeCategory==='armor');
+    const c=document.getElementById('forgeEquipment');if(c)c.innerHTML='';
+    window.renderForgeEquipment();
+    paintForgeState();
+  };
+  window.renderForgeEquipment=function(){
+    const c=document.getElementById('forgeEquipment');if(!c)return;c.innerHTML='';
+    const max=getForgeMaxLevel();
+    (forgeRecipes[forgeCategory]||[]).forEach(r=>{
+      const locked=r.level>max,card=document.createElement('button');
+      card.type='button';card.setAttribute('aria-label',r.name+(locked?', заблоковано':', вибрати предмет'));
+      card.className='forge-equipment-card'+(forgeHasChosenRecipe&&forgeSelectedLevel===r.level?' selected':'')+(locked?' locked':'');
+      card.innerHTML=`${locked?'<div class="forge-equipment-lock">🔒</div>':''}<img src="${r.image}" alt="${r.name}"><div class="forge-equipment-level">${r.level===1?'БАЗА':r.level+' РІВЕНЬ'}</div><div class="forge-equipment-card-name">${r.name}</div>${locked?`<div class="forge-required-level">Потрібен рівень ${r.level-1}</div>`:''}`;
+      card.disabled=locked;
+      if(!locked)card.addEventListener('click',()=>{
+        forgeSelectedLevel=r.level;forgeHasChosenRecipe=true;
+        // Keep chosen item in memory, not localStorage, so reload starts clean.
+        window.renderForgeSelected();window.renderForgeEquipment();paintForgeState();
+      });
+      c.appendChild(card);
+    });
+  };
+  const oldRenderForgeSelected=window.renderForgeSelected;
+  window.renderForgeSelected=function(){
+    if(!forgeHasChosenCategory||!forgeHasChosenRecipe){paintForgeState();return;}
+    oldRenderForgeSelected();
+    paintForgeState();
+  };
+  const oldForgeWorkshopItem=window.forgeWorkshopItem;
+  window.forgeWorkshopItem=function(){
+    if(!forgeHasChosenCategory||!forgeHasChosenRecipe){showWorkshopToast('Спочатку оберіть категорію та предмет для кування.');return;}
+    oldForgeWorkshopItem();
+  };
+  const oldOpenWorkshop=window.openWorkshop;
+  window.openWorkshop=function(){
+    processWorkshopJobs();
+    workshopMode='forge';
+    // Do not restore a prior recipe from localStorage. In-memory selection is
+    // retained while navigating around this SPA and resets on a full reload.
+    if(!forgeFirstOpenInitialized){forgeHasChosenCategory=false;forgeHasChosenRecipe=false;forgeSelectedLevel=0;forgeFirstOpenInitialized=true;}
+    document.getElementById('workshopForgeModeTab')?.classList.add('active');
+    document.getElementById('workshopUpgradeModeTab')?.classList.remove('active');
+    document.getElementById('workshopForgePanel')?.style.setProperty('display','block');
+    document.getElementById('forgeCategoryBlock')?.style.setProperty('display','block');
+    document.getElementById('workshopUpgradePanel')?.style.setProperty('display','none');
+    document.getElementById('workshopUpgradeEquipmentBlock')?.style.setProperty('display','none');
+    if(forgeHasChosenCategory)window.renderForgeEquipment();
+    if(forgeHasChosenRecipe)window.renderForgeSelected();
+    paintForgeState();
+    updateWorkshopTopResources();renderWorkshopJobs();
+    const top=document.querySelector('#workshop .top-panel');if(top)top.style.display='flex';
+  };
+  function resetForgeChoiceOnFullReload(){
+    // The variables above are recreated for each page load; remove old persisted
+    // forge selection so legacy restore code cannot resurrect the default pickaxe.
+    try{localStorage.removeItem('nlkaman_forge_weapon_level');localStorage.removeItem('nlkaman_forge_armor_level');}catch(e){}
+    forgeSelectedLevel=0;
+    forgeHasChosenCategory=false;forgeHasChosenRecipe=false;forgeFirstOpenInitialized=true;
+    paintForgeState();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',resetForgeChoiceOnFullReload,{once:true});else resetForgeChoiceOnFullReload();
+})();
+</script>
+
 </body>
 </html>
