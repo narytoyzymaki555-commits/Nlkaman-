@@ -17827,28 +17827,24 @@ function formatChargeRemainingMs(ms) {
 </style>
 
 <style id="clicker-upgrade-button-minimal-position-fix">
-/* Place the upgrade button 2px above the top edge of the bottom navigation. */
+/* Only adjust the Upgrade button in its existing layout; do not move the coin or horizontally offset the button. */
 #clicker #clickerUpgradeToggle {
-  position: fixed !important;
-  left: 10% !important;
+  position: relative !important;
+  left: auto !important;
   right: auto !important;
-  top: auto !important;
-  bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+  top: calc(-1.5vh - 2px) !important;
+  bottom: auto !important;
   transform: none !important;
   display: block !important;
   width: 80% !important;
   max-width: 420px !important;
-  height: 42px !important;
-  margin: 0 !important;
+  margin: 10px auto 12px !important;
   box-sizing: border-box !important;
   z-index: 39 !important;
 }
-/* Settings sits 4px above the upgrade button, aligned to the lower-right side. */
+/* Settings stays in the lower-right area and does not affect the coin/button layout. */
 .settings-button {
-  position: fixed !important;
-  right: 12px !important;
-  left: auto !important;
-  bottom: calc(118px + env(safe-area-inset-bottom, 0px)) !important;
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px)) !important;
   z-index: 45 !important;
 }
 </style>
