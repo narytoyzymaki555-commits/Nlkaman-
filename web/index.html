@@ -16271,6 +16271,8 @@ function showClickerToast(message){
   clearTimeout(window.__clickerToastTimer);
   window.__clickerToastTimer=setTimeout(()=>el.classList.remove("show"),1800);
 }
+  // Expose the toast to the separate purchase-handler script below.
+  window.showClickerToast = showClickerToast;
   const workerDefs = [
     {name:"Робітник 1",cost:15000,income:5000,incomeMult:2,costMult:3,firstUpgradeCost:25000},
     {name:"Робітник 2",cost:20000,income:10000,incomeMult:1.5,costMult:3,firstUpgradeCost:null},
@@ -17230,10 +17232,10 @@ function formatChargeRemainingMs(ms) {
     if (chargeBuy) chargeBuy.textContent = chargeLevel >= 30 ? "МАКС" : `${fmt(chargeCost(chargeLevel))} 🪙`;
   }
   function findButton(target) {
-    return target && target.closest ? target.closest("#clickerTapBuy, #clickerChargeBuy") : null;
+    return target && target.closest ? target.closest("#clickerTapBuy, #clickerChargeBuy, #clickerChargeSpeedBuy") : null;
   }
   function activate(button) {
-    const fnName = button.id === "clickerTapBuy" ? "buyClickerTapUpgrade" : "buyClickerChargeUpgrade";
+    const fnName = button.id === "clickerTapBuy" ? "buyClickerTapUpgrade" : (button.id === "clickerChargeSpeedBuy" ? "buyClickerChargeSpeedUpgrade" : "buyClickerChargeUpgrade");
     const fn = window[fnName];
     if (typeof fn === "function") {
       try { fn(); return; }
@@ -17273,7 +17275,7 @@ function formatChargeRemainingMs(ms) {
     activate(button);
   }, true);
   function styleButtons() {
-    ["clickerTapBuy", "clickerChargeBuy"].forEach(id => {
+    ["clickerTapBuy", "clickerChargeBuy", "clickerChargeSpeedBuy"].forEach(id => {
       const button = document.getElementById(id);
       if (!button) return;
       button.type = "button";
