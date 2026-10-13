@@ -7325,7 +7325,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 .nav-btn .nav-image-wrap img { display:block; width:25px; height:25px; object-fit:contain; }
 .nav-btn span { margin-bottom:3px; }
 
-#inventory .tab-header-image { content:url("https://summer-water-4fb5.narytoyzymaki555.workers.dev/inventory-header-v2.png.PNG") !important; }
+#inventory .tab-header-image { content:url("https://shy-butterfly-85f8.narytoyzymaki555.workers.dev/inventory-header-v3.png.PNG") !important; }
 #wheel > .tab-header-image { content:url("https://leaderinventfriendsgamewelgamewhellhead.narytoyzymaki555.workers.dev/wheel-header-new.png.PNG?v=20261010") !important; }
 #inventorySelected { min-height:76px !important; padding:12px !important; }
 #inventorySelectedImage.inventory-selected-placeholder {
@@ -7758,7 +7758,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 >
 
   <img
-    src="https://summer-water-4fb5.narytoyzymaki555.workers.dev/inventory-header-v2.png.PNG"
+    src="https://shy-butterfly-85f8.narytoyzymaki555.workers.dev/inventory-header-v3.png.PNG"
     class="tab-header-image"
     alt=""
   >
@@ -8061,7 +8061,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
       <span id="clickerChargeText">Заряд: 1000 / 1000</span>
       <span id="clickerChargeTime">Повний заряд: 0 с</span>
     </div>
-    <div class="charge-help">1 заряд — 3 секунди</div>
+    <div class="charge-help" id="clickerChargeHelp">1 заряд — 3 секунди</div>
   </div>
 
   <div class="bear-clicker">
@@ -8084,12 +8084,12 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   <div id="clickerFloatingRewards" class="clicker-floating-rewards" aria-live="polite"></div>
 
   <button id="clickerUpgradeToggle" class="clicker-upgrade-toggle" onclick="toggleClickerUpgrades()">
-    🚀 Покращення
+    Покращення
   </button>
 
   <div id="clickerUpgradePanel" class="clicker-upgrade-panel" style="display:none;">
     <button id="clickerUpgradeBack" type="button" class="button secondary clicker-upgrade-back" onclick="var p=document.getElementById('clickerUpgradePanel'); var b=document.getElementById('clickerUpgradeToggle'); if(p){p.style.display='none';p.style.visibility='hidden';p.style.opacity='0';p.dataset.open='false';p.setAttribute('aria-hidden','true');} if(b){b.style.display='';b.style.visibility='visible';b.style.opacity='1';b.setAttribute('aria-expanded','false');}" style="margin-bottom:12px;">← НАЗАД</button>
-    <div class="clicker-upgrade-heading">🚀 Покращуй та заробляй більше!</div>
+    <div class="clicker-upgrade-heading">Покращення</div>
     <div class="clicker-upgrade-section-title">Активний дохід</div>
     <div id="clickerTapUpgrade" class="clicker-upgrade-row">
       <div class="clicker-upgrade-info">
@@ -8104,6 +8104,13 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
         <div id="clickerChargeLevels" class="clicker-upgrade-levels">Рівень 1 · 1000 ⚡ → Рівень 2 · 1050 ⚡</div>
       </div>
       <button id="clickerChargeBuy" type="button" class="clicker-cost-button" onclick="if(typeof window.buyClickerChargeUpgrade==='function'){window.buyClickerChargeUpgrade()}else{console.error('buyClickerChargeUpgrade is not defined')}">1 000 🪙</button>
+    </div>
+    <div id="clickerChargeSpeedUpgrade" class="clicker-upgrade-row">
+      <div class="clicker-upgrade-info">
+        <div class="clicker-upgrade-name">Зменшення часу зарядності</div>
+        <div id="clickerChargeSpeedLevels" class="clicker-upgrade-levels">Рівень 0 · 3 секунди → Рівень 1 · 2,8 секунди</div>
+      </div>
+      <button id="clickerChargeSpeedBuy" type="button" class="clicker-cost-button" onclick="if(typeof window.buyClickerChargeSpeedUpgrade==='function'){window.buyClickerChargeSpeedUpgrade()}else{console.error('buyClickerChargeSpeedUpgrade is not defined')}"><img class="clicker-premium-coin" src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG" alt="монета"> 5 000 000</button>
     </div>
     <div class="clicker-upgrade-section-title passive-income-title">Пасивний дохід</div>
     <div class="clicker-passive-heading">Найняти робітника</div>
@@ -11117,6 +11124,8 @@ function clickBear() {
   const now = Date.now();
   const level = Math.max(1, Math.min(30, Number(localStorage.getItem("nlkaman_charge_level")) || 1));
   const maxCharge = 1000 + (level - 1) * 50;
+  const speedLevel = Math.max(0, Math.min(10, Number(localStorage.getItem("nlkaman_charge_speed_level")) || 0));
+  const intervalMs = Math.max(1000, 3000 - speedLevel * 200);
   // Якщо основний клікер не ініціалізувався, HTML може показувати 1000/1000,
   // хоча ключ заряду в localStorage ще відсутній. Ініціалізуємо його повним зарядом,
   // а не перетворюємо відсутнє значення на 0.
@@ -11132,11 +11141,11 @@ function clickBear() {
 
   // Відновлюємо заряд, що встиг накопичитися з моменту попереднього оновлення.
   if (charge < maxCharge) {
-    const units = Math.floor(Math.max(0, now - lastAt) / 3000);
+    const units = Math.floor(Math.max(0, now - lastAt) / intervalMs);
     if (units > 0) {
       const gained = Math.min(units, maxCharge - charge);
       charge += gained;
-      lastAt += gained * 3000;
+      lastAt += gained * intervalMs;
     }
   } else {
     lastAt = now;
@@ -11146,13 +11155,15 @@ function clickBear() {
   const label = document.getElementById("clickerChargeText");
   const time = document.getElementById("clickerChargeTime");
   const drawCharge = () => {
+    const help = document.getElementById("clickerChargeHelp");
+    if (help) help.textContent = `1 заряд — ${(3-speedLevel*0.2).toLocaleString("uk-UA",{maximumFractionDigits:1})} секунди`;
     if (fill) fill.style.width = (charge / maxCharge * 100) + "%";
     if (label) label.textContent = `Заряд: ${Math.floor(charge).toLocaleString("uk-UA")} / ${maxCharge.toLocaleString("uk-UA")}`;
     if (time) {
       if (charge >= maxCharge) {
         time.textContent = "Повний заряд";
       } else {
-        const remainingMs = Math.max(0, (maxCharge - charge) * 3000 - Math.max(0, Date.now() - lastAt));
+        const remainingMs = Math.max(0, (maxCharge - charge) * intervalMs - Math.max(0, Date.now() - lastAt));
         time.textContent = `До повного заряду: ${formatChargeRemainingMs(remainingMs)}`;
       }
     }
@@ -16271,12 +16282,16 @@ function showClickerToast(message){
   const state = {
     tapLevel: Math.max(1,Math.min(100,getNum("nlkaman_clicker_level",1))),
     chargeLevel: Math.max(1,Math.min(30,getNum("nlkaman_charge_level",1))),
+    chargeSpeedLevel: Math.max(0,Math.min(10,getNum("nlkaman_charge_speed_level",0))),
     charge: Math.max(0,getNum("nlkaman_charge",1000)),
     lastChargeAt: getNum("nlkaman_charge_last_at",Date.now()),
     workerLevels: []
   };
   workerDefs.forEach((def,index)=>state.workerLevels[index]=Math.max(0,Math.min(10,getNum("nlkaman_worker_"+index,0))));
   const maxCharge = () => 1000 + (state.chargeLevel - 1) * 50;
+  const chargeIntervalMs = () => Math.max(1000, 3000 - state.chargeSpeedLevel * 200);
+  const chargeIntervalSeconds = level => Math.max(1, 3 - Math.max(0, Math.min(10, Number(level) || 0)) * 0.2);
+  const chargeSpeedUpgradeCost = level => 5000000 * Math.pow(2, Math.max(0, Number(level) || 0));
   const workerIncomeAtLevel = (index,level) => {
     if (level <= 0) return 0;
     let income=workerDefs[index].income;
@@ -16294,6 +16309,7 @@ function showClickerToast(message){
   const persistState = () => {
     putNum("nlkaman_clicker_level",state.tapLevel);
     putNum("nlkaman_charge_level",state.chargeLevel);
+    putNum("nlkaman_charge_speed_level",state.chargeSpeedLevel);
     putNum("nlkaman_charge",state.charge);
     putNum("nlkaman_charge_last_at",state.lastChargeAt);
     state.workerLevels.forEach((level,index)=>putNum("nlkaman_worker_"+index,level));
@@ -16305,12 +16321,14 @@ function showClickerToast(message){
     if (fill) fill.style.width = (max ? (state.charge / max) * 100 : 0) + "%";
     const label = document.getElementById("clickerChargeText");
     if (label) label.textContent = `Заряд: ${format(state.charge)} / ${format(max)}`;
+    const help = document.getElementById("clickerChargeHelp");
+    if (help) help.textContent = `1 заряд — ${chargeIntervalSeconds(state.chargeSpeedLevel).toLocaleString("uk-UA",{maximumFractionDigits:1})} ${state.chargeSpeedLevel===0?"секунди":"секунди"}`;
     const time = document.getElementById("clickerChargeTime");
     if (time) {
       if (state.charge >= max) {
         time.textContent = "Повний заряд";
       } else {
-        const remainingMs = Math.max(0, (max - state.charge) * 3000 - Math.max(0, Date.now() - state.lastChargeAt));
+        const remainingMs = Math.max(0, (max - state.charge) * chargeIntervalMs() - Math.max(0, Date.now() - state.lastChargeAt));
         time.textContent = `До повного заряду: ${formatChargeRemainingMs(remainingMs)}`;
       }
     }
@@ -16320,12 +16338,13 @@ function showClickerToast(message){
     state.charge = Math.max(0, Math.min(max, Number(state.charge) || 0));
     if (state.charge < max) {
       const elapsed = Math.max(0, now - (Number(state.lastChargeAt) || now));
-      const units = Math.floor(elapsed / 3000);
+      const interval = chargeIntervalMs();
+      const units = Math.floor(elapsed / interval);
       if (units > 0) {
         const gained = Math.min(units, max - state.charge);
         state.charge += gained;
         // Keep the leftover milliseconds so exactly one unit regenerates every 3 seconds.
-        state.lastChargeAt = (Number(state.lastChargeAt) || now) + gained * 3000;
+        state.lastChargeAt = (Number(state.lastChargeAt) || now) + gained * interval;
         if (state.charge >= max) state.lastChargeAt = now;
       }
     } else {
@@ -16337,7 +16356,12 @@ function showClickerToast(message){
   };
   const creditPassiveIncome = (now=Date.now()) => {
     const key="nlkaman_workers_last_credit";
-    const last=getNum(key,now);
+    const storedLast=LS.getItem(key);
+    // Existing saves may have workers but no timestamp. Grant the maximum
+    // offline window once, instead of silently discarding the first return.
+    const last=storedLast===null
+      ? (totalHourlyIncome()>0 ? now-12*60*60*1000 : now)
+      : Math.max(0,Number(storedLast)||now);
     const rawElapsed=Math.max(0,now-last);
     const elapsed=Math.min(12*60*60*1000,rawElapsed);
     const fractionKey="nlkaman_workers_fractional_coin";
@@ -16424,7 +16448,7 @@ function showClickerToast(message){
       if (state.charge >= charge) {
         time.textContent = "Повний заряд";
       } else {
-        const remainingMs = Math.max(0, (charge - state.charge) * 3000 - Math.max(0, Date.now() - state.lastChargeAt));
+        const remainingMs = Math.max(0, (charge - state.charge) * chargeIntervalMs() - Math.max(0, Date.now() - state.lastChargeAt));
         time.textContent = `До повного заряду: ${formatChargeRemainingMs(remainingMs)}`;
       }
     }
@@ -16438,6 +16462,19 @@ function showClickerToast(message){
     if(chargeLevels) chargeLevels.textContent=chargeNext===null?`Рівень 30 · ${format(maxCharge())} ⚡ · МАКС`:`Рівень ${state.chargeLevel} · ${format(maxCharge())} ⚡ → Рівень ${chargeNext} · ${format(maxCharge()+50)} ⚡`;
     const chargeBuy=document.getElementById("clickerChargeBuy");
     if(chargeBuy) { chargeBuy.textContent=chargeNext===null?"МАКС":`${format(chargeUpgradeCost(state.chargeLevel))} 🪙`; chargeBuy.disabled=false; }
+    const speedLevel=state.chargeSpeedLevel;
+    const speedNext=speedLevel<10?speedLevel+1:null;
+    const speedLevels=document.getElementById("clickerChargeSpeedLevels");
+    if(speedLevels) speedLevels.textContent=speedNext===null
+      ? `Рівень 10 · ${chargeIntervalSeconds(speedLevel).toLocaleString("uk-UA",{maximumFractionDigits:1})} секунди · МАКС`
+      : `Рівень ${speedLevel} · ${chargeIntervalSeconds(speedLevel).toLocaleString("uk-UA",{maximumFractionDigits:1})} секунди → Рівень ${speedNext} · ${chargeIntervalSeconds(speedNext).toLocaleString("uk-UA",{maximumFractionDigits:1})} секунди`;
+    const speedBuy=document.getElementById("clickerChargeSpeedBuy");
+    if(speedBuy) {
+      speedBuy.innerHTML=speedNext===null?"МАКС":`${format(chargeSpeedUpgradeCost(speedLevel))} <img class="clicker-premium-coin" src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG" alt="монета">`;
+      speedBuy.disabled=speedNext===null;
+    }
+    const help=document.getElementById("clickerChargeHelp");
+    if(help) help.textContent=`1 заряд — ${chargeIntervalSeconds(speedLevel).toLocaleString("uk-UA",{maximumFractionDigits:1})} секунди`;
     renderWorkers();
   };
 
@@ -16463,6 +16500,24 @@ function showClickerToast(message){
     putNum("nlkaman_stars",stars); persistState();
     if(typeof updateStars==="function") updateStars();
     renderClickerUpgrades();
+  };
+  window.buyClickerChargeSpeedUpgrade = function() {
+    stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
+    if(state.chargeSpeedLevel>=10) return;
+    const cost=chargeSpeedUpgradeCost(state.chargeSpeedLevel);
+    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    // Credit workers with their old rate before any balance mutation.
+    creditPassiveIncome(Date.now());
+    stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
+    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    stars-=cost;
+    state.chargeSpeedLevel++;
+    state.lastChargeAt=Date.now();
+    putNum("nlkaman_stars",stars);
+    persistState();
+    if(typeof updateStars==="function") updateStars();
+    renderClickerUpgrades();
+    renderCharge();
   };
   const showReward = amount => {
     const host=document.getElementById("clickerFloatingRewards");
@@ -16588,6 +16643,9 @@ function showClickerToast(message){
     if(level>=10) return;
     const cost=workerUpgradeCost(index,level);
     if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
+    creditPassiveIncome(Date.now());
+    stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
+    if(stars<cost) { showClickerToast("❌ Недостатньо монет"); return; }
     stars-=cost;
     state.workerLevels[index]++;
     putNum("nlkaman_stars",stars);
@@ -16617,7 +16675,7 @@ function showClickerToast(message){
       const now = Date.now();
       const wasFull = state.charge >= maxCharge();
       state.charge = Math.max(0, Number(state.charge) - 1);
-      // Коли заряд був повним, починаємо 3-секундний відлік із цього кліку.
+      // Коли заряд був повним, починаємо відлік за поточним рівнем швидкості.
       if (wasFull) state.lastChargeAt = now;
       putNum("nlkaman_charge", state.charge);
       putNum("nlkaman_charge_last_at", state.lastChargeAt);
@@ -16836,6 +16894,9 @@ function renderSelectedInventoryItem() {
       const levelRaw = Number(localStorage.getItem(LEVEL_KEY));
       const level = Math.max(1, Math.min(30, Number.isFinite(levelRaw) && levelRaw > 0 ? levelRaw : 1));
       const max = 1000 + (level - 1) * 50;
+      const speedLevelRaw = Number(localStorage.getItem("nlkaman_charge_speed_level"));
+      const speedLevel = Math.max(0, Math.min(10, Number.isFinite(speedLevelRaw) ? speedLevelRaw : 0));
+      const intervalMs = Math.max(1000, 3000 - speedLevel * 200);
       const storedCharge = localStorage.getItem(CHARGE_KEY);
       let charge = storedCharge === null ? max : Number(storedCharge);
       if (!Number.isFinite(charge)) charge = max;
@@ -16844,11 +16905,11 @@ function renderSelectedInventoryItem() {
       const storedLast = Number(localStorage.getItem(LAST_KEY));
       let last = Number.isFinite(storedLast) && storedLast > 0 ? storedLast : now;
       if (charge < max) {
-        const units = Math.floor(Math.max(0, now - last) / 3000);
+        const units = Math.floor(Math.max(0, now - last) / intervalMs);
         if (units > 0) {
           const gained = Math.min(units, max - charge);
           charge += gained;
-          last += gained * 3000;
+          last += gained * intervalMs;
           if (charge >= max) last = now;
         }
       } else {
@@ -16863,10 +16924,12 @@ function renderSelectedInventoryItem() {
       if (fill) fill.style.width = (charge / max * 100) + "%";
       if (label) label.textContent = `Заряд: ${Math.floor(charge).toLocaleString("uk-UA")} / ${max.toLocaleString("uk-UA")}`;
       if (time) {
-        const remaining = charge >= max ? 0 : Math.max(0, 3 - Math.floor(Math.max(0, now - last) / 1000));
+        const remaining = charge >= max ? 0 : Math.max(0, Math.ceil((intervalMs - Math.max(0, now - last)) / 1000));
         time.textContent = charge >= max
   ? "Повний заряд"
-  : `До повного заряду: ${formatTime(Math.ceil((max - charge) * 3))}`;
+  : `До повного заряду: ${formatChargeRemainingMs(Math.max(0, (max - charge) * intervalMs - Math.max(0, now-last)))}`;
+        const help=document.getElementById("clickerChargeHelp");
+        if(help) help.textContent=`1 заряд — ${(3-speedLevel*0.2).toLocaleString("uk-UA",{maximumFractionDigits:1})} секунди`;
       }
     } catch (err) {
       console.warn("Charge display refresh failed:", err);
@@ -16920,6 +16983,8 @@ function formatChargeRemainingMs(ms) {
       };
       const level = Math.max(1, Math.min(30, num('nlkaman_charge_level', 1)));
       const max = 1000 + (level - 1) * 50;
+      const speedLevel = Math.max(0, Math.min(10, num('nlkaman_charge_speed_level', 0)));
+      const intervalMs = Math.max(1000, 3000 - speedLevel * 200);
       let charge = Math.max(0, Math.min(max, num('nlkaman_charge', max)));
       const now = Date.now();
       let last = num('nlkaman_charge_last_at', now);
@@ -16929,7 +16994,7 @@ function formatChargeRemainingMs(ms) {
       }
       if (!last || last > now) last = now;
       const elapsed = Math.max(0, now - last);
-      const totalRemainingMs = Math.max(0, (max - charge) * 3000 - elapsed);
+      const totalRemainingMs = Math.max(0, (max - charge) * intervalMs - elapsed);
       timeEl.textContent = `До повного заряду: ${formatChargeRemainingMs(totalRemainingMs)}`;
     } catch (e) {
       console.warn('Full charge countdown update failed:', e);
