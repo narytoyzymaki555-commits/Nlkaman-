@@ -17478,7 +17478,7 @@ function formatChargeRemainingMs(ms) {
    if(!el){el=document.createElement('div');el.id='premiumCoinToast';el.className='premium-coin-toast';el.setAttribute('role','status');document.body.appendChild(el);}
    el.innerHTML='<span class="toast-x"></span><span></span>';
    const span=el.querySelector('span:last-child');
-   span.textContent=message;
+   span.textContent=String(message).replace(/^\s*❌\s*/, '').trim();
    el.classList.add('show');
    clearTimeout(window.__premiumCoinToastTimer);
    window.__premiumCoinToastTimer=setTimeout(()=>el.classList.remove('show'),2600);
@@ -17488,7 +17488,8 @@ function formatChargeRemainingMs(ms) {
  window.alert=function(message){
    const msg=String(message==null?'':message);
    if(/недостатньо монет/i.test(msg)){
-     const clean=msg.replace(/\s*🪙\s*/g,' ').trim();
+     // Keep the red circled X as the only error icon; remove any standalone ❌ from the message.
+     const clean=msg.replace(/\s*🪙\s*/g,' ').replace(/^\s*❌\s*/,'').trim();
      showToast(clean);
      return;
    }
