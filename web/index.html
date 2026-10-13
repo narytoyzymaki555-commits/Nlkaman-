@@ -7572,7 +7572,36 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 .bear:active{transform:translateY(15%) scale(.98)}
 .bear:active .click-coin{transform:translateY(0) scale(.97)!important;opacity:.9}
 .click-coin{transform:translateY(0)!important}
-</style></head>
+</style><style id="forge-selection-interaction-fix">
+#forgeEquipment .forge-equipment-card { position:relative!important; z-index:2!important; pointer-events:auto!important; cursor:pointer!important; appearance:none; font:inherit; text-align:center; }
+#forgeEquipment .forge-equipment-card:disabled { cursor:not-allowed!important; }
+#forgeEquipment .forge-equipment-card img, #forgeEquipment .forge-equipment-card * { pointer-events:none!important; }
+</style>
+<style id="item-rarity-color-fix">
+:root { --rarity-common:#a8adb7; --rarity-rare:#39a7ff; --rarity-epic:#b16cff; --rarity-legendary:#ffc247; --rarity-mythic:#ff4d5d; }
+.rarity-common,.rarity-ordinary,[data-rarity="ЗВИЧАЙНИЙ"],[data-rarity="ЗВИЧАЙНА"] { color:var(--rarity-common)!important; }
+.rarity-rare,[data-rarity="РІДКІСНИЙ"] { color:var(--rarity-rare)!important; }
+.rarity-epic,[data-rarity="ЕПІЧНИЙ"] { color:var(--rarity-epic)!important; }
+.rarity-legendary,[data-rarity="ЛЕГЕНДАРНИЙ"] { color:var(--rarity-legendary)!important; }
+.rarity-mythic,[data-rarity="МІФІЧНИЙ"] { color:var(--rarity-mythic)!important; }
+#workshopRarity { text-shadow:0 0 10px currentColor; }
+</style>
+<script id="item-rarity-color-binding">
+(function(){
+  const applyRarityColors=()=>{
+    const map={"ЗВИЧАЙНИЙ":"common","ЗВИЧАЙНА":"common","ЗВИЧАЙНЕ":"common","РІДКІСНИЙ":"rare","РІДКІСНА":"rare","ЕПІЧНИЙ":"epic","ЕПІЧНА":"epic","ЛЕГЕНДАРНИЙ":"legendary","ЛЕГЕНДАРНА":"legendary","МІФІЧНИЙ":"mythic","МІФІЧНА":"mythic"};
+    document.querySelectorAll("#workshopRarity,.workshop-rarity,[data-rarity]").forEach(el=>{
+      const value=String(el.dataset.rarity||el.textContent||"").trim().toUpperCase();
+      const rarity=map[value];if(!rarity)return;
+      el.classList.remove("rarity-common","rarity-rare","rarity-epic","rarity-legendary","rarity-mythic");
+      el.classList.add("rarity-"+rarity);el.dataset.rarity=value;
+    });
+  };
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",applyRarityColors);else applyRarityColors();
+  const observer=new MutationObserver(applyRarityColors);observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true});
+})();
+</script>
+</head>
 
 <body>
 
@@ -8008,7 +8037,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
       <button id="soundButton" class="button" type="button" onclick="toggleSound()">🔊 Увімкнути / вимкнути звук</button>
     </div>
   </div>
-  <button class="button secondary" type="button" onclick="openPage('home')" style="width:100%;margin-top:12px;">← НАЗАД ДО ІГОР</button>
+  <button class="button secondary" type="button" onclick="returnToPreviousPage()" style="width:100%;margin-top:12px;">← НАЗАД</button>
 </section>
 
   <!-- ⚙️ НАЛАШТУВАННЯ -->
@@ -12081,6 +12110,13 @@ function closeTravelOption() {
 ========================= */
 
 function openPage(pageName) {
+  const currentPage = document.querySelector(".page.active");
+  if (pageName !== "settings" && currentPage && currentPage.id !== "settings") {
+    window.__nlkamanPreviousPage = currentPage.id;
+  }
+  if (pageName === "settings" && currentPage && currentPage.id !== "settings") {
+    window.__nlkamanPreviousPage = currentPage.id;
+  }
 
   document
     .querySelectorAll(".page")
@@ -12151,6 +12187,11 @@ function openPage(pageName) {
   }
 }
 
+
+function returnToPreviousPage() {
+  const target = window.__nlkamanPreviousPage;
+  openPage(target && document.getElementById(target) ? target : "home");
+}
 
 // 🎡 ВІДКРИТТЯ КОНКРЕТНОГО КОЛЕСА
 
@@ -15832,7 +15873,7 @@ let workshopSelectedId = null;
 let workshopCategory = "weapon";
 let workshopMode = "forge";
 let forgeCategory = "weapon";
-let forgeSelectedLevel = 1;
+let forgeSelectedLevel = Math.max(1, Number(localStorage.getItem("nlkaman_forge_weapon_level")) || 1);
 
 const ELEMENTS = {
   fire: {name:"🔥 Вогонь", mult:1.5},
@@ -15929,6 +15970,8 @@ function getPlayerLevel(){return Math.max(1,Math.min(10,Number(localStorage.getI
 function getForgeMaxLevel(){return Math.min(10,getPlayerLevel()+1);}
 function getForgeMeta(category,level){return (category==="armor"?ARMOR_META:WEAPON_META).find(x=>x.level===Number(level));}
 function getSelectedForgeRecipe(){const recipes=forgeRecipes[forgeCategory]||[];return recipes.find(r=>r.level===forgeSelectedLevel)||recipes[0];}
+function saveForgeSelection(){try{localStorage.setItem("nlkaman_forge_category",forgeCategory);localStorage.setItem(forgeCategory==="armor"?"nlkaman_forge_armor_level":"nlkaman_forge_weapon_level",String(forgeSelectedLevel));}catch(e){console.warn("Forge selection save failed",e);}}
+function restoreForgeSelection(){try{forgeCategory=localStorage.getItem("nlkaman_forge_category")==="armor"?"armor":"weapon";const key=forgeCategory==="armor"?"nlkaman_forge_armor_level":"nlkaman_forge_weapon_level";forgeSelectedLevel=Math.max(1,Number(localStorage.getItem(key))||1);const recipes=forgeRecipes[forgeCategory]||[];const max=getForgeMaxLevel();if(!recipes.some(r=>r.level===forgeSelectedLevel&&r.level<=max))forgeSelectedLevel=Math.max(1,Math.min(max,recipes[0]?.level||1));}catch(e){forgeCategory="weapon";forgeSelectedLevel=1;}}
 function getForgeCost(level){const m=getForgeMeta(forgeCategory,level);if(!m)return {wood:0,metal:0,coins:0,runes:0,artifacts:0,forgeSeconds:0};const c={...m.craft};if(forgeCategory==="armor"){c.wood=Math.ceil(c.wood*1.1);c.metal=Math.ceil(c.metal*1.1);c.coins=Math.ceil(c.coins*1.1);c.runes=Math.ceil(c.runes*1.1);c.artifacts=Math.ceil(c.artifacts*1.1);c.forgeSeconds=Math.ceil(c.forgeSeconds*1.22);}return c;}
 function formatDuration(sec){sec=Math.max(0,Math.round(sec));if(sec<60)return sec+" сек";const m=Math.floor(sec/60),s=sec%60;return s?m+" хв "+s+" сек":m+" хв";}
 function getUpgradeBase(level){return [{runes:1,coins:10000,seconds:8},{runes:2,coins:30000,seconds:15},{runes:5,coins:75000,seconds:30},{runes:10,coins:125000,seconds:60},{runes:15,coins:175000,seconds:90},{runes:20,coins:250000,seconds:150}][Math.max(0,Math.min(5,level))];}
@@ -15980,13 +16023,27 @@ function switchWorkshopMode(mode){
 }
 function switchForgeCategory(category){
   forgeCategory=category==="armor"?"armor":"weapon";
+  const key=forgeCategory==="armor"?"nlkaman_forge_armor_level":"nlkaman_forge_weapon_level";
+  forgeSelectedLevel=Math.max(1,Number(localStorage.getItem(key))||1);
   document.getElementById("forgeWeaponsTab")?.classList.toggle("active",forgeCategory==="weapon");
   document.getElementById("forgeArmorTab")?.classList.toggle("active",forgeCategory==="armor");
   const recipes=forgeRecipes[forgeCategory]||[],max=getForgeMaxLevel();
   if(!recipes.some(r=>r.level===forgeSelectedLevel&&r.level<=max)) forgeSelectedLevel=Math.max(1,Math.min(max,recipes[0]?.level||1));
-  renderForgeEquipment();renderForgeSelected();
+  saveForgeSelection();renderForgeEquipment();renderForgeSelected();
 }
-function renderForgeEquipment(){const c=document.getElementById("forgeEquipment");if(!c)return;c.innerHTML="";const max=getForgeMaxLevel();(forgeRecipes[forgeCategory]||[]).forEach(r=>{const locked=r.level>max,card=document.createElement("div");card.className="forge-equipment-card"+(forgeSelectedLevel===r.level?" selected":"")+(locked?" locked":"");card.innerHTML=`${locked?'<div class="forge-equipment-lock">🔒</div>':""}<img src="${r.image}" alt="${r.name}"><div class="forge-equipment-level">${r.level===1?"БАЗА":r.level+" РІВЕНЬ"}</div><div class="forge-equipment-card-name">${r.name}</div>${locked?`<div class="forge-required-level">Потрібен рівень ${r.level-1}</div>`:""}`;if(!locked)card.onclick=()=>{forgeSelectedLevel=r.level;renderForgeSelected();renderForgeEquipment();};c.appendChild(card);});}
+function renderForgeEquipment(){
+  const c=document.getElementById("forgeEquipment");if(!c)return;c.innerHTML="";
+  const max=getForgeMaxLevel();
+  (forgeRecipes[forgeCategory]||[]).forEach(r=>{
+    const locked=r.level>max,card=document.createElement("button");
+    card.type="button";card.setAttribute("aria-label",r.name+(locked?", заблоковано":", вибрати предмет"));
+    card.className="forge-equipment-card"+(forgeSelectedLevel===r.level?" selected":"")+(locked?" locked":"");
+    card.innerHTML=`${locked?'<div class="forge-equipment-lock">🔒</div>':""}<img src="${r.image}" alt="${r.name}"><div class="forge-equipment-level">${r.level===1?"БАЗА":r.level+" РІВЕНЬ"}</div><div class="forge-equipment-card-name">${r.name}</div>${locked?`<div class="forge-required-level">Потрібен рівень ${r.level-1}</div>`:""}`;
+    card.disabled=locked;
+    if(!locked)card.addEventListener("click",()=>{forgeSelectedLevel=r.level;saveForgeSelection();renderForgeSelected();renderForgeEquipment();});
+    c.appendChild(card);
+  });
+}
 function setResourceStatus(id,have,need){const el=document.getElementById(id);if(!el)return;const ok=Number(have)>=Number(need);el.textContent=ok?"✓":"✗";el.classList.toggle("ok",ok);el.classList.toggle("no",!ok);}
 function renderForgeSelected(){
   const recipe=getSelectedForgeRecipe();if(!recipe)return;
@@ -16154,7 +16211,7 @@ function updateWorkshopTopResources(){
   Object.entries(values).forEach(([id,value])=>{const el=document.getElementById(id);if(el)el.textContent=formatResourceNumber(value);});
 }
 
-function openWorkshop(){processWorkshopJobs();workshopMode="forge";forgeCategory="weapon";forgeSelectedLevel=1;switchWorkshopMode("forge");updateWorkshopTopResources();renderWorkshopJobs();}
+function openWorkshop(){processWorkshopJobs();workshopMode="forge";restoreForgeSelection();switchWorkshopMode("forge");updateWorkshopTopResources();renderWorkshopJobs();}
 processWorkshopJobs();
   
 
@@ -16289,9 +16346,13 @@ function showClickerToast(message){
     const earned=Math.floor(exactIncome);
     LS.setItem(fractionKey,String(exactIncome-earned));
     if(earned>0) {
-      stars += earned;
+      // Read the persisted balance immediately before crediting so stale in-memory
+      // values cannot overwrite purchases/rewards made in another game section.
+      stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0) + earned;
       putNum("nlkaman_stars",stars);
       if(typeof updateStars==="function") updateStars();
+      const balance=document.getElementById("clickerExactBalance");
+      if(balance) balance.textContent=typeof formatResourceNumber==="function"?formatResourceNumber(stars):String(stars);
     }
     // Якщо накопичення перевищило 12 годин, обрізаємо старий період і починаємо новий зараз.
     // Інакше фіксуємо час поточного обліку, щоб не зарахувати той самий інтервал двічі.
@@ -16688,8 +16749,7 @@ const originalOpenWorkshopForTopPanel = window.openWorkshop;
 function openWorkshop() {
   processWorkshopJobs();
   workshopMode="forge";
-  forgeCategory="weapon";
-  forgeSelectedLevel=1;
+  restoreForgeSelection();
   switchWorkshopMode("forge");
   updateWorkshopTopResources();
   renderWorkshopJobs();
@@ -17302,10 +17362,7 @@ function formatChargeRemainingMs(ms) {
 .clicker-worker-locked .clicker-worker-info{filter:blur(1.2px)}
 .clicker-worker-locked .clicker-worker-buy{opacity:.8;cursor:not-allowed;font-size:10px}
 </style>
-</body>
-</html>
-
-<style id="clicker-bottom-button-and-center-coin-fix">
+  <style id="clicker-bottom-button-and-center-coin-fix">
 #clickerUpgradeToggle{position:fixed!important;left:50%!important;bottom:calc(72px + env(safe-area-inset-bottom, 0px))!important;top:auto!important;transform:translateX(-50%)!important;z-index:2147483001!important;max-width:calc(100vw - 28px)!important}
 /* Keep the visible premium coin aligned with its actual tap target. */
 #clicker .bear-clicker{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;margin-top:0!important;padding:0!important}
@@ -17364,3 +17421,7 @@ function formatChargeRemainingMs(ms) {
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fixSettingsButton,{once:true});else fixSettingsButton();
 })();
 </script>
+  
+</body>
+</html>
+
