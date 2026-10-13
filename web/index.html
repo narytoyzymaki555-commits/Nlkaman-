@@ -17522,9 +17522,35 @@ function formatChargeRemainingMs(ms) {
 .clicker-worker-locked .clicker-worker-info{filter:blur(1.2px)}
 .clicker-worker-locked .clicker-worker-buy{opacity:.8;cursor:not-allowed;font-size:10px}
 </style>
+<style id="clicker-bottom-button-and-center-coin-fix">
+#clickerUpgradeToggle{position:fixed!important;left:50%!important;bottom:calc(72px + env(safe-area-inset-bottom, 0px))!important;top:auto!important;transform:translateX(-50%)!important;z-index:2147483001!important;max-width:calc(100vw - 28px)!important}
+/* Keep the visible premium coin aligned with its actual tap target. */
+#clicker .bear-clicker{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;margin-top:0!important;padding:0!important}
+#clicker #bear,.bear{display:flex!important;align-items:center!important;justify-content:center!important;transform:none!important}
+#clicker #bear .click-coin,.bear .click-coin{position:relative!important;left:auto!important;top:auto!important;margin:auto!important;object-position:center center!important;transform:translateY(0)!important}
+#clicker #bear:active .click-coin,.bear:active .click-coin{transform:scale(.97)!important}
+</style>
 
-
-
+<style id="clicker-coin-position-final">
+/* Move the coin and its real tap target together by 15% of screen height. */
+#clicker .bear-clicker {
+  position: relative !important;
+  top: 15vh !important;
+  transform: none !important;
+}
+#clicker #bear {
+  position: relative !important;
+  top: 0 !important;
+  transform: none !important;
+}
+#clicker #bear .click-coin {
+  top: 0 !important;
+  transform: none !important;
+}
+#clicker #bear:active .click-coin {
+  transform: scale(.97) !important;
+}
+</style>
 
 <style id="settings-button-clickability-position-fix">
 .settings-button {
@@ -17826,27 +17852,5 @@ function formatChargeRemainingMs(ms) {
 }
 </style>
 
-<style id="clicker-upgrade-button-minimal-position-fix">
-/* Only adjust the Upgrade button in its existing layout; do not move the coin or horizontally offset the button. */
-#clicker #clickerUpgradeToggle {
-  position: relative !important;
-  left: auto !important;
-  right: auto !important;
-  top: calc(-1.5vh - 2px) !important;
-  bottom: auto !important;
-  transform: none !important;
-  display: block !important;
-  width: 80% !important;
-  max-width: 420px !important;
-  margin: 10px auto 12px !important;
-  box-sizing: border-box !important;
-  z-index: 39 !important;
-}
-/* Settings stays in the lower-right area and does not affect the coin/button layout. */
-.settings-button {
-  bottom: calc(100px + env(safe-area-inset-bottom, 0px)) !important;
-  z-index: 45 !important;
-}
-</style>
 </body>
 </html>
