@@ -7454,8 +7454,6 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 #clicker .bear { margin: 0 auto !important; transform:none !important; }
 #clicker .click-coin { transform:translateY(0) !important; }
 #clicker .clicker-upgrade-toggle { position:relative; z-index:20; cursor:pointer; touch-action:manipulation; }
-/* Move the "Покращити" button upward by 5% of the screen height. */
-#clicker .clicker-upgrade-toggle { top:-5vh; }
 #clicker .clicker-upgrade-panel { position:relative; z-index:20; } 
     
 
@@ -17524,35 +17522,9 @@ function formatChargeRemainingMs(ms) {
 .clicker-worker-locked .clicker-worker-info{filter:blur(1.2px)}
 .clicker-worker-locked .clicker-worker-buy{opacity:.8;cursor:not-allowed;font-size:10px}
 </style>
-<style id="clicker-bottom-button-and-center-coin-fix">
-#clickerUpgradeToggle{position:fixed!important;left:50%!important;bottom:calc(72px + env(safe-area-inset-bottom, 0px))!important;top:auto!important;transform:translateX(-50%)!important;z-index:2147483001!important;max-width:calc(100vw - 28px)!important}
-/* Keep the visible premium coin aligned with its actual tap target. */
-#clicker .bear-clicker{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;margin-top:0!important;padding:0!important}
-#clicker #bear,.bear{display:flex!important;align-items:center!important;justify-content:center!important;transform:none!important}
-#clicker #bear .click-coin,.bear .click-coin{position:relative!important;left:auto!important;top:auto!important;margin:auto!important;object-position:center center!important;transform:translateY(0)!important}
-#clicker #bear:active .click-coin,.bear:active .click-coin{transform:scale(.97)!important}
-</style>
 
-<style id="clicker-coin-position-final">
-/* Move the coin and its real tap target together by 15% of screen height. */
-#clicker .bear-clicker {
-  position: relative !important;
-  top: 15vh !important;
-  transform: none !important;
-}
-#clicker #bear {
-  position: relative !important;
-  top: 0 !important;
-  transform: none !important;
-}
-#clicker #bear .click-coin {
-  top: 0 !important;
-  transform: none !important;
-}
-#clicker #bear:active .click-coin {
-  transform: scale(.97) !important;
-}
-</style>
+
+
 
 <style id="settings-button-clickability-position-fix">
 .settings-button {
@@ -17854,26 +17826,29 @@ function formatChargeRemainingMs(ms) {
 }
 </style>
 
-
-<style id="clicker-upgrade-settings-layout-fix">
-/* Кнопка лишається по центру під монеткою; піднімаємо лише трохи, без fixed-позиціонування. */
+<style id="clicker-upgrade-button-minimal-position-fix">
+/* Place the upgrade button 2px above the top edge of the bottom navigation. */
 #clicker #clickerUpgradeToggle {
-  position: relative !important;
-  left: auto !important;
+  position: fixed !important;
+  left: 10% !important;
   right: auto !important;
-  bottom: auto !important;
-  top: -2vh !important;
+  top: auto !important;
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+  transform: none !important;
   display: block !important;
   width: 80% !important;
   max-width: 420px !important;
-  margin: 14px auto 12px !important;
-  transform: none !important;
+  height: 42px !important;
+  margin: 0 !important;
   box-sizing: border-box !important;
   z-index: 39 !important;
 }
-/* Налаштування залишаємо внизу праворуч, лише трохи піднімаємо. */
+/* Settings sits 4px above the upgrade button, aligned to the lower-right side. */
 .settings-button {
-  bottom: 110px !important;
+  position: fixed !important;
+  right: 12px !important;
+  left: auto !important;
+  bottom: calc(118px + env(safe-area-inset-bottom, 0px)) !important;
   z-index: 45 !important;
 }
 </style>
