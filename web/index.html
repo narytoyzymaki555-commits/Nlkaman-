@@ -16265,39 +16265,16 @@ processWorkshopJobs();
     return cost;
   };
 
+
 function showClickerToast(message) {
-  if (typeof window.showPremiumCoinToast === "function") {
-  window.showPremiumCoinToast(
-    /недостатньо (монет|коштів)/i.test(String(message))
-      ? "Недостатньо монет"
-      : String(message).replace(/^\s*/, "")
-  );
-  return;
-}
-
-  if (!el) {
-    const toast = document.createElement("div");
-    toast.id = "premiumCoinToast";
-    toast.className = "premium-coin-toast";
-    toast.setAttribute("role", "status");
-    document.body.appendChild(toast);
-  }
-
-  const toast = document.getElementById("premiumCoinToast");
   const text = /недостатньо (монет|коштів)/i.test(String(message))
     ? "Недостатньо монет"
-    : String(message).replace(/^\s*/, "");
+    : String(message).replace(/^❌\s*/, "").trim();
 
-  toast.innerHTML = '<span class="toast-x"></span><span class="toast-message"></span>';
-  toast.querySelector(".toast-message").textContent = text;
-  toast.classList.add("show");
-
-  clearTimeout(window.__premiumCoinToastTimer);
-  window.__premiumCoinToastTimer = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2600);
+  if (typeof window.showPremiumCoinToast === "function") {
+    window.showPremiumCoinToast(text);
+  }
 }
-
   // Expose the toast to the separate purchase-handler script below.
   window.showClickerToast = showClickerToast;
   const workerDefs = [
