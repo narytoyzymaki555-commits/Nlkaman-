@@ -8034,7 +8034,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   
   <!-- СТОРІНКА НАЛАШТУВАНЬ -->
 <section id="settings" class="page" style="padding:24px 16px 120px;">
-  <h2 class="settings-title">⚙️ НАЛАШТУВАННЯ</h2>
+  <h2 class="settings-title" style="display:none!important;">⚙️ НАЛАШТУВАННЯ</h2>
   <div class="settings-card" style="margin-bottom:14px;">
     <div class="settings-row">
       <div class="settings-name">🔊 Гучність гри: <span id="volumeValue">100%</span></div>
@@ -10658,11 +10658,11 @@ const adventureMusic = new Audio("./NIKA_background_music.mp3");
 adventureMusic.preload = "auto";
 adventureMusic.loop = false;
 
-const MUSIC_START_AT = 4;       // Починаємо з 4-ї секунди
-const MUSIC_FADE_START = 280;   // 4:40
-const MUSIC_RESTART_AT = 290;   // 4:50
-const MUSIC_FADE_DURATION = 10;
-const MUSIC_VOLUME_MULTIPLIER = 0.8; // Гучність на 20% нижча
+const MUSIC_START_AT = 4;       // Починаємо відтворення з 00:04
+const MUSIC_FADE_START = 170;   // Початок затихання на 02:50
+const MUSIC_RESTART_AT = 180;   // На 03:00 повертаємося на 00:04
+const MUSIC_FADE_DURATION = 10; // Плавне затихання протягом 10 секунд
+const MUSIC_VOLUME_MULTIPLIER = 0.56; // Ще на 30% тихіше від попереднього рівня (0.8 × 0.7)
 
 let musicStarted = false;
 let musicFadeTimer = null;
@@ -17321,9 +17321,14 @@ function formatChargeRemainingMs(ms) {
  function showToast(message){
    let el=document.getElementById('premiumCoinToast');
    if(!el){el=document.createElement('div');el.id='premiumCoinToast';el.className='premium-coin-toast';el.setAttribute('role','status');document.body.appendChild(el);}
+   const toastMessage=String(message).replace(/^\s*❌\s*/, '').trim();
+   const isIncomeSuccess=/пасивний дохід|дохід за час|поки вас не було/i.test(toastMessage);
+   el.classList.toggle('income-success-toast', isIncomeSuccess);
    el.innerHTML='<span class="toast-x"></span><span></span>';
+   const icon=el.querySelector('.toast-x');
+   if(isIncomeSuccess) icon.classList.add('toast-check');
    const span=el.querySelector('span:last-child');
-   span.textContent=String(message).replace(/^\s*❌\s*/, '').trim();
+   span.textContent=toastMessage;
    el.classList.add('show');
    clearTimeout(window.__premiumCoinToastTimer);
    window.__premiumCoinToastTimer=setTimeout(()=>el.classList.remove('show'),2600);
@@ -18030,6 +18035,26 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
   }
 })();
 </script>
+
+
+<style id="settings-heading-and-income-toast-final-fix">
+/* Hide the title at the top of Settings without hiding its controls. */
+#settings > .settings-title { display: none !important; }
+/* Successful offline income: green outline and a check instead of a red X. */
+#premiumCoinToast.income-success-toast {
+  border-color: rgba(58, 220, 112, .95) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .4), 0 0 12px rgba(58, 220, 112, .14) !important;
+}
+#premiumCoinToast.income-success-toast > .toast-x {
+  background: #25b85a !important;
+}
+#premiumCoinToast.income-success-toast > .toast-x::before {
+  content: "✓" !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
+</style>
 
 </body>
 </html>
