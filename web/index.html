@@ -10662,8 +10662,11 @@ let musicFadeTimer = null;
 let musicCheckTimer = null;
 
 function applyMusicVolume() {
-  const baseVolume =
-    Math.max(0, Math.min(100, Number(gameVolume) || 0)) / 100;
+  // Беремо актуальне значення повзунка (0–100) і переводимо його у 0–1.
+  const savedVolume = Number(gameVolume);
+  const baseVolume = Number.isFinite(savedVolume)
+    ? Math.max(0, Math.min(100, savedVolume)) / 100
+    : 1;
 
   let fadeMultiplier = 1;
 
@@ -10678,8 +10681,12 @@ function applyMusicVolume() {
     fadeMultiplier = Math.max(0, 1 - fadeProgress);
   }
 
-  adventureMusic.volume =
-    baseVolume * MUSIC_VOLUME_MULTIPLIER * fadeMultiplier;
+  // Оновлюємо саме HTML-аудіо з MP3, а не лише цифру біля повзунка.
+  adventureMusic.volume = Math.max(
+    0,
+    Math.min(1, baseVolume * MUSIC_VOLUME_MULTIPLIER * fadeMultiplier)
+  );
+  adventureMusic.muted = baseVolume === 0;
 }
 
 function stopMusicTimers() {
@@ -10769,14 +10776,18 @@ if (volumeValue) volumeValue.textContent = gameVolume + "%";
 applyMusicVolume();
 
 if (volumeSlider) {
-  volumeSlider.addEventListener("input", function () {
-    gameVolume = Number(this.value);
-    localStorage.setItem("nlkaman_volume", gameVolume);
+  function updateGameVolume() {
+    gameVolume = Math.max(0, Math.min(100, Number(volumeSlider.value) || 0));
+    localStorage.setItem("nlkaman_volume", String(gameVolume));
 
     if (volumeValue) volumeValue.textContent = gameVolume + "%";
 
+    // Застосовуємо нову гучність негайно під час руху повзунка.
     applyMusicVolume();
-  });
+  }
+
+  volumeSlider.addEventListener("input", updateGameVolume);
+  volumeSlider.addEventListener("change", updateGameVolume);
 }
 
 function toggleSound() {
