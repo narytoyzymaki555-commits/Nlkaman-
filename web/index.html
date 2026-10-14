@@ -17780,5 +17780,67 @@ function formatChargeRemainingMs(ms) {
   window.addEventListener("focus", () => safeCredit(Date.now()));
 })();
 </script>
+
+
+<style id="bottom-nav-clean-active-tab-final-fix">
+/* Нижня панель: прибираємо помітні краї рамки та постійне світіння. */
+.bottom-nav {
+  background: #2d170d !important;
+  border: 0 !important;
+  border-top: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+.bottom-nav::before,
+.bottom-nav::after {
+  content: none !important;
+  display: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.bottom-nav .nav-btn {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  color: #c9a47d !important;
+  border-radius: 12px !important;
+  transition: background .18s ease, color .18s ease, box-shadow .18s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+.bottom-nav .nav-btn:not(.active),
+.bottom-nav .nav-btn:not(.active):hover,
+.bottom-nav .nav-btn:not(.active):focus,
+.bottom-nav .nav-btn:not(.active):focus-visible,
+.bottom-nav .nav-btn:not(.active):active {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  color: #c9a47d !important;
+}
+.bottom-nav .nav-btn:not(.active) .nav-image-wrap img {
+  filter: none !important;
+  box-shadow: none !important;
+}
+.bottom-nav .nav-btn.active {
+  background: rgba(201, 138, 80, .13) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  color: #fff0dc !important;
+  box-shadow: 0 0 11px rgba(201, 138, 80, .20) !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+.bottom-nav .nav-btn.active .nav-image-wrap img {
+  filter: drop-shadow(0 0 4px rgba(230, 178, 119, .35)) !important;
+}
+</style>
+
 </body>
 </html>
