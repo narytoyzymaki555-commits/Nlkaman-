@@ -10884,7 +10884,7 @@ function updateStars() {
     ? Math.max(0, Math.floor(storedStars))
     : TEST_RESOURCE_BALANCE;
 
-  if (exactClickerBalance) exactClickerBalance.textContent = formatResourceNumber(stars);
+  if (exactClickerBalance) exactClickerBalance.textContent = Math.floor(stars).toLocaleString("uk-UA");
 
   const clickerCoinCount =
     document.getElementById("clickerCoinCount");
@@ -16201,34 +16201,9 @@ function showClickerToast(message) {
     persistState();
     renderCharge();
   };
-  const creditPassiveIncome = (now=Date.now()) => {
-    const key="nlkaman_workers_last_credit";
-    const storedLast=LS.getItem(key);
-    // Existing saves may have workers but no timestamp. Grant the maximum
-    // offline window once, instead of silently discarding the first return.
-    const last=storedLast===null
-      ? (totalHourlyIncome()>0 ? now-12*60*60*1000 : now)
-      : Math.max(0,Number(storedLast)||now);
-    const rawElapsed=Math.max(0,now-last);
-    const elapsed=Math.min(12*60*60*1000,rawElapsed);
-    const fractionKey="nlkaman_workers_fractional_coin";
-    const previousFraction=Math.max(0,Math.min(0.999999,getNum(fractionKey,0)));
-    const exactIncome=totalHourlyIncome()*elapsed/3600000+previousFraction;
-    const earned=Math.floor(exactIncome);
-    LS.setItem(fractionKey,String(exactIncome-earned));
-    if(earned>0) {
-      // Read the persisted balance immediately before crediting so stale in-memory
-      // values cannot overwrite purchases/rewards made in another game section.
-      stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0) + earned;
-      putNum("nlkaman_stars",stars);
-      if(typeof updateStars==="function") updateStars();
-      const balance=document.getElementById("clickerExactBalance");
-      if(balance) balance.textContent=typeof formatResourceNumber==="function"?formatResourceNumber(stars):String(stars);
-    }
-    // Якщо накопичення перевищило 12 годин, обрізаємо старий період і починаємо новий зараз.
-    // Інакше фіксуємо час поточного обліку, щоб не зарахувати той самий інтервал двічі.
-    LS.setItem(key,String(now));
-  };
+  // Нарахування пасивного доходу виконує окремий резервний модуль унизу файлу.
+  // Ця функція лишається порожньою, щоб стара логіка не зараховувала монети вдруге.
+  const creditPassiveIncome = () => {};
   let workerRenderSignature = "";
   const renderWorkers = () => {
     const host=document.getElementById("clickerWorkers");
@@ -16283,7 +16258,7 @@ function showClickerToast(message) {
     // The exact balance and every resource counter must use the same persisted balance.
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     const exact=document.getElementById("clickerExactBalance");
-    if(exact) exact.textContent=typeof formatResourceNumber==="function" ? formatResourceNumber(stars) : Math.floor(stars).toLocaleString("uk-UA");
+    if(exact) exact.textContent=Math.floor(stars).toLocaleString("uk-UA");
     const charge=maxCharge();
     state.charge=Math.min(charge,state.charge);
     const fill=document.getElementById("clickerChargeFill");
@@ -17228,18 +17203,8 @@ function formatChargeRemainingMs(ms) {
       card.append(info,button);host.appendChild(card);
     });
   }
-  window.buyWorker=function(index){
-    if(!Number.isInteger(index)||!defs[index])return;
-    if(!unlocked(index)){showToast('Потрібно покращити '+defs[index-1].name.toLowerCase()+' до 6 рівня');return;}
-    const level=levelAt(index); if(level>=10){showToast('Досягнуто максимального рівня');return;}
-    const cost=costAt(index,level);let balance=Math.max(0,num('nlkaman_stars',0));
-    if(balance<cost){showToast('Недостатньо монет');return;}
-    balance-=cost;localStorage.setItem('nlkaman_stars',String(Math.floor(balance)));
-    localStorage.setItem('nlkaman_worker_'+index,String(level+1));
-    try{if(typeof window.updateStars==='function')window.updateStars();}catch(e){}
-    try{if(typeof window.renderClickerUpgrades==='function')window.renderClickerUpgrades();}catch(e){}
-    refresh();
-  };
+  // Не перевизначаємо window.buyWorker тут: основний обробник клікеру
+  // синхронізує стан робітників і зараховує накопичений дохід до покупки.
   const originalAlert=window.alert.bind(window);
   window.alert=function(message){if(/недостатньо (монет|коштів)/i.test(String(message||''))){showToast('Недостатньо монет');return;}return originalAlert(message);};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh,{once:true});else refresh();
@@ -17693,5 +17658,127 @@ function formatChargeRemainingMs(ms) {
 }
 </style>
 
+
+
+<script id="nlkaman-passive-income-reliable-fix">
+/* Надійне нарахування пасивного доходу за реальний час, у тому числі після закриття гри. */
+(function () {
+  if (window.__nlkamanPassiveIncomeV2Started) return;
+  window.__nlkamanPassiveIncomeV2Started = true;
+
+  const LS = window.localStorage;
+  const MAX_OFFLINE_MS = 12 * 60 * 60 * 1000;
+  const TIME_KEY = "nlkaman_workers_passive_v2_last_credit";
+  const FRACTION_KEY = "nlkaman_workers_passive_v2_fraction";
+  const COIN_IMAGE = "https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG";
+  const workers = [
+    { income: 5000, mult: 2 },
+    { income: 10000, mult: 1.5 },
+    { income: 30000, mult: 1.5 },
+    { income: 100000, mult: 1.5 },
+    { income: 1000000, mult: 1.5 },
+    { income: 10000000, mult: 1.5 }
+  ];
+
+  function readNumber(key, fallback = 0) {
+    const raw = LS.getItem(key);
+    if (raw === null || raw === "" || !Number.isFinite(Number(raw))) return fallback;
+    return Number(raw);
+  }
+
+  function getWorkerLevel(index) {
+    return Math.max(0, Math.min(10, Math.floor(readNumber("nlkaman_worker_" + index, 0))));
+  }
+
+  function workerHourlyIncome(index, level) {
+    if (level <= 0) return 0;
+    let income = workers[index].income;
+    for (let levelNumber = 2; levelNumber <= level; levelNumber++) {
+      income = Math.ceil(income * workers[index].mult);
+    }
+    return income;
+  }
+
+  function totalHourlyIncome() {
+    return workers.reduce((sum, worker, index) => sum + workerHourlyIncome(index, getWorkerLevel(index)), 0);
+  }
+
+  function refreshBalanceUI() {
+    if (typeof window.updateStars === "function") {
+      window.updateStars();
+      return;
+    }
+    const raw = LS.getItem("nlkaman_stars");
+    const balance = Math.max(0, Math.floor(Number(raw) || 0)).toLocaleString("uk-UA");
+    ["clickerExactBalance", "clickerCoinCount", "coinCount", "starCount", "bearStarCount"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = balance;
+    });
+  }
+
+  function safeCredit(now = Date.now()) {
+    try {
+      const hourlyRate = totalHourlyIncome();
+      const oldTimestamp = LS.getItem(TIME_KEY);
+      let last;
+
+      // Під час першого запуску цієї версії компенсуємо до 12 годин,
+      // за які попередній код не нарахував монети.
+      if (oldTimestamp === null) {
+        last = hourlyRate > 0 ? now - MAX_OFFLINE_MS : now;
+      } else {
+        const parsed = Number(oldTimestamp);
+        last = Number.isFinite(parsed) && parsed > 0 ? parsed : now;
+      }
+
+      const elapsed = Math.min(MAX_OFFLINE_MS, Math.max(0, now - last));
+      const fraction = Math.max(0, Math.min(0.999999999, readNumber(FRACTION_KEY, 0)));
+      const exactAmount = hourlyRate * elapsed / 3600000 + fraction;
+      const earned = Math.floor(exactAmount);
+
+      LS.setItem(FRACTION_KEY, String(exactAmount - earned));
+
+      if (earned > 0) {
+        const rawBalance = LS.getItem("nlkaman_stars");
+        const currentBalance = rawBalance === null || !Number.isFinite(Number(rawBalance))
+          ? 0
+          : Math.max(0, Math.floor(Number(rawBalance)));
+        LS.setItem("nlkaman_stars", String(currentBalance + earned));
+        refreshBalanceUI();
+      }
+
+      LS.setItem(TIME_KEY, String(now));
+      return earned;
+    } catch (error) {
+      console.error("Помилка нарахування пасивного доходу:", error);
+      return 0;
+    }
+  }
+
+  // Кредитуємо накопичений дохід одразу при відкритті гри.
+  const firstCredit = safeCredit(Date.now());
+  if (firstCredit > 0 && typeof window.showPremiumCoinToast === "function") {
+    window.showPremiumCoinToast("Пасивний дохід: +" + firstCredit.toLocaleString("uk-UA") + " 🪙");
+  }
+
+  // Якщо гравець покращує робітника, спершу зараховуємо дохід за старим рівнем.
+  if (typeof window.buyWorker === "function" && !window.__nlkamanPassiveBuyWorkerWrapped) {
+    const originalBuyWorker = window.buyWorker;
+    window.buyWorker = function (index) {
+      safeCredit(Date.now());
+      return originalBuyWorker.apply(this, arguments);
+    };
+    window.__nlkamanPassiveBuyWorkerWrapped = true;
+  }
+
+  // Регулярне нарахування. Час рахується за міткою часу, тому обмеження фонового таймера не губить дохід.
+  window.setInterval(() => safeCredit(Date.now()), 5000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) safeCredit(Date.now());
+  });
+  window.addEventListener("pageshow", () => safeCredit(Date.now()));
+  window.addEventListener("focus", () => safeCredit(Date.now()));
+})();
+</script>
 </body>
 </html>
