@@ -10661,12 +10661,33 @@ let musicStarted = false;
 let musicFadeTimer = null;
 let musicCheckTimer = null;
 
+// Окремий AudioContext GainNode для точної зміни гучності MP3.
+// Це не дає повзунку поводитися так, ніби будь-яке значення вище 0 — максимум.
+let musicSourceNode = null;
+let musicGainNode = null;
+
+function ensureMusicAudioGraph() {
+  initAudio();
+
+  if (!audioCtx) return false;
+
+  if (!musicSourceNode) {
+    musicSourceNode = audioCtx.createMediaElementSource(adventureMusic);
+    musicGainNode = audioCtx.createGain();
+
+    musicSourceNode.connect(musicGainNode);
+    musicGainNode.connect(audioCtx.destination);
+
+    // Гучністю після підключення керує GainNode, а не властивість HTML audio.
+    adventureMusic.volume = 1;
+  }
+
+  return true;
+}
+
 function applyMusicVolume() {
-  // Беремо актуальне значення повзунка (0–100) і переводимо його у 0–1.
-  const savedVolume = Number(gameVolume);
-  const baseVolume = Number.isFinite(savedVolume)
-    ? Math.max(0, Math.min(100, savedVolume)) / 100
-    : 1;
+  const baseVolume =
+    Math.max(0, Math.min(100, Number(gameVolume) || 0)) / 100;
 
   let fadeMultiplier = 1;
 
@@ -10681,12 +10702,21 @@ function applyMusicVolume() {
     fadeMultiplier = Math.max(0, 1 - fadeProgress);
   }
 
-  // Оновлюємо саме HTML-аудіо з MP3, а не лише цифру біля повзунка.
-  adventureMusic.volume = Math.max(
+  const finalVolume = Math.max(
     0,
     Math.min(1, baseVolume * MUSIC_VOLUME_MULTIPLIER * fadeMultiplier)
   );
-  adventureMusic.muted = baseVolume === 0;
+
+  if (musicGainNode && audioCtx) {
+    // Плавно й точно застосовуємо рівень повзунка до музики.
+    const now = audioCtx.currentTime;
+    musicGainNode.gain.cancelScheduledValues(now);
+    musicGainNode.gain.setTargetAtTime(finalVolume, now, 0.015);
+    adventureMusic.volume = 1;
+  } else {
+    // Резервний варіант до створення AudioContext-графа.
+    adventureMusic.volume = finalVolume;
+  }
 }
 
 function stopMusicTimers() {
@@ -10704,6 +10734,12 @@ function stopMusicTimers() {
 function playAdventureMusic() {
   if (!soundEnabled) return;
   if (musicStarted && !adventureMusic.paused) return;
+
+  try {
+    ensureMusicAudioGraph();
+  } catch (error) {
+    console.warn("Не вдалося створити AudioContext для музики:", error);
+  }
 
   musicStarted = true;
 
@@ -10776,18 +10812,14 @@ if (volumeValue) volumeValue.textContent = gameVolume + "%";
 applyMusicVolume();
 
 if (volumeSlider) {
-  function updateGameVolume() {
-    gameVolume = Math.max(0, Math.min(100, Number(volumeSlider.value) || 0));
-    localStorage.setItem("nlkaman_volume", String(gameVolume));
+  volumeSlider.addEventListener("input", function () {
+    gameVolume = Number(this.value);
+    localStorage.setItem("nlkaman_volume", gameVolume);
 
     if (volumeValue) volumeValue.textContent = gameVolume + "%";
 
-    // Застосовуємо нову гучність негайно під час руху повзунка.
     applyMusicVolume();
-  }
-
-  volumeSlider.addEventListener("input", updateGameVolume);
-  volumeSlider.addEventListener("change", updateGameVolume);
+  });
 }
 
 function toggleSound() {
