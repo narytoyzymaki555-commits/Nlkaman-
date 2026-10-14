@@ -10644,30 +10644,42 @@ function playWinSound() {
 
 }
   
-// 🎵 НОВА ФОНОВА МУЗИКА NIKA
-// Файл NIKA_background_music.mp3 має лежати поруч із index.html.
+
+ // 🎵 ФОНОВА МУЗИКА NIKA
+// Файл NIKA_background_music.mp3 лежить поруч із index.html.
 const adventureMusic = new Audio("./NIKA_background_music.mp3");
 adventureMusic.preload = "auto";
 adventureMusic.loop = false;
-adventureMusic.volume = 1;
 
-const MUSIC_FADE_START = 280; // 4:40
-const MUSIC_RESTART_AT = 290; // 4:50
+const MUSIC_START_AT = 4;       // Починаємо з 4-ї секунди
+const MUSIC_FADE_START = 280;   // 4:40
+const MUSIC_RESTART_AT = 290;   // 4:50
 const MUSIC_FADE_DURATION = 10;
+const MUSIC_VOLUME_MULTIPLIER = 0.8; // Гучність на 20% нижча
+
 let musicStarted = false;
 let musicFadeTimer = null;
 let musicCheckTimer = null;
 
 function applyMusicVolume() {
-  const baseVolume = Math.max(0, Math.min(100, Number(gameVolume) || 0)) / 100;
-  if (adventureMusic.currentTime >= MUSIC_FADE_START &&
-      adventureMusic.currentTime < MUSIC_RESTART_AT) {
+  const baseVolume =
+    Math.max(0, Math.min(100, Number(gameVolume) || 0)) / 100;
+
+  let fadeMultiplier = 1;
+
+  if (
+    adventureMusic.currentTime >= MUSIC_FADE_START &&
+    adventureMusic.currentTime < MUSIC_RESTART_AT
+  ) {
     const fadeProgress =
-      (adventureMusic.currentTime - MUSIC_FADE_START) / MUSIC_FADE_DURATION;
-    adventureMusic.volume = baseVolume * Math.max(0, 1 - fadeProgress);
-  } else {
-    adventureMusic.volume = baseVolume;
+      (adventureMusic.currentTime - MUSIC_FADE_START) /
+      MUSIC_FADE_DURATION;
+
+    fadeMultiplier = Math.max(0, 1 - fadeProgress);
   }
+
+  adventureMusic.volume =
+    baseVolume * MUSIC_VOLUME_MULTIPLIER * fadeMultiplier;
 }
 
 function stopMusicTimers() {
@@ -10675,6 +10687,7 @@ function stopMusicTimers() {
     clearInterval(musicFadeTimer);
     musicFadeTimer = null;
   }
+
   if (musicCheckTimer) {
     clearInterval(musicCheckTimer);
     musicCheckTimer = null;
@@ -10686,6 +10699,16 @@ function playAdventureMusic() {
   if (musicStarted && !adventureMusic.paused) return;
 
   musicStarted = true;
+
+  // Якщо музика ще не запускалася або вже закінчила цикл,
+  // починаємо з 4-ї секунди.
+  if (
+    adventureMusic.currentTime === 0 ||
+    adventureMusic.currentTime >= MUSIC_RESTART_AT
+  ) {
+    adventureMusic.currentTime = MUSIC_START_AT;
+  }
+
   applyMusicVolume();
 
   adventureMusic.play().then(() => {
@@ -10696,11 +10719,13 @@ function playAdventureMusic() {
 
       if (adventureMusic.currentTime >= MUSIC_RESTART_AT) {
         adventureMusic.pause();
-        adventureMusic.currentTime = 0;
+        adventureMusic.currentTime = MUSIC_START_AT;
         applyMusicVolume();
+
         adventureMusic.play().catch(error => {
           console.warn("Не вдалося повторно запустити музику:", error);
         });
+
         return;
       }
 
@@ -10714,13 +10739,15 @@ function playAdventureMusic() {
   });
 }
 
-// 🎵 Запуск лише після першого натискання користувача
+// 🎵 Запуск після першого натискання користувача
 let firstUserInteraction = false;
 
 function startMusicOnFirstTap() {
   if (firstUserInteraction || !soundEnabled) return;
+
   firstUserInteraction = true;
   playAdventureMusic();
+
   document.removeEventListener("pointerdown", startMusicOnFirstTap);
 }
 
@@ -10731,39 +10758,48 @@ const volumeSlider = document.getElementById("volumeSlider");
 const volumeValue = document.getElementById("volumeValue");
 
 let gameVolume = Number(localStorage.getItem("nlkaman_volume"));
+
 if (isNaN(gameVolume) || gameVolume < 0 || gameVolume > 100) {
   gameVolume = 100;
 }
 
 if (volumeSlider) volumeSlider.value = gameVolume;
 if (volumeValue) volumeValue.textContent = gameVolume + "%";
+
 applyMusicVolume();
 
 if (volumeSlider) {
   volumeSlider.addEventListener("input", function () {
     gameVolume = Number(this.value);
     localStorage.setItem("nlkaman_volume", gameVolume);
+
     if (volumeValue) volumeValue.textContent = gameVolume + "%";
+
     applyMusicVolume();
   });
 }
 
 function toggleSound() {
   soundEnabled = !soundEnabled;
+
   const button = document.getElementById("soundButton");
 
   if (soundEnabled) {
     if (button) button.textContent = "🔊 Звук увімкнено";
+
     if (!firstUserInteraction) {
       firstUserInteraction = true;
       document.removeEventListener("pointerdown", startMusicOnFirstTap);
     }
+
     playAdventureMusic();
     initAudio();
   } else {
     if (button) button.textContent = "🔇 Звук вимкнено";
+
     adventureMusic.pause();
     stopMusicTimers();
+
     if (audioCtx) audioCtx.suspend();
   }
 }
