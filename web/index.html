@@ -10644,372 +10644,128 @@ function playWinSound() {
 
 }
   
-// 🌲 ЗАГАДКОВИЙ ЛІС — фонова музика
-function playAdventureMusic() {
+// 🎵 НОВА ФОНОВА МУЗИКА NIKA
+// Файл NIKA_background_music.mp3 має лежати поруч із index.html.
+const adventureMusic = new Audio("./NIKA_background_music.mp3");
+adventureMusic.preload = "auto";
+adventureMusic.loop = false;
+adventureMusic.volume = 1;
 
-  if (!soundEnabled) return;
+const MUSIC_FADE_START = 280; // 4:40
+const MUSIC_RESTART_AT = 290; // 4:50
+const MUSIC_FADE_DURATION = 10;
+let musicStarted = false;
+let musicFadeTimer = null;
+let musicCheckTimer = null;
 
-  initAudio();
-
-  if (musicTimer) return;
-
-  // 🌙 Ноти загадкового лісу
-  const melody = [
-    293.66, 349.23, 392.00, 440.00,
-    392.00, 349.23, 293.66, 261.63,
-
-    293.66, 392.00, 440.00, 523.25,
-    440.00, 392.00, 349.23, 293.66,
-
-    261.63, 293.66, 349.23, 392.00,
-    440.00, 392.00, 349.23, 261.63,
-
-    293.66, 349.23, 440.00, 523.25,
-    587.33, 523.25, 440.00, 392.00,
-
-    349.23, 392.00, 440.00, 523.25,
-    440.00, 392.00, 349.23, 293.66,
-
-    261.63, 293.66, 349.23, 392.00,
-    349.23, 293.66, 261.63, 220.00
-  ];
-
-  // 🌑 Низькі ноти створюють глибину
-  const bass = [
-    146.83,
-    174.61,
-    196.00,
-    220.00
-  ];
-
-  // ✨ Високі "магічні" звуки
-  const magic = [
-    587.33,
-    698.46,
-    783.99,
-    880.00,
-    783.99,
-    698.46
-  ];
-
-  let step = 0;
-  
-  // 🎵 ЗАПУСК МУЗИКИ ПІСЛЯ ПЕРШОГО ТАПУ
-
-  function forestNote() {
-
-    if (!soundEnabled) {
-      musicTimer = null;
-      return;
-    }
-
-    const now =
-      audioCtx.currentTime;
-
-    const note =
-      melody[step % melody.length];
-
-    // 🌲 Основна мелодія
-    const osc =
-      audioCtx.createOscillator();
-
-    const gain =
-      audioCtx.createGain();
-
-    osc.type = "triangle";
-
-    osc.frequency.setValueAtTime(
-      note,
-      now
-    );
-
-    gain.gain.setValueAtTime(
-      0.0001,
-      now
-    );
-
-  gain.gain.linearRampToValueAtTime(
-  0.018 * (gameVolume / 100),
-  now + 0.08
-);
-
-    gain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      now + 1.15
-    );
-
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    osc.start(now);
-    osc.stop(now + 1.2);
-
-
-    // 🌑 Бас кожні 4 кроки
-    if (step % 4 === 0) {
-
-      const bassNote =
-        bass[
-          Math.floor(step / 4) %
-          bass.length
-        ];
-
-      const bassOsc =
-        audioCtx.createOscillator();
-
-      const bassGain =
-        audioCtx.createGain();
-
-      bassOsc.type = "sine";
-
-      bassOsc.frequency.setValueAtTime(
-        bassNote,
-        now
-      );
-
-      bassGain.gain.setValueAtTime(
-        0.0001,
-        now
-      );
-
-      bassGain.gain.linearRampToValueAtTime(
-  0.009 * (gameVolume / 100),
-  now + 0.2
-);
-
-      bassGain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        now + 2.0
-      );
-
-      bassOsc.connect(bassGain);
-      bassGain.connect(
-        audioCtx.destination
-      );
-
-      bassOsc.start(now);
-      bassOsc.stop(now + 2.1);
-    }
-
-
-    // ✨ Магічні звуки поступово з'являються
-    if (
-      step >= 12 &&
-      step % 6 === 0
-    ) {
-
-      const magicNote =
-        magic[
-          Math.floor(step / 6) %
-          magic.length
-        ];
-
-      const magicOsc =
-        audioCtx.createOscillator();
-
-      const magicGain =
-        audioCtx.createGain();
-
-      magicOsc.type = "sine";
-
-      magicOsc.frequency.setValueAtTime(
-        magicNote,
-        now
-      );
-
-      magicGain.gain.setValueAtTime(
-        0.0001,
-        now
-      );
-
-      magicGain.gain.linearRampToValueAtTime(
-  0.006 * (gameVolume / 100),
-  now + 0.15
-);
-
-      magicGain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        now + 1.8
-      );
-
-      magicOsc.connect(magicGain);
-      magicGain.connect(
-        audioCtx.destination
-      );
-
-      magicOsc.start(now);
-      magicOsc.stop(now + 1.9);
-    }
-
-
-    // 🌌 Друга половина — трохи більше атмосфери
-    if (
-      step >= 24 &&
-      step % 4 === 0
-    ) {
-
-      playTone(
-        melody[
-          (step + 8) %
-          melody.length
-        ] * 2,
-        0.8,
-        "sine",
-        0.0025
-      );
-    }
-
-
-    step++;
-
-    // 🔄 Плавний повтор
-    if (
-      step >= melody.length
-    ) {
-      step = 0;
-    }
-
-    musicTimer =
-      setTimeout(
-        forestNote,
-        1000
-      );
+function applyMusicVolume() {
+  const baseVolume = Math.max(0, Math.min(100, Number(gameVolume) || 0)) / 100;
+  if (adventureMusic.currentTime >= MUSIC_FADE_START &&
+      adventureMusic.currentTime < MUSIC_RESTART_AT) {
+    const fadeProgress =
+      (adventureMusic.currentTime - MUSIC_FADE_START) / MUSIC_FADE_DURATION;
+    adventureMusic.volume = baseVolume * Math.max(0, 1 - fadeProgress);
+  } else {
+    adventureMusic.volume = baseVolume;
   }
-
-  forestNote();
 }
-  
-  // 🎵 Музика після першого будь-якого натискання
 
+function stopMusicTimers() {
+  if (musicFadeTimer) {
+    clearInterval(musicFadeTimer);
+    musicFadeTimer = null;
+  }
+  if (musicCheckTimer) {
+    clearInterval(musicCheckTimer);
+    musicCheckTimer = null;
+  }
+}
+
+function playAdventureMusic() {
+  if (!soundEnabled) return;
+  if (musicStarted && !adventureMusic.paused) return;
+
+  musicStarted = true;
+  applyMusicVolume();
+
+  adventureMusic.play().then(() => {
+    stopMusicTimers();
+
+    musicCheckTimer = setInterval(() => {
+      if (!soundEnabled || adventureMusic.paused) return;
+
+      if (adventureMusic.currentTime >= MUSIC_RESTART_AT) {
+        adventureMusic.pause();
+        adventureMusic.currentTime = 0;
+        applyMusicVolume();
+        adventureMusic.play().catch(error => {
+          console.warn("Не вдалося повторно запустити музику:", error);
+        });
+        return;
+      }
+
+      if (adventureMusic.currentTime >= MUSIC_FADE_START) {
+        applyMusicVolume();
+      }
+    }, 50);
+  }).catch(error => {
+    musicStarted = false;
+    console.warn("Не вдалося запустити фонову музику:", error);
+  });
+}
+
+// 🎵 Запуск лише після першого натискання користувача
 let firstUserInteraction = false;
 
 function startMusicOnFirstTap() {
-
-  if (firstUserInteraction) return;
-  if (!soundEnabled) return;
-
+  if (firstUserInteraction || !soundEnabled) return;
   firstUserInteraction = true;
-
-  initAudio();
-
-  if (!musicTimer) {
-    playAdventureMusic();
-  }
-
-  document.removeEventListener(
-    "pointerdown",
-    startMusicOnFirstTap
-  );
+  playAdventureMusic();
+  document.removeEventListener("pointerdown", startMusicOnFirstTap);
 }
 
-document.addEventListener(
-  "pointerdown",
-  startMusicOnFirstTap
-);
-  
+document.addEventListener("pointerdown", startMusicOnFirstTap);
+
 // 🔊 ГУЧНІСТЬ
+const volumeSlider = document.getElementById("volumeSlider");
+const volumeValue = document.getElementById("volumeValue");
 
-const volumeSlider =
-  document.getElementById(
-    "volumeSlider"
-  );
-
-const volumeValue =
-  document.getElementById(
-    "volumeValue"
-  );
-
-let gameVolume =
-  Number(
-    localStorage.getItem(
-      "nlkaman_volume"
-    )
-  );
-
-if (
-  isNaN(gameVolume) ||
-  gameVolume < 0 ||
-  gameVolume > 100
-) {
+let gameVolume = Number(localStorage.getItem("nlkaman_volume"));
+if (isNaN(gameVolume) || gameVolume < 0 || gameVolume > 100) {
   gameVolume = 100;
 }
 
-if (volumeSlider) {
-  volumeSlider.value =
-    gameVolume;
-}
-
-if (volumeValue) {
-  volumeValue.textContent =
-    gameVolume + "%";
-}
+if (volumeSlider) volumeSlider.value = gameVolume;
+if (volumeValue) volumeValue.textContent = gameVolume + "%";
+applyMusicVolume();
 
 if (volumeSlider) {
-  volumeSlider.addEventListener(
-    "input",
-    function () {
-
-      gameVolume =
-        Number(
-          this.value
-        );
-
-      localStorage.setItem(
-        "nlkaman_volume",
-        gameVolume
-      );
-
-      if (volumeValue) {
-        volumeValue.textContent =
-          gameVolume + "%";
-      }
-
-    }
-  );
+  volumeSlider.addEventListener("input", function () {
+    gameVolume = Number(this.value);
+    localStorage.setItem("nlkaman_volume", gameVolume);
+    if (volumeValue) volumeValue.textContent = gameVolume + "%";
+    applyMusicVolume();
+  });
 }
-  
+
 function toggleSound() {
-
-  soundEnabled =
-    !soundEnabled;
-
-  const button =
-    document.getElementById(
-      "soundButton"
-    );
+  soundEnabled = !soundEnabled;
+  const button = document.getElementById("soundButton");
 
   if (soundEnabled) {
-
-    button.textContent =
-      "🔊 Звук увімкнено";
-
+    if (button) button.textContent = "🔊 Звук увімкнено";
+    if (!firstUserInteraction) {
+      firstUserInteraction = true;
+      document.removeEventListener("pointerdown", startMusicOnFirstTap);
+    }
+    playAdventureMusic();
     initAudio();
-
-    if (!musicTimer) {
-      playAdventureMusic();
-    }
-
   } else {
-
-    button.textContent =
-      "🔇 Звук вимкнено";
-
-    if (musicTimer) {
-
-      clearTimeout(
-        musicTimer
-      );
-
-      musicTimer = null;
-
-    }
-
-    if (audioCtx) {
-      audioCtx.suspend();
-    }
-
+    if (button) button.textContent = "🔇 Звук вимкнено";
+    adventureMusic.pause();
+    stopMusicTimers();
+    if (audioCtx) audioCtx.suspend();
   }
-
 }
 
 const TEST_RESOURCE_BALANCE = 10000000;
