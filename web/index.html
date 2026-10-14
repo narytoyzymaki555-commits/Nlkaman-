@@ -7377,7 +7377,11 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 .charge-track { height:12px; width:100%; overflow:hidden; border-radius:99px; background:#26170e; border:1px solid #a9794b; box-shadow:inset 0 1px 3px #140b06; }
 .charge-fill { height:100%; width:100%; border-radius:inherit; background:linear-gradient(90deg,#b67838,#edc27c); transition:width .2s linear; }
 .charge-meta { display:flex; justify-content:space-between; gap:8px; margin-top:5px; font-size:10px; color:#e1c29d; }
-.charge-help { margin-top:4px; font-size:10px; color:#c4a17a; }
+.charge-help-row { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:4px; width:100%; }
+.charge-help { margin:0; font-size:10px; color:#c4a17a; text-align:left; flex:1; min-width:0; transform:translateX(-3px); }
+.clicker-hourly-income { flex:0 0 auto; max-width:58%; text-align:right; white-space:nowrap; font-size:10px; line-height:1.25; color:#e8c99f; font-weight:700; }
+.clicker-hourly-income strong { color:#fff0d8; font-size:11px; font-weight:1000; font-variant-numeric:tabular-nums; }
+@media (max-width:360px) { .charge-help { font-size:9px; } .clicker-hourly-income { font-size:9px; max-width:60%; } .clicker-hourly-income strong { font-size:10px; } }
 .bear-clicker { position:relative; }
 .click-coin { transform:translateY(0) !important; }
 .clicker-floating-rewards { position:relative; height:0; z-index:9999; pointer-events:none; }
@@ -7961,7 +7965,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
     </div>
     <div class="workshop-item">
       <div id="workshopItemImage" class="workshop-item-image">⚔️</div>
-      <div id="workshopItemName" class="workshop-item-name">ВИЛА</div>
+      <div id="workshopItemName" class="workshop-item-name">Кірка</div>
     </div>
     <div class="workshop-info">
       <div id="workshopRarity" class="workshop-rarity">РІДКІСНИЙ</div>
@@ -8067,7 +8071,10 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
       <span id="clickerChargeText">Заряд: 1000 / 1000</span>
       <span id="clickerChargeTime">Повний заряд: 0 с</span>
     </div>
-    <div class="charge-help" id="clickerChargeHelp">1 заряд — 3 секунди</div>
+    <div class="charge-help-row" id="clickerChargeHelpRow">
+      <div class="charge-help" id="clickerChargeHelp">1 заряд — 3 секунди</div>
+      <div class="clicker-hourly-income" id="clickerHourlyIncome" aria-live="polite">Дохід у годину: <strong>0</strong></div>
+    </div>
   </div>
 
   <div class="bear-clicker">
@@ -13446,7 +13453,7 @@ const armorItems = [
 ========================= */
 
 const swordItems = [
-  ["https://long-dust-06f3.narytoyzymaki555.workers.dev/fork_farmer.png.PNG", "Кірка", 35],
+  ["https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/", "Кірка", 35],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/axe_woodcutter.png.PNG", "Сокира Лісоруба", 22],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/steel_blade.png.PNG", "Сталевий меч", 20],
   ["https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG", "Меч Полум'я", 10],
@@ -14388,7 +14395,7 @@ function getInventoryItemType(
   const weaponWords = [
     "меч",
     "меча",
-    "вила",
+    "кірка",
     "кірка",
     "сокира",
     "blade",
@@ -15747,7 +15754,7 @@ const KIRKA_STATS = [
 ];
 
 const WEAPON_META = [
-  {level:1,name:"КІРКА",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/fork_farmer.png.PNG",mult:1,harvestType:"metal",craft:{wood:1000,metal:500,coins:10000,runes:0,artifacts:0,forgeSeconds:60}},
+  {level:1,name:"КІРКА",image:"https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/",mult:1,harvestType:"metal",craft:{wood:1000,metal:500,coins:10000,runes:0,artifacts:0,forgeSeconds:60}},
   {level:2,name:"СОКИРА",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/axe_woodcutter.png.PNG",mult:1.7,harvestType:"wood",craft:{wood:4000,metal:2000,coins:20000,runes:0,artifacts:0,forgeSeconds:300}},
   {level:3,name:"КЛИНОК",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/steel_blade.png.PNG",mult:1.7,harvestType:null,craft:{wood:7500,metal:5000,coins:50000,runes:0,artifacts:0,forgeSeconds:600}},
   {level:4,name:"ВОГНЯНИЙ КЛИНОК",image:"https://long-dust-06f3.narytoyzymaki555.workers.dev/flame_blade.png.PNG",mult:2,craft:{wood:10000,metal:7500,coins:75000,runes:0,artifacts:0,forgeSeconds:1200}},
@@ -16255,6 +16262,13 @@ function showClickerToast(message) {
     }
   };
   const renderClickerUpgrades = () => {
+    // Re-sync upgrade levels from persistent storage before rendering. The SPA can
+    // reopen this panel after another module restores localStorage; never render a
+    // stale in-memory level over the saved level.
+    state.tapLevel = Math.max(1, Math.min(100, Math.floor(getNum("nlkaman_clicker_level", state.tapLevel))));
+    state.chargeLevel = Math.max(1, Math.min(30, Math.floor(getNum("nlkaman_charge_level", state.chargeLevel))));
+    state.chargeSpeedLevel = Math.max(0, Math.min(10, Math.floor(getNum("nlkaman_charge_speed_level", state.chargeSpeedLevel))));
+    state.workerLevels = workerDefs.map((_, index) => Math.max(0, Math.min(10, Math.floor(getNum("nlkaman_worker_" + index, state.workerLevels[index] || 0)))));
     // The exact balance and every resource counter must use the same persisted balance.
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
     const exact=document.getElementById("clickerExactBalance");
@@ -16325,6 +16339,9 @@ function showClickerToast(message) {
   };
   window.buyClickerChargeSpeedUpgrade = function() {
     stars = Math.max(0, Number(LS.getItem("nlkaman_stars")) || 0);
+    // Read the persisted level at purchase time too, rather than trusting a stale
+    // state object left from before the user left/re-entered the clicker screen.
+    state.chargeSpeedLevel = Math.max(0, Math.min(10, Math.floor(getNum("nlkaman_charge_speed_level", state.chargeSpeedLevel))));
     if(state.chargeSpeedLevel>=10) return;
     const cost=chargeSpeedUpgradeCost(state.chargeSpeedLevel);
     if(stars<cost) { showClickerToast("Недостатньо монет"); return; }
@@ -16335,6 +16352,9 @@ function showClickerToast(message) {
     stars-=cost;
     state.chargeSpeedLevel++;
     state.lastChargeAt=Date.now();
+    // Persist the upgraded speed level explicitly before the general state save.
+    // This makes the level/cost survive navigation and a full reload consistently.
+    putNum("nlkaman_charge_speed_level", state.chargeSpeedLevel);
     putNum("nlkaman_stars",stars);
     persistState();
     if(typeof updateStars==="function") updateStars();
@@ -16862,6 +16882,25 @@ function formatChargeRemainingMs(ms) {
   function start() {
     setupUpgradeToggle();
     updateFullChargeTime();
+    // Refresh the clicker upgrade state after bfcache/app navigation restoration.
+    const refreshSavedChargeSpeed = () => {
+      try {
+        const saved = Number(localStorage.getItem('nlkaman_charge_speed_level'));
+        const level = Number.isFinite(saved) ? Math.max(0, Math.min(10, Math.floor(saved))) : 0;
+        const seconds = Math.max(1, 3 - level * 0.2);
+        const levels = document.getElementById('clickerChargeSpeedLevels');
+        if (levels) levels.textContent = level >= 10
+          ? `Рівень 10 · ${seconds.toLocaleString('uk-UA',{maximumFractionDigits:1})} секунди · МАКС`
+          : `Рівень ${level} · ${seconds.toLocaleString('uk-UA',{maximumFractionDigits:1})} секунди → Рівень ${level + 1} · ${Math.max(1, 3 - (level + 1) * 0.2).toLocaleString('uk-UA',{maximumFractionDigits:1})} секунди`;
+        const buy = document.getElementById('clickerChargeSpeedBuy');
+        if (buy) buy.innerHTML = level >= 10 ? 'МАКС' : `${(5000000 * Math.pow(2, level)).toLocaleString('uk-UA')} <img class="clicker-premium-coin" src="https://long-dust-06f3.narytoyzymaki555.workers.dev/coin.png.PNG" alt="монета">`;
+        const help = document.getElementById('clickerChargeHelp');
+        if (help) help.textContent = `1 заряд — ${seconds.toLocaleString('uk-UA',{maximumFractionDigits:1})} секунди`;
+      } catch (e) { console.warn('Could not refresh saved charge speed level:', e); }
+    };
+    refreshSavedChargeSpeed();
+    window.addEventListener('pageshow', refreshSavedChargeSpeed);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshSavedChargeSpeed(); });
     window.setInterval(updateFullChargeTime, 250);
     // The app can rebuild/re-enter views; re-bind only if the button node changed.
     window.setInterval(setupUpgradeToggle, 1000);
@@ -17841,6 +17880,156 @@ function formatChargeRemainingMs(ms) {
   filter: drop-shadow(0 0 4px rgba(230, 178, 119, .35)) !important;
 }
 </style>
+
+
+<style id="pickaxe-clean-image-final">
+/* Кірка: обрізане відображення без сяйва, тіней чи інших ефектів. */
+img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
+  object-fit: cover !important;
+  object-position: center !important;
+  clip-path: inset(7% 7% 7% 7%) !important;
+  filter: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  background: transparent !important;
+  animation: none !important;
+  transition: none !important;
+}
+</style>
+
+
+<!-- Компактний індикатор доходу за годину: завжди рахується з актуальних рівнів працівників. -->
+<script id="clicker-hourly-income-indicator">
+(function(){
+  const defs=[
+    {income:5000,mult:2},
+    {income:10000,mult:1.5},
+    {income:30000,mult:1.5},
+    {income:100000,mult:1.5},
+    {income:1000000,mult:1.5},
+    {income:10000000,mult:1.5}
+  ];
+  function compact(n){
+    n=Math.max(0,Number(n)||0);
+    if(n>=1e9) return (Math.round(n/1e8)/10).toLocaleString('uk-UA',{maximumFractionDigits:1})+'в';
+    if(n>=1e6) return (Math.round(n/1e5)/10).toLocaleString('uk-UA',{maximumFractionDigits:1})+'м';
+    if(n>=1e3) return (Math.round(n/1e2)/10).toLocaleString('uk-UA',{maximumFractionDigits:1})+'к';
+    return Math.floor(n).toLocaleString('uk-UA');
+  }
+  function update(){
+    const el=document.getElementById('clickerHourlyIncome');
+    if(!el)return;
+    let total=0;
+    defs.forEach((d,i)=>{
+      let level=0;
+      try{level=Math.max(0,Math.min(10,Math.floor(Number(localStorage.getItem('nlkaman_worker_'+i))||0)));}catch(e){}
+      if(level>0){let income=d.income;for(let l=2;l<=level;l++)income=Math.ceil(income*d.mult);total+=income;}
+    });
+    el.innerHTML='Дохід у годину: <strong>'+compact(total)+'</strong>';
+    el.title='Загальний дохід працівників за годину: '+Math.floor(total).toLocaleString('uk-UA');
+  }
+  window.updateClickerHourlyIncome=update;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update,{once:true});else update();
+  window.setInterval(update,1000);
+  window.addEventListener('storage',update);
+  document.addEventListener('click',function(e){if(e.target.closest('#clickerWorkers, #clickerUpgradePanel'))setTimeout(update,80);},true);
+})();
+</script>
+
+
+
+<style id="workshop-final-usability-fixes">
+/* Show every stat as its own full-width row and keep labels readable. */
+#workshop .workshop-characteristics{display:flex!important;flex-direction:column!important;gap:7px!important;}
+#workshop .workshop-characteristics>div{display:flex!important;align-items:flex-start!important;justify-content:space-between!important;gap:12px!important;width:100%!important;min-width:0!important;grid-column:auto!important;padding:6px 8px!important;border-radius:8px!important;background:rgba(255,255,255,.035)!important;box-sizing:border-box!important;}
+#workshop .workshop-characteristics>div>span{flex:0 0 auto!important;white-space:normal!important;overflow-wrap:anywhere!important;max-width:42%!important;font-size:12px!important;line-height:1.35!important;}
+#workshop .workshop-characteristics>div>strong{flex:1 1 auto!important;min-width:0!important;text-align:right!important;white-space:normal!important;overflow-wrap:anywhere!important;font-size:12px!important;line-height:1.35!important;}
+/* Correct affordability colors: sufficient = green, insufficient = red. */
+#workshop .resource-status.ok{color:#35e083!important;background:rgba(53,224,131,.12)!important;border-color:rgba(53,224,131,.4)!important;}
+#workshop .resource-status.no{color:#ff5151!important;background:rgba(255,81,81,.12)!important;border-color:rgba(255,81,81,.4)!important;}
+#workshop .resource-status{font-weight:900!important;}
+/* Make selected item unmistakable in both lists. */
+#forgeEquipment .forge-equipment-card.selected,
+#workshopEquipment .workshop-equipment-card.selected{border:2px solid #55e58a!important;box-shadow:0 0 0 2px rgba(85,229,138,.18),0 0 18px rgba(85,229,138,.24)!important;outline:none!important;}
+#forgeEquipment .forge-equipment-card{pointer-events:auto!important;}
+</style>
+<script id="workshop-final-usability-fixes">
+(function(){
+  function forceForgeCategory(category){
+    const wanted=category==='armor'?'armor':'weapon';
+    if(typeof window.switchForgeCategory==='function') window.switchForgeCategory(wanted);
+    // Ensure the initial click on either category immediately reveals its list.
+    const block=document.getElementById('forgeCategoryBlock');
+    const list=document.getElementById('forgeEquipment');
+    if(block){block.classList.remove('first-open');}
+    if(list){list.classList.remove('forge-hidden');list.style.display='grid';list.style.pointerEvents='auto';}
+    const tab=document.getElementById(wanted==='armor'?'forgeArmorTab':'forgeWeaponsTab');
+    const other=document.getElementById(wanted==='armor'?'forgeWeaponsTab':'forgeArmorTab');
+    tab?.classList.add('active');other?.classList.remove('active');
+    const title=document.querySelector('#forgeCategoryBlock .workshop-equipment-title');
+    if(title)title.textContent='ОБЕРІТЬ ПРЕДМЕТ ДЛЯ КУВАННЯ';
+    const selected=document.querySelector('#workshop .workshop-selected');
+    const costs=document.getElementById('workshopForgePanel');
+    // Selecting a category should show the available items first; selecting an item reveals details/costs.
+    if(selected)selected.classList.add('forge-hidden');
+    if(costs)costs.classList.add('forge-hidden');
+    if(typeof window.renderForgeEquipment==='function')window.renderForgeEquipment();
+  }
+  // Replace category inline handlers so weapon works on the very first click too.
+  window.switchForgeCategory=forceForgeCategory;
+
+  function formatStat(v){
+    if(v===undefined||v===null||v==='')return '0';
+    if(typeof v==='number')return String(Math.ceil(v-1e-9));
+    return String(v);
+  }
+  function setStatPreview(id,label,current,next,from,to,suffix=''){
+    const el=document.getElementById(id);if(!el)return;
+    if(next===null||next===undefined){el.textContent=`${label} lvl ${from}: ${formatStat(current)}${suffix}`;return;}
+    el.textContent=`${label} lvl ${from}: ${formatStat(current)}${suffix} → lvl ${to}: ${formatStat(next)}${suffix}`;
+  }
+  function paintUpgradeStats(){
+    try{
+      if(typeof inventory==='undefined'||!Array.isArray(inventory))return;
+      const item=inventory.find(x=>String(x.id)===String(typeof workshopSelectedId!=='undefined'?workshopSelectedId:null));
+      if(!item)return;
+      const meta=typeof getItemMeta==='function'?getItemMeta(item):null;
+      if(!meta)return;
+      const lvl=typeof getItemLevel==='function'?getItemLevel(item):Math.max(0,Math.min(6,Number(item.workshopLevel)||0));
+      const armor=item.type==='armor';
+      const current=armor?getArmorStats(meta.level,lvl):getWeaponStats(meta.level,lvl);
+      const next=lvl<6?(armor?getArmorStats(meta.level,lvl+1):getWeaponStats(meta.level,lvl+1)):null;
+      const from=lvl+1,to=lvl+2;
+      const pairs=[['workshopStrength','Сила','strength'],['workshopAttack','Атака','attack'],['workshopDefense','Захист','defense'],['workshopAgility','Ловкість','agility'],['workshopBlood','Кровопролиття','blood']];
+      pairs.forEach(([id,label,key])=>{
+        if(lvl>=6){const el=document.getElementById(id);if(el)el.textContent=`${label}: MAX`;}
+        else setStatPreview(id,label,current[key],next[key],from,to);
+      });
+      const harvestSuffix=meta.harvestType==='wood'?' дерева':meta.harvestType==='metal'?' металу':'';
+      if(lvl>=6){const el=document.getElementById('workshopHarvest');if(el)el.textContent='Добування: MAX';}
+      else setStatPreview('workshopHarvest','Добування',current.harvest?`+${current.harvest}`:0,next.harvest?`+${next.harvest}`:0,from,to,harvestSuffix);
+      const elements=document.getElementById('workshopElements');
+      if(elements){
+        if(lvl>=6)elements.textContent='Стихії: MAX';
+        else {const a=typeof elementsText==='function'?elementsText(current.elements):'Немає';const b=typeof elementsText==='function'?elementsText(next.elements):'Немає';elements.textContent=`Стихії lvl ${from}: ${a} → lvl ${to}: ${b}`;}
+      }
+    }catch(e){console.warn('Upgrade stat display skipped',e);}
+  }
+  const oldRenderUpgrade=window.renderWorkshopSelected;
+  if(typeof oldRenderUpgrade==='function'&&!oldRenderUpgrade.__finalStatsFix){
+    const wrapped=function(...args){const result=oldRenderUpgrade.apply(this,args);paintUpgradeStats();return result;};
+    wrapped.__finalStatsFix=true;window.renderWorkshopSelected=wrapped;
+  }
+  // Re-apply status classes after render, keeping them tied to actual affordability.
+  const oldRenderForge=window.renderForgeSelected;
+  if(typeof oldRenderForge==='function'&&!oldRenderForge.__finalCostFix){
+    const wrapped=function(...args){const result=oldRenderForge.apply(this,args);try{
+      const pairs=[['forgeWoodStatus','forgeWoodCost',typeof getWorkshopWood==='function'?getWorkshopWood():0],['forgeMetalStatus','forgeMetalCost',typeof getWorkshopMetal==='function'?getWorkshopMetal():0],['forgeCoinStatus','forgeCoinCost',typeof getWorkshopCoins==='function'?getWorkshopCoins():0],['forgeRuneStatus','forgeRuneCost',typeof getWorkshopRunes==='function'?getWorkshopRunes():0],['forgeArtifactStatus','forgeArtifactCost',typeof getWorkshopArtifacts==='function'?getWorkshopArtifacts():0]];
+      pairs.forEach(([sid,cid,have])=>{const st=document.getElementById(sid),ce=document.getElementById(cid);if(!st||!ce)return;const need=Number((ce.textContent||'0').replace(/[^\d.]/g,''))||0;const ok=Number(have)>=need;st.textContent=ok?'✓':'✗';st.classList.toggle('ok',ok);st.classList.toggle('no',!ok);});
+    }catch(e){}return result;};wrapped.__finalCostFix=true;window.renderForgeSelected=wrapped;
+  }
+})();
+</script>
 
 </body>
 </html>
