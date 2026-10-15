@@ -18047,13 +18047,69 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
 .world-map-viewport::-webkit-scrollbar { display:none; }
 .world-map-canvas { position: relative; width: max(190vw, 1200px); height: 100%; min-height: 360px; overflow: hidden; }
 .world-map-image { display:block; width:100%; height:100%; object-fit:cover; user-select:none; pointer-events:none; }
-.world-map-fog { position:absolute; inset:0; z-index:2; pointer-events:none; background:rgba(5,8,12,.90); transition:background .8s ease,opacity .8s ease; }
-/* Start territory (red mark) is always fully visible. */
-.world-map-fog.start-open { background:radial-gradient(ellipse 24% 30% at 13% 76%, transparent 0 78%, rgba(5,8,12,.12) 88%, rgba(5,8,12,.90) 100%), rgba(5,8,12,.90); }
-/* Mine (blue mark) opens only after crafting a pickaxe; forest (yellow mark) only after crafting an axe. */
-.world-map-fog.mine-open { background:radial-gradient(ellipse 24% 31% at 38% 67%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),radial-gradient(ellipse 24% 30% at 13% 76%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),rgba(5,8,12,.90); }
-.world-map-fog.forest-open { background:radial-gradient(ellipse 28% 34% at 18% 22%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),radial-gradient(ellipse 24% 31% at 38% 67%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),radial-gradient(ellipse 24% 30% at 13% 76%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),rgba(5,8,12,.90); }
-.world-map-fog.reveal-all { opacity:0; }
+
+/* === NIKA: WORLD MAP FOG === */
+.world-map-fog {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(5, 8, 12, .90);
+  transition: background .7s ease, opacity .7s ease;
+}
+
+/* Стартова територія */
+.world-map-fog.start-open {
+  background:
+    radial-gradient(
+      ellipse 24% 30% at 13% 76%,
+      transparent 0 96%,
+      rgba(5, 8, 12, .90) 100%
+    ),
+    rgba(5, 8, 12, .90);
+}
+
+/* Старт + шахта */
+.world-map-fog.mine-open {
+  background:
+    radial-gradient(
+      ellipse 24% 30% at 13% 76%,
+      transparent 0 96%,
+      rgba(5, 8, 12, .90) 100%
+    ),
+    radial-gradient(
+      ellipse 24% 31% at 38% 67%,
+      transparent 0 96%,
+      rgba(5, 8, 12, .90) 100%
+    ),
+    rgba(5, 8, 12, .90);
+}
+
+/* Старт + шахта + ліс */
+.world-map-fog.forest-open {
+  background:
+    radial-gradient(
+      ellipse 24% 30% at 13% 76%,
+      transparent 0 96%,
+      rgba(5, 8, 12, .90) 100%
+    ),
+    radial-gradient(
+      ellipse 24% 31% at 38% 67%,
+      transparent 0 96%,
+      rgba(5, 8, 12, .90) 100%
+    ),
+    radial-gradient(
+      ellipse 28% 34% at 18% 22%,
+      transparent 0 96%,
+      rgba(5, 8, 12, .90) 100%
+    ),
+    rgba(5, 8, 12, .90);
+}
+
+.world-map-fog.reveal-all {
+  opacity: 0;
+}
+
 .world-location { position:absolute; z-index:4; transform:translate(-50%,-50%); border:1px solid rgba(255,211,112,.85); border-radius:12px; padding:5px 7px; color:#ffe7a0; background:rgba(25,19,8,.88); font-size:7px; font-weight:900; letter-spacing:.3px; box-shadow:0 0 12px rgba(255,191,55,.25); cursor:pointer; animation:mineLocationGlow 2s ease-in-out infinite; }
 .world-location[hidden] { display:none; }
 .world-location-mine { left:38%; top:67%; }
@@ -18293,26 +18349,6 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
   0%,100% { transform:rotate(-32deg) translateY(-2px); }
   42% { transform:rotate(26deg) translateY(4px); }
   58% { transform:rotate(8deg) translateY(1px); }
-}
-/* Start area is always fully revealed; mine is revealed after crafting a pickaxe,
-   and the forest is revealed only after the first mining run completes. */
-.world-map-fog {
-  background:radial-gradient(ellipse 24% 27% at 49% 51%, transparent 0 72%, rgba(5,8,12,.12) 86%, rgba(5,8,12,.84) 100%) !important;
-  transition:background .7s ease, opacity .7s ease !important;
-}
-.world-map-fog.mine-open {
-  background:
-    radial-gradient(ellipse 24% 27% at 49% 51%, transparent 0 72%, rgba(5,8,12,.12) 86%, rgba(5,8,12,.84) 100%),
-    radial-gradient(ellipse 12% 22% at 25% 69%, transparent 0 70%, rgba(5,8,12,.10) 84%, rgba(5,8,12,.84) 100%) !important;
-}
-.world-map-fog.forest-open {
-  background:
-    radial-gradient(ellipse 24% 27% at 49% 51%, transparent 0 72%, rgba(5,8,12,.12) 86%, rgba(5,8,12,.84) 100%),
-    radial-gradient(ellipse 12% 22% at 25% 69%, transparent 0 70%, rgba(5,8,12,.10) 84%, rgba(5,8,12,.84) 100%),
-    radial-gradient(ellipse 16% 27% at 15% 42%, transparent 0 72%, rgba(5,8,12,.10) 86%, rgba(5,8,12,.84) 100%) !important;
-}
-@media (prefers-reduced-motion:reduce) {
- .world-map-mining-pickaxe.active img { animation:none !important; }
 }
 </style>
 
