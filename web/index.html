@@ -8160,7 +8160,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
     <div class="world-panel-title" id="worldPanelTitle">ШАХТА</div>
     <div class="world-panel-description" id="worldPanelDescription">Тут можна добувати залізо.</div>
     <div class="mine-pickaxe-stage" id="minePickaxeStage" hidden>
-      <img src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/" alt="Кірка" id="minePickaxeAnimation">
+      <img src="https://ancient-grass-3048.narytoyzymaki555.workers.dev/game-homes.png.PNG" alt="Кірка" id="minePickaxeAnimation">
     </div>
     <div class="mine-progress-wrap" id="mineProgressWrap" hidden>
       <div class="mine-progress"><div id="mineProgressBar"></div></div>
@@ -18047,14 +18047,17 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
 .world-map-viewport::-webkit-scrollbar { display:none; }
 .world-map-canvas { position: relative; width: max(190vw, 1200px); height: 100%; min-height: 360px; overflow: hidden; }
 .world-map-image { display:block; width:100%; height:100%; object-fit:cover; user-select:none; pointer-events:none; }
-.world-map-fog { position:absolute; inset:0; z-index:2; pointer-events:none; background:rgba(5,8,12,.88); transition:opacity .8s ease; }
-.world-map-fog.mine-open { background:radial-gradient(ellipse 10% 24% at 25% 69%, transparent 0 68%, rgba(5,8,12,.12) 82%, rgba(5,8,12,.88) 100%); }
-.world-map-fog.forest-open { background:radial-gradient(ellipse 15% 30% at 15% 42%, transparent 0 65%, rgba(5,8,12,.18) 82%, rgba(5,8,12,.88) 100%),radial-gradient(ellipse 10% 24% at 25% 69%, transparent 0 68%, rgba(5,8,12,.12) 82%, rgba(5,8,12,.88) 100%); }
+.world-map-fog { position:absolute; inset:0; z-index:2; pointer-events:none; background:rgba(5,8,12,.90); transition:background .8s ease,opacity .8s ease; }
+/* Start territory (red mark) is always fully visible. */
+.world-map-fog.start-open { background:radial-gradient(ellipse 24% 30% at 13% 76%, transparent 0 78%, rgba(5,8,12,.12) 88%, rgba(5,8,12,.90) 100%), rgba(5,8,12,.90); }
+/* Mine (blue mark) opens only after crafting a pickaxe; forest (yellow mark) only after crafting an axe. */
+.world-map-fog.mine-open { background:radial-gradient(ellipse 24% 31% at 38% 67%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),radial-gradient(ellipse 24% 30% at 13% 76%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),rgba(5,8,12,.90); }
+.world-map-fog.forest-open { background:radial-gradient(ellipse 28% 34% at 18% 22%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),radial-gradient(ellipse 24% 31% at 38% 67%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),radial-gradient(ellipse 24% 30% at 13% 76%, transparent 0 78%, rgba(5,8,12,.10) 88%, rgba(5,8,12,.90) 100%),rgba(5,8,12,.90); }
 .world-map-fog.reveal-all { opacity:0; }
 .world-location { position:absolute; z-index:4; transform:translate(-50%,-50%); border:1px solid rgba(255,211,112,.85); border-radius:12px; padding:5px 7px; color:#ffe7a0; background:rgba(25,19,8,.88); font-size:7px; font-weight:900; letter-spacing:.3px; box-shadow:0 0 12px rgba(255,191,55,.25); cursor:pointer; animation:mineLocationGlow 2s ease-in-out infinite; }
 .world-location[hidden] { display:none; }
-.world-location-mine { left:25%; top:69%; }
-.world-location-forest { left:15%; top:42%; }
+.world-location-mine { left:38%; top:67%; }
+.world-location-forest { left:18%; top:22%; }
 .world-map-mining-pickaxe { position:absolute; z-index:5; left:25%; top:69%; width:35px; height:35px; transform:translate(-50%,-50%); pointer-events:none; filter:drop-shadow(0 2px 5px rgba(0,0,0,.85)); }
 .world-map-mining-pickaxe[hidden] { display:none; }
 .world-map-mining-pickaxe img { width:100%; height:100%; object-fit:contain; transform-origin:72% 75%; }
@@ -18077,7 +18080,7 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
 .world-panel-note { color:#c9b989; font-size:11px; line-height:1.4; text-align:center; margin-top:10px; }
 .mine-pickaxe-stage { height:74px; display:flex; align-items:center; justify-content:center; margin:2px 0 8px; }
 .mine-pickaxe-stage[hidden] { display:none; }
-.mine-pickaxe-stage img { width:58px; height:58px; object-fit:contain; transform-origin:75% 75%; }
+.mine-pickaxe-stage img { width:86px; height:86px; object-fit:contain; object-position:center; overflow:visible; transform-origin:78% 78%; }
 .mine-pickaxe-stage.active img { animation:pickaxeHit .48s ease-in-out infinite; }
 @keyframes pickaxeHit { 0%,100%{transform:rotate(-35deg) translateY(-2px)} 45%{transform:rotate(28deg) translateY(5px)} 60%{transform:rotate(8deg) translateY(0)} }
 .mine-progress-wrap { margin:8px 0 12px; }
@@ -18101,6 +18104,10 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
     try{return Array.isArray(inventory)&&inventory.some(item=>String(item.name||'').toLowerCase().includes('кірк')||String(item.name||'').toLowerCase().includes('кирк'));}
     catch(e){return false;}
   }
+  function hasAxe(){
+    try{return Array.isArray(inventory)&&inventory.some(item=>{const n=String(item.name||'').toLowerCase();return n.includes('сокир')||n.includes('топор')||n.includes('axe');});}
+    catch(e){return false;}
+  }
   function pickaxeStrength(){
     try{
       const item=inventory.find(x=>String(x.name||'').toLowerCase().includes('кірк')||String(x.name||'').toLowerCase().includes('кирк'));
@@ -18118,13 +18125,17 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
   function updateWorldMap(){
     const fog=document.getElementById('worldMapFog'),mine=document.getElementById('worldMineButton'),forest=document.getElementById('worldForestButton');
     if(!fog||!mine||!forest)return;
+    fog.classList.add('start-open');
     const owns=hasPickaxe();
-    if(owns&&!worldState.mineUnlocked){worldState.mineUnlocked=true;saveWorld();fog.classList.add('mine-open');showMapMessage('Туман розсіюється. Відкрито шахту.');}
-    if(worldState.forestUnlocked)fog.classList.add('forest-open');
-    else if(worldState.mineUnlocked)fog.classList.add('mine-open');
-    mine.hidden=!worldState.mineUnlocked;
-    forest.hidden=!worldState.forestUnlocked;
-    if(worldState.forestUnlocked)fog.classList.add('forest-open');
+    const ownsAxe=hasAxe();
+    fog.classList.remove('mine-open','forest-open');
+    fog.classList.add('start-open');
+    if(owns&&!worldState.mineUnlocked){worldState.mineUnlocked=true;saveWorld();showMapMessage('Відкрито шахту.');}
+    if(ownsAxe&&!worldState.forestUnlocked){worldState.forestUnlocked=true;saveWorld();showMapMessage('Сокиру створено. Відкрито ліс.');}
+    if(worldState.forestUnlocked&&ownsAxe)fog.classList.add('forest-open');
+    else if(worldState.mineUnlocked&&owns)fog.classList.add('mine-open');
+    mine.hidden=!(worldState.mineUnlocked&&owns);
+    forest.hidden=!(worldState.forestUnlocked&&ownsAxe);
     const mapPickaxe=document.getElementById('worldMapMiningPickaxe');
     const isMining=Number(worldState.miningFinishAt)>Date.now();
     if(mapPickaxe){mapPickaxe.hidden=!isMining;mapPickaxe.classList.toggle('active',isMining);}
