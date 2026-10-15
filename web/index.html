@@ -8140,55 +8140,37 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
 </section>
 
 
-<!-- 🌍 ПОДОРОЖУВАТИ -->
+<!-- ПОДОРОЖУВАТИ -->
 <section id="adventure" class="page">
-
-  <div id="travelMenu">
-    <div class="travel-options">
-
-      <div class="travel-option-card" onclick="openTravelOption('solo')">
-        <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/soloTravelHeader.png.PNG" alt="Подорожувати самому">
+  <div id="nikaWorldMap" class="nika-world-map">
+    <div class="world-map-viewport" id="worldMapViewport">
+      <div class="world-map-canvas" id="worldMapCanvas">
+        <img class="world-map-image" src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/world-map.PNG" alt="Карта світу NIKA" draggable="false">
+        <div class="world-map-fog" id="worldMapFog"></div>
+        <button class="world-location world-location-mine" id="worldMineButton" type="button" onclick="openMinePanel()" hidden>ШАХТА</button>
+        <button class="world-location world-location-forest" id="worldForestButton" type="button" onclick="openForestPanel()" hidden>ЛІС</button>
+        <div class="world-map-message" id="worldMapMessage" hidden></div>
       </div>
-
-      <div class="travel-option-card" onclick="openTravelOption('friend')">
-        <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/friendTravelHeader.png.PNG" alt="Подорожувати з другом">
-      </div>
-
-      <div class="travel-option-card" onclick="openTravelOption('squad')">
-        <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/squadHeader.png.PNG" alt="Отряд">
-      </div>
-
-      <div class="travel-option-card" onclick="openTravelOption('guild')">
-        <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/guild2Header.png.PNG" alt="Подорож з гільдією">
-      </div>
-
     </div>
   </div>
-
-  <div id="travelSolo" class="travel-subpage">
-    <button class="travel-back" onclick="closeTravelOption()">← НАЗАД</button>
-    <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/soloTravelHeader.png.PNG" class="tab-header-image" alt="">
-    <div class="travel-soon">🚧 СКОРО БУДЕМО РОБИТИ<small>Цей режим подорожі поки що в розробці.</small></div>
+  <div class="world-panel-backdrop" id="worldPanelBackdrop" onclick="closeWorldPanel()"></div>
+  <div class="world-panel" id="worldPanel" role="dialog" aria-modal="true" aria-labelledby="worldPanelTitle">
+    <button class="world-panel-close" type="button" onclick="closeWorldPanel()">×</button>
+    <div class="world-panel-title" id="worldPanelTitle">ШАХТА</div>
+    <div class="world-panel-description" id="worldPanelDescription">Тут можна добувати залізо.</div>
+    <div class="mine-pickaxe-stage" id="minePickaxeStage" hidden>
+      <img src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/" alt="Кірка" id="minePickaxeAnimation">
+    </div>
+    <div class="mine-progress-wrap" id="mineProgressWrap" hidden>
+      <div class="mine-progress"><div id="mineProgressBar"></div></div>
+      <div class="mine-time-left" id="mineTimeLeft"></div>
+    </div>
+    <div class="world-panel-actions" id="minePanelActions">
+      <button class="world-action-button world-action-primary" id="mineStartButton" type="button" onclick="startIronMining()">Добувати залізо</button>
+      <button class="world-action-button" id="mineUpgradeButton" type="button" onclick="upgradeMine()">Покращити шахту</button>
+    </div>
+    <div class="world-panel-note" id="worldPanelNote"></div>
   </div>
-
-  <div id="travelFriend" class="travel-subpage">
-    <button class="travel-back" onclick="closeTravelOption()">← НАЗАД</button>
-    <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/friendTravelHeader.png.PNG" class="tab-header-image" alt="">
-    <div class="travel-soon">🚧 СКОРО БУДЕМО РОБИТИ<small>Цей режим подорожі поки що в розробці.</small></div>
-  </div>
-
-  <div id="travelSquad" class="travel-subpage">
-    <button class="travel-back" onclick="closeTravelOption()">← НАЗАД</button>
-    <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/squadHeader.png.PNG" class="tab-header-image" alt="">
-    <div class="travel-soon">🚧 СКОРО БУДЕМО РОБИТИ<small>Цей режим подорожі поки що в розробці.</small></div>
-  </div>
-
-  <div id="travelGuild" class="travel-subpage">
-    <button class="travel-back" onclick="closeTravelOption()">← НАЗАД</button>
-    <img src="https://aged-bird-05af.narytoyzymaki555.workers.dev/guild2Header.png.PNG" class="tab-header-image" alt="">
-    <div class="travel-soon">🚧 СКОРО БУДЕМО РОБИТИ<small>Цей режим подорожі поки що в розробці.</small></div>
-  </div>
-
 </section>
   
 <!-- РУНИ -->
@@ -18055,6 +18037,185 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
   font-weight: 900 !important;
 }
 </style>
+
+
+<style id="nika-world-map-styles">
+#adventure.page.active { padding: 0 !important; overflow: hidden; }
+.nika-world-map { position: relative; width: 100%; height: calc(100dvh - 150px); min-height: 360px; overflow: hidden; background: #101311; border-radius: 14px; }
+.world-map-viewport { width: 100%; height: 100%; overflow: auto hidden; overscroll-behavior-x: contain; scrollbar-width: none; touch-action: pan-x pan-y; }
+.world-map-viewport::-webkit-scrollbar { display:none; }
+.world-map-canvas { position: relative; width: max(190vw, 1200px); height: 100%; min-height: 360px; overflow: hidden; }
+.world-map-image { display:block; width:100%; height:100%; object-fit:cover; user-select:none; pointer-events:none; }
+.world-map-fog { position:absolute; inset:0; z-index:2; pointer-events:none; background:rgba(5,8,12,.88); transition:opacity .8s ease; }
+.world-map-fog.mine-open { background:radial-gradient(ellipse 10% 24% at 25% 69%, transparent 0 68%, rgba(5,8,12,.12) 82%, rgba(5,8,12,.88) 100%); }
+.world-map-fog.forest-open { background:radial-gradient(ellipse 15% 30% at 15% 42%, transparent 0 65%, rgba(5,8,12,.18) 82%, rgba(5,8,12,.88) 100%),radial-gradient(ellipse 10% 24% at 25% 69%, transparent 0 68%, rgba(5,8,12,.12) 82%, rgba(5,8,12,.88) 100%); }
+.world-map-fog.reveal-all { opacity:0; }
+.world-location { position:absolute; z-index:4; transform:translate(-50%,-50%); border:1px solid rgba(255,211,112,.85); border-radius:12px; padding:10px 14px; color:#ffe7a0; background:rgba(25,19,8,.88); font-size:14px; font-weight:900; letter-spacing:.6px; box-shadow:0 0 12px rgba(255,191,55,.25); cursor:pointer; animation:mineLocationGlow 2s ease-in-out infinite; }
+.world-location[hidden] { display:none; }
+.world-location-mine { left:25%; top:69%; }
+.world-location-forest { left:15%; top:42%; }
+@keyframes mineLocationGlow { 0%,100%{box-shadow:0 0 8px rgba(255,191,55,.2)}50%{box-shadow:0 0 20px rgba(255,191,55,.55)} }
+.world-map-message { position:absolute; z-index:5; top:18px; left:50%; transform:translateX(-50%); padding:10px 14px; max-width:90%; border-radius:10px; background:rgba(18,15,9,.88); border:1px solid rgba(255,211,112,.55); color:#ffe7a0; text-align:center; font-size:13px; }
+.world-panel-backdrop { position:fixed; inset:0; z-index:110; background:rgba(0,0,0,.62); opacity:0; visibility:hidden; transition:.2s; }
+.world-panel-backdrop.show { opacity:1; visibility:visible; }
+.world-panel { position:fixed; z-index:111; left:50%; bottom:calc(72px + env(safe-area-inset-bottom)); transform:translate(-50%,16px); width:calc(100% - 28px); max-width:420px; padding:20px 16px 16px; border-radius:18px; background:linear-gradient(145deg,#28251c,#11130f); border:1px solid rgba(255,205,102,.42); box-shadow:0 18px 50px rgba(0,0,0,.65); opacity:0; visibility:hidden; transition:.2s; }
+.world-panel.show { opacity:1; visibility:visible; transform:translate(-50%,0); }
+.world-panel-close { position:absolute; right:10px; top:7px; border:0; background:transparent; color:#ddd; font-size:27px; padding:2px 7px; }
+.world-panel-title { color:#ffdc8a; font-weight:900; font-size:21px; text-align:center; margin:0 25px 10px; }
+.world-panel-description { color:#e2ded2; font-size:13px; line-height:1.45; text-align:center; margin-bottom:12px; }
+.world-panel-actions { display:grid; gap:9px; }
+.world-action-button { width:100%; padding:13px 12px; border-radius:11px; border:1px solid rgba(255,211,112,.38); background:rgba(255,255,255,.06); color:#f5e8c6; font-size:14px; font-weight:800; }
+.world-action-primary { background:linear-gradient(135deg,#d6a84b,#8d6221); color:#211705; border-color:#f4d68c; }
+.world-action-button:disabled { opacity:.45; }
+.world-panel-note { color:#c9b989; font-size:11px; line-height:1.4; text-align:center; margin-top:10px; }
+.mine-pickaxe-stage { height:74px; display:flex; align-items:center; justify-content:center; margin:2px 0 8px; }
+.mine-pickaxe-stage[hidden] { display:none; }
+.mine-pickaxe-stage img { width:58px; height:58px; object-fit:contain; transform-origin:75% 75%; }
+.mine-pickaxe-stage.active img { animation:pickaxeHit .48s ease-in-out infinite; }
+@keyframes pickaxeHit { 0%,100%{transform:rotate(-35deg) translateY(-2px)} 45%{transform:rotate(28deg) translateY(5px)} 60%{transform:rotate(8deg) translateY(0)} }
+.mine-progress-wrap { margin:8px 0 12px; }
+.mine-progress-wrap[hidden] { display:none; }
+.mine-progress { height:5px; background:rgba(255,255,255,.12); border-radius:10px; overflow:hidden; }
+.mine-progress > div { width:0;height:100%;background:#e4b84f;transition:width .25s linear; }
+.mine-time-left { margin-top:5px; color:#d6d0c1; font-size:10px; text-align:center; }
+@media (prefers-reduced-motion:reduce) { .mine-pickaxe-stage.active img,.world-location { animation:none; } }
+</style>
+
+
+<script id="nika-world-map-logic">
+(function(){
+  const MAP_KEY='nika_world_progress_v1';
+  let worldState={mineUnlocked:false,forestUnlocked:false,mineLevel:0,miningFinishAt:0,miningStartedAt:0};
+  try{worldState={...worldState,...JSON.parse(localStorage.getItem(MAP_KEY)||'{}')};}catch(e){}
+  let miningInterval=null;
+  let activeWorldPanel='';
+  function saveWorld(){try{localStorage.setItem(MAP_KEY,JSON.stringify(worldState));}catch(e){}}
+  function hasPickaxe(){
+    try{return Array.isArray(inventory)&&inventory.some(item=>String(item.name||'').toLowerCase().includes('кірк')||String(item.name||'').toLowerCase().includes('кирк'));}
+    catch(e){return false;}
+  }
+  function pickaxeStrength(){
+    try{
+      const item=inventory.find(x=>String(x.name||'').toLowerCase().includes('кірк')||String(x.name||'').toLowerCase().includes('кирк'));
+      const val=Number(item?.baseStats?.strength);
+      if(val>0)return val;
+      if(typeof getWeaponStats==='function'&&item)return Math.max(1,Number(getWeaponStats(Number(item.weaponLevel)||1,Number(item.workshopLevel)||0).strength)||1);
+    }catch(e){}
+    return 1;
+  }
+  function showMapMessage(text){
+    const el=document.getElementById('worldMapMessage');if(!el)return;
+    el.textContent=text;el.hidden=false;clearTimeout(window.__nikaWorldMessageTimer);
+    window.__nikaWorldMessageTimer=setTimeout(()=>{el.hidden=true;},3000);
+  }
+  function updateWorldMap(){
+    const fog=document.getElementById('worldMapFog'),mine=document.getElementById('worldMineButton'),forest=document.getElementById('worldForestButton');
+    if(!fog||!mine||!forest)return;
+    const owns=hasPickaxe();
+    if(owns&&!worldState.mineUnlocked){worldState.mineUnlocked=true;saveWorld();fog.classList.add('mine-open');showMapMessage('Туман розсіюється. Відкрито шахту.');}
+    if(worldState.forestUnlocked)fog.classList.add('forest-open');
+    else if(worldState.mineUnlocked)fog.classList.add('mine-open');
+    mine.hidden=!worldState.mineUnlocked;
+    forest.hidden=!worldState.forestUnlocked;
+    if(worldState.forestUnlocked)fog.classList.add('forest-open');
+  }
+  window.openMinePanel=function(){
+    if(!worldState.mineUnlocked){showMapMessage('Спочатку потрібно викувати кірку.');return;}
+    activeWorldPanel='mine';
+    document.getElementById('worldPanelTitle').textContent='ШАХТА';
+    document.getElementById('worldPanelDescription').textContent='Можливий час добування заліза: '+(60+worldState.mineLevel*30)+' секунд. Сила кірки визначає кількість заліза за 30 секунд.';
+    document.getElementById('minePanelActions').style.display='grid';
+    document.getElementById('mineStartButton').style.display='';
+    document.getElementById('mineUpgradeButton').style.display='';
+    document.getElementById('worldPanelNote').textContent='Рівень шахти: '+(worldState.mineLevel+1)+'. Покращення коштує: '+(1000*Math.pow(2,worldState.mineLevel))+' монет.';
+    document.getElementById('worldPanelBackdrop').classList.add('show');
+    document.getElementById('worldPanel').classList.add('show');
+    updateMiningUI();
+  };
+  window.openForestPanel=function(){
+    if(!worldState.forestUnlocked)return;
+    activeWorldPanel='forest';
+    document.getElementById('worldPanelTitle').textContent='ЛІС';
+    document.getElementById('worldPanelDescription').textContent='Локацію відкрито. Добування дерева буде доступне пізніше.';
+    document.getElementById('minePanelActions').style.display='none';
+    document.getElementById('minePickaxeStage').hidden=true;
+    document.getElementById('mineProgressWrap').hidden=true;
+    document.getElementById('worldPanelNote').textContent='';
+    document.getElementById('worldPanelBackdrop').classList.add('show');
+    document.getElementById('worldPanel').classList.add('show');
+  };
+  window.closeWorldPanel=function(){
+    document.getElementById('worldPanelBackdrop').classList.remove('show');
+    document.getElementById('worldPanel').classList.remove('show');
+    const stage=document.getElementById('minePickaxeStage');stage.classList.remove('active');
+  };
+  window.startIronMining=function(){
+    if(!hasPickaxe()){showMapMessage('Щоб добувати залізо, спочатку викуй кірку.');return;}
+    if(worldState.miningFinishAt>Date.now()){showMapMessage('Ти вже добуваєш залізо.');return;}
+    const duration=(60+worldState.mineLevel*30)*1000;
+    worldState.miningStartedAt=Date.now();worldState.miningFinishAt=Date.now()+duration;saveWorld();
+    document.getElementById('minePickaxeStage').hidden=false;
+    document.getElementById('minePickaxeStage').classList.add('active');
+    document.getElementById('mineProgressWrap').hidden=false;
+    document.getElementById('mineStartButton').disabled=true;
+    document.getElementById('mineUpgradeButton').disabled=true;
+    document.getElementById('worldPanelDescription').textContent='Ти добуваєш залізо. Поки триває робота, інше добування недоступне.';
+    updateMiningUI();
+    if(miningInterval)clearInterval(miningInterval);
+    miningInterval=setInterval(updateMiningUI,250);
+  };
+  function updateMiningUI(){
+    const finish=Number(worldState.miningFinishAt)||0, now=Date.now();
+    const active=finish>now;
+    const stage=document.getElementById('minePickaxeStage'),wrap=document.getElementById('mineProgressWrap');
+    if(!stage||!wrap)return;
+    if(active){
+      if(activeWorldPanel==='mine'){stage.hidden=false;stage.classList.add('active');wrap.hidden=false;}
+      const duration=Math.max(1,finish-(Number(worldState.miningStartedAt)||now));
+      const pct=Math.min(100,Math.max(0,((now-(Number(worldState.miningStartedAt)||now))/duration)*100));
+      document.getElementById('mineProgressBar').style.width=pct+'%';
+      document.getElementById('mineTimeLeft').textContent='Залишилося: '+Math.ceil((finish-now)/1000)+' с';
+      const a=document.getElementById('mineStartButton'),b=document.getElementById('mineUpgradeButton');if(a)a.disabled=true;if(b)b.disabled=true;
+      return;
+    }
+    if(finish>0){
+      worldState.miningFinishAt=0;worldState.miningStartedAt=0;
+      const amount=Math.max(1,Math.floor(pickaxeStrength()*((60+worldState.mineLevel*30)/30)));
+      const current=Math.max(0,Number(localStorage.getItem('nlkaman_metal'))||0);
+      localStorage.setItem('nlkaman_metal',String(current+amount));
+      if(typeof updateRunesAndArtifacts==='function')updateRunesAndArtifacts();
+      worldState.forestUnlocked=true;worldState.mineUnlocked=true;saveWorld();updateWorldMap();
+      showMapMessage('Добування завершено. Отримано залізо: '+amount+'. Відкрито ліс.');
+      document.getElementById('mineProgressBar').style.width='100%';
+      document.getElementById('mineTimeLeft').textContent='Отримано заліза: '+amount;
+      document.getElementById('worldPanelDescription').textContent='Добування завершено. Отримано заліза: '+amount+'.';
+      document.getElementById('minePickaxeStage').classList.remove('active');
+      const a=document.getElementById('mineStartButton'),b=document.getElementById('mineUpgradeButton');if(a)a.disabled=false;if(b)b.disabled=false;
+      if(miningInterval){clearInterval(miningInterval);miningInterval=null;}
+      return;
+    }
+    const a=document.getElementById('mineStartButton'),b=document.getElementById('mineUpgradeButton');if(a)a.disabled=false;if(b)b.disabled=false;
+  }
+  window.upgradeMine=function(){
+    if(Number(worldState.miningFinishAt)>Date.now()){showMapMessage('Покращення недоступне під час добування.');return;}
+    const cost=1000*Math.pow(2,worldState.mineLevel);
+    const coins=Math.max(0,Number(localStorage.getItem('nlkaman_stars'))||0);
+    if(coins<cost){document.getElementById('worldPanelNote').textContent='Недостатньо монет. Потрібно: '+cost+'.';return;}
+    localStorage.setItem('nlkaman_stars',String(coins-cost));
+    worldState.mineLevel=Math.min(10,worldState.mineLevel+1);saveWorld();
+    if(typeof updateRunesAndArtifacts==='function')updateRunesAndArtifacts();
+    document.getElementById('worldPanelDescription').textContent='Час добування: '+(60+worldState.mineLevel*30)+' секунд. За 30 секунд сила кірки визначає кількість заліза.';
+    document.getElementById('worldPanelNote').textContent='Шахта покращена до рівня '+(worldState.mineLevel+1)+'. Наступне покращення: '+(1000*Math.pow(2,worldState.mineLevel))+' монет.';
+  };
+  const oldOpenPage=window.openPage;
+  window.openPage=function(pageName){
+    if(pageName==='adventure')setTimeout(updateWorldMap,50);
+    return oldOpenPage.apply(this,arguments);
+  };
+  document.addEventListener('DOMContentLoaded',()=>{updateWorldMap();if(Number(worldState.miningFinishAt)>Date.now())miningInterval=setInterval(updateMiningUI,250);else if(Number(worldState.miningFinishAt)>0)updateMiningUI();});
+  setTimeout(updateWorldMap,1000);
+})();
+</script>
 
 </body>
 </html>
