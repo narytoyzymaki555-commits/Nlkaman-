@@ -18230,5 +18230,80 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
 })();
 </script>
 
+
+
+<style id="nika-map-lighting-pickaxe-final-fix">
+/* Map labels are deliberately small, and the whole pickaxe stays visible. */
+.world-location {
+  padding: 4px 7px !important;
+  border-radius: 9px !important;
+  font-size: 7px !important;
+  line-height: 1.15 !important;
+  letter-spacing: .25px !important;
+  white-space: nowrap;
+}
+.mine-pickaxe-stage { height: 88px !important; overflow: visible !important; }
+.mine-pickaxe-stage img {
+  display: block !important;
+  width: 76px !important;
+  height: 76px !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  overflow: visible !important;
+  transform-origin: 50% 50% !important;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.65));
+}
+@keyframes pickaxeHit {
+  0%,100% { transform: rotate(-24deg) translateY(-1px); }
+  38% { transform: rotate(22deg) translateY(4px); }
+  52% { transform: rotate(9deg) translateY(1px); }
+  68% { transform: rotate(-12deg) translateY(0); }
+}
+.world-map-mining-pickaxe {
+  position:absolute;
+  z-index:5;
+  left:25%; top:64%;
+  width:58px; height:58px;
+  transform:translate(-50%,-50%);
+  display:flex; align-items:center; justify-content:center;
+  overflow:visible; pointer-events:none;
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,.8));
+}
+.world-map-mining-pickaxe[hidden] { display:none !important; }
+.world-map-mining-pickaxe img {
+  display:block; width:58px; height:58px; max-width:none; max-height:none;
+  object-fit:contain; object-position:center; overflow:visible;
+  transform-origin:50% 50%;
+}
+.world-map-mining-pickaxe.active img { animation:mapPickaxeHit .48s ease-in-out infinite; }
+@keyframes mapPickaxeHit {
+  0%,100% { transform:rotate(-32deg) translateY(-2px); }
+  42% { transform:rotate(26deg) translateY(4px); }
+  58% { transform:rotate(8deg) translateY(1px); }
+}
+/* Start area is always fully revealed; mine is revealed after crafting a pickaxe,
+   and the forest is revealed only after the first mining run completes. */
+.world-map-fog {
+  background:radial-gradient(ellipse 24% 27% at 49% 51%, transparent 0 72%, rgba(5,8,12,.12) 86%, rgba(5,8,12,.84) 100%) !important;
+  transition:background .7s ease, opacity .7s ease !important;
+}
+.world-map-fog.mine-open {
+  background:
+    radial-gradient(ellipse 24% 27% at 49% 51%, transparent 0 72%, rgba(5,8,12,.12) 86%, rgba(5,8,12,.84) 100%),
+    radial-gradient(ellipse 12% 22% at 25% 69%, transparent 0 70%, rgba(5,8,12,.10) 84%, rgba(5,8,12,.84) 100%) !important;
+}
+.world-map-fog.forest-open {
+  background:
+    radial-gradient(ellipse 24% 27% at 49% 51%, transparent 0 72%, rgba(5,8,12,.12) 86%, rgba(5,8,12,.84) 100%),
+    radial-gradient(ellipse 12% 22% at 25% 69%, transparent 0 70%, rgba(5,8,12,.10) 84%, rgba(5,8,12,.84) 100%),
+    radial-gradient(ellipse 16% 27% at 15% 42%, transparent 0 72%, rgba(5,8,12,.10) 86%, rgba(5,8,12,.84) 100%) !important;
+}
+@media (prefers-reduced-motion:reduce) {
+ .world-map-mining-pickaxe.active img { animation:none !important; }
+}
+</style>
+
 </body>
 </html>
