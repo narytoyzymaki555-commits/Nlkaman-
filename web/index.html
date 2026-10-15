@@ -4817,7 +4817,7 @@ max-height: 27px !important;
   min-height: calc(100vh - 95px);
 
   background-color: #3b2415 !important;
-  background-image: url("https://ancient-grass-3048.narytoyzymaki555.workers.dev/game-homes.png.PNG") !important;
+  background-image: url("https://long-dust-06f3.narytoyzymaki555.workers.dev/home_bg.png.PNG") !important;
   background-size: 125% auto !important;
   background-position: center top !important;
   background-repeat: no-repeat !important;
@@ -8145,10 +8145,12 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   <div id="nikaWorldMap" class="nika-world-map">
     <div class="world-map-viewport" id="worldMapViewport">
       <div class="world-map-canvas" id="worldMapCanvas">
-        <img class="world-map-image" src="https://curly-meadow-0a90.narytoyzymaki555.workers.dev/" alt="Карта світу NIKA" draggable="false">
-        <div class="world-map-fog" id="worldMapFog"></div>
+        <img class="world-map-image" src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/world-map.PNG" alt="Карта світу NIKA" draggable="false">
+        <svg class="world-map-fog" id="worldMapFog" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
+          <defs><mask id="worldFogMask"><rect width="1000" height="500" fill="white"/><path class="fog-region-start" d="M 0,110 L 90,82 L 155,105 L 195,155 L 180,220 L 210,270 L 175,330 L 110,360 L 40,335 L 0,350 Z" fill="black"/><path class="fog-region-mine" d="M 185,270 L 230,235 L 285,245 L 330,285 L 345,345 L 315,400 L 260,420 L 205,385 L 175,330 Z" fill="black"/><path class="fog-region-forest" d="M 65,70 L 120,35 L 190,48 L 245,80 L 265,130 L 235,185 L 195,210 L 155,165 L 110,150 Z" fill="black"/></mask></defs>
+          <rect width="1000" height="500" fill="rgba(5,8,12,.88)" mask="url(#worldFogMask)"/>
+        </svg>
         <button class="world-location world-location-mine" id="worldMineButton" type="button" onclick="openMinePanel()" hidden>ШАХТА</button>
-        <div class="world-map-mining-pickaxe" id="worldMapMiningPickaxe" hidden aria-label="Кірка добуває залізо"><img src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/" alt=""></div>
         <button class="world-location world-location-forest" id="worldForestButton" type="button" onclick="openForestPanel()" hidden>ЛІС</button>
         <div class="world-map-message" id="worldMapMessage" hidden></div>
       </div>
@@ -8160,7 +8162,7 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
     <div class="world-panel-title" id="worldPanelTitle">ШАХТА</div>
     <div class="world-panel-description" id="worldPanelDescription">Тут можна добувати залізо.</div>
     <div class="mine-pickaxe-stage" id="minePickaxeStage" hidden>
-      <img src="https://ancient-grass-3048.narytoyzymaki555.workers.dev/game-homes.png.PNG" alt="Кірка" id="minePickaxeAnimation">
+      <img src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/" alt="Кірка" id="minePickaxeAnimation">
     </div>
     <div class="mine-progress-wrap" id="mineProgressWrap" hidden>
       <div class="mine-progress"><div id="mineProgressBar"></div></div>
@@ -18047,79 +18049,18 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
 .world-map-viewport::-webkit-scrollbar { display:none; }
 .world-map-canvas { position: relative; width: max(190vw, 1200px); height: 100%; min-height: 360px; overflow: hidden; }
 .world-map-image { display:block; width:100%; height:100%; object-fit:cover; user-select:none; pointer-events:none; }
-
-/* === NIKA: WORLD MAP FOG === */
-.world-map-fog {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: rgba(5, 8, 12, .90);
-  transition: background .7s ease, opacity .7s ease;
-}
-
-/* Стартова територія */
-.world-map-fog.start-open {
-  background:
-    radial-gradient(
-      ellipse 24% 30% at 13% 76%,
-      transparent 0 96%,
-      rgba(5, 8, 12, .90) 100%
-    ),
-    rgba(5, 8, 12, .90);
-}
-
-/* Старт + шахта */
-.world-map-fog.mine-open {
-  background:
-    radial-gradient(
-      ellipse 24% 30% at 13% 76%,
-      transparent 0 96%,
-      rgba(5, 8, 12, .90) 100%
-    ),
-    radial-gradient(
-      ellipse 24% 31% at 38% 67%,
-      transparent 0 96%,
-      rgba(5, 8, 12, .90) 100%
-    ),
-    rgba(5, 8, 12, .90);
-}
-
-/* Старт + шахта + ліс */
-.world-map-fog.forest-open {
-  background:
-    radial-gradient(
-      ellipse 24% 30% at 13% 76%,
-      transparent 0 96%,
-      rgba(5, 8, 12, .90) 100%
-    ),
-    radial-gradient(
-      ellipse 24% 31% at 38% 67%,
-      transparent 0 96%,
-      rgba(5, 8, 12, .90) 100%
-    ),
-    radial-gradient(
-      ellipse 28% 34% at 18% 22%,
-      transparent 0 96%,
-      rgba(5, 8, 12, .90) 100%
-    ),
-    rgba(5, 8, 12, .90);
-}
-
-.world-map-fog.reveal-all {
-  opacity: 0;
-}
-
-.world-location { position:absolute; z-index:4; transform:translate(-50%,-50%); border:1px solid rgba(255,211,112,.85); border-radius:12px; padding:5px 7px; color:#ffe7a0; background:rgba(25,19,8,.88); font-size:7px; font-weight:900; letter-spacing:.3px; box-shadow:0 0 12px rgba(255,191,55,.25); cursor:pointer; animation:mineLocationGlow 2s ease-in-out infinite; }
+.world-map-fog { position:absolute; inset:0; width:100%; height:100%; z-index:2; pointer-events:none; overflow:visible; }
+.world-map-fog .fog-region-start { display:none; }
+.world-map-fog.start-open .fog-region-start { display:block; }
+.world-map-fog .fog-region-mine,.world-map-fog .fog-region-forest { display:none; }
+.world-map-fog.mine-open .fog-region-mine { display:block; }
+.world-map-fog.forest-open .fog-region-mine,.world-map-fog.forest-open .fog-region-forest { display:block; }
+.world-map-fog.forest-open .fog-region-start { display:block; }
+.world-map-fog.reveal-all { opacity:0; }
+.world-location { position:absolute; z-index:4; transform:translate(-50%,-50%); border:1px solid rgba(255,211,112,.85); border-radius:12px; padding:10px 14px; color:#ffe7a0; background:rgba(25,19,8,.88); font-size:14px; font-weight:900; letter-spacing:.6px; box-shadow:0 0 12px rgba(255,191,55,.25); cursor:pointer; animation:mineLocationGlow 2s ease-in-out infinite; }
 .world-location[hidden] { display:none; }
-.world-location-mine { left:38%; top:67%; }
-.world-location-forest { left:18%; top:22%; }
-.world-map-mining-pickaxe { position:absolute; z-index:5; left:25%; top:69%; width:35px; height:35px; transform:translate(-50%,-50%); pointer-events:none; filter:drop-shadow(0 2px 5px rgba(0,0,0,.85)); }
-.world-map-mining-pickaxe[hidden] { display:none; }
-.world-map-mining-pickaxe img { width:100%; height:100%; object-fit:contain; transform-origin:72% 75%; }
-.world-map-mining-pickaxe.active img { animation:mapPickaxeHit .48s ease-in-out infinite; }
-@keyframes mapPickaxeHit { 0%,100% { transform:rotate(-38deg) translateY(-2px); } 45% { transform:rotate(30deg) translateY(4px); } 60% { transform:rotate(8deg) translateY(0); } }
-
+.world-location-mine { left:25%; top:69%; }
+.world-location-forest { left:15%; top:42%; }
 @keyframes mineLocationGlow { 0%,100%{box-shadow:0 0 8px rgba(255,191,55,.2)}50%{box-shadow:0 0 20px rgba(255,191,55,.55)} }
 .world-map-message { position:absolute; z-index:5; top:18px; left:50%; transform:translateX(-50%); padding:10px 14px; max-width:90%; border-radius:10px; background:rgba(18,15,9,.88); border:1px solid rgba(255,211,112,.55); color:#ffe7a0; text-align:center; font-size:13px; }
 .world-panel-backdrop { position:fixed; inset:0; z-index:110; background:rgba(0,0,0,.62); opacity:0; visibility:hidden; transition:.2s; }
@@ -18136,9 +18077,14 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
 .world-panel-note { color:#c9b989; font-size:11px; line-height:1.4; text-align:center; margin-top:10px; }
 .mine-pickaxe-stage { height:74px; display:flex; align-items:center; justify-content:center; margin:2px 0 8px; }
 .mine-pickaxe-stage[hidden] { display:none; }
-.mine-pickaxe-stage img { width:86px; height:86px; object-fit:contain; object-position:center; overflow:visible; transform-origin:78% 78%; }
+.mine-pickaxe-stage img { width:58px; height:58px; object-fit:contain; transform-origin:75% 75%; }
 .mine-pickaxe-stage.active img { animation:pickaxeHit .48s ease-in-out infinite; }
-@keyframes pickaxeHit { 0%,100%{transform:rotate(-35deg) translateY(-2px)} 45%{transform:rotate(28deg) translateY(5px)} 60%{transform:rotate(8deg) translateY(0)} }
+.mine-pickaxe-stage.active { position:relative; }
+.mine-pickaxe-stage.active::after { content:'✦'; position:absolute; left:calc(50% + 13px); top:15px; color:#ffe18a; font-size:18px; opacity:0; animation:mineSparks .48s ease-out infinite; text-shadow:0 0 10px #ffbd45; pointer-events:none; }
+.mine-pickaxe-stage.hit { animation:mineImpact .18s ease-out; }
+@keyframes pickaxeHit { 0%,100%{transform:rotate(-38deg) translate(-2px,-3px)} 35%{transform:rotate(5deg) translate(0,0)} 48%{transform:rotate(30deg) translate(5px,5px) scale(.94)} 58%{transform:rotate(13deg) translate(2px,1px)} 75%{transform:rotate(-20deg) translate(-1px,-2px)} }
+@keyframes mineSparks { 0%,35%,100%{opacity:0;transform:scale(.4) translate(0,0)} 45%{opacity:1;transform:scale(1.2) translate(4px,-5px)} 70%{opacity:0;transform:scale(.7) translate(10px,-12px)} }
+@keyframes mineImpact { 0%,100%{transform:translateX(0)} 35%{transform:translateX(-2px)} 70%{transform:translateX(2px)} }
 .mine-progress-wrap { margin:8px 0 12px; }
 .mine-progress-wrap[hidden] { display:none; }
 .mine-progress { height:5px; background:rgba(255,255,255,.12); border-radius:10px; overflow:hidden; }
@@ -18160,10 +18106,6 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
     try{return Array.isArray(inventory)&&inventory.some(item=>String(item.name||'').toLowerCase().includes('кірк')||String(item.name||'').toLowerCase().includes('кирк'));}
     catch(e){return false;}
   }
-  function hasAxe(){
-    try{return Array.isArray(inventory)&&inventory.some(item=>{const n=String(item.name||'').toLowerCase();return n.includes('сокир')||n.includes('топор')||n.includes('axe');});}
-    catch(e){return false;}
-  }
   function pickaxeStrength(){
     try{
       const item=inventory.find(x=>String(x.name||'').toLowerCase().includes('кірк')||String(x.name||'').toLowerCase().includes('кирк'));
@@ -18181,20 +18123,14 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
   function updateWorldMap(){
     const fog=document.getElementById('worldMapFog'),mine=document.getElementById('worldMineButton'),forest=document.getElementById('worldForestButton');
     if(!fog||!mine||!forest)return;
-    fog.classList.add('start-open');
     const owns=hasPickaxe();
-    const ownsAxe=hasAxe();
-    fog.classList.remove('mine-open','forest-open');
     fog.classList.add('start-open');
-    if(owns&&!worldState.mineUnlocked){worldState.mineUnlocked=true;saveWorld();showMapMessage('Відкрито шахту.');}
-    if(ownsAxe&&!worldState.forestUnlocked){worldState.forestUnlocked=true;saveWorld();showMapMessage('Сокиру створено. Відкрито ліс.');}
-    if(worldState.forestUnlocked&&ownsAxe)fog.classList.add('forest-open');
-    else if(worldState.mineUnlocked&&owns)fog.classList.add('mine-open');
-    mine.hidden=!(worldState.mineUnlocked&&owns);
-    forest.hidden=!(worldState.forestUnlocked&&ownsAxe);
-    const mapPickaxe=document.getElementById('worldMapMiningPickaxe');
-    const isMining=Number(worldState.miningFinishAt)>Date.now();
-    if(mapPickaxe){mapPickaxe.hidden=!isMining;mapPickaxe.classList.toggle('active',isMining);}
+    if(owns&&!worldState.mineUnlocked){worldState.mineUnlocked=true;saveWorld();showMapMessage('Туман розсіюється. Відкрито шахту.');}
+    fog.classList.toggle('mine-open',!!worldState.mineUnlocked);
+    fog.classList.toggle('forest-open',!!worldState.forestUnlocked);
+    mine.hidden=!worldState.mineUnlocked;
+    forest.hidden=!worldState.forestUnlocked;
+    if(worldState.forestUnlocked)fog.classList.add('forest-open');
   }
   window.openMinePanel=function(){
     if(!worldState.mineUnlocked){showMapMessage('Спочатку потрібно викувати кірку.');return;}
@@ -18231,7 +18167,6 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
     if(worldState.miningFinishAt>Date.now()){showMapMessage('Ти вже добуваєш залізо.');return;}
     const duration=(60+worldState.mineLevel*30)*1000;
     worldState.miningStartedAt=Date.now();worldState.miningFinishAt=Date.now()+duration;saveWorld();
-    updateWorldMap();
     document.getElementById('minePickaxeStage').hidden=false;
     document.getElementById('minePickaxeStage').classList.add('active');
     document.getElementById('mineProgressWrap').hidden=false;
@@ -18245,8 +18180,6 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
   function updateMiningUI(){
     const finish=Number(worldState.miningFinishAt)||0, now=Date.now();
     const active=finish>now;
-    const mapPickaxe=document.getElementById('worldMapMiningPickaxe');
-    if(mapPickaxe){mapPickaxe.hidden=!active;mapPickaxe.classList.toggle('active',active);}
     const stage=document.getElementById('minePickaxeStage'),wrap=document.getElementById('mineProgressWrap');
     if(!stage||!wrap)return;
     if(active){
@@ -18287,6 +18220,8 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
     document.getElementById('worldPanelDescription').textContent='Час добування: '+(60+worldState.mineLevel*30)+' секунд. За 30 секунд сила кірки визначає кількість заліза.';
     document.getElementById('worldPanelNote').textContent='Шахта покращена до рівня '+(worldState.mineLevel+1)+'. Наступне покращення: '+(1000*Math.pow(2,worldState.mineLevel))+' монет.';
   };
+  const pickaxeStage=document.getElementById('minePickaxeStage');
+  if(pickaxeStage){pickaxeStage.addEventListener('animationiteration',()=>{pickaxeStage.classList.remove('hit');void pickaxeStage.offsetWidth;pickaxeStage.classList.add('hit');});}
   const oldOpenPage=window.openPage;
   window.openPage=function(pageName){
     if(pageName==='adventure')setTimeout(updateWorldMap,50);
@@ -18296,65 +18231,6 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
   setTimeout(updateWorldMap,1000);
 })();
 </script>
-
-
-
-<style id="nika-map-lighting-pickaxe-final-fix">
-/* Map labels are deliberately small, and the whole pickaxe stays visible. */
-.world-location {
-  padding: 4px 7px !important;
-  border-radius: 9px !important;
-  font-size: 7px !important;
-  line-height: 1.15 !important;
-  letter-spacing: .25px !important;
-  white-space: nowrap;
-}
-.mine-pickaxe-stage { height: 88px !important; overflow: visible !important; }
-.mine-pickaxe-stage img {
-  display: block !important;
-  width: 76px !important;
-  height: 76px !important;
-  max-width: none !important;
-  max-height: none !important;
-  object-fit: contain !important;
-  object-position: center !important;
-  overflow: visible !important;
-  transform-origin: 50% 50% !important;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,.65));
-}
-@keyframes pickaxeHit {
-  0%,100% { transform: rotate(-24deg) translateY(-1px); }
-  38% { transform: rotate(22deg) translateY(4px); }
-  52% { transform: rotate(9deg) translateY(1px); }
-  68% { transform: rotate(-12deg) translateY(0); }
-}
-.world-map-mining-pickaxe {
-  position:absolute;
-  z-index:5;
-  left:25%; top:64%;
-  width:58px; height:58px;
-  transform:translate(-50%,-50%);
-  display:flex; align-items:center; justify-content:center;
-  overflow:visible; pointer-events:none;
-  filter:drop-shadow(0 2px 5px rgba(0,0,0,.8));
-}
-.world-map-mining-pickaxe[hidden] { display:none !important; }
-.world-map-mining-pickaxe img {
-  display:block; width:58px; height:58px; max-width:none; max-height:none;
-  object-fit:contain; object-position:center; overflow:visible;
-  transform-origin:50% 50%;
-}
-.world-map-mining-pickaxe.active img { animation:mapPickaxeHit .48s ease-in-out infinite; }
-@keyframes mapPickaxeHit {
-  0%,100% { transform:rotate(-32deg) translateY(-2px); }
-  42% { transform:rotate(26deg) translateY(4px); }
-  58% { transform:rotate(8deg) translateY(1px); }
-}
-  /* Тимчасово прибираємо туман, щоб повернути видимість карти */
-#worldMapFog {
-  opacity: 0 !important;
-}
-</style>
 
 </body>
 </html>
