@@ -4817,7 +4817,7 @@ max-height: 27px !important;
   min-height: calc(100vh - 95px);
 
   background-color: #3b2415 !important;
-  background-image: url("https://long-dust-06f3.narytoyzymaki555.workers.dev/home_bg.png.PNG") !important;
+  background-image: url("https://ancient-grass-3048.narytoyzymaki555.workers.dev/game-homes.png.PNG") !important;
   background-size: 125% auto !important;
   background-position: center top !important;
   background-repeat: no-repeat !important;
@@ -8145,9 +8145,10 @@ button:disabled,.button:disabled,.workshop-upgrade-button:disabled{background:#4
   <div id="nikaWorldMap" class="nika-world-map">
     <div class="world-map-viewport" id="worldMapViewport">
       <div class="world-map-canvas" id="worldMapCanvas">
-        <img class="world-map-image" src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/world-map.PNG" alt="Карта світу NIKA" draggable="false">
+        <img class="world-map-image" src="https://curly-meadow-0a90.narytoyzymaki555.workers.dev/" alt="Карта світу NIKA" draggable="false">
         <div class="world-map-fog" id="worldMapFog"></div>
         <button class="world-location world-location-mine" id="worldMineButton" type="button" onclick="openMinePanel()" hidden>ШАХТА</button>
+        <div class="world-map-mining-pickaxe" id="worldMapMiningPickaxe" hidden aria-label="Кірка добуває залізо"><img src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/" alt=""></div>
         <button class="world-location world-location-forest" id="worldForestButton" type="button" onclick="openForestPanel()" hidden>ЛІС</button>
         <div class="world-map-message" id="worldMapMessage" hidden></div>
       </div>
@@ -18050,10 +18051,16 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
 .world-map-fog.mine-open { background:radial-gradient(ellipse 10% 24% at 25% 69%, transparent 0 68%, rgba(5,8,12,.12) 82%, rgba(5,8,12,.88) 100%); }
 .world-map-fog.forest-open { background:radial-gradient(ellipse 15% 30% at 15% 42%, transparent 0 65%, rgba(5,8,12,.18) 82%, rgba(5,8,12,.88) 100%),radial-gradient(ellipse 10% 24% at 25% 69%, transparent 0 68%, rgba(5,8,12,.12) 82%, rgba(5,8,12,.88) 100%); }
 .world-map-fog.reveal-all { opacity:0; }
-.world-location { position:absolute; z-index:4; transform:translate(-50%,-50%); border:1px solid rgba(255,211,112,.85); border-radius:12px; padding:10px 14px; color:#ffe7a0; background:rgba(25,19,8,.88); font-size:14px; font-weight:900; letter-spacing:.6px; box-shadow:0 0 12px rgba(255,191,55,.25); cursor:pointer; animation:mineLocationGlow 2s ease-in-out infinite; }
+.world-location { position:absolute; z-index:4; transform:translate(-50%,-50%); border:1px solid rgba(255,211,112,.85); border-radius:12px; padding:5px 7px; color:#ffe7a0; background:rgba(25,19,8,.88); font-size:7px; font-weight:900; letter-spacing:.3px; box-shadow:0 0 12px rgba(255,191,55,.25); cursor:pointer; animation:mineLocationGlow 2s ease-in-out infinite; }
 .world-location[hidden] { display:none; }
 .world-location-mine { left:25%; top:69%; }
 .world-location-forest { left:15%; top:42%; }
+.world-map-mining-pickaxe { position:absolute; z-index:5; left:25%; top:69%; width:35px; height:35px; transform:translate(-50%,-50%); pointer-events:none; filter:drop-shadow(0 2px 5px rgba(0,0,0,.85)); }
+.world-map-mining-pickaxe[hidden] { display:none; }
+.world-map-mining-pickaxe img { width:100%; height:100%; object-fit:contain; transform-origin:72% 75%; }
+.world-map-mining-pickaxe.active img { animation:mapPickaxeHit .48s ease-in-out infinite; }
+@keyframes mapPickaxeHit { 0%,100% { transform:rotate(-38deg) translateY(-2px); } 45% { transform:rotate(30deg) translateY(4px); } 60% { transform:rotate(8deg) translateY(0); } }
+
 @keyframes mineLocationGlow { 0%,100%{box-shadow:0 0 8px rgba(255,191,55,.2)}50%{box-shadow:0 0 20px rgba(255,191,55,.55)} }
 .world-map-message { position:absolute; z-index:5; top:18px; left:50%; transform:translateX(-50%); padding:10px 14px; max-width:90%; border-radius:10px; background:rgba(18,15,9,.88); border:1px solid rgba(255,211,112,.55); color:#ffe7a0; text-align:center; font-size:13px; }
 .world-panel-backdrop { position:fixed; inset:0; z-index:110; background:rgba(0,0,0,.62); opacity:0; visibility:hidden; transition:.2s; }
@@ -18118,6 +18125,9 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
     mine.hidden=!worldState.mineUnlocked;
     forest.hidden=!worldState.forestUnlocked;
     if(worldState.forestUnlocked)fog.classList.add('forest-open');
+    const mapPickaxe=document.getElementById('worldMapMiningPickaxe');
+    const isMining=Number(worldState.miningFinishAt)>Date.now();
+    if(mapPickaxe){mapPickaxe.hidden=!isMining;mapPickaxe.classList.toggle('active',isMining);}
   }
   window.openMinePanel=function(){
     if(!worldState.mineUnlocked){showMapMessage('Спочатку потрібно викувати кірку.');return;}
@@ -18154,6 +18164,7 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
     if(worldState.miningFinishAt>Date.now()){showMapMessage('Ти вже добуваєш залізо.');return;}
     const duration=(60+worldState.mineLevel*30)*1000;
     worldState.miningStartedAt=Date.now();worldState.miningFinishAt=Date.now()+duration;saveWorld();
+    updateWorldMap();
     document.getElementById('minePickaxeStage').hidden=false;
     document.getElementById('minePickaxeStage').classList.add('active');
     document.getElementById('mineProgressWrap').hidden=false;
@@ -18167,6 +18178,8 @@ img[src="https://rough-tooth-6ed4.narytoyzymaki555.workers.dev/"] {
   function updateMiningUI(){
     const finish=Number(worldState.miningFinishAt)||0, now=Date.now();
     const active=finish>now;
+    const mapPickaxe=document.getElementById('worldMapMiningPickaxe');
+    if(mapPickaxe){mapPickaxe.hidden=!active;mapPickaxe.classList.toggle('active',active);}
     const stage=document.getElementById('minePickaxeStage'),wrap=document.getElementById('mineProgressWrap');
     if(!stage||!wrap)return;
     if(active){
